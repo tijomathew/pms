@@ -1,0 +1,72 @@
+package org.pms.daoImpls;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.pms.daos.MassCenterDao;
+import org.pms.models.MassCenter;
+import org.pms.models.Parish;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * This class is the implementation for the Mass Center Dao contract.
+ * User: tijo
+ */
+
+@Repository
+public class MassCenterDaoImpl implements MassCenterDao {
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Override
+    public boolean addMassCenterDM(MassCenter massCenter) {
+        sessionFactory.getCurrentSession().saveOrUpdate(massCenter);
+        return true;
+    }
+
+    @Override
+    public List<Parish> getAllParishDM() {
+        return sessionFactory.getCurrentSession().createCriteria(Parish.class).list();
+    }
+
+    @Override
+    public Parish getParishDM(String parishID) {
+        return (Parish) sessionFactory.getCurrentSession().createCriteria(Parish.class).add(Restrictions.eq("parishID", parishID)).uniqueResult();
+    }
+
+    @Override
+    public boolean updateParish(Parish parish) {
+        sessionFactory.getCurrentSession().saveOrUpdate(parish);
+        return true;
+    }
+
+    @Override
+    public List<MassCenter> getAllMassCenters() {
+        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class).list();
+    }
+
+    @Override
+    public MassCenter getMassCenterForID(Long id) {
+        return (MassCenter) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.id", id)).uniqueResult();
+    }
+
+    @Override
+    public List<MassCenter> getMassCenterForParishID(Long parishAutoID) {
+        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.mappedParish.id", parishAutoID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    }
+
+    @Override
+    public Long getMassCenterCount() {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Override
+    public void updateMassCenter(MassCenter massCenter) {
+        sessionFactory.getCurrentSession().saveOrUpdate(massCenter);
+    }
+}

@@ -1,0 +1,275 @@
+package org.pms.models;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class describes the various attributes of the Priest.
+ * It contains various getters and setters for the attributes of the priest.
+ * It contains relationship with parish.
+ * <p/>
+ * User: tijo
+ */
+
+@Entity
+@Table(name = "priest_details")
+public class Priest implements Serializable {
+
+    private static final long serialVersionUID = -146489604805667795L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "priest_auto_id")
+    private Long id;
+
+    @Column(name = "priest_id")
+    private String priestID;
+
+    @Column(name = "date_of_ordination")
+    private String dateOfOrdination;
+
+    @Column(name = "feast_day")
+    private String feastDay;
+
+    @Column(name = "heavenly_patron")
+    private String heavenlyPatron;
+
+    @Column(name = "native_diocese")
+    private String nativeDiocese;
+
+    @Column(name = "native_parish")
+    private String nativeParish;
+
+    @Column(name = "native_place")
+    private String nativePlace;
+
+    @Column(name = "priest_card_validity")
+    private String priestCardValidity;
+
+    @Column(name = "ordained_to_diocese")
+    private String ordainedToDiocese;
+
+    @Column(name = "father_name")
+    private String fatherName;
+
+    @Column(name = "mother_name")
+    private String motherName;
+
+    @Column(name = "priest_status")
+    private String priestStatus;
+
+    @Column(name = "congregation")
+    private String congregation;
+
+    @Embedded
+    private Person priestAsPerson;
+
+    @Embedded
+    private LocalAddress localAddress;
+
+    @Embedded
+    private NativeAddress nativeAddress;
+
+    @Embedded
+    private EmergencyContact emergencyContact;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parishPriestId")
+    private Parish parish;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "massCenterPriestId")
+    private MassCenter massCenter;
+
+    @OneToMany(mappedBy = "priest", cascade = CascadeType.ALL)
+    private List<PriestDesignation> mappedPriestDesignations = new ArrayList<PriestDesignation>();
+
+    private String displayedPriest;
+
+    private String displayedPriestDesignation;
+
+    public Priest() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPriestID() {
+        return priestID;
+    }
+
+    public void setPriestID(String priestID) {
+        this.priestID = priestID;
+    }
+
+    public String getDateOfOrdination() {
+        return dateOfOrdination;
+    }
+
+    public void setDateOfOrdination(String dateOfOrdination) {
+        this.dateOfOrdination = dateOfOrdination;
+    }
+
+    public String getFeastDay() {
+        return feastDay;
+    }
+
+    public void setFeastDay(String feastDay) {
+        this.feastDay = feastDay;
+    }
+
+    public String getHeavenlyPatron() {
+        return heavenlyPatron;
+    }
+
+    public void setHeavenlyPatron(String heavenlyPatron) {
+        this.heavenlyPatron = heavenlyPatron;
+    }
+
+    public String getNativeDiocese() {
+        return nativeDiocese;
+    }
+
+    public void setNativeDiocese(String nativeDiocese) {
+        this.nativeDiocese = nativeDiocese;
+    }
+
+    public String getNativeParish() {
+        return nativeParish;
+    }
+
+    public void setNativeParish(String nativeParish) {
+        this.nativeParish = nativeParish;
+    }
+
+    public String getNativePlace() {
+        return nativePlace;
+    }
+
+    public void setNativePlace(String nativePlace) {
+        this.nativePlace = nativePlace;
+    }
+
+    public String getPriestCardValidity() {
+        return priestCardValidity;
+    }
+
+    public void setPriestCardValidity(String priestCardValidity) {
+        this.priestCardValidity = priestCardValidity;
+    }
+
+    public String getOrdainedToDiocese() {
+        return ordainedToDiocese;
+    }
+
+    public void setOrdainedToDiocese(String ordainedToDiocese) {
+        this.ordainedToDiocese = ordainedToDiocese;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getMotherName() {
+        return motherName;
+    }
+
+    public void setMotherName(String motherName) {
+        this.motherName = motherName;
+    }
+
+    public String getPriestStatus() {
+        return priestStatus;
+    }
+
+    public void setPriestStatus(String priestStatus) {
+        this.priestStatus = priestStatus;
+    }
+
+    public String getCongregation() {
+        return congregation;
+    }
+
+    public void setCongregation(String congregation) {
+        this.congregation = congregation;
+    }
+
+    public Person getPriestAsPerson() {
+        return priestAsPerson;
+    }
+
+    public void setPriestAsPerson(Person priestAsPerson) {
+        this.priestAsPerson = priestAsPerson;
+    }
+
+    public LocalAddress getLocalAddress() {
+        return localAddress;
+    }
+
+    public void setLocalAddress(LocalAddress localAddress) {
+        this.localAddress = localAddress;
+    }
+
+    public NativeAddress getNativeAddress() {
+        return nativeAddress;
+    }
+
+    public void setNativeAddress(NativeAddress nativeAddress) {
+        this.nativeAddress = nativeAddress;
+    }
+
+    public EmergencyContact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public Parish getParish() {
+        return parish;
+    }
+
+    public void setParish(Parish parish) {
+        this.parish = parish;
+    }
+
+    public MassCenter getMassCenter() {
+        return massCenter;
+    }
+
+    public void setMassCenter(MassCenter massCenter) {
+        this.massCenter = massCenter;
+    }
+
+    public List<PriestDesignation> getMappedPriestDesignations() {
+        return mappedPriestDesignations;
+    }
+
+    public void setMappedPriestDesignations(List<PriestDesignation> mappedPriestDesignations) {
+        this.mappedPriestDesignations = mappedPriestDesignations;
+    }
+
+    public String getDisplayedPriest() {
+        return displayedPriest;
+    }
+
+    public void setDisplayedPriest(String displayedPriest) {
+        this.displayedPriest = displayedPriest;
+    }
+
+    public String getDisplayedPriestDesignation() {
+        return displayedPriestDesignation;
+    }
+
+    public void setDisplayedPriestDesignation(String displayedPriestDesignation) {
+        this.displayedPriestDesignation = displayedPriestDesignation;
+    }
+}

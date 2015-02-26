@@ -1,0 +1,17 @@
+/**
+ * Created by tijo on 2/12/14.
+ */
+
+function loadSelectBox(contextPath) {
+    $.getJSON(contextPath + '/createFamilySelectBox.action',
+        {},
+        function (data) {
+            var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+            var len = data.length;
+            for (var i = 0; i < len; i++) {
+                html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+            }
+            $('#familySelectBox').append(html);
+        });
+}
+

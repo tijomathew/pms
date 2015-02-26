@@ -1,0 +1,98 @@
+package org.pms.controllers;
+
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
+import org.pms.constants.Roles;
+import org.pms.constants.RolesStatus;
+import org.pms.models.MassCenter;
+import org.pms.models.Parish;
+import org.pms.models.PrayerUnit;
+import org.pms.models.User;
+import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
+import org.pms.services.PrayerUnitService;
+import org.pms.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * AdminController description
+ * User: tijo
+ */
+
+@Controller
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ParishService parishService;
+
+    @Autowired
+    private MassCenterService massCenterService;
+
+    @Autowired
+    private PrayerUnitService prayerUnitService;
+
+    @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
+    public String usersPageDisplay(Model model) {
+        model.addAttribute("user", new User());
+
+        createModelSelectBoxes(model);
+
+        return "users";
+    }
+
+    @RequestMapping(value = "/addUser.action", method = RequestMethod.POST)
+    public String addUser(@ModelAttribute("user") User user, Model model) {
+
+        userService.addUserSM(user);
+        model.addAttribute("user", new User());
+        createModelSelectBoxes(model);
+        return "users";
+    }
+
+    @RequestMapping(value = "/viewUsers.action", method = RequestMethod.GET)
+    public String viewAllUsers() {
+        return "viewAdmin";
+    }
+
+    private Model createModelSelectBoxes(Model model) {
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        List<Parish> addedParishes = parishService.getAllParish();
+        parishMap.put(0l, "--Please Select--");
+        for (Parish parish : addedParishes)
+            parishMap.put(parish.getId(), parish.getName());
+
+        Map<Long, String> massCenterMap = new HashMap<Long, String>();
+        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
+        massCenterMap.put(0l, "--Please Select--");
+        for (MassCenter massCenter : massCenterList)
+            massCenterMap.put(massCenter.getId(), massCenter.getName());
+
+        Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
+        List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();
+        prayerUnitMap.put(0l, "--Please Select--");
+        for (PrayerUnit prayerUnit : prayerUnitList)
+            prayerUnitMap.put(prayerUnit.getId(), prayerUnit.getPrayerUnitName());
+
+        model.addAttribute("parishList", parishMap);
+        model.addAttribute("massCenterList", massCenterMap);
+        model.addAttribute("prayerUnitList", prayerUnitMap);
+
+        return model;
+    }
+
+
+}
