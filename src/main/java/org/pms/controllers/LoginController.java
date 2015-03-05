@@ -64,6 +64,7 @@ public class LoginController {
         boolean permittedUser = false;
         Priest formDisplayPriest = new Priest();
         formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
+        requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
             permittedUser = loginService.verifyUserSM(user.getUserName(), user.getPassword());
@@ -80,15 +81,14 @@ public class LoginController {
         if (permittedUser) {
             model.addAttribute("priest", formDisplayPriest);
         } else {
-            result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, null, null));
+            result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, new String[]{}, "default message"));
             redirectedPage = "login";
-            model.addAttribute("error", "please errorrrrr");
+            //model.addAttribute("error", "please errorrrrr");
             model.addAttribute("loginUser", user);
         }
 
         return redirectedPage;
     }
-
 
 
 }
