@@ -49,8 +49,8 @@
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
-                        rowList: [10, 20, 30],
-                        colNames: ['Parish ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name'],
+                        rowList: [2, 4, 6],
+                        colNames: ['Parish ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"parishFacebookPage","parishWebsite","parishCode","parishPlace","parishDrivingRoute","parishMap","registeredDate","mobileNo","parishEmail","parishLandLineNo","parishFaxNo"],
                         colModel: [
 
                             {name: 'parishID', index: 'parishID', width: 90},
@@ -58,16 +58,27 @@
                             {name: 'riteName', index: 'riteName', width: 80, align: "right"},
                             {name: 'archDioceseName', index: 'archDioceseName', width: 80, align: "right"},
                             {name: 'dioceseName', index: 'dioceseName', width: 80, align: "right"},
-                            {name: 'foraneName', index: 'foraneName', width: 80, align: "right"}
+                            {name: 'foraneName', index: 'foraneName', width: 80, align: "right"},
+                            {name: 'parishFacebookPage', index: 'parishFacebookPage', width: 80, align: "right"},
+                            {name: 'parishWebsite', index: 'parishWebsite', width: 80, align: "right"},
+                            {name: 'parishCode', index: 'parishCode', width: 80, align: "right"},
+                            {name: 'parishPlace', index: 'parishPlace', width: 80, align: "right"},
+                            {name: 'parishDrivingRoute', index: 'parishDrivingRoute', width: 80, align: "right"},
+                            {name: 'parishMap', index: 'parishMap', width: 80, align: "right"},
+                            {name: 'registeredDate', index: 'registeredDate', width: 80, align: "right"},
+                            {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right"},
+                            {name: 'parishEmail', index: 'parishEmail', width: 80, align: "right"},
+                            {name: 'parishLandLineNo', index: 'parishLandLineNo', width: 80, align: "right"},
+                            {name: 'parishFaxNo', index: 'parishFaxNo', width: 80, align: "right"}
                         ],
-                        rowNum: 10,
+                        rowNum: 2,
                         pager: '#parishGridPager',
                         sortname: 'id',
                         viewrecords: true,
                         sortorder: "desc",
                         caption: "Parishes",
                         autowidth: true,
-                        shrinkToFit: true
+                        shrinkToFit: false
                     });
             jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: true, add: true, del: true});
         }

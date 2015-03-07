@@ -9,10 +9,7 @@ import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -79,16 +76,24 @@ public class ParishController {
     @RequestMapping(value = "displayParishGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForParish() {
+    Object generateJsonDisplayForParish(@RequestParam(value = "rows",required = false) Integer rows,@RequestParam(value = "page",required = false) Integer page) {
         List<Parish> allParishes = parishService.getAllParish();
         List<ParishDto> parishDtoList = parishService.createParishDto(allParishes);
         List<GridRow> parishGridRows = new ArrayList<GridRow>(parishDtoList.size());
-        for (ParishDto parishDto : parishDtoList) {
+        Long totalParishCount = parishService.getParishCount();
+
+        List<ParishDto> allUsersSublist = new ArrayList<ParishDto>();
+        if (allParishes.size() > 0) {
+            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), parishDtoList);
+        }
+
+        for (ParishDto parishDto : allUsersSublist) {
             parishGridRows.add(new ParishWrapper(parishDto));
         }
 
+
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, parishGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(totalParishCount.intValue(), page, rows, parishGridRows);
 
         JsonBuilder jsonBuilder = new JsonBuilder();
         return jsonBuilder.convertToJson(resultContainer);

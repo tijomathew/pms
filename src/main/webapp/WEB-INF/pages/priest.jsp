@@ -37,22 +37,35 @@
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
-                        rowList: [10, 20, 30],
-                        colNames: ['Priest ID', 'Name', 'Designation'],
+                        rowList: [2, 4, 6],
+                        colNames: ['Priest ID', 'Name', 'Designation','Heavenly Patron','nativeDiocese','nativeParish','nativePlace','priestCardValidity','ordainedToDiocese','fatherName','motherName','priestStatus','congregation','irelandAddress','indiaAddress','emergencyContact'],
                         colModel: [
 
-                            {name: 'priestID', index: 'priestID', width: 90},
-                            {name: 'name', index: 'name', width: 100},
-                            {name: 'designation', index: 'designation', width: 80, align: "right"}
+                            {name: 'priestID', index: 'priestID', width: 120},
+                            {name: 'name', index: 'name', width: 150},
+                            {name: 'designation', index: 'designation', width: 150, align: "right"},
+                            {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right"},
+                            {name: 'nativeDiocese', index: 'nativeDiocese', width: 150, align: "right"},
+                            {name: 'nativeParish', index: 'nativeParish', width: 150, align: "right"},
+                            {name: 'nativePlace', index: 'nativePlace', width: 150, align: "right"},
+                            {name: 'priestCardValidity', index: 'priestCardValidity', width: 150, align: "right"},
+                            {name: 'ordainedToDiocese', index: 'ordainedToDiocese', width: 150, align: "right"},
+                            {name: 'fatherName', index: 'fatherName', width: 150, align: "right"},
+                            {name: 'motherName', index: 'motherName', width: 150, align: "right"},
+                            {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right"},
+                            {name: 'congregation', index: 'congregation', width: 150, align: "right"},
+                            {name: 'irelandAddress', index: 'irelandAddress', width: 150, align: "right"},
+                            {name: 'indiaAddress', index: 'indiaAddress', width: 150, align: "right"},
+                            {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right"}
                         ],
-                        rowNum: 10,
+                        rowNum: 2,
                         pager: '#priestGridPager',
                         sortname: 'id',
                         viewrecords: true,
                         sortorder: "desc",
                         caption: "Priests",
                         autowidth: true,
-                        shrinkToFit: true,
+                        shrinkToFit: false,
                         emptyrecords: "Nothing to display"
 
                     });

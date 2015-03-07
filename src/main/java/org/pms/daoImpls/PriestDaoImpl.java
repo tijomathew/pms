@@ -38,8 +38,8 @@ public class PriestDaoImpl implements PriestDao {
     }
 
     @Override
-    public Integer getTotalCountOfPriestDM() {
-        return (Integer) sessionFactory.getCurrentSession().createCriteria(Priest.class).setProjection(Projections.rowCount()).uniqueResult();
+    public Long getTotalCountOfPriestDM() {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Priest.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override

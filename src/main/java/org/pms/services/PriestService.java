@@ -17,7 +17,7 @@ public interface PriestService {
 
     Priest getPriestForPriestIDSM(Long id);
 
-    Integer getTotalCountOfPriestSM();
+    Long getTotalCountOfPriestSM();
 
     List<PriestDto> createPriestDto(List<Priest> allPriests) throws IllegalArgumentException;
 

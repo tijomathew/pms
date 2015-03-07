@@ -5,6 +5,7 @@ import org.pms.dtos.PriestDto;
 import org.pms.models.Person;
 import org.pms.models.Priest;
 import org.pms.services.PriestService;
+import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class PriestServiceImpl implements PriestService {
     }
 
     @Override
-    public Integer getTotalCountOfPriestSM() {
+    public Long getTotalCountOfPriestSM() {
         return priestDao.getTotalCountOfPriestDM();
     }
 
@@ -53,7 +54,13 @@ public class PriestServiceImpl implements PriestService {
             for (Priest priest : allPriests) {
                 Person personIdentity = priest.getPriestAsPerson();
                 StringBuilder name = new StringBuilder(personIdentity.getSalutation() + " " + personIdentity.getFirstName() + " " + personIdentity.getLastName());
-                priestDtoList.add(new PriestDto(uniqueId, priest.getId(), name.toString(), priest.getCongregation()));
+
+                PriestDto priestDto = new PriestDto(uniqueId, priest.getId(), name.toString(), priest.getCongregation(),priest.getHeavenlyPatron(),priest.getNativeDiocese(),priest.getNativeParish(),priest.getNativePlace(),priest.getPriestCardValidity(),priest.getOrdainedToDiocese(),priest.getFatherName(),priest.getMotherName(),priest.getPriestStatus(),priest.getCongregation());
+                priestDto.setIrelandAddress(DisplayUtils.getEmbeddedObjectString(priest.getLocalAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
+                priestDto.setIndiaAddress(DisplayUtils.getEmbeddedObjectString(priest.getNativeAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
+                priestDto.setEmergencyContact(DisplayUtils.getEmbeddedObjectString(priest.getEmergencyContact(),"name","addressLineOne","addressLineTwo"));
+
+                priestDtoList.add(priestDto);
             }
         } else {
             throw new IllegalArgumentException("Priest List cannot be an empty List!!!...");

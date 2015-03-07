@@ -67,17 +67,23 @@ public class PriestController {
     @RequestMapping(value = "/displayPriestGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForPriest() {
+    Object generateJsonDisplayForPriest(@RequestParam(value = "rows",required = false) Integer rows,@RequestParam(value = "page",required = false) Integer page) {
         List<Priest> allPriest = priestService.getAllPriestSM();
         List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
-        Integer totalPriestsCount = priestService.getTotalCountOfPriestSM();
+        Integer totalPriestsCount = priestService.getTotalCountOfPriestSM().intValue();
+
+        List<PriestDto> allUsersSublist = new ArrayList<PriestDto>();
+        if (totalPriestsCount > 0) {
+            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalPriestsCount.intValue(), allPriestDtoList);
+        }
+
         List<GridRow> priestGridRows = new ArrayList<GridRow>(allPriest.size());
-        for (PriestDto priestDto : allPriestDtoList) {
+        for (PriestDto priestDto : allUsersSublist) {
             priestGridRows.add(new PriestWrapper(priestDto));
         }
 
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(totalPriestsCount, 2, 20, priestGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(totalPriestsCount, page, rows, priestGridRows);
 
         JsonBuilder jsonBuilder = new JsonBuilder();
         return jsonBuilder.convertToJson(resultContainer);

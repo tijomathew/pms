@@ -16,7 +16,7 @@ public interface PriestDao {
 
     Priest getPriestForIDDM(Long id);
 
-    Integer getTotalCountOfPriestDM();
+    Long getTotalCountOfPriestDM();
 
     Long getHighestAutoIDDM();
 
