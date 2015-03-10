@@ -36,7 +36,7 @@ public class FamilyController {
     private MassCenterService massCenterService;
 
     @Autowired
-    private PrayerUnitService wardService;
+    private PrayerUnitService prayerUnitService;
 
     @RequestMapping(value = "/viewFamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
@@ -49,12 +49,12 @@ public class FamilyController {
         model.addAttribute("family", new Family());
         Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
         MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
-        PrayerUnit wardForFamily = wardService.getPrayerUnitForIDSM(family.getPrayerUnitId());
+        PrayerUnit wardForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
         family.setFamilyParish(parishForFamily);
         parishForFamily.addFamilyForParish(family);
         family.setFamilyMassCenter(massCenterForFamily);
         massCenterForFamily.addFamilyForMassCenter(family);
-        family.setFamilyWard(wardForFamily);
+        family.setFamilyPrayerUnit(wardForFamily);
         wardForFamily.addFamilyForWard(family);
         familyService.addFamilySM(family);
         return "family";
@@ -92,7 +92,7 @@ public class FamilyController {
     public
     @ResponseBody
     String generateWardSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
-        List<PrayerUnit> wardList = wardService.getWardsForMassCenterIDSM(selectedMassCenterId);
+        List<PrayerUnit> wardList = prayerUnitService.getWardsForMassCenterIDSM(selectedMassCenterId);
         List<SelectBox<String>> wardSelectBoxList = new ArrayList<SelectBox<String>>();
         for (PrayerUnit ward : wardList)
             wardSelectBoxList.add(new SelectBox<String>(ward.getPrayerUnitName(), String.valueOf(ward.getId())));

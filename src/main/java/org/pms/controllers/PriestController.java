@@ -6,10 +6,13 @@ import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
+import org.pms.models.Parish;
 import org.pms.models.Priest;
+import org.pms.models.PriestDesignation;
 import org.pms.models.User;
 import org.pms.serviceImpls.MailServiceImpl;
 import org.pms.services.MailService;
+import org.pms.services.ParishService;
 import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the controller of the Priest module.
@@ -32,34 +37,82 @@ public class PriestController {
     private PriestService priestService;
 
     @Autowired
+    private ParishService parishService;
+
+    @Autowired
     private MailService mailService;
 
     @RequestMapping(value = "/viewPriest.action", method = RequestMethod.POST)
-    public String romeChurchPageDisplay(Model model) {
+    public String priestPageDisplay(Model model) {
         Priest formDisplayPriest = new Priest();
         formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
         model.addAttribute("priest", formDisplayPriest);
-        model.addAttribute("loginUser", new User());
+
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        List<Parish> addedParishes = parishService.getAllParish();
+        parishMap.put(0l, "--Please Select--");
+        for (Parish parish : addedParishes)
+            parishMap.put(parish.getId(), parish.getName());
+
+        Map<String, String> priestDesignationsMap = new HashMap<>();
+        priestDesignationsMap.put("Please Select", "--Please Select--");
+        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
+        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
+        priestDesignationsMap.put("Chaplain", "Chaplain");
+
+        model.addAttribute("parishList", parishMap);
+        model.addAttribute("priestDesignation", priestDesignationsMap);
+
+        /*model.addAttribute("loginUser", new User());
         model.addAttribute("error", "please errorrrrr");
-        //mailService.sendUserCredentials(new User());
-        return "login";
+        mailService.sendUserCredentials(new User());*/
+
+        return "priest";
     }
 
     @RequestMapping(value = "/viewPriest.action", method = RequestMethod.GET)
-    public String romeChurchPageDisplay1(Model model) {
+    public String priestStaticPageDisplay(Model model) {
         Priest formDisplayPriest = new Priest();
         formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
         model.addAttribute("priest", formDisplayPriest);
-        model.addAttribute("loginUser", new User());
+
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        List<Parish> addedParishes = parishService.getAllParish();
+        parishMap.put(0l, "--Please Select--");
+        for (Parish parish : addedParishes)
+            parishMap.put(parish.getId(), parish.getName());
+
+        Map<String, String> priestDesignationsMap = new HashMap<>();
+        priestDesignationsMap.put("Please Select", "--Please Select--");
+        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
+        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
+        priestDesignationsMap.put("Chaplain", "Chaplain");
+
+        model.addAttribute("parishList", parishMap);
+        model.addAttribute("priestDesignation", priestDesignationsMap);
+        
+        /*model.addAttribute("loginUser", new User());
         model.addAttribute("error", "please errorrrrr");
-       // mailService.sendUserCredentials(new User());
-        return "login";
+       mailService.sendUserCredentials(new User());*/
+
+        return "priest";
     }
 
     @RequestMapping(value = "/addPriest.action", method = RequestMethod.POST)
     public String addPriest(@ModelAttribute("priest") Priest priest, Model model, @RequestParam(value = "image", required = false) File file) {
         File image = file;
+        Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
+        priest.setParish(mappedParish);
+        mappedParish.addPriestsForParish(priest);
+
+        PriestDesignation priestDesignation = new PriestDesignation();
+        priestDesignation.setDesignation(priest.getDesignation());
+        priestDesignation.setParishId(mappedParish.getParishID());
+        priestDesignation.setPriestId(priest.getPriestID());
+
+        priestService.addPriestDesignation(priestDesignation);
         priestService.addPriestSM(priest);
+
         model.addAttribute("priest", new Priest());
         return "priest";
     }
@@ -67,7 +120,7 @@ public class PriestController {
     @RequestMapping(value = "/displayPriestGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForPriest(@RequestParam(value = "rows",required = false) Integer rows,@RequestParam(value = "page",required = false) Integer page) {
+    Object generateJsonDisplayForPriest(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Priest> allPriest = priestService.getAllPriestSM();
         List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
         Integer totalPriestsCount = priestService.getTotalCountOfPriestSM().intValue();

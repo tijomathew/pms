@@ -15,12 +15,12 @@
     <script src="<c:url value="/resources/js/parishValidator.js" />" type="text/javascript"
             language="javascript"></script>
 
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         $(document).ready(function () {
             setTimeout(loadPriestWithDesignation("${pageContext.request.contextPath}"), 500000);
             //loadPriestWithDesignation("${pageContext.request.contextPath}");
         });
-    </script>
+    </script>--%>
 
     <script src="<c:url value="/resources/js/PriestDesignationDisplay.js" />" type="text/javascript"
             language="javascript"></script>
@@ -80,7 +80,18 @@
                         autowidth: true,
                         shrinkToFit: false
                     });
-            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: true, add: true, del: true});
+            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: false, add: false, del: false});
+            jQuery("#parishGrid").jqGrid('navButtonAdd','#parishGridPager',{caption:"Edit",
+                onClickButton:function(){
+                    var gsr = jQuery("#parishGrid").jqGrid('getGridParam','selrow');
+                    if(gsr){
+                        //jQuery("#parishGrid").jqGrid('GridToForm',gsr,"#order");
+                        alert("selected Row");
+                    } else {
+                        alert("Please select Row");
+                    }
+                }
+            });
         }
 
 
@@ -168,12 +179,12 @@
                                             <td><form:input path="registeredDate" id="registeredDate"
                                                             class="textBox"/></td>
                                         </tr>
-                                        <tr>
+                                        <%--<tr>
                                             <td>Priest :</td>
                                             <td>
                                                 <div id="priestDesignationBoxes"></div>
                                             </td>
-                                        </tr>
+                                        </tr>--%>
                                     </table>
                                 </div>
                             </section>

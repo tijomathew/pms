@@ -38,7 +38,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['Priest ID', 'Name', 'Designation','Heavenly Patron','nativeDiocese','nativeParish','nativePlace','priestCardValidity','ordainedToDiocese','fatherName','motherName','priestStatus','congregation','irelandAddress','indiaAddress','emergencyContact'],
+                        colNames: ['Priest ID', 'Name', 'Designation', 'Heavenly Patron', 'nativeDiocese', 'nativeParish', 'nativePlace', 'priestCardValidity', 'ordainedToDiocese', 'fatherName', 'motherName', 'priestStatus', 'congregation', 'irelandAddress', 'indiaAddress', 'emergencyContact'],
                         colModel: [
 
                             {name: 'priestID', index: 'priestID', width: 120},
@@ -163,6 +163,16 @@
                                             <td>Nationality :</td>
                                             <td><form:input path="priestAsPerson.nationality"
                                                             id="priestAsPersonnationality"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Designation:</td>
+                                            <td><form:select path="designation"
+                                                             items="${priestDesignation}"></form:select></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Parish:</td>
+                                            <td><form:select path="parishId"
+                                                             items="${parishList}"></form:select></td>
                                         </tr>
                                         <tr>
                                             <td>Education Qualifications :</td>

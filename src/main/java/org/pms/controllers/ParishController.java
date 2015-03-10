@@ -44,18 +44,19 @@ public class ParishController {
     @RequestMapping(value = "/addParish.action", method = RequestMethod.POST)
     public String addParish(@ModelAttribute("parish") Parish parish, Model model) {
         List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
-        Map<Long, String> mappedPriestDesignations = new HashMap<Long, String>();
+        /*Map<Long, String> mappedPriestDesignations = new HashMap<Long, String>();
         for (Long priestID : allActivePriestsIDs) {
             if (request.getParameter(priestID.toString()) != null) {
                 mappedPriestDesignations.put(priestID, request.getParameter(priestID.toString()));
             }
-        }
+        }*/
         model.addAttribute("parish", new Parish());
 
-        String[] priestsForParish = request.getParameterValues("priest");
+        /*String[] priestsForParish = request.getParameterValues("priest");
         for (String priestID : priestsForParish) {
             Priest priest = priestService.getPriestForPriestIDSM(Long.valueOf(priestID));
             priest.setParish(parish);
+
             List<PriestDesignation> temporaryPriestDesignationList = new ArrayList<PriestDesignation>();
             if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
                 String priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
@@ -67,8 +68,9 @@ public class ParishController {
             } else {
                 throw new IllegalArgumentException("parish cannot be added without at least a priest!!...");
             }
+
             parish.addPriestsForParish(priest);
-        }
+        }*/
         parishService.addParishSM(parish);
         return "parish";
     }

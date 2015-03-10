@@ -2,6 +2,7 @@ package org.pms.services;
 
 import org.pms.dtos.PriestDto;
 import org.pms.models.Priest;
+import org.pms.models.PriestDesignation;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface PriestService {
     Long getHighestAutoIDSM();
 
     List<Long> getAllPriestsIDsSM();
+
+    boolean addPriestDesignation(PriestDesignation priestDesignation);
 }

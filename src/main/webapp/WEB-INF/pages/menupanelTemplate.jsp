@@ -39,10 +39,10 @@
         <div>
             <ul class="leftMenu">
                 <c:if test="${showForAdmin == true}">
-                    <li id="priest"><a href="${pageContext.request.contextPath}/viewPriest.action"><span
-                            class="file">Priest</span></a></li>
                     <li id="parish"><a href="${pageContext.request.contextPath}/viewParish.action"><span
                             class="file">Parish</span></a></li>
+                    <li id="priest"><a href="${pageContext.request.contextPath}/viewPriest.action"><span
+                            class="file">Priest</span></a></li>
                     <li id="masscenter"><a href="${pageContext.request.contextPath}/viewMassCenter.action"><span
                             class="file">Mass Center</span></a></li>
                     <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><span

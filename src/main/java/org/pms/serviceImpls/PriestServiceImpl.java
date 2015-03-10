@@ -4,6 +4,7 @@ import org.pms.daos.PriestDao;
 import org.pms.dtos.PriestDto;
 import org.pms.models.Person;
 import org.pms.models.Priest;
+import org.pms.models.PriestDesignation;
 import org.pms.services.PriestService;
 import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,10 @@ public class PriestServiceImpl implements PriestService {
                 Person personIdentity = priest.getPriestAsPerson();
                 StringBuilder name = new StringBuilder(personIdentity.getSalutation() + " " + personIdentity.getFirstName() + " " + personIdentity.getLastName());
 
-                PriestDto priestDto = new PriestDto(uniqueId, priest.getId(), name.toString(), priest.getCongregation(),priest.getHeavenlyPatron(),priest.getNativeDiocese(),priest.getNativeParish(),priest.getNativePlace(),priest.getPriestCardValidity(),priest.getOrdainedToDiocese(),priest.getFatherName(),priest.getMotherName(),priest.getPriestStatus(),priest.getCongregation());
-                priestDto.setIrelandAddress(DisplayUtils.getEmbeddedObjectString(priest.getLocalAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
-                priestDto.setIndiaAddress(DisplayUtils.getEmbeddedObjectString(priest.getNativeAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
-                priestDto.setEmergencyContact(DisplayUtils.getEmbeddedObjectString(priest.getEmergencyContact(),"name","addressLineOne","addressLineTwo"));
+                PriestDto priestDto = new PriestDto(uniqueId, priest.getId(), name.toString(), priest.getCongregation(), priest.getHeavenlyPatron(), priest.getNativeDiocese(), priest.getNativeParish(), priest.getNativePlace(), priest.getPriestCardValidity(), priest.getOrdainedToDiocese(), priest.getFatherName(), priest.getMotherName(), priest.getPriestStatus(), priest.getCongregation());
+                priestDto.setIrelandAddress(DisplayUtils.getEmbeddedObjectString(priest.getLocalAddress(), "addressLineOne", "addressLineTwo", "addressLineThree"));
+                priestDto.setIndiaAddress(DisplayUtils.getEmbeddedObjectString(priest.getNativeAddress(), "addressLineOne", "addressLineTwo", "addressLineThree"));
+                priestDto.setEmergencyContact(DisplayUtils.getEmbeddedObjectString(priest.getEmergencyContact(), "name", "addressLineOne", "addressLineTwo"));
 
                 priestDtoList.add(priestDto);
             }
@@ -81,5 +82,10 @@ public class PriestServiceImpl implements PriestService {
     @Override
     public List<Long> getAllPriestsIDsSM() {
         return priestDao.getAllPriestsIDsDM();
+    }
+
+    @Override
+    public boolean addPriestDesignation(PriestDesignation priestDesignation) {
+        return priestDao.addPriestDesignation(priestDesignation);
     }
 }

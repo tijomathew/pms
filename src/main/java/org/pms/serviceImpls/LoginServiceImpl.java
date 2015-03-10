@@ -32,15 +32,16 @@ public class LoginServiceImpl implements LoginService {
 
         if (loginUserPassword.equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
             authenticatedUser = true;
-           // createUserRoleInSession(loggedInUser);
+            createUserRoleInSession(loggedInUser);
         }
         return authenticatedUser;
     }
 
-   /* private void createUserRoleInSession(User loggedInUser) {
+    private void createUserRoleInSession(User loggedInUser) {
         switch (loggedInUser.getSystemRole().toString()) {
             case SystemRoles.ADMIN:
                 createUserRolesInSessionScope(differentRolesInSessionValues, "adminRole");
+                break;
             case SystemRoles.PARISH_ADMIN:
                 createUserRolesInSessionScope(differentRolesInSessionValues, "parishAdminRole");
                 break;
@@ -52,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
                 break;
         }
 
-    }*/
+    }
 
     private void createUserRolesInSessionScope(String[] passedRoleNames, String assignedRoleInSession) {
         for (String rolesInSession : passedRoleNames) {

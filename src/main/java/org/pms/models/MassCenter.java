@@ -88,9 +88,6 @@ public class MassCenter implements Serializable {
     @OneToMany(mappedBy = "massCenter", cascade = CascadeType.ALL)
     private List<Priest> mappedPriest = new ArrayList<Priest>();
 
-
-    private User mappedUserMassCenter;
-
     public MassCenter() {
     }
 
@@ -271,6 +268,5 @@ public class MassCenter implements Serializable {
             this.mappedFamilies.add(family);
         }
     }
-
 
 }

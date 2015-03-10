@@ -1,6 +1,7 @@
 package org.pms.daos;
 
 import org.pms.models.Priest;
+import org.pms.models.PriestDesignation;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface PriestDao {
     Long getHighestAutoIDDM();
 
     List<Long> getAllPriestsIDsDM();
+
+    boolean addPriestDesignation(PriestDesignation priestDesignation);
 }

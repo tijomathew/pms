@@ -1,7 +1,8 @@
 package org.pms.models;
 
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -36,7 +37,7 @@ public class User implements Serializable {
     private String updatedBy;
 
     @Column(name = "created_on")
-    private String createdOn;
+    private Long createdOn = new DateTime().getMillis();
 
     @Column(name = "updated_on")
     private String updatedOn;
@@ -48,13 +49,17 @@ public class User implements Serializable {
     private String email;
 
     @Column(name = "mapped_parish")
-    private Long parishId;
+    private String parishId;
 
     @Column(name = "mapped_masscenter")
-    private Long massCenterId;
+    private String massCenterId;
 
     @Column(name = "mapped_prayer_unit")
-    private Long prayerUnitId;
+    private String prayerUnitId;
+
+    @Column(name = "family_id")
+    private String familyId;
+
 
     public User() {
     }
@@ -104,11 +109,11 @@ public class User implements Serializable {
     }
 
     public String getCreatedOn() {
-        return createdOn;
+        return new DateTime().withMillis(this.createdOn).toString();
     }
 
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedOn(Long dateInMillis) {
+        this.createdOn = dateInMillis;
     }
 
     public String getUpdatedOn() {
@@ -135,27 +140,35 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Long getParishId() {
+    public String getParishId() {
         return parishId;
     }
 
-    public void setParishId(Long parishId) {
+    public void setParishId(String parishId) {
         this.parishId = parishId;
     }
 
-    public Long getMassCenterId() {
+    public String getMassCenterId() {
         return massCenterId;
     }
 
-    public void setMassCenterId(Long massCenterId) {
+    public void setMassCenterId(String massCenterId) {
         this.massCenterId = massCenterId;
     }
 
-    public Long getPrayerUnitId() {
+    public String getPrayerUnitId() {
         return prayerUnitId;
     }
 
-    public void setPrayerUnitId(Long prayerUnitId) {
+    public void setPrayerUnitId(String prayerUnitId) {
         this.prayerUnitId = prayerUnitId;
+    }
+
+    public String getFamilyId() {
+        return familyId;
+    }
+
+    public void setFamilyId(String familyId) {
+        this.familyId = familyId;
     }
 }

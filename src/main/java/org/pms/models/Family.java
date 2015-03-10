@@ -67,8 +67,8 @@ public class Family implements Serializable {
     private MassCenter familyMassCenter;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "family_ward_id")
-    private PrayerUnit familyWard;
+    @JoinColumn(name = "family_prayer_unit_id")
+    private PrayerUnit familyPrayerUnit;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL)
@@ -177,12 +177,12 @@ public class Family implements Serializable {
         this.familyMassCenter = familyMassCenter;
     }
 
-    public PrayerUnit getFamilyWard() {
-        return familyWard;
+    public PrayerUnit getFamilyPrayerUnit() {
+        return familyPrayerUnit;
     }
 
-    public void setFamilyWard(PrayerUnit familyWard) {
-        this.familyWard = familyWard;
+    public void setFamilyPrayerUnit(PrayerUnit familyWard) {
+        this.familyPrayerUnit = familyWard;
     }
 
     public List<Member> getMemberList() {

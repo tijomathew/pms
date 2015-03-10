@@ -19,20 +19,19 @@ public class PriestDesignation {
     @Column(name = "designation")
     private String designation;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "priest_designation_id")
-    private Priest priest;
+    @Column(name = "priest_id")
+    private String priestId;
 
-    @Column(name = "mapped_organization")
-    private Long mappedOrganizationId;
+    @Column(name = "parish_id")
+    private String parishId;
+
+    @Column(name = "masscenter_id")
+    private String massCenterId;
+
+    @Column(name = "prayerunit_id")
+    private String prayerUnitId;
 
     public PriestDesignation() {
-    }
-
-    public PriestDesignation(String designation, Priest priest, Long mappedOrganizationId) {
-        this.designation = designation;
-        this.priest = priest;
-        this.mappedOrganizationId = mappedOrganizationId;
     }
 
     public Long getId() {
@@ -47,19 +46,35 @@ public class PriestDesignation {
         this.designation = designation;
     }
 
-    public Priest getPriest() {
-        return priest;
+    public String getPriestId() {
+        return priestId;
     }
 
-    public void setPriest(Priest priest) {
-        this.priest = priest;
+    public void setPriestId(String priestId) {
+        this.priestId = priestId;
     }
 
-    public Long getMappedOrganizationId() {
-        return mappedOrganizationId;
+    public String getParishId() {
+        return parishId;
     }
 
-    public void setMappedOrganizationId(Long mappedOrganizationId) {
-        this.mappedOrganizationId = mappedOrganizationId;
+    public void setParishId(String parishId) {
+        this.parishId = parishId;
+    }
+
+    public String getMassCenterId() {
+        return massCenterId;
+    }
+
+    public void setMassCenterId(String massCenterId) {
+        this.massCenterId = massCenterId;
+    }
+
+    public String getPrayerUnitId() {
+        return prayerUnitId;
+    }
+
+    public void setPrayerUnitId(String prayerUnitId) {
+        this.prayerUnitId = prayerUnitId;
     }
 }

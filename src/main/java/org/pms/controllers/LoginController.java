@@ -3,10 +3,12 @@ package org.pms.controllers;
 import org.pms.constants.Roles;
 import org.pms.constants.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
+import org.pms.models.Parish;
 import org.pms.models.Priest;
 import org.pms.models.User;
 import org.pms.services.LoginService;
 import org.pms.services.MailService;
+import org.pms.services.ParishService;
 import org.pms.services.PriestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +48,9 @@ public class LoginController {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
+    @Autowired
+    private ParishService parishService;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String indexPageDisplay(Model model) {
@@ -60,10 +65,18 @@ public class LoginController {
 
     @RequestMapping(value = "/loggedIn.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
-        String redirectedPage = "priest";
+        String redirectedPage = "parish";
         boolean permittedUser = false;
-        Priest formDisplayPriest = new Priest();
-        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
+
+        /*Priest formDisplayPriest = new Priest();
+        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());*/
+
+        Long parishCounter = parishService.getParishCount();
+        Parish formBackParish = new Parish();
+        formBackParish.setParishID("PA" + (++parishCounter));
+        model.addAttribute("parish", formBackParish);
+
+
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
@@ -79,7 +92,7 @@ public class LoginController {
 
         // mailService.sendUserCredentials(new User());
         if (permittedUser) {
-            model.addAttribute("priest", formDisplayPriest);
+            model.addAttribute("parish", formBackParish);
         } else {
             result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, new String[]{}, "default message"));
             redirectedPage = "login";

@@ -42,7 +42,7 @@ public class PrayerUnit implements Serializable {
     private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyWard", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyPrayerUnit", cascade = CascadeType.ALL)
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
     public PrayerUnit() {

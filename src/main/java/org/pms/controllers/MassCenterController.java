@@ -61,34 +61,69 @@ public class MassCenterController {
     @RequestMapping(value = "/addMassCenter.action", method = RequestMethod.POST)
     public String addMassCenter(@ModelAttribute("massCenter") MassCenter massCenter, Model modelMap) {
         modelMap.addAttribute("massCenter", new MassCenter());
+
+        //get the parish for mass center to map with mass center and parish.
         Parish parish = parishService.getParishForIDSM(massCenter.getParish());
+
+        //set the parish to the mass center.
         massCenter.setMappedParish(parish);
+
+        //add mass center to the parish mass center list.
         parish.addMassCentersForParish(massCenter);
+
+        //get all active priests for the respective parish.
+        /**
+         * TODO
+         * add parish id to get the active priests under particular parish.
+         */
         List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
-        Map<Long, String> mappedPriestDesignations = new HashMap<Long, String>();
+
+        Map<Long, String> mappedPriestDesignations = new HashMap<>();
+
+        //get priest designations whose designations got selected from the UI and stored in the map.
         for (Long priestID : allActivePriestsIDs) {
             if (request.getParameter(priestID.toString()) != null) {
                 mappedPriestDesignations.put(priestID, request.getParameter(priestID.toString()));
             }
         }
 
+        //get the priest IDs who got selected from the UI as incharge for the particular mass center.
         String[] priestsForParish = request.getParameterValues("priest");
+
+        List<PriestDesignation> mappedPriestDesignationList = new ArrayList<>();
+
+        //set the priest designation for priest who got selected from UI using the respective map.
         for (String priestID : priestsForParish) {
+
+            //get the priest using priest ID.
             Priest priest = priestService.getPriestForPriestIDSM(Long.valueOf(priestID));
-            priest.setParish(parish);
-            List<PriestDesignation> temporaryPriestDesignationList = new ArrayList<PriestDesignation>();
+
+            //set mass center to the priest.
+            priest.setMassCenter(massCenter);
+
+            //set the designation for each priest which are selected from the UI.
             if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
                 String priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
-                PriestDesignation priestDesignation = new PriestDesignation(priestDesignationFromMap, priest, priest.getId());
-                temporaryPriestDesignationList.add(priestDesignation);
+
+                PriestDesignation priestDesignation = new PriestDesignation();
+                priestDesignation.setDesignation(priestDesignationFromMap);
+                priestDesignation.setPriestId(priest.getPriestID());
+                priestDesignation.setMassCenterId(massCenter.getMassCenterID());
+
+                mappedPriestDesignationList.add(priestDesignation);
             }
-            if (!temporaryPriestDesignationList.isEmpty()) {
-                priest.setMappedPriestDesignations(temporaryPriestDesignationList);
-            } else {
-                throw new IllegalArgumentException("parish cannot be added without at least a priest!!...");
+
+        }
+
+        if (!mappedPriestDesignationList.isEmpty()) {
+            for (PriestDesignation priestDesignation : mappedPriestDesignationList) {
+                priestService.addPriestDesignation(priestDesignation);
             }
         }
+
+        //save the mass center with its various relationships.
         massCenterService.addMassCenterSM(massCenter);
+
         return "massCenter";
     }
 

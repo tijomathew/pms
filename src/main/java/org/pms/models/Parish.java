@@ -268,6 +268,7 @@ public class Parish implements Serializable {
         this.mappedFamilies = mappedFamilies;
     }
 
+
     /**
      * This method is for adding priests for the parish.
      *
@@ -300,6 +301,5 @@ public class Parish implements Serializable {
             this.mappedFamilies.add(family);
         }
     }
-
 
 }

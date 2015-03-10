@@ -5,6 +5,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.PriestDao;
 import org.pms.models.Priest;
+import org.pms.models.PriestDesignation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +51,11 @@ public class PriestDaoImpl implements PriestDao {
     @Override
     public List<Long> getAllPriestsIDsDM() {
         return sessionFactory.getCurrentSession().createCriteria(Priest.class, "priest").setProjection(Projections.property("id")).list();
+    }
+
+    @Override
+    public boolean addPriestDesignation(PriestDesignation priestDesignation) {
+        sessionFactory.getCurrentSession().save(priestDesignation);
+        return true;
     }
 }

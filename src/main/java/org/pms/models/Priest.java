@@ -1,5 +1,8 @@
 package org.pms.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -83,12 +86,11 @@ public class Priest implements Serializable {
     @JoinColumn(name = "massCenterPriestId")
     private MassCenter massCenter;
 
-    @OneToMany(mappedBy = "priest", cascade = CascadeType.ALL)
-    private List<PriestDesignation> mappedPriestDesignations = new ArrayList<PriestDesignation>();
+    @Transient
+    private Long parishId;
 
-    private String displayedPriest;
-
-    private String displayedPriestDesignation;
+    @Transient
+    private String designation;
 
     public Priest() {
     }
@@ -249,27 +251,21 @@ public class Priest implements Serializable {
         this.massCenter = massCenter;
     }
 
-    public List<PriestDesignation> getMappedPriestDesignations() {
-        return mappedPriestDesignations;
+    public String getDesignation() {
+        return designation;
     }
 
-    public void setMappedPriestDesignations(List<PriestDesignation> mappedPriestDesignations) {
-        this.mappedPriestDesignations = mappedPriestDesignations;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
-    public String getDisplayedPriest() {
-        return displayedPriest;
+    public Long getParishId() {
+        return parishId;
     }
 
-    public void setDisplayedPriest(String displayedPriest) {
-        this.displayedPriest = displayedPriest;
+    public void setParishId(Long parishId) {
+        this.parishId = parishId;
     }
 
-    public String getDisplayedPriestDesignation() {
-        return displayedPriestDesignation;
-    }
 
-    public void setDisplayedPriestDesignation(String displayedPriestDesignation) {
-        this.displayedPriestDesignation = displayedPriestDesignation;
-    }
 }
