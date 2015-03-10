@@ -63,8 +63,6 @@
                         <td>USER NAME :</td>
                         <td><form:input path="userName" id="userName" class="textBox"/></td>
                         <form:errors path="userName"></form:errors>
-
-                            <%--<input class="loginTextBox" type="text" placeholder="Password"/><input class="loginTextBox" type="text" placeholder="User Name" /><td><div class="warningMessage">User Name is Incorrect</div></td>--%>
                         <td><input type="submit" value="Login" class="loginButton"/></td>
                     </tr>
                     <tr>
@@ -76,19 +74,11 @@
                         </td>
                     </tr>
                 </table>
+                <form:errors id="loginErrorDisplay" cssClass="error"></form:errors>
             </form:form>
         </div>
     </section>
     <section class="loginContentSection">
-        <section class="errorSection">
-            <h3>LOGIN ERROR</h3>
-            <form:errors id="loginErrorDisplay"></form:errors>
-            <p>${error}</p>
-        </section>
-        <div class="loginFooter loginFooterLeft">
-            <!--Click below to Review<br/>
-            <a>Terms and conditions</a> -->
-        </div>
         <div class="loginFooter loginFooterRight">
             Copyright @ Pin2.
         </div>
