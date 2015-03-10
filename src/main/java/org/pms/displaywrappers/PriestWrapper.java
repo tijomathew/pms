@@ -15,7 +15,7 @@ public class PriestWrapper implements GridRow {
 
     private PriestDto priestDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"priestID", "name", "designation"};
+    private String[] VALID_BEAN_PROPERTIES = {"priestID", "name", "designation","heavenlyPatron","nativeDiocese","nativeParish","nativePlace","priestCardValidity","ordainedToDiocese","fatherName","motherName","priestStatus","congregation","irelandAddress","indiaAddress","emergencyContact"};
 
     public PriestWrapper(PriestDto priestDto) {
         this.priestDto = priestDto;
