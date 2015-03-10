@@ -50,7 +50,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['Parish ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"parishFacebookPage","parishWebsite","parishCode","parishPlace","parishDrivingRoute","parishMap","registeredDate","mobileNo","parishEmail","parishLandLineNo","parishFaxNo"],
+                        colNames: ['Parish ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"parishFacebookPage","parishWebsite","parishCode","parishPlace","parishDrivingRoute","parishMap","registeredDate","mobileNo","parishEmail","parishLandLineNo","parishFaxNo","parishlocalAddress"],
                         colModel: [
 
                             {name: 'parishID', index: 'parishID', width: 90},
@@ -69,7 +69,8 @@
                             {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right"},
                             {name: 'parishEmail', index: 'parishEmail', width: 80, align: "right"},
                             {name: 'parishLandLineNo', index: 'parishLandLineNo', width: 80, align: "right"},
-                            {name: 'parishFaxNo', index: 'parishFaxNo', width: 80, align: "right"}
+                            {name: 'parishFaxNo', index: 'parishFaxNo', width: 80, align: "right"},
+                            {name: 'localAddress', index: 'localAddress', width: 80, align: "right"}
                         ],
                         rowNum: 2,
                         pager: '#parishGridPager',

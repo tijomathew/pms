@@ -4,6 +4,7 @@ import org.pms.daos.ParishDao;
 import org.pms.dtos.ParishDto;
 import org.pms.models.Parish;
 import org.pms.services.ParishService;
+import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +61,9 @@ public class ParishServiceImpl implements ParishService {
         if (!parishList.isEmpty()) {
             Integer uniqueId = 0;
             for (Parish parish : parishList) {
-                parishDtoList.add(new ParishDto(uniqueId, parish.getId(), parish.getName(), parish.getRiteName(), parish.getDioceseName(), parish.getDioceseName(), parish.getForaneName(),parish.getFacebookPage(),parish.getWebSite(),parish.getCode(),parish.getPlace(),parish.getDrivingRoute(),parish.getMap(),parish.getRegisteredDate(),parish.getMobileNo(),parish.getEmail(),parish.getLandLineNo(),parish.getFaxNo()));
+                ParishDto parishDto = new ParishDto(uniqueId, parish.getId(), parish.getName(), parish.getRiteName(), parish.getDioceseName(), parish.getDioceseName(), parish.getForaneName(),parish.getFacebookPage(),parish.getWebSite(),parish.getCode(),parish.getPlace(),parish.getDrivingRoute(),parish.getMap(),parish.getRegisteredDate(),parish.getMobileNo(),parish.getEmail(),parish.getLandLineNo(),parish.getFaxNo());
+                parishDto.setLocalAddress(DisplayUtils.getEmbeddedObjectString(parish.getLocalAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
+                parishDtoList.add(parishDto);
                 uniqueId += 1;
             }
         } else {

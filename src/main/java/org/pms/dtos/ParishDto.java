@@ -23,6 +23,7 @@ public class ParishDto {
     private String parishEmail;
     private Long parishLandLineNo;
     private String parishFaxNo;
+    private String localAddress;
 
     public ParishDto(Integer id, Long parishID, String parishName, String riteName, String archDioceseName, String dioceseName, String foraneName, String parishFacebookPage, String parishWebsite, String parishCode, String parishPlace, String parishDrivingRoute, String parishMap, String registeredDate, Long mobileNo, String parishEmail, Long parishLandLineNo, String parishFaxNo) {
         this.id = id;
@@ -187,5 +188,13 @@ public class ParishDto {
 
     public void setParishFaxNo(String  parishFaxNo) {
         this.parishFaxNo = parishFaxNo;
+    }
+
+    public String getLocalAddress() {
+        return localAddress;
+    }
+
+    public void setLocalAddress(String localAddress) {
+        this.localAddress = localAddress;
     }
 }
