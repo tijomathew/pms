@@ -1,7 +1,6 @@
 package org.pms.services;
 
-import org.pms.dtos.WardDto;
-import org.pms.models.MassCenter;
+import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.PrayerUnit;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public interface PrayerUnitService {
 
     Long getPrayerUnitCount();
 
-    List<WardDto> createWardDtos(List<PrayerUnit> wardList) throws IllegalArgumentException;
+    List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> wardList) throws IllegalArgumentException;
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 }

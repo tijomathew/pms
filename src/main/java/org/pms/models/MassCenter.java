@@ -252,7 +252,7 @@ public class MassCenter implements Serializable {
      *
      * @param ward ward to be added to the mass center.
      */
-    public void addWardsForMassCenter(PrayerUnit ward) {
+    public void addPrayerUnitsForMassCenter(PrayerUnit ward) {
         if (!this.prayerUnits.contains(ward)) {
             this.prayerUnits.add(ward);
         }

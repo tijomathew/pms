@@ -1,7 +1,7 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.PrayerUnitDao;
-import org.pms.dtos.WardDto;
+import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.PrayerUnit;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,22 +49,22 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<WardDto> createWardDtos(List<PrayerUnit> wardList) throws IllegalArgumentException {
-        List<WardDto> wardDtoList = new ArrayList<WardDto>(wardList.size());
+    public List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> wardList) throws IllegalArgumentException {
+        List<PrayerUnitDto> prayerUnitDtoList = new ArrayList<PrayerUnitDto>(wardList.size());
         if (!wardList.isEmpty()) {
             Integer uniqueId = 0;
             for (PrayerUnit ward : wardList) {
-                WardDto wardDto = new WardDto();
-                wardDto.setId(uniqueId);
-                wardDto.setWardID(ward.getId());
-                wardDto.setWardName(ward.getPrayerUnitName());
-                wardDtoList.add(wardDto);
+                PrayerUnitDto prayerUnitDto = new PrayerUnitDto();
+                prayerUnitDto.setId(uniqueId);
+                prayerUnitDto.setWardID(ward.getId());
+                prayerUnitDto.setWardName(ward.getPrayerUnitName());
+                prayerUnitDtoList.add(prayerUnitDto);
                 uniqueId += 1;
             }
         } else {
             throw new IllegalArgumentException("PrayerUnit List cannot be an empty List!!!...");
         }
-        return wardDtoList;
+        return prayerUnitDtoList;
     }
 
     @Override

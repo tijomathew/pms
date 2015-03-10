@@ -72,11 +72,11 @@
             <div id="tabs" class="contentTabs">
                 <ul class="tabHead">
                     <li><a href="#tabs-1">Prayer Unit Registration</a></li>
-                    <li><a href="#tabs-2">Ward View</a></li>
+                    <li><a href="#tabs-2">Prayer Unit View</a></li>
                 </ul>
                 <div id="tabs-1" class="contentTabs">
-                    <form:form modelAttribute="ward"
-                               action="${pageContext.request.contextPath}/addWard.action" method="post"
+                    <form:form modelAttribute="prayerUnit"
+                               action="${pageContext.request.contextPath}/addprayerunit.action" method="post"
                                id="addWardForm">
                         <div class="sectionLeft">
 

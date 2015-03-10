@@ -44,24 +44,8 @@ public class PriestController {
 
     @RequestMapping(value = "/viewPriest.action", method = RequestMethod.POST)
     public String priestPageDisplay(Model model) {
-        Priest formDisplayPriest = new Priest();
-        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
-        model.addAttribute("priest", formDisplayPriest);
 
-        Map<Long, String> parishMap = new HashMap<Long, String>();
-        List<Parish> addedParishes = parishService.getAllParish();
-        parishMap.put(0l, "--Please Select--");
-        for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getName());
-
-        Map<String, String> priestDesignationsMap = new HashMap<>();
-        priestDesignationsMap.put("Please Select", "--Please Select--");
-        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
-        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
-        priestDesignationsMap.put("Chaplain", "Chaplain");
-
-        model.addAttribute("parishList", parishMap);
-        model.addAttribute("priestDesignation", priestDesignationsMap);
+        createPriestFormBackObject(model);
 
         /*model.addAttribute("loginUser", new User());
         model.addAttribute("error", "please errorrrrr");
@@ -70,30 +54,11 @@ public class PriestController {
         return "priest";
     }
 
+
     @RequestMapping(value = "/viewPriest.action", method = RequestMethod.GET)
     public String priestStaticPageDisplay(Model model) {
-        Priest formDisplayPriest = new Priest();
-        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
-        model.addAttribute("priest", formDisplayPriest);
 
-        Map<Long, String> parishMap = new HashMap<Long, String>();
-        List<Parish> addedParishes = parishService.getAllParish();
-        parishMap.put(0l, "--Please Select--");
-        for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getName());
-
-        Map<String, String> priestDesignationsMap = new HashMap<>();
-        priestDesignationsMap.put("Please Select", "--Please Select--");
-        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
-        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
-        priestDesignationsMap.put("Chaplain", "Chaplain");
-
-        model.addAttribute("parishList", parishMap);
-        model.addAttribute("priestDesignation", priestDesignationsMap);
-        
-        /*model.addAttribute("loginUser", new User());
-        model.addAttribute("error", "please errorrrrr");
-       mailService.sendUserCredentials(new User());*/
+        createPriestFormBackObject(model);
 
         return "priest";
     }
@@ -113,7 +78,8 @@ public class PriestController {
         priestService.addPriestDesignation(priestDesignation);
         priestService.addPriestSM(priest);
 
-        model.addAttribute("priest", new Priest());
+        createPriestFormBackObject(model);
+
         return "priest";
     }
 
@@ -138,8 +104,28 @@ public class PriestController {
         GridGenerator gridGenerator = new GridGenerator();
         GridContainer resultContainer = gridGenerator.createGridContainer(totalPriestsCount, page, rows, priestGridRows);
 
-        JsonBuilder jsonBuilder = new JsonBuilder();
-        return jsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(resultContainer);
+    }
+
+    private void createPriestFormBackObject(Model model) {
+        Priest formDisplayPriest = new Priest();
+        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
+        model.addAttribute("priest", formDisplayPriest);
+
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        List<Parish> addedParishes = parishService.getAllParish();
+        parishMap.put(0l, "--Please Select--");
+        for (Parish parish : addedParishes)
+            parishMap.put(parish.getId(), parish.getName());
+
+        Map<String, String> priestDesignationsMap = new HashMap<>();
+        priestDesignationsMap.put("Please Select", "--Please Select--");
+        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
+        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
+        priestDesignationsMap.put("Chaplain", "Chaplain");
+
+        model.addAttribute("parishList", parishMap);
+        model.addAttribute("priestDesignation", priestDesignationsMap);
     }
 
 }
