@@ -3,7 +3,7 @@ package org.pms.dtos;
 /**
  * Created by tijo on 2/12/14.
  */
-public class WardDto {
+public class PrayerUnitDto {
 
     private Integer id;
     private Long wardID;

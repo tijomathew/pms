@@ -113,7 +113,6 @@ public class FamilyController {
         GridGenerator gridGenerator = new GridGenerator();
         GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, familyGridRows);
 
-        JsonBuilder jsonBuilder = new JsonBuilder();
-        return jsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(resultContainer);
     }
 }

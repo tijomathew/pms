@@ -1,7 +1,7 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.WardDto;
+import org.pms.dtos.PrayerUnitDto;
 import org.pms.helpers.GridRow;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,17 +13,17 @@ import java.util.List;
  */
 public class WardWrapper implements GridRow {
 
-    private WardDto wardDto;
+    private PrayerUnitDto prayerUnitDto;
 
     private String[] VALID_BEAN_PROPERTIES = {"wardID", "wardName"};
 
-    public WardWrapper(WardDto wardDto) {
-        this.wardDto = wardDto;
+    public WardWrapper(PrayerUnitDto wardDto) {
+        this.prayerUnitDto = wardDto;
     }
 
     @Override
     public Integer getId() {
-        return wardDto.getId();
+        return prayerUnitDto.getId();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class WardWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                convertedResult.add(BeanUtils.getProperty(this.wardDto, VALID_BEAN_PROPERTIES[i]).toString());
+                convertedResult.add(BeanUtils.getProperty(this.prayerUnitDto, VALID_BEAN_PROPERTIES[i]).toString());
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

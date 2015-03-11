@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
 import org.pms.displaywrappers.WardWrapper;
-import org.pms.dtos.WardDto;
+import org.pms.dtos.PrayerUnitDto;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -39,10 +39,48 @@ public class PrayerUnitController {
 
     @RequestMapping(value = "/viewWard.action", method = RequestMethod.GET)
     public String wardPageDisplay(Model modelMap) {
+
+        createPrayerUnitFormBackObject(modelMap);
+
+        return "prayerunit";
+    }
+
+
+    @RequestMapping(value = "/addprayerunit.action", method = RequestMethod.POST)
+    public String addWard(@ModelAttribute("prayerUnit") PrayerUnit prayerUnit, Model modelMap) {
+
+        MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
+        prayerUnit.setMappedMassCenter(massCenter);
+        massCenter.addPrayerUnitsForMassCenter(prayerUnit);
+        prayerUnitService.addPrayerUnitSM(prayerUnit);
+
+        createPrayerUnitFormBackObject(modelMap);
+
+        return "prayerunit";
+    }
+
+    @RequestMapping(value = "displayWardGrid.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Object generateJsonDisplayForWard() {
+        List<PrayerUnit> allPrayerUnits = prayerUnitService.getAllPrayerUnits();
+        List<PrayerUnitDto> prayerUnitDtoList = prayerUnitService.createPrayerUnitDtos(allPrayerUnits);
+        List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(prayerUnitDtoList.size());
+        for (PrayerUnitDto prayerUnitDto : prayerUnitDtoList) {
+            prayerUnitGridRows.add(new WardWrapper(prayerUnitDto));
+        }
+
+        GridGenerator gridGenerator = new GridGenerator();
+        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, prayerUnitGridRows);
+
+        return JsonBuilder.convertToJson(resultContainer);
+    }
+
+    private void createPrayerUnitFormBackObject(Model modelMap) {
         Long prayerUnitCounter = prayerUnitService.getPrayerUnitCount();
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
         formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
-        modelMap.addAttribute("ward", formBackPrayerUnit);
+        modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
         List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
         massCenterMap.put(0l, "--Please Select--");
@@ -51,34 +89,5 @@ public class PrayerUnitController {
                 massCenterMap.put(massCenter.getId(), massCenter.getName());
         }
         modelMap.addAttribute("massCenterMap", massCenterMap);
-        return "prayerunit";
-    }
-
-    @RequestMapping(value = "/addWard.action", method = RequestMethod.POST)
-    public String addWard(@ModelAttribute("ward") PrayerUnit ward, Model modelMap) {
-        modelMap.addAttribute("ward", new PrayerUnit());
-        MassCenter massCenter = massCenterService.getMassCenterForIDSM(ward.getMassCenterId());
-        ward.setMappedMassCenter(massCenter);
-        massCenter.addWardsForMassCenter(ward);
-        prayerUnitService.addPrayerUnitSM(ward);
-        return "prayerunit";
-    }
-
-    @RequestMapping(value = "displayWardGrid.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Object generateJsonDisplayForWard() {
-        List<PrayerUnit> allWards = prayerUnitService.getAllPrayerUnits();
-        List<WardDto> wardDtoList = prayerUnitService.createWardDtos(allWards);
-        List<GridRow> wardGridRows = new ArrayList<GridRow>(wardDtoList.size());
-        for (WardDto wardDto : wardDtoList) {
-            wardGridRows.add(new WardWrapper(wardDto));
-        }
-
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, wardGridRows);
-
-        JsonBuilder jsonBuilder = new JsonBuilder();
-        return jsonBuilder.convertToJson(resultContainer);
     }
 }

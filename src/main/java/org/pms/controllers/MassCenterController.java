@@ -43,18 +43,7 @@ public class MassCenterController {
 
     @RequestMapping(value = "/viewMassCenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
-        MassCenter formBackMassCenter = new MassCenter();
-        Long massCenterCount = massCenterService.getMassCenterCount();
-        formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
-        modelMap.addAttribute("massCenter", formBackMassCenter);
-        Map<Long, String> parishMap = new HashMap<Long, String>();
-        parishMap.put(0l, "--please select--");
-        List<Parish> parishList = parishService.getAllParish();
-        if (!parishList.isEmpty()) {
-            for (Parish parish : parishList)
-                parishMap.put(parish.getId(), parish.getName());
-        }
-        modelMap.addAttribute("parishList", parishMap);
+        createMassCenterFormBackObject(modelMap);
         return "massCenter";
     }
 
@@ -124,6 +113,8 @@ public class MassCenterController {
         //save the mass center with its various relationships.
         massCenterService.addMassCenterSM(massCenter);
 
+        createMassCenterFormBackObject(modelMap);
+
         return "massCenter";
     }
 
@@ -141,8 +132,7 @@ public class MassCenterController {
         GridGenerator gridGenerator = new GridGenerator();
         GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, massCenterGridRows);
 
-        JsonBuilder jsonBuilder = new JsonBuilder();
-        return jsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(resultContainer);
     }
 
     @RequestMapping(value = "/createpriestdesignationboxinmasscenter.action", method = RequestMethod.GET)
@@ -162,5 +152,20 @@ public class MassCenterController {
             return new PriestDesignationBox<String>().getJsonForPriestDesignationBoxCreation(priestDesignationBoxList);
         }
         return "";
+    }
+
+    private void createMassCenterFormBackObject(Model modelMap) {
+        MassCenter formBackMassCenter = new MassCenter();
+        Long massCenterCount = massCenterService.getMassCenterCount();
+        formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
+        modelMap.addAttribute("massCenter", formBackMassCenter);
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        parishMap.put(0l, "--please select--");
+        List<Parish> parishList = parishService.getAllParish();
+        if (!parishList.isEmpty()) {
+            for (Parish parish : parishList)
+                parishMap.put(parish.getId(), parish.getName());
+        }
+        modelMap.addAttribute("parishList", parishMap);
     }
 }

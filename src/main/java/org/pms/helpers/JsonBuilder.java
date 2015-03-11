@@ -11,17 +11,16 @@ import java.util.List;
  */
 public final class JsonBuilder {
 
-    private Gson gson;
+    private static Gson gson;
 
-    public JsonBuilder() {
-        gson = new GsonBuilder().registerTypeAdapter(GridRow.class,
-                new ResultSerializer()).create();
-    }
-
-    public String convertToJson(Object objectToConvert) {
+    public static String convertToJson(Object objectToConvert) {
+        if (gson == null)
+            gson = new GsonBuilder().registerTypeAdapter(GridRow.class,
+                    new ResultSerializer()).create();
         return gson.toJson(objectToConvert);
     }
-    public static <T> List<T> generateSubList(Integer page, Integer rows, Integer totalRecords, List<T> recordList){
+
+    public static <T> List<T> generateSubList(Integer page, Integer rows, Integer totalRecords, List<T> recordList) {
         int fromIndex = 0, toIndex = 0;
         fromIndex = ((page * rows) - rows);
         toIndex = page * rows;
