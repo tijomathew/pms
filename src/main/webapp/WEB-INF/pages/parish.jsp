@@ -50,7 +50,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['Parish ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"parishFacebookPage","parishWebsite","parishCode","parishPlace","parishDrivingRoute","parishMap","registeredDate","mobileNo","parishEmail","parishLandLineNo","parishFaxNo","parishlocalAddress"],
+                        colNames: ['ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"Parish Facebook Page","Parish Website","Parish Code","Parish Place","Parish Driving Route","Parish Map","Registered Date","Mobile No","Parish Email","Parish LandLineNo","Parish FaxNo","Parish LocalAddress"],
                         colModel: [
 
                             {name: 'parishID', index: 'parishID', width: 90},

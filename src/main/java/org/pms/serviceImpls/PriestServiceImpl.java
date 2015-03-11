@@ -57,9 +57,9 @@ public class PriestServiceImpl implements PriestService {
                 StringBuilder name = new StringBuilder(personIdentity.getSalutation() + " " + personIdentity.getFirstName() + " " + personIdentity.getLastName());
 
                 PriestDto priestDto = new PriestDto(uniqueId, priest.getId(), name.toString(), priest.getCongregation(), priest.getHeavenlyPatron(), priest.getNativeDiocese(), priest.getNativeParish(), priest.getNativePlace(), priest.getPriestCardValidity(), priest.getOrdainedToDiocese(), priest.getFatherName(), priest.getMotherName(), priest.getPriestStatus(), priest.getCongregation());
-                priestDto.setIrelandAddress(DisplayUtils.getEmbeddedObjectString(priest.getLocalAddress(), "addressLineOne", "addressLineTwo", "addressLineThree"));
-                priestDto.setIndiaAddress(DisplayUtils.getEmbeddedObjectString(priest.getNativeAddress(), "addressLineOne", "addressLineTwo", "addressLineThree"));
-                priestDto.setEmergencyContact(DisplayUtils.getEmbeddedObjectString(priest.getEmergencyContact(), "name", "addressLineOne", "addressLineTwo"));
+                priestDto.setIrelandAddress(DisplayUtils.getEmbeddedObjectString(priest.getLocalAddress(), "addressLineOne", "addressLineTwo", "addressLineThree","town","county","pin","country"));
+                priestDto.setIndiaAddress(DisplayUtils.getEmbeddedObjectString(priest.getNativeAddress(), "addressLineOne", "addressLineTwo", "addressLineThree","postOffice","district","pin","state","country"));
+                priestDto.setEmergencyContact(DisplayUtils.getEmbeddedObjectString(priest.getEmergencyContact(), "name", "addressLineOne", "addressLineTwo","addressLineThree","mobileNo","landLineNo","email"));
 
                 priestDtoList.add(priestDto);
             }

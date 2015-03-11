@@ -38,7 +38,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['Priest ID', 'Name', 'Designation', 'Heavenly Patron', 'nativeDiocese', 'nativeParish', 'nativePlace', 'priestCardValidity', 'ordainedToDiocese', 'fatherName', 'motherName', 'priestStatus', 'congregation', 'irelandAddress', 'indiaAddress', 'emergencyContact'],
+                        colNames: ['ID', 'Name', 'Designation', 'Heavenly Patron', 'Native Diocese', 'Native Parish', 'Native Place', 'Priest Card Validity', 'Ordained To Diocese', 'Father Name', 'Mother Name', 'Priest Status', 'Congregation', 'Local Address', 'Native Address', 'Emergency Contact'],
                         colModel: [
 
                             {name: 'priestID', index: 'priestID', width: 120},

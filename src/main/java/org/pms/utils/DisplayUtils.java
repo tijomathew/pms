@@ -9,17 +9,19 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class DisplayUtils {
 
-    public static <T> String getEmbeddedObjectString(T o , String ... args){
-        String [] beanProperties = args;
-        String localAddress = "";
-        for(int i = 0 ; i<beanProperties.length;i++){
+    public static <T> String getEmbeddedObjectString(T o, String... args) {
+        String[] beanProperties = args;
+        String embededProperty = "";
+        for (int i = 0; i < beanProperties.length; i++) {
             try {
-            if(i == beanProperties.length - 1){
-                    localAddress = localAddress.concat(BeanUtils.getProperty(o, beanProperties[i]).toString());
-            }
-            else{
-                localAddress = localAddress.concat(BeanUtils.getProperty(o, beanProperties[i]).toString()).concat(",").concat(System.lineSeparator());
-            }
+                if(!(BeanUtils.getProperty(o, beanProperties[i])).isEmpty()){
+                    if (i == beanProperties.length - 1) {
+                        embededProperty = embededProperty.concat(BeanUtils.getProperty(o, beanProperties[i]).toString());
+                    } else {
+                        embededProperty = embededProperty.concat(BeanUtils.getProperty(o, beanProperties[i]).toString()).concat(",").concat(System.lineSeparator());
+                    }
+                }
+
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -28,6 +30,6 @@ public final class DisplayUtils {
                 e.printStackTrace();
             }
         }
-        return localAddress;
+        return embededProperty;
     }
 }

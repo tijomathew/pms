@@ -62,7 +62,7 @@ public class ParishServiceImpl implements ParishService {
             Integer uniqueId = 0;
             for (Parish parish : parishList) {
                 ParishDto parishDto = new ParishDto(uniqueId, parish.getId(), parish.getName(), parish.getRiteName(), parish.getDioceseName(), parish.getDioceseName(), parish.getForaneName(),parish.getFacebookPage(),parish.getWebSite(),parish.getCode(),parish.getPlace(),parish.getDrivingRoute(),parish.getMap(),parish.getRegisteredDate(),parish.getMobileNo(),parish.getEmail(),parish.getLandLineNo(),parish.getFaxNo());
-                parishDto.setLocalAddress(DisplayUtils.getEmbeddedObjectString(parish.getLocalAddress(),"addressLineOne","addressLineTwo","addressLineThree"));
+                parishDto.setLocalAddress(DisplayUtils.getEmbeddedObjectString(parish.getLocalAddress(),"addressLineOne","addressLineTwo","addressLineThree","town","county","country","pin"));
                 parishDtoList.add(parishDto);
                 uniqueId += 1;
             }
