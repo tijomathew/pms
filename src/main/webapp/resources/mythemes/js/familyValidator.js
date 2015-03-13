@@ -49,7 +49,7 @@ $(document).ready(function(){
             form.submit();
         }
     });
-    $("#dateOfRegisteration").datepicker({
+    $("#dateOfRegistration").datepicker({
         changeMonth: true,
         changeYear: true
     });

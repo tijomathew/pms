@@ -54,4 +54,8 @@ $(document).ready(function () {
             form.submit();
         }
     });
+    $("#registeredDate").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
 });

@@ -1,7 +1,7 @@
 /**
  * Created by cufa-01 on 24/10/14.
  */
-$(document).ready(function() {
+$(document).ready(function () {
     $('#memberForm').validate({
         rules: {
             memberID: "required",
@@ -76,11 +76,30 @@ $(document).ready(function() {
             form.submit();
         }
     });
-    $(document).ready(function () {
-        $("#memberAsPerson.dateOfBirth").datepicker({
-            changeMonth: true,
-            changeYear: true
-        });
-
+    $("#memberAsPersondateOfBirth").datepicker({
+        changeMonth: true,
+        changeYear: true
     });
+    $("#dateOfBaptism").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#dateOfConfirmation").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#dateOfFirstCommunion").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#dateOfMarriage").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+    $("#dateOfDeath").datepicker({
+        changeMonth: true,
+        changeYear: true
+    });
+
+
 });
