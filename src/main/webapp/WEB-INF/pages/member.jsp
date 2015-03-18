@@ -131,14 +131,14 @@
                                             <td>Relationship In Family :</td>
                                             <td><form:select path="relationshipInFamily"
                                                              id="relationshipInFamily">
-                                                <form:option value="Head of Family" selected="selected">Head of Family</form:option>
-                                                <form:option value="Spouse">Spouse</form:option>
-                                                <form:option value="Son">Son</form:option>
-                                                <form:option value="Daughter">Daughter</form:option>
-                                                <form:option value="Cousin">Cousin</form:option>
-                                                <form:option value="Relative">Relative</form:option>
-                                                <form:option value="Friend">Friend</form:option>
-                                                <form:option value="Other">Other</form:option>
+                                                <form:option value="Head of Family"
+                                                             selected="selected">Family Head</form:option>
+                                                <form:option value="Spouse">Husband</form:option>
+                                                <form:option value="Son">Wife</form:option>
+                                                <form:option value="Daughter">Son</form:option>
+                                                <form:option value="Cousin">Daughter</form:option>
+                                                <form:option value="Relative">Father</form:option>
+                                                <form:option value="Friend">Mother</form:option>
                                             </form:select>
                                             </td>
                                         </tr>
@@ -236,30 +236,6 @@
                                                             class="textBox"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Date of Baptism :</td>
-                                            <td><form:input path="dateOfBaptism" id="dateOfBaptism"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date of Confirmation :</td>
-                                            <td><form:input path="dateOfConfirmation" id="dateOfConfirmation"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date of First Communion :</td>
-                                            <td><form:input path="dateOfFirstCommunion" id="dateOfFirstCommunion"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date of Marriage :</td>
-                                            <td><form:input path="dateOfMarriage" id="dateOfMarriage"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date of Death :</td>
-                                            <td><form:input path="dateOfDeath" id="dateOfDeath" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
                                             <td>Pious Association :</td>
                                             <td><form:input path="piousAssociation" id="piousAssociation"
                                                             class="textBox"/></td>
@@ -270,9 +246,9 @@
                                                             class="textBox"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Sacramental Life :</td>
-                                            <td><form:input path="sacramentalLife" id="sacramentalLife"
-                                                            class="textBox"/></td>
+                                            <td>Sacramental Life Remarks :</td>
+                                            <td><form:textarea path="sacramentalLife" id="sacramentalLife"
+                                                               class="textBox"/></td>
                                         </tr>
                                         <tr>
                                             <td>Church Remarks :</td>
@@ -315,12 +291,318 @@
                                 </div>
                             </section>
                         </div>
+                        <div class="sectionRight">
+                            <section class="contentDoc">
+                                <h3>Baptism</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Baptism :</td>
+                                            <td><form:input path="dateOfBaptism" id="dateOfBaptism"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place/Church of Baptism :</td>
+                                            <td><form:input path="churchOfBaptism" id="churchOfBaptism"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country of Baptism :</td>
+                                            <td><form:input path="countryOfBaptism" id="countryOfBaptism"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Baptism Name :</td>
+                                            <td><form:input path="baptismName" id="baptismName"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minister of Baptism :</td>
+                                            <td><form:input path="ministerOfBaptism" id="ministerOfBaptism"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>God Father :</td>
+                                            <td><form:input path="baptismGodFather" id="baptismGodFather"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>God Mother :</td>
+                                            <td><form:input path="baptismGodMother" id="baptismGodMother"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Patron Saint :</td>
+                                            <td><form:input path="patronSaint" id="patronSaint"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Patron Saint Feast Day :</td>
+                                            <td><form:input path="patronSaintFeastDay" id="patronSaintFeastDay"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="sectionLeft">
+                            <section class="contentDoc">
+                                <h3>Confirmation</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Confirmation :</td>
+                                            <td><form:input path="dateOfConfirmation" id="dateOfConfirmation"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place/Church of Confirmation :</td>
+                                            <td><form:input path="churchOfConfirmation" id="churchOfConfirmation"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country of Confirmation :</td>
+                                            <td><form:input path="countryOfConfirmation" id="countryOfConfirmation"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minister of Confirmation :</td>
+                                            <td><form:input path="ministerOfConfirmation" id="ministerOfConfirmation"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>God Father :</td>
+                                            <td><form:input path="confirmationGodFather" id="confirmationGodFather"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>God Mother :</td>
+                                            <td><form:input path="confirmationGodMother" id="confirmationGodMother"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="sectionRight">
+                            <section class="contentDoc">
+                                <h3>First Holy Communion</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Holy Communion :</td>
+                                            <td><form:input path="dateOfFirstCommunion" id="dateOfFirstCommunion"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place/Church of Holy Communion :</td>
+                                            <td><form:input path="churchOfHolyCommunion" id="churchOfHolyCommunion"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country of Holy Communion :</td>
+                                            <td><form:input path="countryOfHolyCommunion" id="countryOfHolyCommunion"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minister of Holy Communion :</td>
+                                            <td><form:input path="ministerOfHolyCommunion" id="ministerOfHolyCommunion"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="sectionLeft">
+                            <section class="contentDoc">
+                                <h3>Betrothal</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Betrothal :</td>
+                                            <td><form:input path="dateOfBetrothal" id="dateOfBetrothal"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place/Church of Betrothal :</td>
+                                            <td><form:input path="churchOfBetrothal" id="churchOfBetrothal"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country of Betrothal :</td>
+                                            <td><form:input path="countryOfBetrothal" id="countryOfBetrothal"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Priest/Bishop of Betrothal :</td>
+                                            <td><form:input path="priestOfBetrothal" id="priestOfBetrothal"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Name :</td>
+                                            <td><form:input path="spouseName" id="spouseName"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Baptism Name :</td>
+                                            <td><form:input path="spouseBaptismName" id="spouseBaptismName"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Native Parish :</td>
+                                            <td><form:input path="spouseNativeParish" id="spouseNativeParish"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Native Diocese :</td>
+                                            <td><form:input path="spouseNativeDiocese" id="spouseNativeDiocese"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Father Name :</td>
+                                            <td><form:input path="spouseFatherName" id="spouseFatherName"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Mother Name :</td>
+                                            <td><form:input path="spouseMotherName" id="spouseMotherName"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Native Address :</td>
+                                            <td><form:input path="spouseNativeAddress" id="spouseNativeAddress"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spouse Nationality :</td>
+                                            <td><form:input path="spouseNationality" id="spouseNationality"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Betrothal Witness-1 :</td>
+                                            <td><form:input path="betrothalWitnessOne" id="betrothalWitnessOne"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Betrothal Witness-2 :</td>
+                                            <td><form:input path="betrothalWitnessTwo" id="betrothalWitnessTwo"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="sectionRight">
+                            <section class="contentDoc">
+                                <h3>Marriage</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Marriage :</td>
+                                            <td><form:input path="dateOfMarriage" id="dateOfMarriage"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place/Church of Marriage :</td>
+                                            <td><form:input path="churchOfMarriage" id="churchOfMarriage"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Priest/Bishop of Marriage :</td>
+                                            <td><form:input path="priestOfMarriage" id="priestOfMarriage"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Marriage Witness-1 :</td>
+                                            <td><form:input path="marriageWitnessOne" id="marriageWitnessOne"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Marriage Witness-2 :</td>
+                                            <td><form:input path="marriageWitnessTwo" id="marriageWitnessTwo"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="sectionLeft">
+                            <section class="contentDoc">
+                                <h3>Death</h3>
+
+                                <div class="mainConte">
+                                    <table>
+                                        <tr>
+                                            <td>Date of Death :</td>
+                                            <td><form:input path="dateOfDeath" id="dateOfDeath" class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place of Death :</td>
+                                            <td><form:input path="placeOfDeath" id="placeOfDeath"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Funeral Date :</td>
+                                            <td><form:input path="funeralDate" id="funeralDate"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Buried Church :</td>
+                                            <td><form:input path="buriedChurch" id="buriedChurch"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minister of Death :</td>
+                                            <td><form:input path="ministerOfDeath" id="ministerOfDeath"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place of Cemetery :</td>
+                                            <td><form:input path="placeOfCemetery" id="placeOfCemetery"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tomb No. :</td>
+                                            <td><form:input path="tombNo" id="tombNo"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Confession :</td>
+                                            <td><form:input path="confession" id="confession"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Communion :</td>
+                                            <td><form:input path="communion" id="communion"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Anointing the Sick :</td>
+                                            <td><form:input path="anointingTheSick" id="anointingTheSick"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minister of Anointing the Sick :</td>
+                                            <td><form:input path="ministerOfAnointingTheSick"
+                                                            id="ministerOfAnointingTheSick"
+                                                            class="textBox"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
                         <div class="clear"></div>
                         <p>
                             <input type="submit" value="Add" class="filterbutton"/>
                         </p>
-
-
                     </form:form>
                 </div>
                 <div id="tabs-2" class="contentTabs">

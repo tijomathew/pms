@@ -48,6 +48,12 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "phone_no")
+    private Long phoneNo;
+
+    @Column(name = "already_loggedIn")
+    private Boolean isLoggedInForFirstTime;
+
     @Column(name = "mapped_parish")
     private String parishId;
 
@@ -108,12 +114,12 @@ public class User implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public String getCreatedOn() {
-        return new DateTime().withMillis(this.createdOn).toString();
+    public Long getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreatedOn(Long dateInMillis) {
-        this.createdOn = dateInMillis;
+    public void setCreatedOn(Long createdOn) {
+        this.createdOn = createdOn;
     }
 
     public String getUpdatedOn() {
@@ -138,6 +144,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(Long phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public String getParishId() {
@@ -170,5 +184,13 @@ public class User implements Serializable {
 
     public void setFamilyId(String familyId) {
         this.familyId = familyId;
+    }
+
+    public Boolean getIsLoggedInForFirstTime() {
+        return isLoggedInForFirstTime;
+    }
+
+    public void setIsLoggedInForFirstTime(Boolean isLoggedInForFirstTime) {
+        this.isLoggedInForFirstTime = isLoggedInForFirstTime;
     }
 }

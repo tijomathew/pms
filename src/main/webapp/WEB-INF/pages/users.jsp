@@ -38,14 +38,13 @@
                                 <div class="mainConte">
                                     <table>
                                         <tr>
-                                            <td> Username :</td>
-                                            <td><form:input path="userName" id="userName"/></td>
+                                            <td>Email(Used as Username) :</td>
+                                            <td><form:input path="email" id="email"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Password :</td>
-                                            <td><form:password path="password" id="password"/></td>
+                                            <td>Phone No(Used as Password) :</td>
+                                            <td><form:input path="phoneNo" id="phoneNo"/></td>
                                         </tr>
-
                                         <tr>
                                             <td>System Role :</td>
                                             <td><form:select path="systemRole" id="systemRole">
@@ -65,11 +64,6 @@
                                                 <form:option value="De-active">De-active</form:option>
                                             </form:select>
                                             </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Email :</td>
-                                            <td><form:input path="email" id="email"/></td>
                                         </tr>
                                         <tr>
                                             <td>Parish:</td>
