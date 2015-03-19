@@ -38,12 +38,16 @@
                                 <div class="mainConte">
                                     <table>
                                         <tr>
-                                            <td>Email(Used as Username) :</td>
-                                            <td><form:input path="email" id="email"/></td>
+                                            <td>Username :</td>
+                                            <td><form:input path="userName" id="userName"/></td>
                                         </tr>
                                         <tr>
-                                            <td>Phone No(Used as Password) :</td>
-                                            <td><form:input path="phoneNo" id="phoneNo"/></td>
+                                            <td>Password :</td>
+                                            <td><form:password path="password" id="password"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email :</td>
+                                            <td><form:input path="email" id="email"/></td>
                                         </tr>
                                         <tr>
                                             <td>System Role :</td>

@@ -35,7 +35,7 @@
     <div class="header_right">
         <div class="userIDName"><a href="#"></a></div>
         <div class="userIDName"><a href="#"></a></div>
-        <div class="userIDName"><span>Pintu Jacob</span></div>
+        <div class="userIDName"><span>${loggedInUser.userName}</span></div>
         <div class="userIdButton"><a id="userSettings" href="#"></a></div>
         <div class="clear"></div>
     </div>

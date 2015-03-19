@@ -1,5 +1,7 @@
 package org.pms.serviceImpls;
 
+import org.apache.commons.lang3.StringUtils;
+import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.daos.LoginDao;
 import org.pms.helpers.RequestResponseHolder;
@@ -23,39 +25,61 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole"};
+    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyHeadRole"};
 
     @Override
-    public boolean verifyUserSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
-        boolean authenticatedUser = false;
+    public String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
+        String redirectPageName = StringUtils.EMPTY;
         User loggedInUser = loginDao.getUserByUsernameDM(loginUserName);
-
         if (loginUserPassword.equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
-            authenticatedUser = true;
             createUserRoleInSession(loggedInUser);
+            redirectPageName = getRedirectedPageName(loggedInUser);
         }
-        return authenticatedUser;
+        return redirectPageName;
+    }
+
+    private String getRedirectedPageName(User loggedInUser) {
+        String redirectPageName = StringUtils.EMPTY;
+        switch (loggedInUser.getSystemRole().toString()) {
+            case SystemRoles.ADMIN:
+            case SystemRoles.PARISH_ADMIN:
+                redirectPageName = PageNames.PARISH;
+                break;
+            case SystemRoles.MASS_CENTER_ADMIN:
+                redirectPageName = PageNames.MASSCENTER;
+                break;
+            case SystemRoles.PRAYER_UNIT_ADMIN:
+                redirectPageName = PageNames.PRAYERUNIT;
+                break;
+            case SystemRoles.FAMILY_ADMIN:
+                redirectPageName = PageNames.FAMILY;
+                break;
+        }
+        return redirectPageName;
     }
 
     private void createUserRoleInSession(User loggedInUser) {
         switch (loggedInUser.getSystemRole().toString()) {
             case SystemRoles.ADMIN:
-                createUserRolesInSessionScope(differentRolesInSessionValues, "adminRole");
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "adminRole", loggedInUser);
                 break;
             case SystemRoles.PARISH_ADMIN:
-                createUserRolesInSessionScope(differentRolesInSessionValues, "parishAdminRole");
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "parishAdminRole", loggedInUser);
                 break;
             case SystemRoles.MASS_CENTER_ADMIN:
-                createUserRolesInSessionScope(differentRolesInSessionValues, "massCenterAdminRole");
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "massCenterAdminRole", loggedInUser);
                 break;
             case SystemRoles.PRAYER_UNIT_ADMIN:
-                createUserRolesInSessionScope(differentRolesInSessionValues, "prayerUnitAdminRole");
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "prayerUnitAdminRole", loggedInUser);
+                break;
+            case SystemRoles.FAMILY_ADMIN:
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "familyHeadRole", loggedInUser);
                 break;
         }
 
     }
 
-    private void createUserRolesInSessionScope(String[] passedRoleNames, String assignedRoleInSession) {
+    private void createUserAndRolesInSessionScope(String[] passedRoleNames, String assignedRoleInSession, User loggedInUser) {
         for (String rolesInSession : passedRoleNames) {
             if (!rolesInSession.equalsIgnoreCase(assignedRoleInSession)) {
                 requestResponseHolder.getCurrentSession().setAttribute(rolesInSession, Boolean.FALSE.booleanValue());
@@ -63,5 +87,6 @@ public class LoginServiceImpl implements LoginService {
                 requestResponseHolder.getCurrentSession().setAttribute(rolesInSession, Boolean.TRUE.booleanValue());
             }
         }
+        requestResponseHolder.getCurrentSession().setAttribute(SystemRoles.PMS_CURRENT_USER, loggedInUser);
     }
 }

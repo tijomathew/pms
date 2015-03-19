@@ -1,11 +1,9 @@
 package org.pms.controllers;
 
-import org.pms.constants.Roles;
-import org.pms.constants.SystemRoles;
+import org.apache.commons.lang3.StringUtils;
+import org.pms.constants.PageNames;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.Parish;
-import org.pms.models.Priest;
-import org.pms.models.User;
+import org.pms.models.*;
 import org.pms.services.LoginService;
 import org.pms.services.MailService;
 import org.pms.services.ParishService;
@@ -66,7 +64,7 @@ public class LoginController {
     @RequestMapping(value = "/loggedIn.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
         String redirectedPage = "parish";
-        boolean permittedUser = false;
+        String redirectPageName = StringUtils.EMPTY;
 
         /*Priest formDisplayPriest = new Priest();
         formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());*/
@@ -80,7 +78,7 @@ public class LoginController {
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
-            permittedUser = loginService.verifyUserSM(user.getUserName(), user.getPassword());
+            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getUserName(), user.getPassword());
 
         } catch (IllegalArgumentException ex) {
             logger.error("Exception thrown from login functionality");
@@ -89,18 +87,41 @@ public class LoginController {
         if (result.hasErrors()) {
             redirectedPage = "login";
         }
-
+        createFormbackObjectForRedirectPage(model, redirectPageName);
         // mailService.sendUserCredentials(new User());
-        if (permittedUser) {
+       /* if (redirectPageName) {
             model.addAttribute("parish", formBackParish);
         } else {
             result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, new String[]{}, "default message"));
             redirectedPage = "login";
             //model.addAttribute("error", "please errorrrrr");
             model.addAttribute("loginUser", user);
-        }
+        }*/
 
-        return redirectedPage;
+        return redirectPageName;
+    }
+
+    private void createFormbackObjectForRedirectPage(Model model, String redirectPageName) {
+        switch (redirectPageName) {
+            case PageNames.LOGIN:
+                model.addAttribute("loginUser", new User());
+                break;
+            case PageNames.PARISH:
+                model.addAttribute("parish", new Parish());
+                break;
+            case PageNames.MASSCENTER:
+                model.addAttribute("massCenter", new MassCenter());
+                break;
+            case PageNames.PRAYERUNIT:
+                model.addAttribute("prayerUnit", new PrayerUnit());
+                break;
+            case PageNames.FAMILY:
+                model.addAttribute("family", new Family());
+                break;
+            case PageNames.MEMBER:
+                model.addAttribute("member", new Member());
+                break;
+        }
     }
 
 

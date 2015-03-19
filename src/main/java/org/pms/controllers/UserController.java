@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.pms.constants.Roles;
 import org.pms.constants.RolesStatus;
+import org.pms.constants.SystemRoles;
+import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
@@ -45,6 +47,9 @@ public class UserController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
     @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
     public String usersPageDisplay(Model model) {
         model.addAttribute("user", new User());
@@ -56,8 +61,12 @@ public class UserController {
 
     @RequestMapping(value = "/addUser.action", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, Model model) {
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        user.setCreatedBy(currentUser.getUserName());
+        user.setUpdatedBy(currentUser.getUserName());
 
         userService.addUserSM(user);
+
         model.addAttribute("user", new User());
         createModelSelectBoxes(model);
         return "users";
