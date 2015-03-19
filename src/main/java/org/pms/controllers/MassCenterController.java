@@ -43,7 +43,7 @@ public class MassCenterController {
 
     @RequestMapping(value = "/viewMassCenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
-        createMassCenterFormBackObject(modelMap);
+        massCenterService.createMassCenterFormBackObject(modelMap);
         return "massCenter";
     }
 
@@ -113,7 +113,7 @@ public class MassCenterController {
         //save the mass center with its various relationships.
         massCenterService.addMassCenterSM(massCenter);
 
-        createMassCenterFormBackObject(modelMap);
+        massCenterService.createMassCenterFormBackObject(modelMap);
 
         return "massCenter";
     }
@@ -154,18 +154,4 @@ public class MassCenterController {
         return "";
     }
 
-    private void createMassCenterFormBackObject(Model modelMap) {
-        MassCenter formBackMassCenter = new MassCenter();
-        Long massCenterCount = massCenterService.getMassCenterCount();
-        formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
-        modelMap.addAttribute("massCenter", formBackMassCenter);
-        Map<Long, String> parishMap = new HashMap<Long, String>();
-        parishMap.put(0l, "--please select--");
-        List<Parish> parishList = parishService.getAllParish();
-        if (!parishList.isEmpty()) {
-            for (Parish parish : parishList)
-                parishMap.put(parish.getId(), parish.getName());
-        }
-        modelMap.addAttribute("parishList", parishMap);
-    }
 }

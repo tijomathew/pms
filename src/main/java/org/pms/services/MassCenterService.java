@@ -3,6 +3,7 @@ package org.pms.services;
 import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -27,5 +28,7 @@ public interface MassCenterService {
     Long getMassCenterCount();
 
     void updateMassCenter(MassCenter massCenter);
+
+    MassCenter createMassCenterFormBackObject(Model model);
 
 }

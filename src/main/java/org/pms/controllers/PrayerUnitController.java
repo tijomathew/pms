@@ -40,7 +40,7 @@ public class PrayerUnitController {
     @RequestMapping(value = "/viewWard.action", method = RequestMethod.GET)
     public String wardPageDisplay(Model modelMap) {
 
-        createPrayerUnitFormBackObject(modelMap);
+        prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
         return "prayerunit";
     }
@@ -54,7 +54,7 @@ public class PrayerUnitController {
         massCenter.addPrayerUnitsForMassCenter(prayerUnit);
         prayerUnitService.addPrayerUnitSM(prayerUnit);
 
-        createPrayerUnitFormBackObject(modelMap);
+        prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
         return "prayerunit";
     }
@@ -76,18 +76,4 @@ public class PrayerUnitController {
         return JsonBuilder.convertToJson(resultContainer);
     }
 
-    private void createPrayerUnitFormBackObject(Model modelMap) {
-        Long prayerUnitCounter = prayerUnitService.getPrayerUnitCount();
-        PrayerUnit formBackPrayerUnit = new PrayerUnit();
-        formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
-        modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
-        Map<Long, String> massCenterMap = new HashMap<Long, String>();
-        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
-        massCenterMap.put(0l, "--Please Select--");
-        if (!massCenterList.isEmpty()) {
-            for (MassCenter massCenter : massCenterList)
-                massCenterMap.put(massCenter.getId(), massCenter.getName());
-        }
-        modelMap.addAttribute("massCenterMap", massCenterMap);
-    }
 }

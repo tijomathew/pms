@@ -5,12 +5,16 @@ import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the implementation for the Mass Center Service contract.
@@ -23,6 +27,9 @@ public class MassCenterServiceImpl implements MassCenterService {
 
     @Autowired
     private MassCenterDao massCenterDao;
+
+    @Autowired
+    private ParishService parishService;
 
     @Override
     public boolean addMassCenterSM(MassCenter massCenter) {
@@ -85,5 +92,22 @@ public class MassCenterServiceImpl implements MassCenterService {
     @Override
     public void updateMassCenter(MassCenter massCenter) {
         massCenterDao.updateMassCenter(massCenter);
+    }
+
+    @Override
+    public MassCenter createMassCenterFormBackObject(Model model) {
+        MassCenter formBackMassCenter = new MassCenter();
+        Long massCenterCount = getMassCenterCount();
+        formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
+        model.addAttribute("massCenter", formBackMassCenter);
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        parishMap.put(0l, "--please select--");
+        List<Parish> parishList = parishService.getAllParish();
+        if (!parishList.isEmpty()) {
+            for (Parish parish : parishList)
+                parishMap.put(parish.getId(), parish.getName());
+        }
+        model.addAttribute("parishList", parishMap);
+        return formBackMassCenter;
     }
 }

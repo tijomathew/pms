@@ -2,14 +2,19 @@ package org.pms.serviceImpls;
 
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
+import org.pms.services.MassCenterService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the implementation for the PrayerUnit Service contract.
@@ -22,6 +27,9 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Autowired
     private PrayerUnitDao prayerUnitDao;
+
+    @Autowired
+    private MassCenterService massCenterService;
 
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
@@ -75,5 +83,22 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Override
     public void updatePrayerUnit(PrayerUnit prayerUnit) {
         prayerUnitDao.updatePrayerUnit(prayerUnit);
+    }
+
+    @Override
+    public PrayerUnit createPrayerUnitFormBackObject(Model modelMap) {
+        Long prayerUnitCounter = getPrayerUnitCount();
+        PrayerUnit formBackPrayerUnit = new PrayerUnit();
+        formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
+        modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
+        Map<Long, String> massCenterMap = new HashMap<Long, String>();
+        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
+        massCenterMap.put(0l, "--Please Select--");
+        if (!massCenterList.isEmpty()) {
+            for (MassCenter massCenter : massCenterList)
+                massCenterMap.put(massCenter.getId(), massCenter.getName());
+        }
+        modelMap.addAttribute("massCenterMap", massCenterMap);
+        return formBackPrayerUnit;
     }
 }

@@ -4,17 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.pms.constants.PageNames;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
-import org.pms.services.LoginService;
-import org.pms.services.MailService;
-import org.pms.services.ParishService;
-import org.pms.services.PriestService;
+import org.pms.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +45,12 @@ public class LoginController {
     @Autowired
     private ParishService parishService;
 
+    @Autowired
+    private MassCenterService massCenterService;
+
+    @Autowired
+    private PrayerUnitService prayerUnitService;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String indexPageDisplay(Model model) {
@@ -69,11 +71,6 @@ public class LoginController {
         /*Priest formDisplayPriest = new Priest();
         formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());*/
 
-        Long parishCounter = parishService.getParishCount();
-        Parish formBackParish = new Parish();
-        formBackParish.setParishID("PA" + (++parishCounter));
-        model.addAttribute("parish", formBackParish);
-
 
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
@@ -87,7 +84,7 @@ public class LoginController {
         if (result.hasErrors()) {
             redirectedPage = "login";
         }
-        createFormbackObjectForRedirectPage(model, redirectPageName);
+        createFormBackObjectForRedirectPage(model, redirectPageName);
         // mailService.sendUserCredentials(new User());
        /* if (redirectPageName) {
             model.addAttribute("parish", formBackParish);
@@ -101,19 +98,22 @@ public class LoginController {
         return redirectPageName;
     }
 
-    private void createFormbackObjectForRedirectPage(Model model, String redirectPageName) {
+    private void createFormBackObjectForRedirectPage(Model model, String redirectPageName) {
         switch (redirectPageName) {
             case PageNames.LOGIN:
                 model.addAttribute("loginUser", new User());
                 break;
             case PageNames.PARISH:
-                model.addAttribute("parish", new Parish());
+                Parish parishFormBackObject = createParishFormBackObject(model);
+                model.addAttribute("parish", parishFormBackObject);
                 break;
             case PageNames.MASSCENTER:
-                model.addAttribute("massCenter", new MassCenter());
+                MassCenter formBackMassCenter = massCenterService.createMassCenterFormBackObject(model);
+                model.addAttribute("massCenter", formBackMassCenter);
                 break;
             case PageNames.PRAYERUNIT:
-                model.addAttribute("prayerUnit", new PrayerUnit());
+                PrayerUnit formBackPrayerUnit = prayerUnitService.createPrayerUnitFormBackObject(model);
+                model.addAttribute("prayerUnit", formBackPrayerUnit);
                 break;
             case PageNames.FAMILY:
                 model.addAttribute("family", new Family());
@@ -122,6 +122,14 @@ public class LoginController {
                 model.addAttribute("member", new Member());
                 break;
         }
+    }
+
+    private Parish createParishFormBackObject(Model model) {
+        Long parishCounter = parishService.getParishCount();
+        Parish formBackParish = new Parish();
+        formBackParish.setParishID("PA" + (++parishCounter));
+        model.addAttribute("parish", formBackParish);
+        return formBackParish;
     }
 
 
