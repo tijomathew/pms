@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.dtos.MassCenterDto;
 import org.pms.helpers.GridContainer;
@@ -41,13 +42,13 @@ public class MassCenterController {
     @Autowired
     private PriestService priestService;
 
-    @RequestMapping(value = "/viewMassCenter.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewmassCenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
         massCenterService.createMassCenterFormBackObject(modelMap);
-        return "massCenter";
+        return "masscenter";
     }
 
-    @RequestMapping(value = "/addMassCenter.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)
     public String addMassCenter(@ModelAttribute("massCenter") MassCenter massCenter, Model modelMap) {
         modelMap.addAttribute("massCenter", new MassCenter());
 
@@ -59,6 +60,12 @@ public class MassCenterController {
 
         //add mass center to the parish mass center list.
         parish.addMassCentersForParish(massCenter);
+
+        //set mass center ID if its not set in the view code.
+        if (massCenter.getMassCenterID().isEmpty()) {
+            Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
+            massCenter.setMassCenterID("MC" + (++massCenterCount));
+        }
 
         //get all active priests for the respective parish.
         /**
@@ -115,7 +122,7 @@ public class MassCenterController {
 
         massCenterService.createMassCenterFormBackObject(modelMap);
 
-        return "massCenter";
+        return PageNames.MASSCENTER;
     }
 
     @RequestMapping(value = "displayMassCenterGrid.action", method = RequestMethod.GET)

@@ -23,4 +23,6 @@ public interface ParishService {
     Long getParishCount();
 
     void updateParish(Parish parish);
+
+    Parish getParishByParishID(String parishID);
 }

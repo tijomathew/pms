@@ -15,17 +15,15 @@ public interface MassCenterDao {
 
     List<Parish> getAllParishDM();
 
-    Parish getParishDM(String parishID);
-
-    boolean updateParish(Parish parish);
-
     List<MassCenter> getAllMassCenters();
 
     MassCenter getMassCenterForID(Long id);
 
     List<MassCenter> getMassCenterForParishID(Long parishAutoID);
 
-    Long getMassCenterCount();
+    Long getMassCenterCountForParish(Long parishId);
 
     void updateMassCenter(MassCenter massCenter);
+
+    MassCenter getMassCenterByMassCenterID(String massCenterID);
 }

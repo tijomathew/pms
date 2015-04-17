@@ -63,7 +63,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = "/loggedIn.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/loggedin.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
         String redirectedPage = "parish";
         String redirectPageName = StringUtils.EMPTY;

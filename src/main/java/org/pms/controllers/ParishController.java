@@ -32,7 +32,7 @@ public class ParishController {
     HttpServletRequest request;
 
 
-    @RequestMapping(value = "/viewParish.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
         createParishFormBackObjectModel(model);
         return "parish";

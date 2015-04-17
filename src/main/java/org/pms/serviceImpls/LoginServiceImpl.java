@@ -1,5 +1,6 @@
 package org.pms.serviceImpls;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
@@ -31,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
     public String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
         String redirectPageName = StringUtils.EMPTY;
         User loggedInUser = loginDao.getUserByUsernameDM(loginUserName);
-        if (loginUserPassword.equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
+        if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
             createUserRoleInSession(loggedInUser);
             redirectPageName = getRedirectedPageName(loggedInUser);
         }

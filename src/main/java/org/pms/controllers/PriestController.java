@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
 import org.pms.helpers.GridContainer;
@@ -42,7 +43,7 @@ public class PriestController {
     @Autowired
     private MailService mailService;
 
-    @RequestMapping(value = "/viewPriest.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/viewpriest.action", method = RequestMethod.POST)
     public String priestPageDisplay(Model model) {
 
         createPriestFormBackObject(model);
@@ -51,19 +52,19 @@ public class PriestController {
         model.addAttribute("error", "please errorrrrr");
         mailService.sendUserCredentials(new User());*/
 
-        return "priest";
+        return PageNames.PRIEST;
     }
 
 
-    @RequestMapping(value = "/viewPriest.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewpriest.action", method = RequestMethod.GET)
     public String priestStaticPageDisplay(Model model) {
 
         createPriestFormBackObject(model);
 
-        return "priest";
+        return PageNames.PRIEST;
     }
 
-    @RequestMapping(value = "/addPriest.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addpriest.action", method = RequestMethod.POST)
     public String addPriest(@ModelAttribute("priest") Priest priest, Model model, @RequestParam(value = "image", required = false) File file) {
         File image = file;
         Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());

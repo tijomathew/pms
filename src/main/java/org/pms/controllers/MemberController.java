@@ -45,7 +45,7 @@ public class MemberController {
 
     private ServletContext servletContext;
 
-    @RequestMapping(value = "/viewMember.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
         model.addAttribute("member", new Member());
         return "member";

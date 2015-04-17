@@ -100,10 +100,10 @@
 
 </head>
 <body>
-<%@include file="toolbarTemplate.jsp" %>
-
 
 <%@include file="menupanelTemplate.jsp" %>
+
+<%@include file="toolbarTemplate.jsp" %>
 
 <div class="outer-center">
     <div class="middle-center">

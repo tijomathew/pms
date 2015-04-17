@@ -56,7 +56,7 @@
     <section class="loginForm">
         <div>
 
-            <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedIn.action"
+            <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
                        id="loginForm1">
                 <table>
                     <tr>

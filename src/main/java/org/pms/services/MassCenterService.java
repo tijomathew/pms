@@ -25,7 +25,7 @@ public interface MassCenterService {
 
     List<MassCenterDto> createMassCenterDto(List<MassCenter> massCenterList) throws IllegalArgumentException;
 
-    Long getMassCenterCount();
+    Long getMassCenterCountForParish(Long parishId);
 
     void updateMassCenter(MassCenter massCenter);
 

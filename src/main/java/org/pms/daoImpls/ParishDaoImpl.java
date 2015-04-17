@@ -59,4 +59,9 @@ public class ParishDaoImpl implements ParishDao {
     public void updateParish(Parish parish) {
         sessionFactory.getCurrentSession().saveOrUpdate(parish);
     }
+
+    @Override
+    public Parish getParishByParishID(String parishID) {
+        return (Parish) sessionFactory.getCurrentSession().createCriteria(Parish.class, "parish").add(Restrictions.eq("parish.parishID", parishID)).uniqueResult();
+    }
 }

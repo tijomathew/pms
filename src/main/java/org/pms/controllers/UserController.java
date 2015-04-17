@@ -65,6 +65,7 @@ public class UserController {
         user.setCreatedBy(currentUser.getUserName());
         user.setUpdatedBy(currentUser.getUserName());
 
+        user.setPassword(DigestUtils.shaHex(user.getPassword()));
         userService.addUserSM(user);
 
         model.addAttribute("user", new User());

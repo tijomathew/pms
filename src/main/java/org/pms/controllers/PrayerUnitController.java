@@ -37,7 +37,7 @@ public class PrayerUnitController {
     @Autowired
     private MassCenterService massCenterService;
 
-    @RequestMapping(value = "/viewWard.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewprayerunit.action", method = RequestMethod.GET)
     public String wardPageDisplay(Model modelMap) {
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
