@@ -118,8 +118,8 @@ public class MassCenterServiceImpl implements MassCenterService {
 
         if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
             parishList = parishService.getAllParish();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
-            parishForMassCenter = parishService.getParishByParishID(currentUser.getParishId());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
             parishList.add(parishForMassCenter);
         }
         if (!parishList.isEmpty()) {
@@ -134,9 +134,8 @@ public class MassCenterServiceImpl implements MassCenterService {
         Parish parishForMassCenter = null;
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
-            MassCenter massCenterForParish = massCenterDao.getMassCenterByMassCenterID(currentUser.getMassCenterId());
-            parishForMassCenter = parishService.getParishByParishID(massCenterForParish.getMappedParish().getParishID());
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
         }
 
         if (parishForMassCenter != null) {

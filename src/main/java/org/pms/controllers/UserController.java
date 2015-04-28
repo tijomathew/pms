@@ -79,23 +79,23 @@ public class UserController {
     }
 
     private Model createModelSelectBoxes(Model model) {
-        Map<Long, String> parishMap = new HashMap<Long, String>();
+        Map<String, String> parishMap = new HashMap<String, String>();
         List<Parish> addedParishes = parishService.getAllParish();
-        parishMap.put(0l, "--Please Select--");
+        parishMap.put(String.valueOf(0), "--Please Select--");
         for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getName());
+            parishMap.put(parish.getParishID(), parish.getName());
 
-        Map<Long, String> massCenterMap = new HashMap<Long, String>();
+        Map<String, String> massCenterMap = new HashMap<String, String>();
         List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
-        massCenterMap.put(0l, "--Please Select--");
+        massCenterMap.put(String.valueOf(0), "--Please Select--");
         for (MassCenter massCenter : massCenterList)
-            massCenterMap.put(massCenter.getId(), massCenter.getName());
+            massCenterMap.put(massCenter.getMassCenterID(), massCenter.getName());
 
-        Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
+        Map<String, String> prayerUnitMap = new HashMap<String, String>();
         List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();
-        prayerUnitMap.put(0l, "--Please Select--");
+        prayerUnitMap.put(String.valueOf(0), "--Please Select--");
         for (PrayerUnit prayerUnit : prayerUnitList)
-            prayerUnitMap.put(prayerUnit.getId(), prayerUnit.getPrayerUnitName());
+            prayerUnitMap.put(prayerUnit.getPrayerUnitCode(), prayerUnit.getPrayerUnitName());
 
         model.addAttribute("parishList", parishMap);
         model.addAttribute("massCenterList", massCenterMap);

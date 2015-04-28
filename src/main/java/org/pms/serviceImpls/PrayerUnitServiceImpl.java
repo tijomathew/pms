@@ -1,10 +1,15 @@
 package org.pms.serviceImpls;
 
+import org.pms.constants.SystemRoles;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
+import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
+import org.pms.models.User;
 import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,12 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Autowired
     private PrayerUnitDao prayerUnitDao;
+
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    private ParishService parishService;
 
     @Autowired
     private MassCenterService massCenterService;
@@ -86,13 +97,37 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
+    public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
+        return prayerUnitDao.getPrayerUnitCountForMassCenter(massCenterId);
+    }
+
+    @Override
     public PrayerUnit createPrayerUnitFormBackObject(Model modelMap) {
-        Long prayerUnitCounter = getPrayerUnitCount();
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
-        formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
+
+        List<MassCenter> massCenterList = new ArrayList<>();
+
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            Parish parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
+            massCenterList = parishForMassCenter.getMassCenterList();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
+            massCenterList.add(prayerUnit.getMappedMassCenter());
+            Long prayerUnitCounter = getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+            formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
+        } else {
+            massCenterList = massCenterService.getAllMassCenter();
+        }
+
+
         modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
+
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
-        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
+
         massCenterMap.put(0l, "--Please Select--");
         if (!massCenterList.isEmpty()) {
             for (MassCenter massCenter : massCenterList)

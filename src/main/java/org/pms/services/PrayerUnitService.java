@@ -26,5 +26,8 @@ public interface PrayerUnitService {
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
+    Long getPrayerUnitCountForMassCenter(Long massCenterId);
+
     PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
+
 }

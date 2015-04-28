@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title id="title">Ward</title>
+    <title id="title">Prayer Unit</title>
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 

@@ -45,7 +45,7 @@ public class MassCenterController {
     @RequestMapping(value = "/viewmassCenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
         massCenterService.createMassCenterFormBackObject(modelMap);
-        return "masscenter";
+        return PageNames.MASSCENTER;
     }
 
     @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)

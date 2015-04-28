@@ -13,19 +13,19 @@
 
     <script src="<c:url value="/resources/js/familyValidator.js" />" type="text/javascript"
             language="javascript"></script>
-    <c:set var="loadBox" value="false"/>
-    <c:if test="${loadBox==true}">
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            loadSelectBox("${pageContext.request.contextPath}");
-
-        });
-    </script>
-    </c:if>
-
     <script src="<c:url value="/resources/js/FamilySelectBox.js" />" type="text/javascript"
             language="javascript"></script>
+
+    <c:set var="loadBox" value="false"/>
+   <%-- <c:if test="${loadBox==true}">--%>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadSelectBox("${pageContext.request.contextPath}");
+        });
+    </script>
+   <%-- </c:if>--%>
+
+
 
     <script type="text/javascript">
         jQuery(document).ready(function () {

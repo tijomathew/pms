@@ -52,16 +52,16 @@ public class User implements Serializable {
     private Boolean isLoggedInForFirstTime = Boolean.FALSE;
 
     @Column(name = "mapped_parish")
-    private String parishId;
+    private Long parishId;
 
     @Column(name = "mapped_masscenter")
-    private String massCenterId;
+    private Long massCenterId;
 
     @Column(name = "mapped_prayer_unit")
-    private String prayerUnitId;
+    private Long prayerUnitId;
 
     @Column(name = "family_id")
-    private String familyId;
+    private Long familyId;
 
 
     public User() {
@@ -143,35 +143,35 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getParishId() {
+    public Long getParishId() {
         return parishId;
     }
 
-    public void setParishId(String parishId) {
+    public void setParishId(Long parishId) {
         this.parishId = parishId;
     }
 
-    public String getMassCenterId() {
+    public Long getMassCenterId() {
         return massCenterId;
     }
 
-    public void setMassCenterId(String massCenterId) {
+    public void setMassCenterId(Long massCenterId) {
         this.massCenterId = massCenterId;
     }
 
-    public String getPrayerUnitId() {
+    public Long getPrayerUnitId() {
         return prayerUnitId;
     }
 
-    public void setPrayerUnitId(String prayerUnitId) {
+    public void setPrayerUnitId(Long prayerUnitId) {
         this.prayerUnitId = prayerUnitId;
     }
 
-    public String getFamilyId() {
+    public Long getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(String familyId) {
+    public void setFamilyId(Long familyId) {
         this.familyId = familyId;
     }
 

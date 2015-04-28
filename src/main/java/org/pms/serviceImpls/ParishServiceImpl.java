@@ -82,8 +82,4 @@ public class ParishServiceImpl implements ParishService {
         parishDao.updateParish(parish);
     }
 
-    @Override
-    public Parish getParishByParishID(String parishID) {
-        return parishDao.getParishByParishID(parishID);
-    }
 }

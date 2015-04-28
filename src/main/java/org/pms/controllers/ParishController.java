@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.*;
@@ -31,18 +32,21 @@ public class ParishController {
     @Autowired
     HttpServletRequest request;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
         createParishFormBackObjectModel(model);
-        return "parish";
+        return PageNames.PARISH;
     }
 
     @RequestMapping(value = "/addParish.action", method = RequestMethod.POST)
     public String addParish(@ModelAttribute("parish") Parish parish, Model model) {
         parishService.addParishSM(parish);
         createParishFormBackObjectModel(model);
-        return "parish";
+        return PageNames.PARISH;
     }
 
     @RequestMapping(value = "displayParishGrid.action", method = RequestMethod.GET)
