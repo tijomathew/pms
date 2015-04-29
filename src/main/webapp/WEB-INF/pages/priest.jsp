@@ -93,7 +93,7 @@
                 </ul>
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="priest"
-                               action="${pageContext.request.contextPath}/addPriest.action" method="post"
+                               action="${pageContext.request.contextPath}/addpriest.action" method="post"
                                id="priestForm1">
                         <div class="sectionLeft">
 

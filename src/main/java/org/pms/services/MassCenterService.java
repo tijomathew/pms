@@ -3,6 +3,7 @@ package org.pms.services;
 import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -24,8 +25,10 @@ public interface MassCenterService {
 
     List<MassCenterDto> createMassCenterDto(List<MassCenter> massCenterList) throws IllegalArgumentException;
 
-    Long getMassCenterCount();
+    Long getMassCenterCountForParish(Long parishId);
 
     void updateMassCenter(MassCenter massCenter);
+
+    MassCenter createMassCenterFormBackObject(Model model);
 
 }

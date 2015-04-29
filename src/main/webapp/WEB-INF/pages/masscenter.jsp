@@ -101,7 +101,7 @@
                 </ul>
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="massCenter"
-                               action="${pageContext.request.contextPath}/addMassCenter.action" method="post"
+                               action="${pageContext.request.contextPath}/addmasscenter.action" method="post"
                                id="massCenterForm1">
                         <div class="sectionLeft">
 
@@ -120,7 +120,7 @@
                                         </tr>
                                         <tr>
                                             <td>Mass Center ID :</td>
-                                            <td><form:input path="massCenterID" id="massCenterID"/></td>
+                                            <td><form:input path="massCenterID" id="massCenterID" readonly="true"/></td>
                                         </tr>
                                         <tr>
                                             <td>Mass Center Place :</td>

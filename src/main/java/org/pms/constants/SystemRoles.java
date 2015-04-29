@@ -5,11 +5,17 @@ package org.pms.constants;
  */
 public interface SystemRoles {
 
-    final String ADMIN = "ADMIN";
+    String ADMIN = "Admin";
 
-    final String PARISH_ADMIN = "PARISH ADMIN";
+    String PARISH_ADMIN = "Parish Admin";
 
-    final String MASS_CENTER_ADMIN = "MASS CENTER ADMIN";
+    String MASS_CENTER_ADMIN = "Mass Center Admin";
 
-    final String PRAYER_UNIT_ADMIN = "PRAYER UNIT ADMIN";
+    String PRAYER_UNIT_ADMIN = "Prayer Unit Admin";
+
+    String PMS_CURRENT_USER = "PMS_CURRENT_USER";
+
+    String FAMILY_ADMIN = "Family Head";
+
+
 }

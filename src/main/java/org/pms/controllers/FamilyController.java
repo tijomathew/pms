@@ -38,7 +38,7 @@ public class FamilyController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
-    @RequestMapping(value = "/viewFamily.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         model.addAttribute("family", new Family());
         return "family";

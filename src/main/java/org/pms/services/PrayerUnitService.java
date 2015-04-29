@@ -2,6 +2,7 @@ package org.pms.services;
 
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.PrayerUnit;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -24,4 +25,9 @@ public interface PrayerUnitService {
     List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> wardList) throws IllegalArgumentException;
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
+
+    Long getPrayerUnitCountForMassCenter(Long massCenterId);
+
+    PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
+
 }

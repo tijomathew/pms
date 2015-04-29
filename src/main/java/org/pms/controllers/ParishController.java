@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.*;
@@ -31,18 +32,23 @@ public class ParishController {
     @Autowired
     HttpServletRequest request;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
 
-    @RequestMapping(value = "/viewParish.action", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
         createParishFormBackObjectModel(model);
-        return "parish";
+        model.addAttribute("showAddButton",true);
+        return PageNames.PARISH;
     }
 
     @RequestMapping(value = "/addParish.action", method = RequestMethod.POST)
     public String addParish(@ModelAttribute("parish") Parish parish, Model model) {
         parishService.addParishSM(parish);
         createParishFormBackObjectModel(model);
-        return "parish";
+        model.addAttribute("showAddButton",true);
+        return PageNames.PARISH;
     }
 
     @RequestMapping(value = "displayParishGrid.action", method = RequestMethod.GET)
@@ -81,6 +87,22 @@ public class ParishController {
             priestDesignationBoxList.add(new PriestDesignationBox<String>(priestAsPerson.getFirstName() + priestAsPerson.getLastName(), priest.getId().toString(), "Not Selected"));
         }
         return new PriestDesignationBox<String>().getJsonForPriestDesignationBoxCreation(priestDesignationBoxList);
+    }
+
+    @RequestMapping(value = "/editparishdetails.action", method = RequestMethod.GET)
+    public String editParishInformation(@RequestParam(value = "parishName", required = true) Long parishName, Model model) {
+        Parish parishToEdit = parishService.getParishForIDSM(parishName);
+        model.addAttribute("parish",parishToEdit );
+        model.addAttribute("showUpdateButton",true);
+        return PageNames.PARISH;
+    }
+
+    @RequestMapping(value = "/updateparishinformation.action", method = RequestMethod.POST)
+    public String updateParish(@ModelAttribute("parish") Parish parish, Model model) {
+        parishService.addParishSM(parish);
+        createParishFormBackObjectModel(model);
+        model.addAttribute("showUpdateButton",false);
+        return PageNames.PARISH;
     }
 
     private void createParishFormBackObjectModel(Model model) {

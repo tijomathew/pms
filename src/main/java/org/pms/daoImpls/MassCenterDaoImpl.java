@@ -25,24 +25,13 @@ public class MassCenterDaoImpl implements MassCenterDao {
 
     @Override
     public boolean addMassCenterDM(MassCenter massCenter) {
-        sessionFactory.getCurrentSession().saveOrUpdate(massCenter);
+        sessionFactory.getCurrentSession().save(massCenter);
         return true;
     }
 
     @Override
     public List<Parish> getAllParishDM() {
         return sessionFactory.getCurrentSession().createCriteria(Parish.class).list();
-    }
-
-    @Override
-    public Parish getParishDM(String parishID) {
-        return (Parish) sessionFactory.getCurrentSession().createCriteria(Parish.class).add(Restrictions.eq("parishID", parishID)).uniqueResult();
-    }
-
-    @Override
-    public boolean updateParish(Parish parish) {
-        sessionFactory.getCurrentSession().saveOrUpdate(parish);
-        return true;
     }
 
     @Override
@@ -61,12 +50,17 @@ public class MassCenterDaoImpl implements MassCenterDao {
     }
 
     @Override
-    public Long getMassCenterCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class).setProjection(Projections.rowCount()).uniqueResult();
+    public Long getMassCenterCountForParish(Long parishId) {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).add(Restrictions.eq("massCenter.mappedParish.id", parishId)).uniqueResult();
     }
 
     @Override
     public void updateMassCenter(MassCenter massCenter) {
         sessionFactory.getCurrentSession().saveOrUpdate(massCenter);
+    }
+
+    @Override
+    public MassCenter getMassCenterByMassCenterID(String massCenterID) {
+        return (MassCenter) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.massCenterID", massCenterID)).uniqueResult();
     }
 }

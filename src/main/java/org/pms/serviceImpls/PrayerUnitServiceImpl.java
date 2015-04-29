@@ -1,17 +1,27 @@
 package org.pms.serviceImpls;
 
+import org.pms.constants.SystemRoles;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.MassCenter;
+import org.pms.helpers.RequestResponseHolder;
+import org.pms.models.MassCenter;
+import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
+import org.pms.models.User;
+import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the implementation for the PrayerUnit Service contract.
@@ -24,6 +34,15 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Autowired
     private PrayerUnitDao prayerUnitDao;
+
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    private ParishService parishService;
+
+    @Autowired
+    private MassCenterService massCenterService;
 
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
@@ -81,5 +100,46 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Override
     public void updatePrayerUnit(PrayerUnit prayerUnit) {
         prayerUnitDao.updatePrayerUnit(prayerUnit);
+    }
+
+    @Override
+    public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
+        return prayerUnitDao.getPrayerUnitCountForMassCenter(massCenterId);
+    }
+
+    @Override
+    public PrayerUnit createPrayerUnitFormBackObject(Model modelMap) {
+        PrayerUnit formBackPrayerUnit = new PrayerUnit();
+
+        List<MassCenter> massCenterList = new ArrayList<>();
+
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            Parish parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
+            massCenterList = parishForMassCenter.getMassCenterList();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
+            massCenterList.add(prayerUnit.getMappedMassCenter());
+            Long prayerUnitCounter = getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+            formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
+        } else {
+            massCenterList = massCenterService.getAllMassCenter();
+        }
+
+
+        modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
+
+        Map<Long, String> massCenterMap = new HashMap<Long, String>();
+
+        massCenterMap.put(0l, "--Please Select--");
+        if (!massCenterList.isEmpty()) {
+            for (MassCenter massCenter : massCenterList)
+                massCenterMap.put(massCenter.getId(), massCenter.getName());
+        }
+        modelMap.addAttribute("massCenterMap", massCenterMap);
+        return formBackPrayerUnit;
     }
 }

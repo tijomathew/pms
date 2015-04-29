@@ -31,6 +31,21 @@
                 loadParishGrid();
             });
 
+            jQuery('#editParishForm').bind("click", function () {
+                var gsr = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
+                if (gsr != null) {
+                    var value = jQuery("#parishGrid").getRowData(gsr)['parishID'];
+                    window.location.replace('editparishdetails.action?parishName=' + value);
+                } else {
+                    alert("Please select Row");
+                }
+            });
+
+            jQuery('#parishUpdateButton').click(function(){
+                jQuery('#parishForm1').attr('action', 'updateparishinformation.action');
+                jQuery( "#parishForm1" ).submit();
+            });
+
         });
 
         function loadParishGrid() {
@@ -50,7 +65,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name',"Parish Facebook Page","Parish Website","Parish Code","Parish Place","Parish Driving Route","Parish Map","Registered Date","Mobile No","Parish Email","Parish LandLineNo","Parish FaxNo","Parish LocalAddress"],
+                        colNames: ['ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name', "Parish Facebook Page", "Parish Website", "Parish Code", "Parish Place", "Parish Driving Route", "Parish Map", "Registered Date", "Mobile No", "Parish Email", "Parish LandLineNo", "Parish FaxNo", "Parish LocalAddress"],
                         colModel: [
 
                             {name: 'parishID', index: 'parishID', width: 90},
@@ -81,18 +96,8 @@
                         autowidth: true,
                         shrinkToFit: false
                     });
-            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: false, add: false, del: false});
-            jQuery("#parishGrid").jqGrid('navButtonAdd','#parishGridPager',{caption:"Edit",
-                onClickButton:function(){
-                    var gsr = jQuery("#parishGrid").jqGrid('getGridParam','selrow');
-                    if(gsr){
-                        //jQuery("#parishGrid").jqGrid('GridToForm',gsr,"#order");
-                        alert("selected Row");
-                    } else {
-                        alert("Please select Row");
-                    }
-                }
-            });
+            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: false, add: false, del: false, search:false});
+
         }
 
 
@@ -100,10 +105,10 @@
 
 </head>
 <body>
-<%@include file="toolbarTemplate.jsp" %>
-
 
 <%@include file="menupanelTemplate.jsp" %>
+
+<%@include file="toolbarTemplate.jsp" %>
 
 <div class="outer-center">
     <div class="middle-center">
@@ -180,12 +185,12 @@
                                             <td><form:input path="registeredDate" id="registeredDate"
                                                             class="textBox"/></td>
                                         </tr>
-                                        <%--<tr>
-                                            <td>Priest :</td>
-                                            <td>
-                                                <div id="priestDesignationBoxes"></div>
-                                            </td>
-                                        </tr>--%>
+                                            <%--<tr>
+                                                <td>Priest :</td>
+                                                <td>
+                                                    <div id="priestDesignationBoxes"></div>
+                                                </td>
+                                            </tr>--%>
                                     </table>
                                 </div>
                             </section>
@@ -264,7 +269,12 @@
                         </div>
                         <div class="clear"></div>
                         <p>
-                            <input type="submit" value="Add" class="filterbutton"/>
+                            <c:if test="${showAddButton==true}">
+                                <input type="submit" value="Add" class="filterbutton"/>
+                            </c:if>
+                            <c:if test="${showUpdateButton==true}">
+                                <input type="submit" value="Update" class="filterbutton" id="parishUpdateButton"/>
+                            </c:if>
                         </p>
 
 
@@ -285,7 +295,7 @@
                 <table>
                     <tr>
                         <td>
-                            <button type="button" class="filterButton">Find</button>
+                            <button type="button" class="filterButton" id="editParishForm">Edit</button>
                         </td>
                         <%--<td>
                             Test

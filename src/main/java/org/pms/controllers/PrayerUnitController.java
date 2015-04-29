@@ -1,14 +1,16 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
+import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.WardWrapper;
 import org.pms.dtos.PrayerUnitDto;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
-import org.pms.helpers.GridRow;
-import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.*;
 import org.pms.models.MassCenter;
+import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
+import org.pms.models.User;
 import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,12 +36,18 @@ public class PrayerUnitController {
     @Autowired
     private MassCenterService massCenterService;
 
-    @RequestMapping(value = "/viewWard.action", method = RequestMethod.GET)
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    private ParishService parishService;
+
+    @RequestMapping(value = "/viewprayerunit.action", method = RequestMethod.GET)
     public String wardPageDisplay(Model modelMap) {
 
-        createPrayerUnitFormBackObject(modelMap);
+        prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
-        return "prayerunit";
+        return PageNames.PRAYERUNIT;
     }
 
 
@@ -51,9 +59,9 @@ public class PrayerUnitController {
         massCenter.addPrayerUnitsForMassCenter(prayerUnit);
         prayerUnitService.addPrayerUnitSM(prayerUnit);
 
-        createPrayerUnitFormBackObject(modelMap);
+        prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
-        return "prayerunit";
+        return PageNames.PRAYERUNIT;
     }
 
     @RequestMapping(value = "displayWardGrid.action", method = RequestMethod.GET)
@@ -80,18 +88,6 @@ public class PrayerUnitController {
         return JsonBuilder.convertToJson(resultContainer);
     }
 
-    private void createPrayerUnitFormBackObject(Model modelMap) {
-        Long prayerUnitCounter = prayerUnitService.getPrayerUnitCount();
-        PrayerUnit formBackPrayerUnit = new PrayerUnit();
-        formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
-        modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
-        Map<Long, String> massCenterMap = new HashMap<Long, String>();
-        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
-        massCenterMap.put(0l, "--Please Select--");
-        if (!massCenterList.isEmpty()) {
-            for (MassCenter massCenter : massCenterList)
-                massCenterMap.put(massCenter.getId(), massCenter.getName());
-        }
-        modelMap.addAttribute("massCenterMap", massCenterMap);
-    }
+
+
 }

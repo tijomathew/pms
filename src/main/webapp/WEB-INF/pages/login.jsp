@@ -13,7 +13,7 @@
             color: red;
         }
     </style>
-    <title></title>
+    <title>PMS-Login</title>
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
     <script src="<c:url value="/resources/js/jquery-1.10.2.js" />" type="text/javascript"
             language="javascript"></script>
@@ -56,7 +56,7 @@
     <section class="loginForm">
         <div>
 
-            <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedIn.action"
+            <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
                        id="loginForm1">
                 <table>
                     <tr>

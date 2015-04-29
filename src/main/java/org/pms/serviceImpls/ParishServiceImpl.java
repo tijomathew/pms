@@ -81,4 +81,5 @@ public class ParishServiceImpl implements ParishService {
     public void updateParish(Parish parish) {
         parishDao.updateParish(parish);
     }
+
 }

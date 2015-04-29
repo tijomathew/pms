@@ -52,4 +52,9 @@ public class PrayerUnitDaoImpl implements PrayerUnitDao {
     public void updatePrayerUnit(PrayerUnit prayerUnit) {
         sessionFactory.getCurrentSession().saveOrUpdate(prayerUnit);
     }
+
+    @Override
+    public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.rowCount()).add(Restrictions.eq("prayerUnit.mappedMassCenter.id", massCenterId)).uniqueResult();
+    }
 }
