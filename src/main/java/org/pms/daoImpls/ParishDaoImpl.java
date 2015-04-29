@@ -25,7 +25,7 @@ public class ParishDaoImpl implements ParishDao {
 
     @Override
     public boolean addParishDM(Parish parish) {
-        sessionFactory.getCurrentSession().save(parish);
+        sessionFactory.getCurrentSession().saveOrUpdate(parish);
         return true;
     }
 

@@ -105,6 +105,7 @@ public class LoginController {
                 break;
             case PageNames.PARISH:
                 Parish parishFormBackObject = createParishFormBackObject(model);
+                model.addAttribute("showAddButton",true);
                 model.addAttribute("parish", parishFormBackObject);
                 break;
             case PageNames.MASSCENTER:
