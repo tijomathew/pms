@@ -19,4 +19,6 @@ public interface FamilyService {
 
     List<FamilyDto> createFamilyDto(List<Family> familyList) throws IllegalArgumentException;
 
+    Long getFamilyTotalCount();
+
 }

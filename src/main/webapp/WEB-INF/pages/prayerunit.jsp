@@ -38,14 +38,19 @@
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
-                        rowList: [10, 20, 30],
-                        colNames: ['PrayerUnit ID', 'PrayerUnit Name'],
+                        rowList: [2, 4, 6],
+                        colNames: ['PrayerUnit ID','PrayerUnit Code' ,'PrayerUnit Name','PrayerUnit Place','MassCenter Name','Local address'],
                         colModel: [
 
                             {name: 'wardID', index: 'wardID', width: 90},
-                            {name: 'wardName', index: 'wardName', width: 100}
+                            {name: 'wardCode', index: 'wardCode', width: 90},
+                            {name: 'wardName', index: 'wardName', width: 100},
+                            {name: 'wardPlace', index: 'wardPlace', width: 100},
+                            {name: 'massCenterName', index: 'massCenterName', width: 100},
+                            {name: 'localAddress', index: 'localAddress', width: 100},
+
                         ],
-                        rowNum: 10,
+                        rowNum: 2,
                         pager: '#wardGridPager',
                         sortname: 'id',
                         viewrecords: true,

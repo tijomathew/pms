@@ -1,5 +1,6 @@
 package org.pms.daoImpls;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -29,7 +30,7 @@ public class PrayerUnitDaoImpl implements PrayerUnitDao {
 
     @Override
     public List<PrayerUnit> getAllPrayerUnit() {
-        return sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

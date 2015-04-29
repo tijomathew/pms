@@ -4,8 +4,17 @@ package org.pms.controllers;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.omg.CORBA.*;
 import org.pms.constants.Roles;
 import org.pms.constants.RolesStatus;
+import org.pms.displaywrappers.UserWrapper;
+import org.pms.displaywrappers.WardWrapper;
+import org.pms.dtos.PrayerUnitDto;
+import org.pms.dtos.UserDto;
+import org.pms.helpers.GridContainer;
+import org.pms.helpers.GridGenerator;
+import org.pms.helpers.GridRow;
+import org.pms.helpers.JsonBuilder;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
@@ -20,7 +29,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.Object;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,5 +106,22 @@ public class UserController {
         return model;
     }
 
+    @RequestMapping(value = "displayUserGrid.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Object generateJsonDisplayForWard() {
+        List<User> allUsers = userService.getAllUsers();
+        List<UserDto> userDtoList = userService.createUserDtos(allUsers);
+        Integer totalRows = userService.getAllUserCount().intValue();
+        List<GridRow> userGridRows = new ArrayList<GridRow>(userDtoList.size());
+        for (UserDto userDto : userDtoList) {
+            userGridRows.add(new UserWrapper(userDto));
+        }
+
+        GridGenerator gridGenerator = new GridGenerator();
+        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, userGridRows);
+
+        return JsonBuilder.convertToJson(resultContainer);
+    }
 
 }

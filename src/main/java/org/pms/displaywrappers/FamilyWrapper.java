@@ -15,7 +15,7 @@ public class FamilyWrapper implements GridRow {
 
     private FamilyDto familyDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyID", "familyName"};
+    private String[] VALID_BEAN_PROPERTIES = {"familyID", "familyName","parishIndia","dioceseIndia","dateOfRegistration","parishLocal","massCenter","prayerUnit","localAddress","nativeAddress"};
 
     public FamilyWrapper(FamilyDto familyDto) {
         this.familyDto = familyDto;

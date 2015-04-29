@@ -102,16 +102,23 @@ public class FamilyController {
     @RequestMapping(value = "/displayFamilyGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForFamily() {
+    Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Family> allFamilies = familyService.getAllFamilySM();
         List<FamilyDto> familyDtoList = familyService.createFamilyDto(allFamilies);
         List<GridRow> familyGridRows = new ArrayList<GridRow>(familyDtoList.size());
-        for (FamilyDto familyDto : familyDtoList) {
+        Integer totalFamilyCount = familyService.getFamilyTotalCount().intValue();
+        List<FamilyDto> allFamilySublist = new ArrayList<>();
+
+        if(totalFamilyCount > 0){
+            allFamilySublist = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
+        }
+
+        for (FamilyDto familyDto : allFamilySublist) {
             familyGridRows.add(new FamilyWrapper(familyDto));
         }
 
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, familyGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(totalFamilyCount, page, rows, familyGridRows);
 
         return JsonBuilder.convertToJson(resultContainer);
     }

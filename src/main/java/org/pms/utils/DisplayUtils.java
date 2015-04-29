@@ -1,6 +1,7 @@
 package org.pms.utils;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -10,15 +11,21 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class DisplayUtils {
 
-    public static <T> String getEmbeddedObjectPropertyValueAsSingleString(T propertyClass, String... tobeConcatenatedProperties) {
+    public static <T> String getEmbeddedObjectPropertyValueAsSingleString(T propertyClass, int countOfProperties, String... tobeConcatenatedProperties) {
         String embeddedPropertyValueAsSingleString = "";
         for (int i = 0; i < tobeConcatenatedProperties.length; i++) {
             try {
-                if (BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]) != null) {
+                if (BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]) != null && !BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]).isEmpty()) {
                     if (i == tobeConcatenatedProperties.length - 1) {
                         embeddedPropertyValueAsSingleString = embeddedPropertyValueAsSingleString.concat(BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]).toString());
                     } else {
-                        embeddedPropertyValueAsSingleString = embeddedPropertyValueAsSingleString.concat(BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]).toString()).concat(",").concat(System.lineSeparator());
+                        int remainder = (countOfProperties - 1) % 2;
+                        if (remainder != 0) {
+                            embeddedPropertyValueAsSingleString = embeddedPropertyValueAsSingleString.concat(BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]).toString()).concat(",");
+                        } else {
+                            embeddedPropertyValueAsSingleString = embeddedPropertyValueAsSingleString.concat(BeanUtils.getProperty(propertyClass, tobeConcatenatedProperties[i]).toString()).concat(",").concat(System.lineSeparator());
+                        }
+                        --countOfProperties;
                     }
                 }
 

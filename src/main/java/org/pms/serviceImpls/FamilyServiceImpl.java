@@ -4,6 +4,7 @@ import org.pms.daos.FamilyDao;
 import org.pms.dtos.FamilyDto;
 import org.pms.models.Family;
 import org.pms.services.FamilyService;
+import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,15 @@ public class FamilyServiceImpl implements FamilyService {
                 familyDto.setId(uniqueId);
                 familyDto.setFamilyID(family.getId());
                 familyDto.setFamilyName(family.getFamilyName());
+                familyDto.setDateOfRegistration(family.getDateOfRegistration());
+                familyDto.setDioceseIndia(family.getDioceseInNative());
+                familyDto.setParishIndia(family.getParishInNative());
+                familyDto.setDioceseIndia(family.getDioceseInNative());
+                familyDto.setParishLocal(family.getFamilyParish().getChurchName());
+                familyDto.setMassCenter(family.getFamilyMassCenter().getName());
+                familyDto.setPrayerUnit(family.getFamilyPrayerUnit().getPrayerUnitName());
+                familyDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getLocalAddress(),7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                familyDto.setNativeAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getNativeAddress(),8,"addressLineOne", "addressLineTwo", "addressLineThree", "postOffice", "district", "state", "pin", "country"));
                 familyDtoList.add(familyDto);
                 uniqueId += 1;
             }
@@ -56,5 +66,10 @@ public class FamilyServiceImpl implements FamilyService {
             throw new IllegalArgumentException("Family List cannot be an empty List!!!...");
         }
         return familyDtoList;
+    }
+
+    @Override
+    public Long getFamilyTotalCount() {
+        return familyDao.getFamilyTotalCount();
     }
 }

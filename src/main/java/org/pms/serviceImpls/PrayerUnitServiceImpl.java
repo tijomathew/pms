@@ -2,8 +2,10 @@ package org.pms.serviceImpls;
 
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
 import org.pms.services.PrayerUnitService;
+import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +59,11 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 PrayerUnitDto prayerUnitDto = new PrayerUnitDto();
                 prayerUnitDto.setId(uniqueId);
                 prayerUnitDto.setWardID(ward.getId());
+                prayerUnitDto.setWardCode(ward.getPrayerUnitCode());
                 prayerUnitDto.setWardName(ward.getPrayerUnitName());
+                prayerUnitDto.setWardPlace(ward.getPrayerUnitPlace());
+                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(ward.getLocalAddress(),7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                prayerUnitDto.setMassCenterName(ward.getMappedMassCenter().getName());
                 prayerUnitDtoList.add(prayerUnitDto);
                 uniqueId += 1;
             }

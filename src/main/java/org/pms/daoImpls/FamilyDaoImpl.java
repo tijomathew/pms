@@ -1,6 +1,8 @@
 package org.pms.daoImpls;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.FamilyDao;
 import org.pms.models.Family;
@@ -40,5 +42,10 @@ public class FamilyDaoImpl implements FamilyDao {
     @Override
     public Family getFamilyForID(Long id) {
         return (Family) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.id", id)).uniqueResult();
+    }
+
+    @Override
+    public Long getFamilyTotalCount() {
+        return (Long)sessionFactory.getCurrentSession().createCriteria(Family.class,"family").setProjection(Projections.rowCount()).uniqueResult();
     }
 }

@@ -121,16 +121,22 @@ public class MassCenterController {
     @RequestMapping(value = "displayMassCenterGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMassCenter() {
+    Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<MassCenter> allMassCenters = massCenterService.getAllMassCenter();
         List<MassCenterDto> massCenterDtoList = massCenterService.createMassCenterDto(allMassCenters);
+        Integer massCenterCount = massCenterService.getMassCenterCount().intValue();
+        List<MassCenterDto> allUsersSublist = new ArrayList<MassCenterDto>();
+        if (massCenterCount > 0) {
+            allUsersSublist = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), massCenterDtoList);
+        }
+
         List<GridRow> massCenterGridRows = new ArrayList<GridRow>(massCenterDtoList.size());
-        for (MassCenterDto massCenterDto : massCenterDtoList) {
+        for (MassCenterDto massCenterDto : allUsersSublist) {
             massCenterGridRows.add(new MassCenterWrapper(massCenterDto));
         }
 
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, massCenterGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(massCenterCount, page, rows, massCenterGridRows);
 
         return JsonBuilder.convertToJson(resultContainer);
     }

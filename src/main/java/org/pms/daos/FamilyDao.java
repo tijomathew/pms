@@ -18,4 +18,6 @@ public interface FamilyDao {
     public List<Family> getAllFamilies();
 
     public Family getFamilyForID(Long id);
+
+    Long getFamilyTotalCount();
 }

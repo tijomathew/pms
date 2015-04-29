@@ -11,7 +11,55 @@
     <title id="title">Users</title>
 
     <%@include file="scriptlibraryTemplate.jsp" %>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('#ui-id-2').bind("click", function () {
+                loadUserGrid();
+            });
 
+        });
+
+        function loadUserGrid() {
+
+            jQuery("#userGrid").jqGrid(
+                    {
+                        jsonreader: {
+                            root: "rows",
+                            repeatitems: true,
+                            cell: "cells",
+                            id: "id"
+
+
+                        },
+                        url: '${pageContext.request.contextPath}/displayUserGrid.action',
+                        autoencode: true,
+                        mtype: 'GET',
+                        datatype: 'json',
+                        rowList: [10, 20, 30],
+                        colNames: ['id','User Name','Role','isActive','Email','Phone No'],
+                        colModel: [
+                            {name: 'id', index: 'id', width: 90},
+                            {name: 'userName', index: 'userName', width: 90},
+                            {name: 'systemRole', index: 'systemRole', width: 90},
+                            {name: 'isActive', index: 'isActive', width: 100},
+                            {name: 'email', index: 'email', width: 100},
+                            {name: 'phoneNo', index: 'phoneNo', width: 100}
+
+                        ],
+                        rowNum: 10,
+                        pager: '#userGridPager',
+                        sortname: 'id',
+                        viewrecords: true,
+                        sortorder: "desc",
+                        caption: "Wards",
+                        autowidth: true,
+                        shrinkToFit: true
+                    });
+            jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {edit: true, add: true, del: true});
+        }
+
+
+    </script>
 </head>
 <body>
 
@@ -90,7 +138,10 @@
                         </p>
                     </form:form>
                 </div>
-
+                <div id="tabs-2" class="contentTabs">
+                    <table id="userGrid"></table>
+                    <div id="userGridPager"></div>
+                </div>
             </div>
         </div>
         <div class="footer ui-layout-south">

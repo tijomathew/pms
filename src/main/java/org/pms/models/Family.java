@@ -58,15 +58,15 @@ public class Family implements Serializable {
     @Embedded
     private NativeAddress nativeAddress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_parish_id")
     private Parish familyParish;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_masscenter_id")
     private MassCenter familyMassCenter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_prayer_unit_id")
     private PrayerUnit familyPrayerUnit;
 

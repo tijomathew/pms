@@ -7,10 +7,13 @@ public class PrayerUnitDto {
 
     private Integer id;
     private Long wardID;
+    private String wardCode;
     private String wardName;
+    private String wardPlace;
     private String parishName;
     private String massCenterName;
     private String priestNames;
+    private String localAddress;
 
     public Integer getId() {
         return id;
@@ -58,5 +61,29 @@ public class PrayerUnitDto {
 
     public void setPriestNames(String priestNames) {
         this.priestNames = priestNames;
+    }
+
+    public String getWardPlace() {
+        return wardPlace;
+    }
+
+    public void setWardPlace(String wardPlace) {
+        this.wardPlace = wardPlace;
+    }
+
+    public String getLocalAddress() {
+        return localAddress;
+    }
+
+    public void setLocalAddress(String localAddress) {
+        this.localAddress = localAddress;
+    }
+
+    public String getWardCode() {
+        return wardCode;
+    }
+
+    public void setWardCode(String wardCode) {
+        this.wardCode = wardCode;
     }
 }

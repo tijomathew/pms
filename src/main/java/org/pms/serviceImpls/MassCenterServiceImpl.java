@@ -1,10 +1,13 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.MassCenterDao;
+import org.pms.daos.ParishDao;
+import org.pms.daos.PriestDao;
 import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.services.MassCenterService;
+import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,9 @@ public class MassCenterServiceImpl implements MassCenterService {
 
     @Autowired
     private MassCenterDao massCenterDao;
+
+    @Autowired
+    private PriestDao priestDao;
 
     @Override
     public boolean addMassCenterSM(MassCenter massCenter) {
@@ -64,10 +70,10 @@ public class MassCenterServiceImpl implements MassCenterService {
         if (!massCenterList.isEmpty()) {
             Integer uniqueId = 0;
             for (MassCenter massCenter : massCenterList) {
-                MassCenterDto massCenterDto = new MassCenterDto();
-                massCenterDto.setId(uniqueId);
-                massCenterDto.setMassCenterID(massCenter.getId());
-                massCenterDto.setMassCenterName(massCenter.getName());
+                MassCenterDto massCenterDto = new MassCenterDto(uniqueId,massCenter.getMassCenterID(),massCenter.getName(),massCenter.getPatronName(),massCenter.getPlace(),massCenter.getFacebookPage(),massCenter.getRegisteredDate(),massCenter.getDrivingRoute(),massCenter.getMap(),massCenter.getLandLineNo(),massCenter.getMobileNo(),massCenter.getEmail(),massCenter.getFaxNo());
+                massCenterDto.setParishName(massCenter.getMappedParish().getChurchName());
+                massCenterDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(massCenter.getLocalAddress(),7,"addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                /*massCenterDto.setPriestNames(priestDao.getPriestForIDDM(massCenter.));*/
                 massCenterDtoList.add(massCenterDto);
                 uniqueId += 1;
             }
