@@ -16,4 +16,6 @@ public interface MemberService {
     List<Member> getAllMember();
 
     List<MemberDto> createMemberDto(List<Member> memberList) throws IllegalArgumentException;
+
+    Long getMemberCountForFamily(Long familyId);
 }

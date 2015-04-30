@@ -8,6 +8,7 @@ import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +62,8 @@ public class ParishServiceImpl implements ParishService {
         if (!parishList.isEmpty()) {
             Integer uniqueId = 0;
             for (Parish parish : parishList) {
-                ParishDto parishDto = new ParishDto(uniqueId, parish.getId(), parish.getName(), parish.getRiteName(), parish.getDioceseName(), parish.getDioceseName(), parish.getForaneName(),parish.getFacebookPage(),parish.getWebSite(),parish.getCode(),parish.getPlace(),parish.getDrivingRoute(),parish.getMap(),parish.getRegisteredDate(),parish.getMobileNo(),parish.getEmail(),parish.getLandLineNo(),parish.getFaxNo());
-                parishDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(parish.getLocalAddress(),7,"addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "country", "pin"));
+                ParishDto parishDto = new ParishDto(uniqueId, parish.getId(), parish.getName(), parish.getRiteName(), parish.getDioceseName(), parish.getDioceseName(), parish.getForaneName(), parish.getFacebookPage(), parish.getWebSite(), parish.getCode(), parish.getPlace(), parish.getDrivingRoute(), parish.getMap(), parish.getRegisteredDate(), parish.getMobileNo(), parish.getEmail(), parish.getLandLineNo(), parish.getFaxNo());
+                parishDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(parish.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "country", "pin"));
                 parishDtoList.add(parishDto);
                 uniqueId += 1;
             }
@@ -80,6 +81,18 @@ public class ParishServiceImpl implements ParishService {
     @Override
     public void updateParish(Parish parish) {
         parishDao.updateParish(parish);
+    }
+
+    public Parish createParishFormBackObjectModel(Model model) {
+        String attachedStringToID = "PA";
+        Long parishCounter = getParishCount();
+        if (parishCounter < 10l) {
+            attachedStringToID += "0";
+        }
+        Parish formBackParish = new Parish();
+        formBackParish.setParishID(attachedStringToID + (++parishCounter));
+        model.addAttribute("parish", formBackParish);
+        return formBackParish;
     }
 
 }

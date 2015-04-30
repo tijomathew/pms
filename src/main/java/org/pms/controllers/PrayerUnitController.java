@@ -57,6 +57,14 @@ public class PrayerUnitController {
         MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
         prayerUnit.setMappedMassCenter(massCenter);
         massCenter.addPrayerUnitsForMassCenter(prayerUnit);
+
+        String attachedStringToID = massCenter.getMassCenterID() + "-PU";
+        Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+        if (prayerUnitCounter < 10) {
+            attachedStringToID += "0";
+        }
+
+        prayerUnit.setPrayerUnitCode(attachedStringToID + (++prayerUnitCounter));
         prayerUnitService.addPrayerUnitSM(prayerUnit);
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
@@ -73,7 +81,7 @@ public class PrayerUnitController {
         Integer totalRows = prayerUnitService.getPrayerUnitCount().intValue();
         List<PrayerUnitDto> allPrayerUnitSubList = new ArrayList<>();
 
-        if(totalRows > 0){
+        if (totalRows > 0) {
             allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, prayerUnitDtoList);
         }
 
@@ -87,7 +95,6 @@ public class PrayerUnitController {
 
         return JsonBuilder.convertToJson(resultContainer);
     }
-
 
 
 }

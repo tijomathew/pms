@@ -124,7 +124,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
             PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             massCenterList.add(prayerUnit.getMappedMassCenter());
             Long prayerUnitCounter = getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
-            formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
+            //formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
         } else {
             massCenterList = massCenterService.getAllMassCenter();
         }

@@ -30,11 +30,6 @@ public class FamilyDaoImpl implements FamilyDao {
     }
 
     @Override
-    public List<PrayerUnit> getAllWards() {
-        return sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class).list();
-    }
-
-    @Override
     public List<Family> getAllFamilies() {
         return sessionFactory.getCurrentSession().createCriteria(Family.class).list();
     }
@@ -46,6 +41,11 @@ public class FamilyDaoImpl implements FamilyDao {
 
     @Override
     public Long getFamilyTotalCount() {
-        return (Long)sessionFactory.getCurrentSession().createCriteria(Family.class,"family").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Override
+    public Long getFamilyCountForParish(Long parishId) {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").setProjection(Projections.rowCount()).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
     }
 }

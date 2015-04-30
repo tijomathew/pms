@@ -104,7 +104,7 @@ public class LoginController {
                 model.addAttribute("loginUser", new User());
                 break;
             case PageNames.PARISH:
-                Parish parishFormBackObject = createParishFormBackObject(model);
+                Parish parishFormBackObject = parishService.createParishFormBackObjectModel(model);
                 model.addAttribute("showAddButton",true);
                 model.addAttribute("parish", parishFormBackObject);
                 break;
@@ -124,14 +124,4 @@ public class LoginController {
                 break;
         }
     }
-
-    private Parish createParishFormBackObject(Model model) {
-        Long parishCounter = parishService.getParishCount();
-        Parish formBackParish = new Parish();
-        formBackParish.setParishID("PA" + (++parishCounter));
-        model.addAttribute("parish", formBackParish);
-        return formBackParish;
-    }
-
-
 }

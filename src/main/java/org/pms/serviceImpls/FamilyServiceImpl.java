@@ -57,8 +57,8 @@ public class FamilyServiceImpl implements FamilyService {
                 familyDto.setParishLocal(family.getFamilyParish().getChurchName());
                 familyDto.setMassCenter(family.getFamilyMassCenter().getName());
                 familyDto.setPrayerUnit(family.getFamilyPrayerUnit().getPrayerUnitName());
-                familyDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getLocalAddress(),7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
-                familyDto.setNativeAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getNativeAddress(),8,"addressLineOne", "addressLineTwo", "addressLineThree", "postOffice", "district", "state", "pin", "country"));
+                familyDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                familyDto.setNativeAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(family.getNativeAddress(), 8, "addressLineOne", "addressLineTwo", "addressLineThree", "postOffice", "district", "state", "pin", "country"));
                 familyDtoList.add(familyDto);
                 uniqueId += 1;
             }
@@ -71,5 +71,10 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public Long getFamilyTotalCount() {
         return familyDao.getFamilyTotalCount();
+    }
+
+    @Override
+    public Long getFamilyCountForParish(Long parishId) {
+        return familyDao.getFamilyCountForParish(parishId);
     }
 }
