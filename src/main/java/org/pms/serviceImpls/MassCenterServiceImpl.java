@@ -149,4 +149,9 @@ public class MassCenterServiceImpl implements MassCenterService {
             formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
         }
     }
+
+    @Override
+    public Long getAllMassCenterCount() {
+        return massCenterDao.getAllMassCenterCount();
+    }
 }

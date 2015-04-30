@@ -9,11 +9,10 @@ public class UserDto {
     private String systemRole;
     private String isActive;
     private String email;
-    private Long phoneNo;
-    private String parishId;
-    private String massCenterId;
-    private String prayerUnitId;
-    private String familyId;
+    private Long parishId;
+    private Long massCenterId;
+    private Long prayerUnitId;
+    private Long familyId;
 
     public Integer getId() {
         return id;
@@ -55,43 +54,35 @@ public class UserDto {
         this.email = email;
     }
 
-    public Long getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(Long phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getParishId() {
+    public Long getParishId() {
         return parishId;
     }
 
-    public void setParishId(String parishId) {
+    public void setParishId(Long parishId) {
         this.parishId = parishId;
     }
 
-    public String getMassCenterId() {
+    public Long getMassCenterId() {
         return massCenterId;
     }
 
-    public void setMassCenterId(String massCenterId) {
+    public void setMassCenterId(Long massCenterId) {
         this.massCenterId = massCenterId;
     }
 
-    public String getPrayerUnitId() {
+    public Long getPrayerUnitId() {
         return prayerUnitId;
     }
 
-    public void setPrayerUnitId(String prayerUnitId) {
+    public void setPrayerUnitId(Long prayerUnitId) {
         this.prayerUnitId = prayerUnitId;
     }
 
-    public String getFamilyId() {
+    public Long getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(String familyId) {
+    public void setFamilyId(Long familyId) {
         this.familyId = familyId;
     }
 }

@@ -63,4 +63,9 @@ public class MassCenterDaoImpl implements MassCenterDao {
     public MassCenter getMassCenterByMassCenterID(String massCenterID) {
         return (MassCenter) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.massCenterID", massCenterID)).uniqueResult();
     }
+
+    @Override
+    public Long getAllMassCenterCount() {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class,"massCenter").setProjection(Projections.rowCount()).uniqueResult();
+    }
 }

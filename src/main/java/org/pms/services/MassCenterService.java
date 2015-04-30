@@ -29,6 +29,8 @@ public interface MassCenterService {
 
     void updateMassCenter(MassCenter massCenter);
 
+    Long getAllMassCenterCount();
+
     MassCenter createMassCenterFormBackObject(Model model);
 
 }

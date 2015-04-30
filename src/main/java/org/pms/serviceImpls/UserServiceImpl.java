@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
                 userDto.setId(uniqueId);
                 userDto.setEmail(user.getEmail());
                 userDto.setIsActive(user.getIsActive());
-                userDto.setPhoneNo(user.getPhoneNo());
                 userDto.setFamilyId(user.getMassCenterId());
                 userDto.setParishId(user.getParishId());
                 userDto.setSystemRole(user.getSystemRole());

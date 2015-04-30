@@ -26,4 +26,6 @@ public interface MassCenterDao {
     void updateMassCenter(MassCenter massCenter);
 
     MassCenter getMassCenterByMassCenterID(String massCenterID);
+
+    Long getAllMassCenterCount();
 }

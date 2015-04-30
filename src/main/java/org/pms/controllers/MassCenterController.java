@@ -131,7 +131,7 @@ public class MassCenterController {
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<MassCenter> allMassCenters = massCenterService.getAllMassCenter();
         List<MassCenterDto> massCenterDtoList = massCenterService.createMassCenterDto(allMassCenters);
-        Integer massCenterCount = massCenterService.getMassCenterCount().intValue();
+        Long massCenterCount = massCenterService.getAllMassCenterCount();
         List<MassCenterDto> allUsersSublist = new ArrayList<MassCenterDto>();
         if (massCenterCount > 0) {
             allUsersSublist = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), massCenterDtoList);
@@ -143,7 +143,7 @@ public class MassCenterController {
         }
 
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(massCenterCount, page, rows, massCenterGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(massCenterCount.intValue(), page, rows, massCenterGridRows);
 
         return JsonBuilder.convertToJson(resultContainer);
     }
