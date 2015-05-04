@@ -96,7 +96,7 @@
                                         </tr>
                                         <tr>
                                             <td>Prayer Unit Code :</td>
-                                            <td><form:input path="prayerUnitCode" id="prayerUnitCode"/></td>
+                                            <td><form:input path="prayerUnitCode" id="prayerUnitCode" readonly="true"/></td>
                                         </tr>
                                         <tr>
                                             <td>Prayer Unit Place :</td>

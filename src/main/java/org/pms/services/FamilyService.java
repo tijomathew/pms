@@ -21,4 +21,6 @@ public interface FamilyService {
 
     Long getFamilyTotalCount();
 
+    Long getFamilyCountForParish(Long parishId);
+
 }

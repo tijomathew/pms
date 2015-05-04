@@ -71,6 +71,14 @@ public class PriestController {
         priest.setParish(mappedParish);
         mappedParish.addPriestsForParish(priest);
 
+        String attachedStringToID = mappedParish.getParishID()+"-"+"PR";
+        Long priestAutoID = priestService.getHighestAutoIDSM();
+        if(priestAutoID<10){
+            attachedStringToID+="0";
+        }
+
+        priest.setPriestID(attachedStringToID+priestAutoID);
+
         PriestDesignation priestDesignation = new PriestDesignation();
         priestDesignation.setDesignation(priest.getDesignation());
         priestDesignation.setParishId(mappedParish.getParishID());
@@ -110,7 +118,6 @@ public class PriestController {
 
     private void createPriestFormBackObject(Model model) {
         Priest formDisplayPriest = new Priest();
-        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());
         model.addAttribute("priest", formDisplayPriest);
 
         Map<Long, String> parishMap = new HashMap<Long, String>();

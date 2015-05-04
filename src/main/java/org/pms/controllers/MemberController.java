@@ -43,8 +43,6 @@ public class MemberController {
     @Autowired
     private FamilyService familyService;
 
-    private ServletContext servletContext;
-
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
         model.addAttribute("member", new Member());
@@ -70,6 +68,14 @@ public class MemberController {
         Family family = familyService.getFamilyForID(member.getFamilyId());
         family.addMemberForFamily(member);
         member.setFamilyMember(family);
+
+        String attachedStringToID = family.getFamilyID() + "-M";
+        Long memberCountForFamily = memberService.getMemberCountForFamily(family.getId());
+        if (memberCountForFamily < 10) {
+            attachedStringToID += "0";
+        }
+        member.setMemberID(attachedStringToID + (++memberCountForFamily));
+        
         memberService.addMemberSM(member);
         return "member";
     }

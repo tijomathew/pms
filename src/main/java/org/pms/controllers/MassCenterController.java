@@ -61,10 +61,15 @@ public class MassCenterController {
         //add mass center to the parish mass center list.
         parish.addMassCentersForParish(massCenter);
 
+        String attachedStringToID = parish.getParishID() + "-MC";
+
         //set mass center ID if its not set in the view code.
         if (massCenter.getMassCenterID().isEmpty()) {
             Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
-            massCenter.setMassCenterID("MC" + (++massCenterCount));
+            if (massCenterCount < 10) {
+                attachedStringToID += "0";
+            }
+            massCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
         }
 
         //get all active priests for the respective parish.

@@ -10,7 +10,10 @@ import java.util.List;
  */
 public interface MemberDao {
 
-    public boolean addMemberDM(Member member);
+    boolean addMemberDM(Member member);
 
-    public List<Member> getAllMembers();
+    List<Member> getAllMembers();
+
+    Long getMemberCountForFamily(Long familyId);
+
 }

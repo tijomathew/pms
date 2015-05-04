@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface FamilyDao {
 
-    public boolean addFamilyDM(Family family);
+    boolean addFamilyDM(Family family);
 
-    public List<PrayerUnit> getAllWards();
+    List<Family> getAllFamilies();
 
-    public List<Family> getAllFamilies();
-
-    public Family getFamilyForID(Long id);
+    Family getFamilyForID(Long id);
 
     Long getFamilyTotalCount();
+
+    Long getFamilyCountForParish(Long parishId);
 }

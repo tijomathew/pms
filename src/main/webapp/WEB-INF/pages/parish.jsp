@@ -148,7 +148,7 @@
                                         </tr>
                                         <tr>
                                             <td>Parish ID :</td>
-                                            <td><form:input path="parishID" id="parishID" class="textBox"/></td>
+                                            <td><form:input path="parishID" id="parishID" class="textBox" readonly="true"/></td>
                                         </tr>
                                         <tr>
                                             <td>Parish Name :</td>

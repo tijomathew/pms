@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
 import org.pms.helpers.GridContainer;
@@ -41,7 +42,7 @@ public class FamilyController {
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         model.addAttribute("family", new Family());
-        return "family";
+        return PageNames.FAMILY;
     }
 
     @RequestMapping(value = "/addFamily.action", method = RequestMethod.POST)
@@ -49,15 +50,23 @@ public class FamilyController {
         model.addAttribute("family", new Family());
         Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
         MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
-        PrayerUnit wardForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
+        PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
         family.setFamilyParish(parishForFamily);
         parishForFamily.addFamilyForParish(family);
         family.setFamilyMassCenter(massCenterForFamily);
         massCenterForFamily.addFamilyForMassCenter(family);
-        family.setFamilyPrayerUnit(wardForFamily);
-        wardForFamily.addFamilyForWard(family);
+        family.setFamilyPrayerUnit(prayerUnitForFamily);
+        prayerUnitForFamily.addFamilyForWard(family);
+
+        String attachedStringToID = prayerUnitForFamily.getPrayerUnitCode() + "-FA";
+        Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
+        if (familyCounterForParish < 10) {
+            attachedStringToID += "0";
+        }
+
+        family.setFamilyID(attachedStringToID + (++familyCounterForParish));
         familyService.addFamilySM(family);
-        return "family";
+        return PageNames.FAMILY;
     }
 
     @RequestMapping(value = "createParishSelectBox.action", method = RequestMethod.GET)
@@ -109,7 +118,7 @@ public class FamilyController {
         Integer totalFamilyCount = familyService.getFamilyTotalCount().intValue();
         List<FamilyDto> allFamilySublist = new ArrayList<>();
 
-        if(totalFamilyCount > 0){
+        if (totalFamilyCount > 0) {
             allFamilySublist = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
         }
 

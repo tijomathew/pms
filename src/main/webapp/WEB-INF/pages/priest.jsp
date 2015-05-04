@@ -114,7 +114,7 @@
                                         <tr>
                                             <td>Priest ID:</td>
                                             <td><form:input path="priestID"
-                                                            id="priestID" readonly="true"/></td>
+                                                            id="priestID" readonly="true" placeholder="auto generated value"/></td>
                                         </tr>
                                         <tr>
                                             <td>Salutation :</td>
