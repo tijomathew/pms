@@ -14,10 +14,7 @@ import org.pms.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -83,23 +80,29 @@ public class MemberController {
     @RequestMapping(value = "/displayMemberGrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMembers() {
+    Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Member> allMembers = memberService.getAllMember();
         List<MemberDto> memberDtoList = memberService.createMemberDto(allMembers);
+        Integer totalMembersCount = memberService.getMemberTotalCount().intValue();
         List<GridRow> memberGridRows = new ArrayList<GridRow>(memberDtoList.size());
-        for (MemberDto memberDto : memberDtoList) {
+        List<MemberDto> allMemberSubList = new ArrayList<>();
+
+        if(totalMembersCount > 0){
+            allMemberSubList = JsonBuilder.generateSubList(page,rows,totalMembersCount,memberDtoList);
+        }
+
+        for (MemberDto memberDto : allMemberSubList) {
             memberGridRows.add(new MemberWrapper(memberDto));
         }
 
-        HttpServletRequest curRequest =
+      /*  HttpServletRequest curRequest =
                 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                        .getRequest();
+                        .getRequest();*/
 
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, memberGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(totalMembersCount, page, rows, memberGridRows);
 
         return JsonBuilder.convertToJson(resultContainer);
     }
-
 
 }

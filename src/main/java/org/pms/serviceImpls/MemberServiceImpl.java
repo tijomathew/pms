@@ -57,4 +57,9 @@ public class MemberServiceImpl implements MemberService {
     public Long getMemberCountForFamily(Long familyId) {
         return memberDao.getMemberCountForFamily(familyId);
     }
+
+    @Override
+    public Long getMemberTotalCount() {
+        return memberDao.getMemberTotalCount();
+    }
 }

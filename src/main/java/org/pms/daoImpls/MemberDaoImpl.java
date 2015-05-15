@@ -38,4 +38,9 @@ public class MemberDaoImpl implements MemberDao {
     public Long getMemberCountForFamily(Long familyId) {
         return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).uniqueResult();
     }
+
+    @Override
+    public Long getMemberTotalCount() {
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class,"member").setProjection(Projections.rowCount()).uniqueResult();
+    }
 }
