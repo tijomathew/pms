@@ -16,4 +16,6 @@ public interface MemberDao {
 
     Long getMemberCountForFamily(Long familyId);
 
+    Long getMemberTotalCount();
+
 }

@@ -97,19 +97,25 @@ public class MemberController {
     @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMembers() {
+    Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Member> allMembers = memberService.getAllMember();
         List<MemberDto> memberDtoList = memberService.createMemberDto(allMembers);
+        Integer totalMembersCount = memberService.getMemberTotalCount().intValue();
         List<GridRow> memberGridRows = new ArrayList<GridRow>(memberDtoList.size());
-        for (MemberDto memberDto : memberDtoList) {
-            memberGridRows.add(new MemberWrapper(memberDto));
+        List<MemberDto> allMemberSubList = new ArrayList<>();
+
+        if(totalMembersCount > 0){
+            allMemberSubList = JsonBuilder.generateSubList(page,rows,totalMembersCount,memberDtoList);
         }
 
+        for (MemberDto memberDto : allMemberSubList) {
+            memberGridRows.add(new MemberWrapper(memberDto));
+        }   
+
         GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, memberGridRows);
+        GridContainer resultContainer = gridGenerator.createGridContainer(totalMembersCount, page, rows, memberGridRows);
 
         return JsonBuilder.convertToJson(resultContainer);
     }
-
 
 }

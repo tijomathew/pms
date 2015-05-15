@@ -48,7 +48,7 @@
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
-                        rowList: [10, 20, 30],
+                        rowList: [2, 4, 6],
                         colNames: ['MemberID', 'Member Name', 'Date of Birth','placeOfBirth','gender','nationality','jobDetails','personalStatus','bloodGroup','carNumber','liveStatus','personalRemarks','piousAssociation','sundayCatechism','sacramentalLife','churchRemarks','email','mobNo','landLineNo','faxNo','dateOfBaptism','churchOfBaptism','countryOfBaptism','baptismName','ministerOfBaptism','baptismGodFather','baptismGodMother','patronSaint','patronSaintFeastDay',"dateOfConfirmation","churchOfConfirmation","countryOfConfirmation","ministerOfConfirmation","confirmationGodFather","confirmationGodMother","dateOfFirstCommunion","churchOfHolyCommunion","countryOfHolyCommunion","ministerOfHolyCommunion","dateOfBetrothal","churchOfBetrothal","countryOfBetrothal","priestOfBetrothal","spouseName","spouseBaptismName","spouseNativeParish","spouseNativeDiocese","spouseFatherName","spouseMotherName","spouseNativeAddress","spouseNationality","betrothalWitnessOne","betrothalWitnessTwo","dateOfMarriage","churchOfMarriage","priestOfMarriage","marriageWitnessOne","marriageWitnessTwo","dateOfDeath","placeOfDeath","funeralDate","buriedChurch","ministerOfDeath","placeOfCemetery","tombNo","confession","communion","anointingTheSick","ministerOfAnointingTheSick"],
                         colModel: [
 
@@ -122,7 +122,7 @@
                             {name: 'anointingTheSick', index: 'anointingTheSick', width: 100,hidedlg: true,hidden:true},
                             {name: 'ministerOfAnointingTheSick', index: 'ministerOfAnointingTheSick', width: 100,hidedlg: true,hidden:true},
                         ],
-                        rowNum: 10,
+                        rowNum: 2,
                         pager: '#memberGridPager',
                         sortname: 'id',
                         viewrecords: true,
@@ -184,25 +184,23 @@
                                     });
                                 }
                             });
-
-
-
-
-                        },
-                        loadComplete : function () {
-                            jQuery("#memberGrid").jqGrid('setGroupHeaders', {
-                                useColSpanStyle: true,
-                                groupHeaders:[
-                                    {startColumnName: 'email', numberOfColumns: 4, titleText: 'Contact Details'},
-                                    {startColumnName: 'dateOfBaptism', numberOfColumns: 9, titleText: 'Baptism Details'},
-                                    {startColumnName: 'dateOfConfirmation', numberOfColumns: 6, titleText: 'Confirmation Details'},
-                                    {startColumnName: 'dateOfFirstCommunion', numberOfColumns: 4, titleText: 'HolyCommunion Details'},
-                                ]
-                            });
                         }
                     });
 
             jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: true, add: true, del: true});
+
+            //to solve groupheader duplicate issue on clicking #tab-2 more than once
+            jQuery("#memberGrid").jqGrid('destroyGroupHeader');
+
+            jQuery("#memberGrid").jqGrid('setGroupHeaders', {
+                useColSpanStyle: true,
+                groupHeaders:[
+                    {startColumnName: 'email', numberOfColumns: 4, titleText: 'Contact Details'},
+                    {startColumnName: 'dateOfBaptism', numberOfColumns: 9, titleText: 'Baptism Details'},
+                    {startColumnName: 'dateOfConfirmation', numberOfColumns: 6, titleText: 'Confirmation Details'},
+                    {startColumnName: 'dateOfFirstCommunion', numberOfColumns: 4, titleText: 'HolyCommunion Details'},
+                ]
+            });
         }
 
 
