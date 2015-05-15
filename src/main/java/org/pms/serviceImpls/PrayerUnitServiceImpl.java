@@ -60,7 +60,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<PrayerUnit> getWardsForMassCenterIDSM(Long massCenterID) {
+    public List<PrayerUnit> getPrayerUnitForMassCenterIDSM(Long massCenterID) {
         return prayerUnitDao.getPrayerUnitsForMassCenterIDDM(massCenterID);
     }
 

@@ -3,7 +3,7 @@
  */
 
 function loadSelectBox(contextPath) {
-    $.getJSON(contextPath + '/createFamilySelectBox.action',
+    $.getJSON(contextPath + '/createfamilyselectbox.action',
         {},
         function (data) {
             var html = '<option value="' + 0 + '">' + "Please select" + '</option>';

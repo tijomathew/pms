@@ -16,7 +16,7 @@ public interface PrayerUnitService {
 
     List<PrayerUnit> getAllPrayerUnits();
 
-    List<PrayerUnit> getWardsForMassCenterIDSM(Long massCenterID);
+    List<PrayerUnit> getPrayerUnitForMassCenterIDSM(Long massCenterID);
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
 

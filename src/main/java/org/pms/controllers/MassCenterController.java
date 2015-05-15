@@ -1,12 +1,10 @@
 package org.pms.controllers;
 
 import org.pms.constants.PageNames;
+import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.dtos.MassCenterDto;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
-import org.pms.helpers.GridRow;
-import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
 import org.pms.services.ParishService;
@@ -41,6 +39,9 @@ public class MassCenterController {
 
     @Autowired
     private PriestService priestService;
+
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewmassCenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
@@ -122,8 +123,18 @@ public class MassCenterController {
             }
         }
 
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        boolean permissionDenied = false;
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            permissionDenied = true;
+        }
         //save the mass center with its various relationships.
-        massCenterService.addMassCenterSM(massCenter);
+        if (!permissionDenied) {
+            massCenterService.addMassCenterSM(massCenter);
+        } else {
+            // show the error that mass center cannot be add by mass center admin. He can edit only his mass center information.
+        }
 
         massCenterService.createMassCenterFormBackObject(modelMap);
 

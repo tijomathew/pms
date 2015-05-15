@@ -31,12 +31,12 @@
 
 
                         },
-                        url: '${pageContext.request.contextPath}/displayUserGrid.action',
+                        url: '${pageContext.request.contextPath}/displayusergrid.action',
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [10, 20, 30],
-                        colNames: ['id','User Name','Role','isActive','Email','Phone No'],
+                        colNames: ['id', 'User Name', 'Role', 'isActive', 'Email', 'Phone No'],
                         colModel: [
                             {name: 'id', index: 'id', width: 90},
                             {name: 'userName', index: 'userName', width: 90},
@@ -51,7 +51,7 @@
                         sortname: 'id',
                         viewrecords: true,
                         sortorder: "desc",
-                        caption: "Wards",
+                        caption: "Users",
                         autowidth: true,
                         shrinkToFit: true
                     });
@@ -77,7 +77,7 @@
                 </ul>
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="user"
-                               action="${pageContext.request.contextPath}/addUser.action" method="post" id="adminForm">
+                               action="${pageContext.request.contextPath}/adduser.action" method="post" id="adminForm">
                         <div class="sectionLeft">
 
                             <section class="contentDoc ">
@@ -100,10 +100,9 @@
                                         <tr>
                                             <td>System Role :</td>
                                             <td><form:select path="systemRole" id="systemRole">
-                                                <form:option value="Admin">Admin</form:option>
                                                 <form:option value="Family Head">Family Head</form:option>
                                                 <form:option value="Parish Admin">Parish Admin</form:option>
-                                                <form:option value="Masscenter Admin">Mass Center Admin</form:option>
+                                                <form:option value="Mass Center Admin">Mass Center Admin</form:option>
                                                 <form:option value="Prayer Unit Admin">Prayer Unit Admin</form:option>
                                             </form:select>
                                             </td>
@@ -119,18 +118,31 @@
                                         </tr>
                                         <tr>
                                             <td>Parish:</td>
-                                            <td><form:select path="parishId"
-                                                             items="${parishList}"></form:select></td>
+                                            <td><form:select path="parishId">
+                                                <form:option value="0">--Select--</form:option>
+                                                <form:options items="${parishList}"/>
+                                            </form:select></td>
                                         </tr>
                                         <tr>
                                             <td>Mass Center:</td>
-                                            <td><form:select path="massCenterId"
-                                                             items="${massCenterList}"></form:select></td>
+                                            <td><form:select path="massCenterId">
+                                                <form:option value="0">--Select--</form:option>
+                                                <form:options items="${massCenterList}"/>
+                                            </form:select></td>
                                         </tr>
                                         <tr>
                                             <td>Prayer Unit:</td>
-                                            <td><form:select path="prayerUnitId"
-                                                             items="${prayerUnitList}"></form:select></td>
+                                            <td><form:select path="prayerUnitId">
+                                                <form:option value="0">--Select--</form:option>
+                                                <form:options items="${prayerUnitList}"/>
+                                            </form:select></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Family:</td>
+                                            <td><form:select path="familyId">
+                                                <form:option value="0">--Select--</form:option>
+                                                <form:options items="${familyList}"/>
+                                            </form:select></td>
                                         </tr>
                                     </table>
                                 </div>

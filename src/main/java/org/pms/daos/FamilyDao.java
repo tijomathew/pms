@@ -20,4 +20,12 @@ public interface FamilyDao {
     Long getFamilyTotalCount();
 
     Long getFamilyCountForParish(Long parishId);
+
+    List<Family> getAllFamilyForParishID(Long parishId);
+
+    List<Family> getAllFamilyForMassCenterID(Long massCenterId);
+
+    List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId);
+
+    List<Family> getFamilyForFamilyID(Long familyId);
 }

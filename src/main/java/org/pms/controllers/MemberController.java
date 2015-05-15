@@ -1,14 +1,13 @@
 package org.pms.controllers;
 
+import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.dtos.MemberDto;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
-import org.pms.helpers.GridRow;
-import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
 import org.pms.models.SelectBox;
+import org.pms.models.User;
 import org.pms.services.FamilyService;
 import org.pms.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,17 +42,32 @@ public class MemberController {
     @Autowired
     private FamilyService familyService;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
         model.addAttribute("member", new Member());
         return "member";
     }
 
-    @RequestMapping(value = "/createFamilySelectBox.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/createfamilyselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
     String generateFamilySelectBox() {
-        List<Family> familyList = familyService.getAllFamilySM();
+        List<Family> familyList = new ArrayList<>();
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            familyList = familyService.getAllFamilyForParishID(currentUser.getParishId());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            familyList = familyService.getAllFamilyForMassCenterID(currentUser.getMassCenterId());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            familyList = familyService.getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
+        } else {
+            familyList = familyService.getAllFamilySM();
+        }
         List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>();
         for (Family family : familyList) {
             SelectBox<String> selectBox = new SelectBox<String>(String.valueOf(family.getId()), family.getFamilyName());
@@ -62,7 +76,7 @@ public class MemberController {
         return new SelectBox<String>().getJsonForSelectBoxCreation(selectBoxList);
     }
 
-    @RequestMapping(value = "/addMember.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addmember.action", method = RequestMethod.POST)
     public String addMember(@ModelAttribute("member") Member member, Model model) {
         model.addAttribute("member", new Member());
         Family family = familyService.getFamilyForID(member.getFamilyId());
@@ -75,12 +89,12 @@ public class MemberController {
             attachedStringToID += "0";
         }
         member.setMemberID(attachedStringToID + (++memberCountForFamily));
-        
+
         memberService.addMemberSM(member);
         return "member";
     }
 
-    @RequestMapping(value = "/displayMemberGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForMembers() {
@@ -90,10 +104,6 @@ public class MemberController {
         for (MemberDto memberDto : memberDtoList) {
             memberGridRows.add(new MemberWrapper(memberDto));
         }
-
-        HttpServletRequest curRequest =
-                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                        .getRequest();
 
         GridGenerator gridGenerator = new GridGenerator();
         GridContainer resultContainer = gridGenerator.createGridContainer(10, 2, 20, memberGridRows);

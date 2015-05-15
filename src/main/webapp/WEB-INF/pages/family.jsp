@@ -17,14 +17,13 @@
             language="javascript"></script>
 
     <c:set var="loadBox" value="false"/>
-   <%-- <c:if test="${loadBox==true}">--%>
+    <%-- <c:if test="${loadBox==true}">--%>
     <script type="text/javascript">
         $(document).ready(function () {
             loadSelectBox("${pageContext.request.contextPath}");
         });
     </script>
-   <%-- </c:if>--%>
-
+    <%-- </c:if>--%>
 
 
     <script type="text/javascript">
@@ -47,12 +46,12 @@
 
 
                         },
-                        url: '${pageContext.request.contextPath}/displayFamilyGrid.action',
+                        url: '${pageContext.request.contextPath}/displayfamilygrid.action',
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['Family ID', 'Family Name','parishInNative','dioceseInNative','dateOfRegistration','parishLocal',"massCenter","prayerUnit","localAddress","nativeAddress"],
+                        colNames: ['Family ID', 'Family Name', 'parishInNative', 'dioceseInNative', 'dateOfRegistration', 'parishLocal', "massCenter", "prayerUnit", "localAddress", "nativeAddress"],
                         colModel: [
 
                             {name: 'familyID', index: 'familyID', width: 90},
@@ -98,7 +97,7 @@
                 </ul>
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="family"
-                               action="${pageContext.request.contextPath}/addFamily.action" method="post"
+                               action="${pageContext.request.contextPath}/addfamily.action" method="post"
                                id="familyForm1">
                         <div class="sectionLeft">
 
@@ -140,7 +139,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Ward :</td>
+                                            <td>Prayer Unit :</td>
                                             <td><form:select path="prayerUnitId" id="wardSelectBox">
                                                 <option value="select">--Please select--</option>
                                             </form:select>

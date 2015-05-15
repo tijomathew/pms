@@ -3,7 +3,7 @@
  */
 
 function loadSelectBox(contextPath) {
-    $.getJSON(contextPath + '/createParishSelectBox.action',
+    $.getJSON(contextPath + '/createparishselectbox.action',
         {},
         function (data) {
             $('#massCenterSelectBox').empty();
@@ -16,7 +16,7 @@ function loadSelectBox(contextPath) {
             $('#parishSelectBox').append(html);
         });
     $('#parishSelectBox').change(function () {
-            $.getJSON(contextPath + "/createMassCenterSelectBox.action",
+            $.getJSON(contextPath + "/createmasscenterselectbox.action",
                 {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
                     $('#massCenterSelectBox').empty();
@@ -32,7 +32,7 @@ function loadSelectBox(contextPath) {
     );
 
     $('#massCenterSelectBox').change(function () {
-            $.getJSON(contextPath + "/createWardSelectBox.action",
+            $.getJSON(contextPath + "/createprayerunitselectbox.action",
                 {selectedMassCenterId: $('#massCenterSelectBox').val()},
                 function (data) {
                     $('#wardSelectBox').empty();

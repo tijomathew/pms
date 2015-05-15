@@ -1,12 +1,10 @@
 package org.pms.controllers;
 
 import org.pms.constants.PageNames;
+import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
-import org.pms.helpers.GridRow;
-import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
 import org.pms.services.MassCenterService;
@@ -39,13 +37,16 @@ public class FamilyController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         model.addAttribute("family", new Family());
         return PageNames.FAMILY;
     }
 
-    @RequestMapping(value = "/addFamily.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addfamily.action", method = RequestMethod.POST)
     public String addFamily(@ModelAttribute("family") Family family, Model model) {
         model.addAttribute("family", new Family());
         Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
@@ -65,15 +66,42 @@ public class FamilyController {
         }
 
         family.setFamilyID(attachedStringToID + (++familyCounterForParish));
-        familyService.addFamilySM(family);
+
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        boolean permissionDenied = false;
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            permissionDenied = true;
+        }
+
+        if (!permissionDenied) {
+            familyService.addFamilySM(family);
+        } else {
+            //show the error that family cannot be add by family admin. He can edit only his information.
+        }
         return PageNames.FAMILY;
     }
 
-    @RequestMapping(value = "createParishSelectBox.action", method = RequestMethod.GET)
+    @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
     String generateParishSelectBox() {
-        List<Parish> parishList = parishService.getAllParish();
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        List<Parish> parishList = new ArrayList<>();
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            parishList.add(parishService.getParishForIDSM(currentUser.getParishId()));
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
+            parishList.add(massCenter.getMappedParish());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
+            parishList.add(prayerUnit.getMappedMassCenter().getMappedParish());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            Family family = familyService.getFamilyForID(currentUser.getFamilyId());
+            parishList.add(family.getFamilyParish());
+        } else {
+            parishList = parishService.getAllParish();
+        }
         List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>();
         for (Parish parish : parishList) {
             SelectBox<String> selectBox = new SelectBox<String>(String.valueOf(parish.getId()), parish.getName());
@@ -83,12 +111,24 @@ public class FamilyController {
         return selectBox.getJsonForSelectBoxCreation(selectBoxList);
     }
 
-    @RequestMapping(value = "/createMassCenterSelectBox.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/createmasscenterselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
     String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
         if (selectedParishID != 0l) {
-            List<MassCenter> massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
+            List<MassCenter> massCenterListForParishID = new ArrayList<>();
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+                massCenterListForParishID.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
+            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+                PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
+                massCenterListForParishID.add(prayerUnitOfCurrentUser.getMappedMassCenter());
+            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+                Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
+                massCenterListForParishID.add(familyOfCurrentUser.getFamilyMassCenter());
+            } else {
+                massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
+            }
             List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>(massCenterListForParishID.size());
             for (MassCenter massCenter : massCenterListForParishID)
                 selectBoxList.add(new SelectBox<String>(String.valueOf(massCenter.getId()), massCenter.getName()));
@@ -97,18 +137,28 @@ public class FamilyController {
         return null;
     }
 
-    @RequestMapping(value = "/createWardSelectBox.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/createprayerunitselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
     String generateWardSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
-        List<PrayerUnit> wardList = prayerUnitService.getWardsForMassCenterIDSM(selectedMassCenterId);
-        List<SelectBox<String>> wardSelectBoxList = new ArrayList<SelectBox<String>>();
-        for (PrayerUnit ward : wardList)
-            wardSelectBoxList.add(new SelectBox<String>(ward.getPrayerUnitName(), String.valueOf(ward.getId())));
-        return new SelectBox<String>().getJsonForSelectBoxCreation(wardSelectBoxList);
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        List<PrayerUnit> prayerUnitList = new ArrayList<>();
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
+            prayerUnitList.add(prayerUnitOfCurrentUser);
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
+            prayerUnitList.add(familyOfCurrentUser.getFamilyPrayerUnit());
+        } else {
+            prayerUnitList = prayerUnitService.getPrayerUnitForMassCenterIDSM(selectedMassCenterId);
+        }
+        List<SelectBox<String>> prayerUnitSelectBoxList = new ArrayList<SelectBox<String>>();
+        for (PrayerUnit prayerUnit : prayerUnitList)
+            prayerUnitSelectBoxList.add(new SelectBox<String>(prayerUnit.getPrayerUnitName(), String.valueOf(prayerUnit.getId())));
+        return new SelectBox<String>().getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
     }
 
-    @RequestMapping(value = "/displayFamilyGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/displayfamilygrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {

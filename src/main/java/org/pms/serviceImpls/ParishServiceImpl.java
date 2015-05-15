@@ -1,8 +1,11 @@
 package org.pms.serviceImpls;
 
+import org.pms.constants.SystemRoles;
 import org.pms.daos.ParishDao;
 import org.pms.dtos.ParishDto;
+import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.Parish;
+import org.pms.models.User;
 import org.pms.services.ParishService;
 import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +28,21 @@ public class ParishServiceImpl implements ParishService {
     @Autowired
     private ParishDao parishDao;
 
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
     @Override
     public boolean addParishSM(Parish parish) {
-       /* String priestIDs =""; //parish.getPriest();
-        List<String> seperatedPriestIDs = Arrays.asList(priestIDs.split(","));
-        List<Priest> priestListOfParish = new ArrayList<Priest>();
-        if (!seperatedPriestIDs.isEmpty()) {
-            for (String priestID : seperatedPriestIDs) {
-                priestListOfParish.add(parishDao.getPriestDM(priestID));
-            }
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        boolean permissionDenied = false;
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            permissionDenied = true;
         }
-        if (!priestListOfParish.isEmpty()) {
-            for (Priest priest : priestListOfParish) {
-                priest.setParish(parish);
-                parish.addPriestsForParish(priest);
-                parishDao.updatePriestForParish(priest);
-            }
-        }*/
-        parishDao.addParishDM(parish);
+        if (!permissionDenied) {
+            parishDao.addParishDM(parish);
+        } else {
+            //show the error message that parish cannot be add by Parish Admin. He can edit only the Assigned Parish.
+        }
         return true;
     }
 

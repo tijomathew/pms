@@ -65,7 +65,18 @@ public class PrayerUnitController {
         }
 
         prayerUnit.setPrayerUnitCode(attachedStringToID + (++prayerUnitCounter));
-        prayerUnitService.addPrayerUnitSM(prayerUnit);
+
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        boolean permissionDenied = false;
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            permissionDenied = true;
+        }
+        if (!permissionDenied) {
+            prayerUnitService.addPrayerUnitSM(prayerUnit);
+        } else {
+            // show the error that prayer unit cannot be add by Prayer Unit admin. He can edit only its information.
+        }
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 

@@ -48,4 +48,24 @@ public class FamilyDaoImpl implements FamilyDao {
     public Long getFamilyCountForParish(Long parishId) {
         return (Long) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").setProjection(Projections.rowCount()).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
     }
+
+    @Override
+    public List<Family> getAllFamilyForParishID(Long parishId) {
+        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyParish.id", parishId)).list();
+    }
+
+    @Override
+    public List<Family> getAllFamilyForMassCenterID(Long massCenterId) {
+        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCenter.id", massCenterId)).list();
+    }
+
+    @Override
+    public List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId) {
+        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitId)).list();
+    }
+
+    @Override
+    public List<Family> getFamilyForFamilyID(Long familyId) {
+        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.id", familyId)).list();
+    }
 }

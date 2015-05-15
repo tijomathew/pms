@@ -27,6 +27,12 @@
         jQuery('#users').addClass('menubtnstyle');
         </c:if>
     });
+   /* jQuery(document).click(function () {
+        if (jQuery(".userSettings").is(':visible')) {
+            alert('opened');
+        }
+    });*/
+
 </script>
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>

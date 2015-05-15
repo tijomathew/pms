@@ -16,14 +16,8 @@ import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
 import org.pms.constants.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.MassCenter;
-import org.pms.models.Parish;
-import org.pms.models.PrayerUnit;
-import org.pms.models.User;
-import org.pms.services.MassCenterService;
-import org.pms.services.ParishService;
-import org.pms.services.PrayerUnitService;
-import org.pms.services.UserService;
+import org.pms.models.*;
+import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * AdminController description
+ * UserController description
  * User: tijo
  */
 
@@ -59,6 +53,9 @@ public class UserController {
     private PrayerUnitService prayerUnitService;
 
     @Autowired
+    private FamilyService familyService;
+
+    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
@@ -70,52 +67,83 @@ public class UserController {
         return "users";
     }
 
-    @RequestMapping(value = "/addUser.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/adduser.action", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, Model model) {
+        boolean insertUser = false;
+        boolean userNameAlreadyExists = true;
         User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
         user.setCreatedBy(currentUser.getUserName());
         user.setUpdatedBy(currentUser.getUserName());
 
         user.setPassword(DigestUtils.shaHex(user.getPassword()));
-        userService.addUserSM(user);
 
-        model.addAttribute("user", new User());
+        User userFromDB = userService.getUserByUserName(user.getUserName());
+
+        if (userFromDB == null) {
+            userNameAlreadyExists = false;
+        }
+
+        // A single user must have single role in the system. A single user cannot act as multiple role in the system.
+
+        if (user.getParishId() != 0 && user.getMassCenterId() == 0 && user.getPrayerUnitId() == 0 && user.getFamilyId() == 0) {
+            insertUser = true;
+        } else if (user.getMassCenterId() != 0 && user.getParishId() == 0 && user.getPrayerUnitId() == 0 && user.getFamilyId() == 0) {
+            insertUser = true;
+        } else if (user.getPrayerUnitId() != 0 && user.getParishId() == 0 && user.getMassCenterId() == 0 && user.getFamilyId() == 0) {
+            insertUser = true;
+        } else if (user.getFamilyId() != 0 && user.getParishId() == 0 && user.getMassCenterId() == 0 && user.getPrayerUnitId() == 0) {
+            insertUser = true;
+        }
+
+        //Insert a User Role only if he is assigned with a single role from UI.
+        if (insertUser && !userNameAlreadyExists) {
+            model.addAttribute("user", new User());
+            userService.addUserSM(user);
+        }
+
+        //Error message when user is having multiple roles in the system.
+        if (!insertUser) {
+            //show the error message.
+        }
+
+        //Error message when entered username is already exists from the database.
+        if (userNameAlreadyExists) {
+            //show the error message.
+        }
         createModelSelectBoxes(model);
         return "users";
     }
 
-    @RequestMapping(value = "/viewUsers.action", method = RequestMethod.GET)
-    public String viewAllUsers() {
-        return "viewAdmin";
-    }
-
     private Model createModelSelectBoxes(Model model) {
-        Map<String, String> parishMap = new HashMap<String, String>();
+        Map<Long, String> parishMap = new HashMap<Long, String>();
         List<Parish> addedParishes = parishService.getAllParish();
-        parishMap.put(String.valueOf(0), "--Please Select--");
         for (Parish parish : addedParishes)
-            parishMap.put(parish.getParishID(), parish.getName());
+            parishMap.put(parish.getId(), parish.getName());
 
-        Map<String, String> massCenterMap = new HashMap<String, String>();
+        Map<Long, String> massCenterMap = new HashMap<Long, String>();
         List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
-        massCenterMap.put(String.valueOf(0), "--Please Select--");
         for (MassCenter massCenter : massCenterList)
-            massCenterMap.put(massCenter.getMassCenterID(), massCenter.getName());
+            massCenterMap.put(massCenter.getId(), massCenter.getName());
 
-        Map<String, String> prayerUnitMap = new HashMap<String, String>();
+        Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
         List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();
-        prayerUnitMap.put(String.valueOf(0), "--Please Select--");
         for (PrayerUnit prayerUnit : prayerUnitList)
-            prayerUnitMap.put(prayerUnit.getPrayerUnitCode(), prayerUnit.getPrayerUnitName());
+            prayerUnitMap.put(prayerUnit.getId(), prayerUnit.getPrayerUnitName());
+
+        Map<Long, String> familyMap = new HashMap<>();
+        List<Family> familyList = familyService.getAllFamilySM();
+        for (Family family : familyList)
+            familyMap.put(family.getId(), family.getFamilyName());
 
         model.addAttribute("parishList", parishMap);
         model.addAttribute("massCenterList", massCenterMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
+        model.addAttribute("familyList", familyMap);
 
         return model;
     }
 
-    @RequestMapping(value = "displayUserGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displayusergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForWard() {

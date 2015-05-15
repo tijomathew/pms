@@ -85,9 +85,9 @@ public class MassCenterServiceImpl implements MassCenterService {
         if (!massCenterList.isEmpty()) {
             Integer uniqueId = 0;
             for (MassCenter massCenter : massCenterList) {
-                MassCenterDto massCenterDto = new MassCenterDto(uniqueId,massCenter.getMassCenterID(),massCenter.getName(),massCenter.getPatronName(),massCenter.getPlace(),massCenter.getFacebookPage(),massCenter.getRegisteredDate(),massCenter.getDrivingRoute(),massCenter.getMap(),massCenter.getLandLineNo(),massCenter.getMobileNo(),massCenter.getEmail(),massCenter.getFaxNo());
+                MassCenterDto massCenterDto = new MassCenterDto(uniqueId, massCenter.getMassCenterID(), massCenter.getName(), massCenter.getPatronName(), massCenter.getPlace(), massCenter.getFacebookPage(), massCenter.getRegisteredDate(), massCenter.getDrivingRoute(), massCenter.getMap(), massCenter.getLandLineNo(), massCenter.getMobileNo(), massCenter.getEmail(), massCenter.getFaxNo());
                 massCenterDto.setParishName(massCenter.getMappedParish().getChurchName());
-                massCenterDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(massCenter.getLocalAddress(),7,"addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                massCenterDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(massCenter.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
                 /*massCenterDto.setPriestNames(priestDao.getPriestForIDDM(massCenter.));*/
                 massCenterDtoList.add(massCenterDto);
                 uniqueId += 1;
@@ -145,8 +145,12 @@ public class MassCenterServiceImpl implements MassCenterService {
         }
 
         if (parishForMassCenter != null) {
+            String attachedStringToID = parishForMassCenter.getParishID() + "-MC";
             Long massCenterCount = getMassCenterCountForParish(parishForMassCenter.getId());
-            formBackMassCenter.setMassCenterID("MC" + (++massCenterCount));
+            if (massCenterCount < 10) {
+                attachedStringToID += "0";
+            }
+            formBackMassCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
         }
     }
 

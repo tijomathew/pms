@@ -44,7 +44,7 @@
 
 
                         },
-                        url: '${pageContext.request.contextPath}/displayMemberGrid.action',
+                        url: '${pageContext.request.contextPath}/displaymembergrid.action',
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
@@ -225,7 +225,7 @@
                 </ul>
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="member"
-                               action="${pageContext.request.contextPath}/addMember.action" method="post"
+                               action="${pageContext.request.contextPath}/addmember.action" method="post"
                                id="memberForm1">
                         <div class="sectionLeft">
 

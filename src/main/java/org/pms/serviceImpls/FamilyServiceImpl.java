@@ -77,4 +77,24 @@ public class FamilyServiceImpl implements FamilyService {
     public Long getFamilyCountForParish(Long parishId) {
         return familyDao.getFamilyCountForParish(parishId);
     }
+
+    @Override
+    public List<Family> getAllFamilyForParishID(Long parishId) {
+        return familyDao.getAllFamilyForParishID(parishId);
+    }
+
+    @Override
+    public List<Family> getAllFamilyForMassCenterID(Long massCenterId) {
+        return familyDao.getAllFamilyForMassCenterID(massCenterId);
+    }
+
+    @Override
+    public List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId) {
+        return familyDao.getAllFamilyForPrayerUnitID(prayerUnitId);
+    }
+
+    @Override
+    public List<Family> getFamilyForFamilyID(Long familyId) {
+        return familyDao.getFamilyForFamilyID(familyId);
+    }
 }
