@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:list id="adminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewparish.action</value>
+        <value>addParish.action</value>
+        <value>displayParishGrid.action</value>
+        <value>createpriestdesignationbox.action</value>
+        <value>editparishdetails.action</value>
+        <value>updateparishinformation.action</value>
+        <value>viewmassCenter.action</value>
+        <value>addmasscenter.action</value>
+        <value>displayMassCenterGrid.action</value>
+        <value>createpriestdesignationboxinmasscenter.action</value>
+        <value>viewprayerunit.action</value>
+        <value>addprayerunit.action</value>
+        <value>displayWardGrid.action</value>
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createparishselectbox.action</value>
+        <value>createmasscenterselectbox.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+    </util:list>
+
+    <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewparish.action</value>
+        <value>addParish.action</value>
+        <value>displayParishGrid.action</value>
+        <value>createpriestdesignationbox.action</value>
+        <value>editparishdetails.action</value>
+        <value>updateparishinformation.action</value>
+
+        <value>viewmassCenter.action</value>
+        <value>addmasscenter.action</value>
+        <value>displayMassCenterGrid.action</value>
+        <value>createpriestdesignationboxinmasscenter.action</value>
+
+        <value>viewprayerunit.action</value>
+        <value>addprayerunit.action</value>
+        <value>displayWardGrid.action</value>
+
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createparishselectbox.action</value>
+        <value>createmasscenterselectbox.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+    </util:list>
+
+    <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewmassCenter.action</value>
+        <value>addmasscenter.action</value>
+        <value>displayMassCenterGrid.action</value>
+        <value>createpriestdesignationboxinmasscenter.action</value>
+
+        <value>viewprayerunit.action</value>
+        <value>addprayerunit.action</value>
+        <value>displayWardGrid.action</value>
+
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createparishselectbox.action</value>
+        <value>createmasscenterselectbox.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+    </util:list>
+
+    <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewprayerunit.action</value>
+        <value>addprayerunit.action</value>
+        <value>displayWardGrid.action</value>
+
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createparishselectbox.action</value>
+        <value>createmasscenterselectbox.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+    </util:list>
+
+    <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createparishselectbox.action</value>
+        <value>createmasscenterselectbox.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+    </util:list>
+
+</beans>

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class LogoutController {
 
-    @RequestMapping(value = "/loggedOut.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/loggedout.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
         model.addAttribute("loginUser", new User());
         return "login";

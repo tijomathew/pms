@@ -20,7 +20,7 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/loggedOut.action" class="last">
+            <a href="${pageContext.request.contextPath}/loggedout.action" class="last">
                 <span class="text">Logout</span>
                 <span class="logout_ico"></span>
                 <span class="clear"></span>

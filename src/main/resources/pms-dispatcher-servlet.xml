@@ -64,6 +64,11 @@
 
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+
+            <bean class="org.pms.interceptors.PMSInterceptor"/>
+
+    </mvc:interceptors>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!--<property name="javaMailProperties">

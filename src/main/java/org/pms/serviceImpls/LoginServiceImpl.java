@@ -30,11 +30,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
-        String redirectPageName = StringUtils.EMPTY;
+        String redirectPageName = "login";
         User loggedInUser = loginDao.getUserByUsernameDM(loginUserName);
-        if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
-            createUserRoleInSession(loggedInUser);
-            redirectPageName = getRedirectedPageName(loggedInUser);
+        if (loggedInUser != null) {
+            if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
+                createUserRoleInSession(loggedInUser);
+                redirectPageName = getRedirectedPageName(loggedInUser);
+            }
         }
         return redirectPageName;
     }
