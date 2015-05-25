@@ -83,13 +83,33 @@ public class PrayerUnitController {
         return PageNames.PRAYERUNIT;
     }
 
-    @RequestMapping(value = "displayWardGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displayprayerunitgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForWard(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<PrayerUnit> allPrayerUnits = prayerUnitService.getAllPrayerUnits();
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        List<PrayerUnit> allPrayerUnits = new ArrayList<>();
+        Integer totalRows = 0;
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+            allPrayerUnits = prayerUnitService.getAllPrayerUnits();
+            totalRows = prayerUnitService.getPrayerUnitCount().intValue();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
+            for (MassCenter massCenter : massCentersUnderParish) {
+                allPrayerUnits.addAll(massCenter.getPrayerUnits());
+            }
+            totalRows = allPrayerUnits.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
+            allPrayerUnits.addAll(massCenter.getPrayerUnits());
+            totalRows = allPrayerUnits.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            allPrayerUnits.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
+            totalRows = 1;
+        }
+
         List<PrayerUnitDto> prayerUnitDtoList = prayerUnitService.createPrayerUnitDtos(allPrayerUnits);
-        Integer totalRows = prayerUnitService.getPrayerUnitCount().intValue();
+
         List<PrayerUnitDto> allPrayerUnitSubList = new ArrayList<>();
 
         if (totalRows > 0) {

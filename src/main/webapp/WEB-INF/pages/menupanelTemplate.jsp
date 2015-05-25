@@ -44,7 +44,7 @@
     <div id="leftmenuAccordion">
         <h3>Menu</h3>
 
-        <div>
+        <div class="leftMenuAccordionContainer">
             <ul class="leftMenu">
                 <c:if test="${showForAdmin == true}">
                     <li id="parish"><a href="${pageContext.request.contextPath}/viewparish.action"><span
@@ -109,7 +109,7 @@
 
         <h3>Certificates</h3>
 
-        <div>
+        <div class="leftMenuAccordionContainer">
             <ul class="leftMenu">
                 <li class="active"><span class="file">Birth</span></li>
                 <li><span class="file">Baptism</span></li>

@@ -8,13 +8,14 @@ $(document).ready(function () {
 		center__paneSelector:	".outer-center"
 	,	west__paneSelector:		".outer-west"
 	,	east__paneSelector:		".outer-east"
-	,	west__size:				200
-	,	east__size:				125
+	,	west__size:				200 //  PMS Left Panel Adjustments
+	,	east__size:				205
 	,	spacing_open:			8  // ALL panes
 	,	spacing_closed:			8 // ALL panes
 	//,	north__spacing_open:	0
 	//,	south__spacing_open:	0
 	,	north__maxSize:			200
+	,	west__maxSize:			200 //  PMS Left Panel Adjustments
 	,	south__maxSize:			100
 	,	togglerLength_open:			50
 
@@ -39,9 +40,11 @@ $(document).ready(function () {
 			,	spacing_closed:			8  // ALL panes
 			,	west__spacing_closed:	12
 			,	east__spacing_closed:	12
-				,	south: {
-						size:					150							
-					}
+			,	south__maxSize:			150
+			,	south: {
+					size:				150, //  PMS Bottom Panel Adjustments
+					maxSize:			150
+				}
 			}
 		}
 		,	north: {

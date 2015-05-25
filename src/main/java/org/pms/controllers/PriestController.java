@@ -97,8 +97,10 @@ public class PriestController {
     @ResponseBody
     Object generateJsonDisplayForPriest(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Priest> allPriest = priestService.getAllPriestSM();
-        List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
         Integer totalPriestsCount = priestService.getTotalCountOfPriestSM().intValue();
+
+        List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
+
 
         List<PriestDto> allUsersSublist = new ArrayList<PriestDto>();
         if (totalPriestsCount > 0) {

@@ -8,8 +8,7 @@ import org.pms.models.Family;
 import org.pms.models.Member;
 import org.pms.models.SelectBox;
 import org.pms.models.User;
-import org.pms.services.FamilyService;
-import org.pms.services.MemberService;
+import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +37,15 @@ public class MemberController {
 
     @Autowired
     private FamilyService familyService;
+
+    @Autowired
+    private ParishService parishService;
+
+    @Autowired
+    private MassCenterService massCenterService;
+
+    @Autowired
+    private PrayerUnitService prayerUnitService;
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
@@ -95,19 +103,46 @@ public class MemberController {
     public
     @ResponseBody
     Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<Member> allMembers = memberService.getAllMember();
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        List<Member> allMembers = new ArrayList<>();
+        Integer totalMembersCount = 0;
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+            allMembers = memberService.getAllMember();
+            totalMembersCount = memberService.getMemberTotalCount().intValue();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
+            for (Family family : allFamiliesUnderParish) {
+                allMembers.addAll(family.getMemberList());
+            }
+            totalMembersCount = allMembers.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
+            for (Family family : allFamiliesUnderMassCenter) {
+                allMembers.addAll(family.getMemberList());
+            }
+            totalMembersCount = allMembers.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
+            for (Family family : allFamiliesUnderPrayerUnit) {
+                allMembers.addAll(family.getMemberList());
+            }
+            totalMembersCount = allMembers.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            allMembers.addAll(familyService.getFamilyForID(currentUser.getFamilyId()).getMemberList());
+            totalMembersCount = allMembers.size();
+        }
+
         List<MemberDto> memberDtoList = memberService.createMemberDto(allMembers);
-        Integer totalMembersCount = memberService.getMemberTotalCount().intValue();
         List<GridRow> memberGridRows = new ArrayList<GridRow>(memberDtoList.size());
         List<MemberDto> allMemberSubList = new ArrayList<>();
 
-        if(totalMembersCount > 0){
-            allMemberSubList = JsonBuilder.generateSubList(page,rows,totalMembersCount,memberDtoList);
+        if (totalMembersCount > 0) {
+            allMemberSubList = JsonBuilder.generateSubList(page, rows, totalMembersCount, memberDtoList);
         }
 
         for (MemberDto memberDto : allMemberSubList) {
             memberGridRows.add(new MemberWrapper(memberDto));
-        }   
+        }
 
         GridGenerator gridGenerator = new GridGenerator();
         GridContainer resultContainer = gridGenerator.createGridContainer(totalMembersCount, page, rows, memberGridRows);

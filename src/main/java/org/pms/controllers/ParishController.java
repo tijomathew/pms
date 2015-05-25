@@ -1,6 +1,7 @@
 package org.pms.controllers;
 
 import org.pms.constants.PageNames;
+import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.*;
@@ -55,17 +56,28 @@ public class ParishController {
     public
     @ResponseBody
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<Parish> allParishes = parishService.getAllParish();
-        List<ParishDto> parishDtoList = parishService.createParishDto(allParishes);
-        List<GridRow> parishGridRows = new ArrayList<GridRow>(parishDtoList.size());
-        Long totalParishCount = parishService.getParishCount();
-
-        List<ParishDto> allUsersSublist = new ArrayList<ParishDto>();
-        if (allParishes.size() > 0) {
-            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), parishDtoList);
+        List<Parish> allParishes = new ArrayList<>();
+        Long totalParishCount = 0l;
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+            allParishes = parishService.getAllParish();
+            totalParishCount = parishService.getParishCount();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            allParishes.add(parishService.getParishForIDSM(currentUser.getParishId()));
+            //since user is parish Admin, only one parish will be assigned to the user. So data base access is not required to show the total count in the UI.
+            totalParishCount = 1l;
         }
 
-        for (ParishDto parishDto : allUsersSublist) {
+        List<ParishDto> parishDtoList = parishService.createParishDto(allParishes);
+        List<GridRow> parishGridRows = new ArrayList<GridRow>(parishDtoList.size());
+
+
+        List<ParishDto> allUsersSubList = new ArrayList<ParishDto>();
+        if (allParishes.size() > 0) {
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), parishDtoList);
+        }
+
+        for (ParishDto parishDto : allUsersSubList) {
             parishGridRows.add(new ParishWrapper(parishDto));
         }
 

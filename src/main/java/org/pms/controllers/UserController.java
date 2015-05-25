@@ -4,6 +4,7 @@ package org.pms.controllers;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.pms.constants.PageNames;
 import org.pms.constants.Roles;
 import org.pms.constants.RolesStatus;
 import org.pms.displaywrappers.UserWrapper;
@@ -111,7 +112,7 @@ public class UserController {
             //show the error message.
         }
         createModelSelectBoxes(model);
-        return "users";
+        return PageNames.USERS;
     }
 
     private Model createModelSelectBoxes(Model model) {
@@ -148,8 +149,10 @@ public class UserController {
     @ResponseBody
     Object generateJsonDisplayForWard() {
         List<User> allUsers = userService.getAllUsers();
-        List<UserDto> userDtoList = userService.createUserDtos(allUsers);
         Integer totalRows = userService.getAllUserCount().intValue();
+
+        List<UserDto> userDtoList = userService.createUserDtos(allUsers);
+
         List<GridRow> userGridRows = new ArrayList<GridRow>(userDtoList.size());
         for (UserDto userDto : userDtoList) {
             userGridRows.add(new UserWrapper(userDto));

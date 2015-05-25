@@ -66,7 +66,7 @@
 
     <mvc:interceptors>
 
-            <bean class="org.pms.interceptors.PMSInterceptor"/>
+        <bean class="org.pms.interceptors.PMSInterceptor"/>
 
     </mvc:interceptors>
 

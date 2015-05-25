@@ -162,10 +162,33 @@ public class FamilyController {
     public
     @ResponseBody
     Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<Family> allFamilies = familyService.getAllFamilySM();
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        List<Family> allFamilies = new ArrayList<>();
+        Integer totalFamilyCount = 0;
+
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+            allFamilies = familyService.getAllFamilySM();
+            totalFamilyCount = familyService.getFamilyTotalCount().intValue();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
+            allFamilies.addAll(allFamiliesUnderParish);
+            totalFamilyCount = allFamilies.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
+            allFamilies.addAll(allFamiliesUnderMassCenter);
+            totalFamilyCount = allFamilies.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
+            allFamilies.addAll(allFamiliesUnderPrayerUnit);
+            totalFamilyCount = allFamilies.size();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            allFamilies.add(familyService.getFamilyForID(currentUser.getFamilyId()));
+            totalFamilyCount = 1;
+        }
+
         List<FamilyDto> familyDtoList = familyService.createFamilyDto(allFamilies);
         List<GridRow> familyGridRows = new ArrayList<GridRow>(familyDtoList.size());
-        Integer totalFamilyCount = familyService.getFamilyTotalCount().intValue();
+
         List<FamilyDto> allFamilySublist = new ArrayList<>();
 
         if (totalFamilyCount > 0) {

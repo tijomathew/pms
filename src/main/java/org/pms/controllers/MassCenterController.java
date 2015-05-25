@@ -145,9 +145,23 @@ public class MassCenterController {
     public
     @ResponseBody
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<MassCenter> allMassCenters = massCenterService.getAllMassCenter();
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        List<MassCenter> allMassCenters = new ArrayList<>();
+        Long massCenterCount = 0l;
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+            allMassCenters = massCenterService.getAllMassCenter();
+            massCenterCount = massCenterService.getAllMassCenterCount();
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
+            allMassCenters.addAll(massCentersUnderParish);
+            massCenterCount = Long.valueOf(massCentersUnderParish.size());
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            allMassCenters.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
+            massCenterCount = 1l;
+        }
+
         List<MassCenterDto> massCenterDtoList = massCenterService.createMassCenterDto(allMassCenters);
-        Long massCenterCount = massCenterService.getAllMassCenterCount();
+
         List<MassCenterDto> allUsersSublist = new ArrayList<MassCenterDto>();
         if (massCenterCount > 0) {
             allUsersSublist = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), massCenterDtoList);

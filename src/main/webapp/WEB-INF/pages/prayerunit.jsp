@@ -19,6 +19,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadWardGrid();
             });
+            $( "#prayerUnitAccordion" ).accordion();
 
         });
 
@@ -34,7 +35,7 @@
 
 
                         },
-                        url: '${pageContext.request.contextPath}/displayWardGrid.action',
+                        url: '${pageContext.request.contextPath}/displayprayerunitgrid.action',
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
@@ -83,74 +84,104 @@
                     <form:form modelAttribute="prayerUnit"
                                action="${pageContext.request.contextPath}/addprayerunit.action" method="post"
                                id="addWardForm">
+
+
+
+
+                        <div id="prayerUnitAccordion">
+                            <h3>Prayer Unit Details</h3>
+                            <div>
+                                <section class="contentDoc ">
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Prayer Unit Name :</td>
+                                                <td><form:input path="prayerUnitName" id="prayerUnitName"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prayer Unit Code :</td>
+                                                <td><form:input path="prayerUnitCode" id="prayerUnitCode" readonly="true"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prayer Unit Place :</td>
+                                                <td><form:input path="prayerUnitPlace" id="prayerUnitPlace"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mass Center:</td>
+                                                <td><form:select path="massCenterId" items="${massCenterMap}"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                            <h3>Ireland Address</h3>
+                            <div>
+                                <section class="contentDoc">
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Address Line 1 :</td>
+                                                <td><form:input path="localAddress.addressLineOne"
+                                                                id="localAddressaddressLineOne"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address Line 2 :</td>
+                                                <td><form:input path="localAddress.addressLineTwo"
+                                                                id="localAddressaddressLineTwo"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address Line 3 :</td>
+                                                <td><form:input path="localAddress.addressLineThree"
+                                                                id="localAddressaddressLineThree"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Town:</td>
+                                                <td><form:input path="localAddress.town" id="localAddresstown"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>County:</td>
+                                                <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pin code:</td>
+                                                <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country:</td>
+                                                <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!--
+                            <h3>Section 4</h3>
+                            <div>
+                                <p>
+                                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                                    mauris vel est.
+                                </p>
+                                <p>
+                                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                                    inceptos himenaeos.
+                                </p>
+                            </div>
+                            -->
+                        </div>
+
+
+
                         <div class="sectionLeft">
 
-                            <section class="contentDoc ">
-                                <h3>Prayer Unit Details</h3>
 
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Prayer Unit Name :</td>
-                                            <td><form:input path="prayerUnitName" id="prayerUnitName"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prayer Unit Code :</td>
-                                            <td><form:input path="prayerUnitCode" id="prayerUnitCode" readonly="true"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prayer Unit Place :</td>
-                                            <td><form:input path="prayerUnitPlace" id="prayerUnitPlace"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center:</td>
-                                            <td><form:select path="massCenterId" items="${massCenterMap}"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
                         </div>
 
                         <div class="sectionRight">
-                            <section class="contentDoc">
-                                <h3>Ireland Address</h3>
 
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Address Line 1 :</td>
-                                            <td><form:input path="localAddress.addressLineOne"
-                                                            id="localAddressaddressLineOne"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 2 :</td>
-                                            <td><form:input path="localAddress.addressLineTwo"
-                                                            id="localAddressaddressLineTwo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 3 :</td>
-                                            <td><form:input path="localAddress.addressLineThree"
-                                                            id="localAddressaddressLineThree"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Town:</td>
-                                            <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>County:</td>
-                                            <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pin code:</td>
-                                            <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country:</td>
-                                            <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
                         </div>
 
                         <div class="clear"></div>

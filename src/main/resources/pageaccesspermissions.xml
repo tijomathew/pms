@@ -18,13 +18,22 @@
         <value>createpriestdesignationboxinmasscenter.action</value>
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
-        <value>displayWardGrid.action</value>
+        <value>displayprayerunitgrid.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
         <value>createmasscenterselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
+
+        <value>viewusers.action</value>
+        <value>adduser.action</value>
+        <value>displayusergrid.action</value>
     </util:list>
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -42,7 +51,7 @@
 
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
-        <value>displayWardGrid.action</value>
+        <value>displayprayerunitgrid.action</value>
 
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
@@ -50,6 +59,15 @@
         <value>createmasscenterselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
+
+        <value>viewusers.action</value>
+        <value>adduser.action</value>
+        <value>displayusergrid.action</value>
     </util:list>
 
     <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -60,7 +78,7 @@
 
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
-        <value>displayWardGrid.action</value>
+        <value>displayprayerunitgrid.action</value>
 
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
@@ -68,12 +86,21 @@
         <value>createmasscenterselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
+
+        <value>viewusers.action</value>
+        <value>adduser.action</value>
+        <value>displayusergrid.action</value>
     </util:list>
 
     <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
-        <value>displayWardGrid.action</value>
+        <value>displayprayerunitgrid.action</value>
 
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
@@ -81,6 +108,15 @@
         <value>createmasscenterselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
+
+        <value>viewusers.action</value>
+        <value>adduser.action</value>
+        <value>displayusergrid.action</value>
     </util:list>
 
     <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -90,6 +126,11 @@
         <value>createmasscenterselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
     </util:list>
 
 </beans>
