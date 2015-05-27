@@ -12,13 +12,20 @@
         <value>createpriestdesignationbox.action</value>
         <value>editparishdetails.action</value>
         <value>updateparishinformation.action</value>
+
+        <value>viewpriest.action</value>
+        <value>addpriest.action</value>
+        <value>displaypriestgrid.action</value>
+
         <value>viewmassCenter.action</value>
         <value>addmasscenter.action</value>
         <value>displayMassCenterGrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
+
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
         <value>displayprayerunitgrid.action</value>
+
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>

@@ -2,12 +2,14 @@ package org.pms.serviceImpls;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.pms.applicationbuilder.PMSApplicationBuilder;
 import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.daos.LoginDao;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
 import org.pms.services.LoginService;
+import org.pms.sessionmanager.PMSSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    PMSApplicationBuilder pmsApplicationBuilder;
 
     private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyHeadRole"};
 
@@ -90,6 +95,8 @@ public class LoginServiceImpl implements LoginService {
                 requestResponseHolder.getCurrentSession().setAttribute(rolesInSession, Boolean.TRUE.booleanValue());
             }
         }
+        String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);
+        pmsApplicationBuilder.addUserInSessionMap(loggedInUser, sessionContextKey);
         requestResponseHolder.getCurrentSession().setAttribute(SystemRoles.PMS_CURRENT_USER, loggedInUser);
     }
 }

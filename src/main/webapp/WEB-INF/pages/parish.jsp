@@ -41,9 +41,9 @@
                 }
             });
 
-            jQuery('#parishUpdateButton').click(function(){
+            jQuery('#parishUpdateButton').click(function () {
                 jQuery('#parishForm1').attr('action', 'updateparishinformation.action');
-                jQuery( "#parishForm1" ).submit();
+                jQuery("#parishForm1").submit();
             });
 
         });
@@ -94,9 +94,16 @@
                         sortorder: "desc",
                         caption: "Parishes",
                         autowidth: true,
-                        shrinkToFit: false
+                        shrinkToFit: false,
+                        height: 'auto',
+                        width: 'auto'
                     });
-            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {edit: false, add: false, del: false, search:false});
+            jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {
+                edit: false,
+                add: false,
+                del: false,
+                search: false
+            });
 
         }
 
@@ -148,7 +155,8 @@
                                         </tr>
                                         <tr>
                                             <td>Parish ID :</td>
-                                            <td><form:input path="parishID" id="parishID" class="textBox" readonly="true"/></td>
+                                            <td><form:input path="parishID" id="parishID" class="textBox"
+                                                            readonly="true"/></td>
                                         </tr>
                                         <tr>
                                             <td>Parish Name :</td>

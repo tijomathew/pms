@@ -75,7 +75,9 @@
                         sortorder: "desc",
                         caption: "Mass Centers",
                         autowidth: true,
-                        shrinkToFit: true
+                        shrinkToFit: true,
+                        height: 'auto',
+                        width: 'auto'
                     });
             jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {edit: true, add: true, del: true});
         }

@@ -72,7 +72,9 @@
                         sortorder: "desc",
                         caption: "Families",
                         autowidth: true,
-                        shrinkToFit: true
+                        shrinkToFit: true,
+                        height: 'auto',
+                        width: 'auto'
                     });
             jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {edit: true, add: true, del: true});
         }

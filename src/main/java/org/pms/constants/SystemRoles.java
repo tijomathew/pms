@@ -13,9 +13,7 @@ public interface SystemRoles {
 
     String PRAYER_UNIT_ADMIN = "Prayer Unit Admin";
 
-    String PMS_CURRENT_USER = "PMS_CURRENT_USER";
+    String PMS_CURRENT_USER = "PMS CURRENT USER";
 
     String FAMILY_ADMIN = "Family Head";
-
-
 }

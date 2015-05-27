@@ -92,7 +92,7 @@ public class PriestController {
         return "priest";
     }
 
-    @RequestMapping(value = "/displayPriestGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/displaypriestgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForPriest(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {

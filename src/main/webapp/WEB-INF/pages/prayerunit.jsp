@@ -58,7 +58,9 @@
                         sortorder: "desc",
                         caption: "Wards",
                         autowidth: true,
-                        shrinkToFit: true
+                        shrinkToFit: true,
+                        height: 'auto',
+                        width: 'auto'
                     });
             jQuery("#wardGrid").jqGrid('navGrid', '#wardGridPager', {edit: true, add: true, del: true});
         }

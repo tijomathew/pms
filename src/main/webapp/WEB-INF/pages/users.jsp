@@ -53,7 +53,9 @@
                         sortorder: "desc",
                         caption: "Users",
                         autowidth: true,
-                        shrinkToFit: true
+                        shrinkToFit: true,
+                        height: 'auto',
+                        width: 'auto'
                     });
             jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {edit: true, add: true, del: true});
         }

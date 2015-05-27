@@ -33,7 +33,7 @@
 
 
                         },
-                        url: '${pageContext.request.contextPath}/displayPriestGrid.action',
+                        url: '${pageContext.request.contextPath}/displaypriestgrid.action',
                         autoencode: true,
                         mtype: 'GET',
                         datatype: 'json',
@@ -54,8 +54,8 @@
                             {name: 'motherName', index: 'motherName', width: 150, align: "right"},
                             {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right"},
                             {name: 'congregation', index: 'congregation', width: 150, align: "right"},
-                            {name: 'irelandAddress', index: 'irelandAddress', width: 150, align: "right"},
-                            {name: 'indiaAddress', index: 'indiaAddress', width: 150, align: "right"},
+                            {name: 'localAddress', index: 'localAddress', width: 150, align: "right"},
+                            {name: 'nativeAddress', index: 'nativeAddress', width: 150, align: "right"},
                             {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right"}
                         ],
                         rowNum: 2,

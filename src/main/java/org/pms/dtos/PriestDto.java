@@ -19,8 +19,8 @@ public class PriestDto {
     private String motherName;
     private String priestStatus;
     private String congregation;
-    private String irelandAddress;
-    private String indiaAddress;
+    private String localAddress;
+    private String nativeAddress;
     private String emergencyContact;
 
 
@@ -153,20 +153,20 @@ public class PriestDto {
         this.congregation = congregation;
     }
 
-    public String getIrelandAddress() {
-        return irelandAddress;
+    public String getLocalAddress() {
+        return localAddress;
     }
 
-    public void setIrelandAddress(String irelandAddress) {
-        this.irelandAddress = irelandAddress;
+    public void setLocalAddress(String localAddress) {
+        this.localAddress = localAddress;
     }
 
-    public String getIndiaAddress() {
-        return indiaAddress;
+    public String getNativeAddress() {
+        return nativeAddress;
     }
 
-    public void setIndiaAddress(String indiaAddress) {
-        this.indiaAddress = indiaAddress;
+    public void setNativeAddress(String nativeAddress) {
+        this.nativeAddress = nativeAddress;
     }
 
     public String getEmergencyContact() {

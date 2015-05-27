@@ -1,11 +1,13 @@
-package org.pms.interceptors;
+package org.pms.interceptor;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+import org.pms.applicationbuilder.PMSApplicationBuilder;
 import org.pms.constants.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
 import org.pms.services.PriestService;
+import org.pms.sessionmanager.PMSSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,9 @@ public class PMSInterceptor implements HandlerInterceptor {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
+    @Autowired
+    PMSApplicationBuilder pmsApplicationBuilder;
+
     @Resource(name = "adminLinks")
     private List<String> adminLinks;
 
@@ -43,6 +48,7 @@ public class PMSInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         boolean indicatorToProceed = false;
+        boolean indicatorToShowSessionTimedOut = false;
         String urlAction = httpServletRequest.getRequestURI().replace(httpServletRequest.getContextPath() + "/", "");
         if (urlAction.contains("resources")) {
             indicatorToProceed = true;
@@ -51,8 +57,18 @@ public class PMSInterceptor implements HandlerInterceptor {
             if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action")) {
                 indicatorToProceed = true;
             } else {
-                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-                if (currentUser != null) {
+                String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);
+                User currentUser = null;
+                if (pmsApplicationBuilder.isUserSessionActive(sessionContextKey)) {
+                    User userFromSessionMap = pmsApplicationBuilder.getUserFromUserSessionMap(sessionContextKey);
+                    User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+                    if (userFromSessionMap.equals(userFromCurrentSession)) {
+                        currentUser = userFromCurrentSession;
+                    }
+                } else {
+                    indicatorToShowSessionTimedOut = true;
+                }
+                if (currentUser != null && !indicatorToShowSessionTimedOut) {
                     switch (currentUser.getSystemRole()) {
                         case SystemRoles.ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, adminLinks);
@@ -72,8 +88,12 @@ public class PMSInterceptor implements HandlerInterceptor {
                     }
                 }
             }
-            if (!indicatorToProceed) {
+            if (!indicatorToProceed && !indicatorToShowSessionTimedOut) {
                 requestResponseHolder.setAttributeToSession("showURLAccessDenied", new String("This URL cannot be accessed by this User Role"));
+                httpServletResponse.sendRedirect("login.action");
+                httpServletResponse.flushBuffer();
+            } else if (!indicatorToProceed && indicatorToShowSessionTimedOut) {
+                requestResponseHolder.setAttributeToSession("showURLAccessDenied", new String("Your session is timed out. Please login here to continue your software"));
                 httpServletResponse.sendRedirect("login.action");
                 httpServletResponse.flushBuffer();
             }
