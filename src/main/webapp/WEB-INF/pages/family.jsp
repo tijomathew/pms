@@ -31,7 +31,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadFamilyGrid();
             });
-
+            $("#familyUnitAccordion").accordion();
         });
 
         function loadFamilyGrid() {
@@ -101,11 +101,10 @@
                     <form:form modelAttribute="family"
                                action="${pageContext.request.contextPath}/addfamily.action" method="post"
                                id="familyForm1">
-                        <div class="sectionLeft">
-
+                        <div id="familyUnitAccordion">
+                            <h3>Family Details</h3>
+                        <div>
                             <section class="contentDoc">
-                                <h3>Family Details</h3>
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>
@@ -151,11 +150,9 @@
                                 </div>
                             </section>
                         </div>
-
-                        <div class="sectionRight">
+                            <h3>Local Adderss</h3>
+                        <div>
                             <section class="contentDoc">
-                                <h3>Local Adderss</h3>
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>
@@ -193,11 +190,10 @@
                                 </div>
                             </section>
                         </div>
-
-                        <div class="clear"></div>
-                        <div class="sectionLeft">
+                            <h3>Native Address</h3>
+                        <div >
                             <section class="contentDoc">
-                                <h3>Native Address</h3>
+
 
                                 <div class="mainConte">
                                     <table>
@@ -243,7 +239,7 @@
                                 </div>
                             </section>
                         </div>
-                        <div class="clear"></div>
+                        </div>
                         <p>
                             <input type="submit" value="Add" class="filterbutton"/>
                         </p>

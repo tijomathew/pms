@@ -16,7 +16,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadUserGrid();
             });
-
+            $("#usersUnitAccordion").accordion();
         });
 
         function loadUserGrid() {
@@ -80,11 +80,10 @@
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="user"
                                action="${pageContext.request.contextPath}/adduser.action" method="post" id="adminForm">
-                        <div class="sectionLeft">
-
+                        <div id="usersUnitAccordion">
+                            <h3>User Details</h3>
+                        <div>
                             <section class="contentDoc ">
-                                <h3>User Details</h3>
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>
@@ -150,7 +149,7 @@
                                 </div>
                             </section>
                         </div>
-                        <div class="clear"></div>
+                        </div>
                         <p>
                             <input type="submit" value="Add" class="filterbutton"/>
                         </p>

@@ -30,7 +30,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadParishGrid();
             });
-
+            $("#parishUnitAccordion").accordion();
             jQuery('#editParishForm').bind("click", function () {
                 var gsr = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
                 if (gsr != null) {
@@ -129,153 +129,156 @@
                     <form:form modelAttribute="parish"
                                action="${pageContext.request.contextPath}/addParish.action" method="post"
                                id="parishForm1">
-                        <div class="sectionLeft">
+                        <div id="parishUnitAccordion">
 
-                            <section class="contentDoc">
-                                <h3>Parish Details</h3>
 
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Church Name :</td>
-                                            <td><form:input path="churchName" id="churchName" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rite Name :</td>
-                                            <td><form:input path="riteName" id="riteName" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Diocese Name :</td>
-                                            <td><form:input path="dioceseName" id="dioceseName"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Forane Name :</td>
-                                            <td><form:input path="foraneName" id="foraneName" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish ID :</td>
-                                            <td><form:input path="parishID" id="parishID" class="textBox"
-                                                            readonly="true"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish Name :</td>
-                                            <td><form:input path="name" id="name" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish Place :</td>
-                                            <td><form:input path="place" id="place" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish Code :</td>
-                                            <td><form:input path="code" id="code" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish Web-site :</td>
-                                            <td><form:input path="webSite" id="webSite"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish Facebook Page :</td>
-                                            <td><form:input path="facebookPage" id="facebookPage"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Driving Route :</td>
-                                            <td><form:input path="drivingRoute" id="drivingRoute" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Map :</td>
-                                            <td><form:input path="map" id="map" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Registered Date :</td>
-                                            <td><form:input path="registeredDate" id="registeredDate"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                            <%--<tr>
-                                                <td>Priest :</td>
-                                                <td>
-                                                    <div id="priestDesignationBoxes"></div>
-                                                </td>
-                                            </tr>--%>
-                                    </table>
-                                </div>
-                            </section>
+                            <h3>Parish Details</h3>
+
+                            <div>
+
+                                <section class="contentDoc">
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Church Name :</td>
+                                                <td><form:input path="churchName" id="churchName" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Rite Name :</td>
+                                                <td><form:input path="riteName" id="riteName" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Diocese Name :</td>
+                                                <td><form:input path="dioceseName" id="dioceseName"
+                                                                class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Forane Name :</td>
+                                                <td><form:input path="foraneName" id="foraneName" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish ID :</td>
+                                                <td><form:input path="parishID" id="parishID" class="textBox"
+                                                                readonly="true"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish Name :</td>
+                                                <td><form:input path="name" id="name" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish Place :</td>
+                                                <td><form:input path="place" id="place" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish Code :</td>
+                                                <td><form:input path="code" id="code" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish Web-site :</td>
+                                                <td><form:input path="webSite" id="webSite"
+                                                                class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish Facebook Page :</td>
+                                                <td><form:input path="facebookPage" id="facebookPage"
+                                                                class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Driving Route :</td>
+                                                <td><form:input path="drivingRoute" id="drivingRoute"
+                                                                class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Map :</td>
+                                                <td><form:input path="map" id="map" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Registered Date :</td>
+                                                <td><form:input path="registeredDate" id="registeredDate"
+                                                                class="textBox"/></td>
+                                            </tr>
+                                                <%--<tr>
+                                                    <td>Priest :</td>
+                                                    <td>
+                                                        <div id="priestDesignationBoxes"></div>
+                                                    </td>
+                                                </tr>--%>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                            <h3>Contact Details</h3>
+
+                            <div>
+                                <section class="contentDoc">
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Mobile No. :</td>
+                                                <td><form:input path="mobileNo" id="mobileNo" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email :</td>
+                                                <td><form:input path="email" id="email" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Land Line No. :</td>
+                                                <td><form:input path="landLineNo" id="landLineNo" class="textBox"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fax No. :</td>
+                                                <td><form:input path="faxNo" id="faxNo" class="textBox"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+                            <h3>Address</h3>
+                            <div>
+                                <section class="contentDoc">
+
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Address Line 1 :</td>
+                                                <td><form:input path="localAddress.addressLineOne"
+                                                                id="localAddressaddressLineOne"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address Line 2 :</td>
+                                                <td><form:input path="localAddress.addressLineTwo"
+                                                                id="localAddressaddressLineTwo"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address Line 3 :</td>
+                                                <td><form:input path="localAddress.addressLineThree"
+                                                                id="localAddressaddressLineThree"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Town:</td>
+                                                <td><form:input path="localAddress.town" id="localAddresstown"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>County:</td>
+                                                <td><form:input path="localAddress.county"
+                                                                id="localAddresscounty"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pin code:</td>
+                                                <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country:</td>
+                                                <td><form:input path="localAddress.country"
+                                                                id="localAddresscountry"/></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
+
                         </div>
-
-                        <div class="sectionRight">
-                            <section class="contentDoc">
-                                <h3>Contact Details</h3>
-
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Mobile No. :</td>
-                                            <td><form:input path="mobileNo" id="mobileNo" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email :</td>
-                                            <td><form:input path="email" id="email" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Land Line No. :</td>
-                                            <td><form:input path="landLineNo" id="landLineNo" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fax No. :</td>
-                                            <td><form:input path="faxNo" id="faxNo" class="textBox"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-
-                        <div class="clear"></div>
-
-                        <div class="sectionLeft">
-                            <section class="contentDoc">
-                                <h3>Address</h3>
-
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Address Line 1 :</td>
-                                            <td><form:input path="localAddress.addressLineOne"
-                                                            id="localAddressaddressLineOne"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 2 :</td>
-                                            <td><form:input path="localAddress.addressLineTwo"
-                                                            id="localAddressaddressLineTwo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 3 :</td>
-                                            <td><form:input path="localAddress.addressLineThree"
-                                                            id="localAddressaddressLineThree"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Town:</td>
-                                            <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>County:</td>
-                                            <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pin code:</td>
-                                            <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country:</td>
-                                            <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
-                                        </tr>
-
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="clear"></div>
                         <p>
                             <c:if test="${showAddButton==true}">
                                 <input type="submit" value="Add" class="filterbutton"/>
