@@ -28,7 +28,7 @@ public class PMSInterceptor implements HandlerInterceptor {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    PMSApplicationBuilder pmsApplicationBuilder;
+    private PMSApplicationBuilder pmsApplicationBuilder;
 
     @Resource(name = "adminLinks")
     private List<String> adminLinks;

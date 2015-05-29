@@ -11,6 +11,7 @@ import org.pms.models.User;
 import org.pms.services.LoginService;
 import org.pms.sessionmanager.PMSSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,14 +29,15 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    @Autowired
-    PMSApplicationBuilder pmsApplicationBuilder;
+    @Qualifier("PMSApplicationBuilderImpl")
+    @Autowired(required = true)
+    private PMSApplicationBuilder pmsApplicationBuilder;
 
     private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyHeadRole"};
 
     @Override
     public String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
-        String redirectPageName = "login";
+        String redirectPageName = PageNames.LOGIN;
         User loggedInUser = loginDao.getUserByUsernameDM(loginUserName);
         if (loggedInUser != null) {
             if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {

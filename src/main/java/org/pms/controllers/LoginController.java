@@ -51,38 +51,53 @@ public class LoginController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
-
+    /**
+     * This method redirects to index page when application starts.
+     *
+     * @return the name of the page to which application has to redirect which will be resolved with the help of spring's internal view resolver.
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String indexPageDisplay(Model model) {
-        return "index";
+    public String indexPageDisplay() {
+        logger.debug("Application redirects to the index page");
+        return PageNames.INDEX;
     }
 
-    @RequestMapping(value = "/login.action", method = RequestMethod.GET)
+    /**
+     * This method redirects to the login page after creating login user's model object to backup as model attribute object in the UI display.
+     *
+     * @param model this parameter used to show the login user model object in the spring's form tag model attribute.
+     * @return the name of the page to which application has to redirect which will be resolved with the help of spring's internal view resolver.
+     */
+    @RequestMapping(value = "login.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
+        logger.debug("application creates the login user form back object and redirects to the login page");
         model.addAttribute("loginUser", new User());
-        return "login";
+        return PageNames.LOGIN;
     }
 
-    @RequestMapping(value = "/loggedin.action", method = RequestMethod.POST)
-    public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
-        String redirectedPage = "parish";
+    /**
+     * This method verifies the logged in user and redirects to the respective page as per the logged in user's role in the system.
+     *
+     * @param user   this parameter possess the user's credentials from the UI form fields.
+     * @param result this parameter helps to show the validation error in the UI if there is any error in the form fields.
+     * @param model  this parameter used to store the form back object which can be used in the redirected page.
+     * @return the name of the page to which application has to redirect which will be resolved with the help of spring's internal view resolver.
+     */
+    @RequestMapping(value = "loggedin.action", method = RequestMethod.POST)
+    public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
+        logger.debug("authenticating and authorizing the user in the system");
         String redirectPageName = StringUtils.EMPTY;
-
-        /*Priest formDisplayPriest = new Priest();
-        formDisplayPriest.setPriestID("PR" + priestService.getHighestAutoIDSM());*/
-
-
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
             redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getUserName(), user.getPassword());
 
         } catch (IllegalArgumentException ex) {
-            logger.error("Exception thrown from login functionality");
+            logger.error("The authentication and authorization of the user is failed in the system");
         }
 
         if (result.hasErrors()) {
-            redirectedPage = "login";
+            //redirectedPage = "login";
         }
         createFormBackObjectForRedirectPage(model, redirectPageName);
         // mailService.sendUserCredentials(new User());
@@ -106,7 +121,7 @@ public class LoginController {
                 break;
             case PageNames.PARISH:
                 Parish parishFormBackObject = parishService.createParishFormBackObjectModel(model);
-                model.addAttribute("showAddButton",true);
+                model.addAttribute("showAddButton", true);
                 model.addAttribute("parish", parishFormBackObject);
                 break;
             case PageNames.MASSCENTER:

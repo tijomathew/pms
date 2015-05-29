@@ -76,9 +76,10 @@
                     </tr>
                 </table>
                 <% String showMessage = "";
+                    if(session!=null){
                     if (session.getAttribute("showURLAccessDenied") != null) {
                         showMessage = (String) session.getAttribute("showURLAccessDenied");
-                    } %>
+                    }} %>
                 <%= showMessage %>
                 <form:errors id="loginErrorDisplay" cssClass="error"></form:errors>
             </form:form>

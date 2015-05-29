@@ -4,6 +4,7 @@ import org.pms.models.User;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,21 +15,21 @@ import java.util.Map;
 /**
  * User: tijo.
  */
-
+@Scope("singleton")
 @Component
 public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSApplicationBuilder {
 
     private ApplicationContext applicationContext;
-    private Map<String, User> userSessionMap;
+    private final Map<String, User> userSessionMap;
 
     public PMSApplicationBuilderImpl() {
         userSessionMap = new HashMap<>();
     }
 
     @Override
-    @PostConstruct
+    // @PostConstruct
     public void applicationInitializer() {
-        //No op
+        System.out.println("Application singleton id is: " + this.toString());
     }
 
     @Override
@@ -77,6 +78,6 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+            this.applicationContext = applicationContext;
     }
 }

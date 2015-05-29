@@ -7,14 +7,8 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:pms-dispatcher-servlet.xml,classpath:pageaccesspermissions.xml</param-value>
+        <param-value>classpath:applicationContext.xml,classpath:pageaccesspermissions.xml</param-value>
     </context-param>
-
-    <env-entry>
-        <env-entry-name>logback/context-name</env-entry-name>
-        <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>pms</env-entry-value>
-    </env-entry>
 
     <listener>
         <description>This class loads the spring web application context for PMS application.</description>
@@ -22,21 +16,31 @@
     </listener>
 
     <listener>
-        <description>This listener is used for PMS Log back log facility</description>
-        <listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
-    </listener>
-
-    <listener>
         <description>This listener is used for session management in PMS application</description>
         <listener-class>org.pms.sessionmanager.PMSSessionManager</listener-class>
     </listener>
+
+    <!--<env-entry>
+        <env-entry-name>logback/context-name</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>pms</env-entry-value>
+    </env-entry>
+
+    <listener>
+        <description>This listener is used for PMS Log back log facility</description>
+        <listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
+    </listener>-->
+
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
 
     <servlet>
         <servlet-name>pms-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:pms-dispatcher-servlet.xml,classpath:pageaccesspermissions.xml</param-value>
+            <param-value>classpath:pms-dispatcher-servlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -46,8 +50,5 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <session-config>
-        <session-timeout>5</session-timeout>
-    </session-config>
 
 </web-app>

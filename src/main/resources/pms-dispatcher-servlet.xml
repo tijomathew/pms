@@ -1,95 +1,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-    <context:component-scan base-package="org.pms"/>
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="classpath:jdbc.properties" p:ignoreResourceNotFound="true"/>
-
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:messages"/>
-    </bean>
-
-    <bean id="dataSource"
-          class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-          p:driverClassName="${jdbc.driverClassName}"
-          p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
-          p:password="${jdbc.password}"/>
-
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation">
-            <value>classpath:hibernate.cfg.xml</value>
-        </property>
-
-        <!--<property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>-->
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
-                <prop key="hibernate.show_sql">true</prop>
-
-            </props>
-        </property>
-        <property name="packagesToScan" value="org.pms.models"/>
-    </bean>
-
-    <tx:annotation-driven/>
-
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <mvc:resources mapping="/resources/**" location="/resources/mythemes/"/>
-
-    <mvc:annotation-driven/>
-
-    <mvc:interceptors>
-
-        <bean class="org.pms.interceptor.PMSInterceptor"/>
-
-    </mvc:interceptors>
-
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <!--<property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-            </props>
-        </property>-->
-
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="465"/>
-        <property name="username" value="tijomathew1988@gmail.com"/>
-        <property name="password" value="tijojohn"/>
-        <property name="protocol" value="smtps"/>
-        <property name="javaMailProperties">
-            <props>
-                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
-                <prop key="mail.smtp.auth">true</prop>
-                <!-- Use TLS to encrypt communication with SMTP server -->
-                <prop key="mail.smtp.starttls.enable">true</prop>
-            </props>
-        </property>
-    </bean>
-
 </beans>
