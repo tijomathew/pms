@@ -57,7 +57,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <mvc:resources mapping="/resources/**" location="/resources/mythemes/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/pmsthemes/"/>
 
     <mvc:annotation-driven/>
 

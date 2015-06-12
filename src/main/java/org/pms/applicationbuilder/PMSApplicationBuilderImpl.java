@@ -27,9 +27,9 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     }
 
     @Override
-    // @PostConstruct
+    @PostConstruct
     public void applicationInitializer() {
-        System.out.println("Application singleton id is: " + this.toString());
+        //NO OP
     }
 
     @Override
@@ -78,6 +78,6 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            this.applicationContext = applicationContext;
+        this.applicationContext = applicationContext;
     }
 }

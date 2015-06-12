@@ -93,6 +93,10 @@ public class Parish implements Serializable {
     @OneToMany(mappedBy = "familyParish", cascade = CascadeType.ALL)
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private User adminToParish;
+
     public Parish() {
     }
 
@@ -268,6 +272,13 @@ public class Parish implements Serializable {
         this.mappedFamilies = mappedFamilies;
     }
 
+    public User getAdminToParish() {
+        return adminToParish;
+    }
+
+    public void setAdminToParish(User adminToParish) {
+        this.adminToParish = adminToParish;
+    }
 
     /**
      * This method is for adding priests for the parish.

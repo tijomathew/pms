@@ -21,9 +21,6 @@ import java.util.List;
  */
 public class PMSInterceptor implements HandlerInterceptor {
 
-    @Autowired(required = true)
-    private PriestService priestService;
-
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
@@ -98,7 +95,7 @@ public class PMSInterceptor implements HandlerInterceptor {
                 httpServletResponse.flushBuffer();
             }
         }
-        return indicatorToProceed;
+         return indicatorToProceed;
     }
 
     private boolean checkURLIsAllowedForCurrentUser(String urlAction, List<String> urlList) {

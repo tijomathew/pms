@@ -12,14 +12,15 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/massCenterValidator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/masscentervalidator.js" />" type="text/javascript"
             language="javascript"></script>
 
-    <script src="<c:url value="/resources/js/PriestDesignationDisplay.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/priestdesignationdisplay.js" />" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            $("#massCenterAccordian").accordion();
             jQuery('#ui-id-2').bind("click", function () {
                 loadMassCenterGrid();
             });
@@ -105,11 +106,10 @@
                     <form:form modelAttribute="massCenter"
                                action="${pageContext.request.contextPath}/addmasscenter.action" method="post"
                                id="massCenterForm1">
-                        <div class="sectionLeft">
-
+                        <div id="massCenterAccordian">
+                            <h3>Mass Center Details</h3>
+                        <div>
                             <section class="contentDoc ">
-                                <h3>Mass Center Details</h3>
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>
@@ -178,11 +178,9 @@
                                 </div>
                             </section>
                         </div>
-
-                        <div class="sectionRight">
+                            <h3>Local Address</h3>
+                        <div>
                             <section class="contentDoc">
-                                <h3>Local Address</h3>
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>
@@ -220,8 +218,7 @@
                                 </div>
                             </section>
                         </div>
-
-                        <div class="clear"></div>
+                       </div>
                         <p>
                             <input type="submit" value="Add" class="filterbutton"/>
                         </p>

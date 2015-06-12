@@ -1,6 +1,7 @@
 package org.pms.daoImpls;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -31,7 +32,7 @@ public class FamilyDaoImpl implements FamilyDao {
 
     @Override
     public List<Family> getAllFamilies() {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Family.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

@@ -21,5 +21,5 @@ public interface PageNames {
 
     String PRIEST = "priest";
 
-    String USERS = "users";
+    String USERS = "user";
 }

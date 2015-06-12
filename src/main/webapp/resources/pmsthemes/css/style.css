@@ -706,12 +706,12 @@ label.error{
     background-color: #FFD369 !important;
 }
 
-#prayerUnitAccordion>h3{
+#prayerUnitAccordion,#parishAccordian,#priestAccordian,#massCenterAccordian,#usersAccordian,#familyAccordian,#memberAccordian>h3{
     padding:10px;
 }
 #prayerUnitAccordion>h3 span{
     display: none;
 }
-#prayerUnitAccordion .ui-state-active{
+#prayerUnitAccordion,#parishAccordian,#priestAccordian,#massCenterAccordian,#usersAccordian,#familyAccordian,#memberAccordian .ui-state-active{
     color:#EE7700;
 }
