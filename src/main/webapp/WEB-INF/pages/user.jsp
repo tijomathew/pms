@@ -11,12 +11,21 @@
     <title id="title">Users</title>
 
     <%@include file="scriptlibraryTemplate.jsp" %>
+    <script src="<c:url value="/resources/js/userselectbox.js" />" type="text/javascript"
+            language="javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadSelectBox("${pageContext.request.contextPath}");
+        });
+    </script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            $("#usersAccordian").accordion();
             jQuery('#ui-id-2').bind("click", function () {
                 loadUserGrid();
             });
-            $("#usersUnitAccordion").accordion();
+
         });
 
         function loadUserGrid() {
@@ -80,75 +89,70 @@
                 <div id="tabs-1" class="contentTabs">
                     <form:form modelAttribute="user"
                                action="${pageContext.request.contextPath}/adduser.action" method="post" id="adminForm">
-                        <div id="usersUnitAccordion">
+                        <div id="usersAccordian">
                             <h3>User Details</h3>
-                        <div>
-                            <section class="contentDoc ">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Username :</td>
-                                            <td><form:input path="userName" id="userName"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Password :</td>
-                                            <td><form:password path="password" id="password"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email :</td>
-                                            <td><form:input path="email" id="email"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>System Role :</td>
-                                            <td><form:select path="systemRole" id="systemRole">
-                                                <form:option value="Family Head">Family Head</form:option>
-                                                <form:option value="Parish Admin">Parish Admin</form:option>
-                                                <form:option value="Mass Center Admin">Mass Center Admin</form:option>
-                                                <form:option value="Prayer Unit Admin">Prayer Unit Admin</form:option>
-                                            </form:select>
-                                            </td>
-                                        </tr>
 
-                                        <tr>
-                                            <td>Active :</td>
-                                            <td><form:select path="isActive" id="isActive">
-                                                <form:option value="Active">Active</form:option>
-                                                <form:option value="De-active">De-active</form:option>
-                                            </form:select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish:</td>
-                                            <td><form:select path="parishId">
-                                                <form:option value="0">--Select--</form:option>
-                                                <form:options items="${parishList}"/>
-                                            </form:select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center:</td>
-                                            <td><form:select path="massCenterId">
-                                                <form:option value="0">--Select--</form:option>
-                                                <form:options items="${massCenterList}"/>
-                                            </form:select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prayer Unit:</td>
-                                            <td><form:select path="prayerUnitId">
-                                                <form:option value="0">--Select--</form:option>
-                                                <form:options items="${prayerUnitList}"/>
-                                            </form:select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Family:</td>
-                                            <td><form:select path="familyId">
-                                                <form:option value="0">--Select--</form:option>
-                                                <form:options items="${familyList}"/>
-                                            </form:select></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
+                            <div>
+                                <section class="contentDoc ">
+                                    <div class="mainConte">
+                                        <table>
+                                            <tr>
+                                                <td>Username :</td>
+                                                <td><form:input path="userName" id="userName"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Password :</td>
+                                                <td><form:password path="password" id="password"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email :</td>
+                                                <td><form:input path="email" id="email"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>System Role :</td>
+                                                <td><form:select path="systemRole" id="systemRole">
+                                                    <form:option value="Family Head">Family Head</form:option>
+                                                    <form:option value="Parish Admin">Parish Admin</form:option>
+                                                    <form:option
+                                                            value="Mass Center Admin">Mass Center Admin</form:option>
+                                                    <form:option
+                                                            value="Prayer Unit Admin">Prayer Unit Admin</form:option>
+                                                </form:select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Active :</td>
+                                                <td><form:select path="isActive" id="isActive">
+                                                    <form:option value="Active">Active</form:option>
+                                                    <form:option value="De-active">De-active</form:option>
+                                                </form:select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Parish:</td>
+                                                <td><form:select path="parishId" id="parishSelectBox">
+                                                </form:select></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mass Center:</td>
+                                                <td><form:select path="massCenterId" id="massCenterSelectBox">
+                                                </form:select></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prayer Unit:</td>
+                                                <td><form:select path="prayerUnitId" id="prayerUnitSelectBox">
+                                                </form:select></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Family:</td>
+                                                <td><form:select path="familyId" id="familySelectBox">
+                                                </form:select></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </section>
+                            </div>
                         </div>
                         <p>
                             <input type="submit" value="Add" class="filterbutton"/>

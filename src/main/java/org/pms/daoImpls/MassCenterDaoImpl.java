@@ -36,7 +36,7 @@ public class MassCenterDaoImpl implements MassCenterDao {
 
     @Override
     public List<MassCenter> getAllMassCenters() {
-        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
@@ -66,6 +66,6 @@ public class MassCenterDaoImpl implements MassCenterDao {
 
     @Override
     public Long getAllMassCenterCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class,"massCenter").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).uniqueResult();
     }
 }

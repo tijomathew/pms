@@ -12,7 +12,7 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/parishValidator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/parishvalidator.js" />" type="text/javascript"
             language="javascript"></script>
 
     <%--<script type="text/javascript">
@@ -22,15 +22,16 @@
         });
     </script>--%>
 
-    <script src="<c:url value="/resources/js/PriestDesignationDisplay.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/priestdesignationdisplay.js" />" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            $("#parishAccordian").accordion();
             jQuery('#ui-id-2').bind("click", function () {
                 loadParishGrid();
             });
-            $("#parishUnitAccordion").accordion();
+
             jQuery('#editParishForm').bind("click", function () {
                 var gsr = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
                 if (gsr != null) {
@@ -129,13 +130,10 @@
                     <form:form modelAttribute="parish"
                                action="${pageContext.request.contextPath}/addParish.action" method="post"
                                id="parishForm1">
-                        <div id="parishUnitAccordion">
-
-
+                        <div id="parishAccordian">
                             <h3>Parish Details</h3>
 
                             <div>
-
                                 <section class="contentDoc">
                                     <div class="mainConte">
                                         <table>
@@ -234,9 +232,9 @@
                                 </section>
                             </div>
                             <h3>Address</h3>
+
                             <div>
                                 <section class="contentDoc">
-
                                     <div class="mainConte">
                                         <table>
                                             <tr>
@@ -277,7 +275,6 @@
                                     </div>
                                 </section>
                             </div>
-
                         </div>
                         <p>
                             <c:if test="${showAddButton==true}">

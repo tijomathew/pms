@@ -12,7 +12,7 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/wardValidator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/wardvalidator.js" />" type="text/javascript"
             language="javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -156,23 +156,6 @@
                                     </div>
                                 </section>
                             </div>
-
-                            <!--
-                            <h3>Section 4</h3>
-                            <div>
-                                <p>
-                                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                                    mauris vel est.
-                                </p>
-                                <p>
-                                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                                    inceptos himenaeos.
-                                </p>
-                            </div>
-                            -->
                         </div>
 
 

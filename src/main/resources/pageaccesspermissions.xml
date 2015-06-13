@@ -41,6 +41,7 @@
         <value>viewusers.action</value>
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
+        <value>createfamilyselectboxofusers.action</value>
     </util:list>
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -75,6 +76,7 @@
         <value>viewusers.action</value>
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
+        <value>createfamilyselectboxofusers.action</value>
     </util:list>
 
     <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -102,6 +104,7 @@
         <value>viewusers.action</value>
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
+        <value>createfamilyselectboxofusers.action</value>
     </util:list>
 
     <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -124,6 +127,7 @@
         <value>viewusers.action</value>
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
+        <value>createfamilyselectboxofusers.action</value>
     </util:list>
 
     <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">

@@ -1,6 +1,7 @@
 package org.pms.daoImpls;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.PriestDao;
@@ -30,7 +31,7 @@ public class PriestDaoImpl implements PriestDao {
 
     @Override
     public List<Priest> getAllPriest() {
-        return sessionFactory.getCurrentSession().createCriteria(Priest.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Priest.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

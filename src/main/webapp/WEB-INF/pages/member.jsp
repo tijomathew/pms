@@ -12,15 +12,16 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/memberVaildator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/membervaildator.js" />" type="text/javascript"
             language="javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#memberAccordian").accordion();
             loadSelectBox("${pageContext.request.contextPath}");
         });
     </script>
 
-    <script src="<c:url value="/resources/js/MemberSelectBox.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/memberselectbox.js" />" type="text/javascript"
             language="javascript"></script>
 
 
@@ -29,7 +30,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadMemberGrid();
             });
-            $("#memberUnitAccordion").accordion();
+
         });
 
         function loadMemberGrid() {
@@ -370,7 +371,7 @@
                     <form:form modelAttribute="member"
                                action="${pageContext.request.contextPath}/addmember.action" method="post"
                                id="memberForm1">
-                        <div id="memberUnitAccordion">
+                        <div id="memberAccordian">
                             <h3>Member Details</h3>
 
                             <div>

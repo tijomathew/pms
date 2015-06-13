@@ -11,15 +11,16 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/familyValidator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/familyvalidator.js" />" type="text/javascript"
             language="javascript"></script>
-    <script src="<c:url value="/resources/js/FamilySelectBox.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/familyselectbox.js" />" type="text/javascript"
             language="javascript"></script>
 
     <c:set var="loadBox" value="false"/>
     <%-- <c:if test="${loadBox==true}">--%>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#familyAccordian").accordion();
             loadSelectBox("${pageContext.request.contextPath}");
         });
     </script>
@@ -31,7 +32,7 @@
             jQuery('#ui-id-2').bind("click", function () {
                 loadFamilyGrid();
             });
-            $("#familyUnitAccordion").accordion();
+
         });
 
         function loadFamilyGrid() {
@@ -101,7 +102,7 @@
                     <form:form modelAttribute="family"
                                action="${pageContext.request.contextPath}/addfamily.action" method="post"
                                id="familyForm1">
-                        <div id="familyUnitAccordion">
+                        <div id="familyAccordian">
                             <h3>Family Details</h3>
                         <div>
                             <section class="contentDoc">
@@ -191,10 +192,8 @@
                             </section>
                         </div>
                             <h3>Native Address</h3>
-                        <div >
+                        <div>
                             <section class="contentDoc">
-
-
                                 <div class="mainConte">
                                     <table>
                                         <tr>

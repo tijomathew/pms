@@ -1,6 +1,7 @@
 package org.pms.daoImpls;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -31,7 +32,7 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public List<Member> getAllMembers() {
-        return sessionFactory.getCurrentSession().createCriteria(Member.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Member.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
@@ -41,6 +42,6 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public Long getMemberTotalCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class,"member").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class, "member").setProjection(Projections.rowCount()).uniqueResult();
     }
 }

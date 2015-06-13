@@ -11,14 +11,15 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/priestValidator.js" />" type="text/javascript"
+    <script src="<c:url value="/resources/js/priestvalidator.js" />" type="text/javascript"
             language="javascript"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            $("#priestAccordian").accordion();
             jQuery('#ui-id-2').bind("click", function () {
                 loadPriestGrid();
             });
-            $("#priestUnitAccordion").accordion();
+
         });
 
         function loadPriestGrid() {
@@ -95,8 +96,7 @@
                     <form:form modelAttribute="priest"
                                action="${pageContext.request.contextPath}/addpriest.action" method="post"
                                id="priestForm1">
-
-                        <div id="priestUnitAccordion">
+                        <div id="priestAccordian">
                             <h3>Personal Details</h3>
 
                             <div>

@@ -20,7 +20,7 @@
         <listener-class>org.pms.sessionmanager.PMSSessionManager</listener-class>
     </listener>
 
-    <!--<env-entry>
+    <env-entry>
         <env-entry-name>logback/context-name</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>pms</env-entry-value>
@@ -29,7 +29,7 @@
     <listener>
         <description>This listener is used for PMS Log back log facility</description>
         <listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
-    </listener>-->
+    </listener>
 
     <session-config>
         <session-timeout>1</session-timeout>
