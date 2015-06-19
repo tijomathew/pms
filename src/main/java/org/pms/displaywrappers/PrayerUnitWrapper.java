@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by tijo on 1/12/14.
  */
-public class WardWrapper implements GridRow {
+public class PrayerUnitWrapper implements GridRow {
 
     private PrayerUnitDto prayerUnitDto;
 
     private String[] VALID_BEAN_PROPERTIES = {"wardID", "wardCode","wardName","wardPlace","massCenterName","localAddress"};
 
-    public WardWrapper(PrayerUnitDto wardDto) {
-        this.prayerUnitDto = wardDto;
+    public PrayerUnitWrapper(PrayerUnitDto prayerUnitDto) {
+        this.prayerUnitDto = prayerUnitDto;
     }
 
     @Override

@@ -2,11 +2,10 @@ package org.pms.controllers;
 
 import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
-import org.pms.displaywrappers.WardWrapper;
+import org.pms.displaywrappers.PrayerUnitWrapper;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.helpers.*;
 import org.pms.models.MassCenter;
-import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
 import org.pms.services.MassCenterService;
@@ -18,9 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class is the controller of the PrayerUnit module.
@@ -118,7 +115,7 @@ public class PrayerUnitController {
 
         List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(prayerUnitDtoList.size());
         for (PrayerUnitDto prayerUnitDto : allPrayerUnitSubList) {
-            prayerUnitGridRows.add(new WardWrapper(prayerUnitDto));
+            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnitDto));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSessionListener;
  */
 public class PMSSessionManager implements HttpSessionListener {
 
-    private static final String keySpace = "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ123456789";
+    public static final String keySpace = "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ123456789";
     public static final String PMS_APPLICATION_SESSION = "pmsContextKey";
 
     @Override

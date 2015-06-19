@@ -19,29 +19,30 @@ import java.util.List;
  */
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImpl() {
+        setType(User.class);
+    }
 
     @Override
     public boolean addUserDM(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        createAndSave(user);
         return true;
     }
 
     @Override
-    public User getUserByUserName(String userName) {
-        return (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("userName", userName)).uniqueResult();
+    public User getUserByEmail(String email) {
+        return (User) getDb(true).createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
     }
 
     @Override
     public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public Long getAllUserCount() {
-        return (Long)sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(true).createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 }

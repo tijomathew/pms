@@ -62,8 +62,8 @@
                 <table>
                     <tr>
                         <td>USER NAME :</td>
-                        <td><form:input path="userName" id="userName" class="textBox"/></td>
-                        <form:errors path="userName"></form:errors>
+                        <td><form:input path="email" id="email" class="textBox"/></td>
+                        <form:errors path="email"></form:errors>
                         <td><input type="submit" value="Login" class="loginButton"/></td>
                     </tr>
                     <tr>

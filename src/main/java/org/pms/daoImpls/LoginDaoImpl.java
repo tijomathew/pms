@@ -7,18 +7,22 @@ import org.pms.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * LoginDaoImpl description
  * User: tijo
  */
 @Repository
-public class LoginDaoImpl implements LoginDao {
+public class LoginDaoImpl extends GenericDaoImpl<User> implements LoginDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public LoginDaoImpl() {
+        setType(User.class);
+    }
 
     @Override
-    public User getUserByUsernameDM(String loginUserName) {
-        return (User) sessionFactory.getCurrentSession().createCriteria(User.class, "user").add(Restrictions.eq("userName", loginUserName)).uniqueResult();
+    public User getUserByUserEmail(String loginUserEmail) {
+        return (User) getDb(false).createCriteria(User.class, "user").add(Restrictions.eq("email", loginUserEmail)).uniqueResult();
     }
+
 }

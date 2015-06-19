@@ -19,29 +19,30 @@ import java.util.List;
  */
 
 @Repository
-public class MemberDaoImpl implements MemberDao {
+public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public MemberDaoImpl() {
+        setType(Member.class);
+    }
 
     @Override
     public boolean addMemberDM(Member member) {
-        sessionFactory.getCurrentSession().save(member);
+        createAndSave(member);
         return false;
     }
 
     @Override
     public List<Member> getAllMembers() {
-        return sessionFactory.getCurrentSession().createCriteria(Member.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public Long getMemberCountForFamily(Long familyId) {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).uniqueResult();
     }
 
     @Override
     public Long getMemberTotalCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Member.class, "member").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).uniqueResult();
     }
 }

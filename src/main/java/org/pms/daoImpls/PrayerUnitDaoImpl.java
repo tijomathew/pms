@@ -18,44 +18,45 @@ import java.util.List;
  */
 
 @Repository
-public class PrayerUnitDaoImpl implements PrayerUnitDao {
+public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements PrayerUnitDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public PrayerUnitDaoImpl() {
+        setType(PrayerUnit.class);
+    }
 
     @Override
     public boolean addPrayerUnitDM(PrayerUnit prayerUnit) {
-        sessionFactory.getCurrentSession().save(prayerUnit);
+        createAndSave(prayerUnit);
         return true;
     }
 
     @Override
     public List<PrayerUnit> getAllPrayerUnit() {
-        return sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public List<PrayerUnit> getPrayerUnitsForMassCenterIDDM(Long massCenterID) {
-        return sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedMassCenter.id", massCenterID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedMassCenter.id", massCenterID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public PrayerUnit getPrayerUnitForIDDM(Long id) {
-        return (PrayerUnit) sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("prayerUnit.id", id)).uniqueResult();
+        return (PrayerUnit) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("prayerUnit.id", id)).uniqueResult();
     }
 
     @Override
     public Long getPrayerUnitCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(PrayerUnit.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
     public void updatePrayerUnit(PrayerUnit prayerUnit) {
-        sessionFactory.getCurrentSession().saveOrUpdate(prayerUnit);
+        updateInstance(prayerUnit);
     }
 
     @Override
     public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.rowCount()).add(Restrictions.eq("prayerUnit.mappedMassCenter.id", massCenterId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.rowCount()).add(Restrictions.eq("prayerUnit.mappedMassCenter.id", massCenterId)).uniqueResult();
     }
 }

@@ -40,8 +40,6 @@ public class PriestController {
     @Autowired
     private ParishService parishService;
 
-    @Autowired
-    private MailService mailService;
 
     @RequestMapping(value = "/viewpriest.action", method = RequestMethod.POST)
     public String priestPageDisplay(Model model) {

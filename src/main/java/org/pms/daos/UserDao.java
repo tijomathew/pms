@@ -12,7 +12,7 @@ public interface UserDao {
 
     boolean addUserDM(User user);
 
-    User getUserByUserName(String userName);
+    User getUserByEmail(String email);
 
     List<User> getAllUsers();
 

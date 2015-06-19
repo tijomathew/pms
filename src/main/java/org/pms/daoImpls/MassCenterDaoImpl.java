@@ -18,54 +18,56 @@ import java.util.List;
  */
 
 @Repository
-public class MassCenterDaoImpl implements MassCenterDao {
+public class MassCenterDaoImpl extends GenericDaoImpl<MassCenter> implements MassCenterDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @Override
-    public boolean addMassCenterDM(MassCenter massCenter) {
-        sessionFactory.getCurrentSession().save(massCenter);
-        return true;
+    public MassCenterDaoImpl() {
+        setType(MassCenter.class);
     }
 
     @Override
+    public boolean addMassCenterDM(MassCenter massCenter) {
+        createAndSave(massCenter);
+        return true;
+    }
+
+    //TODO remove all parish related dao operations from masscenter dao.
+    @Override
     public List<Parish> getAllParishDM() {
-        return sessionFactory.getCurrentSession().createCriteria(Parish.class).list();
+        return getDb(false).createCriteria(Parish.class).list();
     }
 
     @Override
     public List<MassCenter> getAllMassCenters() {
-        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public MassCenter getMassCenterForID(Long id) {
-        return (MassCenter) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.id", id)).uniqueResult();
+        return (MassCenter) getDb(false).createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.id", id)).uniqueResult();
     }
 
     @Override
     public List<MassCenter> getMassCenterForParishID(Long parishAutoID) {
-        return sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.mappedParish.id", parishAutoID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(false).createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.mappedParish.id", parishAutoID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public Long getMassCenterCountForParish(Long parishId) {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).add(Restrictions.eq("massCenter.mappedParish.id", parishId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).add(Restrictions.eq("massCenter.mappedParish.id", parishId)).uniqueResult();
     }
 
     @Override
     public void updateMassCenter(MassCenter massCenter) {
-        sessionFactory.getCurrentSession().saveOrUpdate(massCenter);
+        updateInstance(massCenter);
     }
 
     @Override
     public MassCenter getMassCenterByMassCenterID(String massCenterID) {
-        return (MassCenter) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.massCenterID", massCenterID)).uniqueResult();
+        return (MassCenter) getDb(false).createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.massCenterID", massCenterID)).uniqueResult();
     }
 
     @Override
     public Long getAllMassCenterCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).uniqueResult();
     }
 }

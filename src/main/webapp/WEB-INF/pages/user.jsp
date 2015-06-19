@@ -94,20 +94,17 @@
 
                             <div>
                                 <section class="contentDoc ">
+                                    <form:errors id="multipleEmailErrorDisplay"/>
                                     <div class="mainConte">
                                         <table>
-                                            <tr>
-                                                <td>Username :</td>
-                                                <td><form:input path="userName" id="userName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Password :</td>
-                                                <td><form:password path="password" id="password"/></td>
-                                            </tr>
                                             <tr>
                                                 <td>Email :</td>
                                                 <td><form:input path="email" id="email"/></td>
                                             </tr>
+                                            <%--<tr>
+                                                <td>Password :</td>
+                                                <td><form:password path="password" id="password"/></td>
+                                            </tr>--%>
                                             <tr>
                                                 <td>System Role :</td>
                                                 <td><form:select path="systemRole" id="systemRole">
@@ -117,6 +114,7 @@
                                                             value="Mass Center Admin">Mass Center Admin</form:option>
                                                     <form:option
                                                             value="Prayer Unit Admin">Prayer Unit Admin</form:option>
+                                                    <form:option value="Family User">Family User</form:option>
                                                 </form:select>
                                                 </td>
                                             </tr>

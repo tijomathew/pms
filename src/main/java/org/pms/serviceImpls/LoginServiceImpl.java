@@ -36,11 +36,11 @@ public class LoginServiceImpl implements LoginService {
     private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyHeadRole"};
 
     @Override
-    public String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword) throws IllegalArgumentException {
+    public String verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword) throws IllegalArgumentException {
         String redirectPageName = PageNames.LOGIN;
-        User loggedInUser = loginDao.getUserByUsernameDM(loginUserName);
+        User loggedInUser = loginDao.getUserByUserEmail(loginUserEmail);
         if (loggedInUser != null) {
-            if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserName.equalsIgnoreCase(loggedInUser.getUserName()))) {
+            if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserEmail.equalsIgnoreCase(loggedInUser.getEmail()))) {
                 createUserRoleInSession(loggedInUser);
                 redirectPageName = getRedirectedPageName(loggedInUser);
             }
@@ -62,6 +62,7 @@ public class LoginServiceImpl implements LoginService {
                 redirectPageName = PageNames.PRAYERUNIT;
                 break;
             case SystemRoles.FAMILY_ADMIN:
+            case SystemRoles.FAMILY_USER:
                 redirectPageName = PageNames.FAMILY;
                 break;
         }
@@ -83,6 +84,7 @@ public class LoginServiceImpl implements LoginService {
                 createUserAndRolesInSessionScope(differentRolesInSessionValues, "prayerUnitAdminRole", loggedInUser);
                 break;
             case SystemRoles.FAMILY_ADMIN:
+            case SystemRoles.FAMILY_USER:
                 createUserAndRolesInSessionScope(differentRolesInSessionValues, "familyHeadRole", loggedInUser);
                 break;
         }

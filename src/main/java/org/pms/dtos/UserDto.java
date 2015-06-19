@@ -5,7 +5,6 @@ package org.pms.dtos;
  */
 public class UserDto {
     private Integer id;
-    private String userName;
     private String systemRole;
     private String isActive;
     private String email;
@@ -20,14 +19,6 @@ public class UserDto {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getSystemRole() {

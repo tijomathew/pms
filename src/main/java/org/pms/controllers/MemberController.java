@@ -68,7 +68,7 @@ public class MemberController {
             familyList = familyService.getAllFamilyForMassCenterID(currentUser.getMassCenterId());
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
             familyList = familyService.getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)||currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
         } else {
             familyList = familyService.getAllFamilySM();
@@ -127,7 +127,7 @@ public class MemberController {
                 allMembers.addAll(family.getMemberList());
             }
             totalMembersCount = allMembers.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)||currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             allMembers.addAll(familyService.getFamilyForID(currentUser.getFamilyId()).getMemberList());
             totalMembersCount = allMembers.size();
         }

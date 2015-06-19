@@ -13,7 +13,7 @@ public interface UserService {
 
     boolean addUserSM(User user);
 
-    User getUserByUserName(String userName);
+    User getUserByEmail(String email);
 
     List<User> getAllUsers();
 

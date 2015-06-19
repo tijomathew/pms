@@ -18,45 +18,42 @@ import java.util.List;
  */
 
 @Repository
-public class PriestDaoImpl implements PriestDao {
-
-    @Autowired
-    private SessionFactory sessionFactory;
+public class PriestDaoImpl extends GenericDaoImpl<Priest> implements PriestDao {
 
     @Override
     public boolean addPriestDM(Priest priest) {
-        sessionFactory.getCurrentSession().save(priest);
+        createAndSave(priest);
         return true;
     }
 
     @Override
     public List<Priest> getAllPriest() {
-        return sessionFactory.getCurrentSession().createCriteria(Priest.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public Priest getPriestForIDDM(Long id) {
-        return (Priest) sessionFactory.getCurrentSession().createCriteria(Priest.class, "priest").add(Restrictions.eq("priest.id", id)).uniqueResult();
+        return (Priest) getDb(false).createCriteria(Priest.class, "priest").add(Restrictions.eq("priest.id", id)).uniqueResult();
     }
 
     @Override
     public Long getTotalCountOfPriestDM() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Priest.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(Priest.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
     public Long getHighestAutoIDDM() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Priest.class, "priest").setProjection(Projections.max("id")).uniqueResult();
+        return (Long) getDb(false).createCriteria(Priest.class, "priest").setProjection(Projections.max("id")).uniqueResult();
     }
 
     @Override
     public List<Long> getAllPriestsIDsDM() {
-        return sessionFactory.getCurrentSession().createCriteria(Priest.class, "priest").setProjection(Projections.property("id")).list();
+        return getDb(false).createCriteria(Priest.class, "priest").setProjection(Projections.property("id")).list();
     }
 
     @Override
     public boolean addPriestDesignation(PriestDesignation priestDesignation) {
-        sessionFactory.getCurrentSession().save(priestDesignation);
+        getDb(false).save(priestDesignation);
         return true;
     }
 }

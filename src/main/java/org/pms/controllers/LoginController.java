@@ -93,7 +93,7 @@ public class LoginController {
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
-            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getUserName(), user.getPassword());
+            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getEmail(), user.getPassword());
 
         } catch (IllegalArgumentException ex) {
             logger.error("The authentication and authorization of the user is failed in the system");
@@ -103,7 +103,7 @@ public class LoginController {
             //redirectedPage = "login";
         }
         createFormBackObjectForRedirectPage(model, redirectPageName);
-        // mailService.sendUserCredentials(new User());
+
        /* if (redirectPageName) {
             model.addAttribute("parish", formBackParish);
         } else {

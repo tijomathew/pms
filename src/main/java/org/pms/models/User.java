@@ -21,9 +21,6 @@ public class User implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "username")
-    private String userName;
-
     @Column(name = "password")
     private String password;
 
@@ -72,14 +69,6 @@ public class User implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassword() {
@@ -216,7 +205,6 @@ public class User implements Serializable {
         if (!systemRole.equals(user.systemRole)) return false;
         if (updatedBy != null ? !updatedBy.equals(user.updatedBy) : user.updatedBy != null) return false;
         if (updatedOn != null ? !updatedOn.equals(user.updatedOn) : user.updatedOn != null) return false;
-        if (!userName.equals(user.userName)) return false;
 
         return true;
     }
@@ -224,7 +212,6 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + userName.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + systemRole.hashCode();
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
@@ -240,4 +227,6 @@ public class User implements Serializable {
         result = 31 * result + (familyId != null ? familyId.hashCode() : 0);
         return result;
     }
+
+
 }

@@ -80,6 +80,7 @@ public class PMSInterceptor implements HandlerInterceptor {
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, prayerUnitAdminLinks);
                             break;
                         case SystemRoles.FAMILY_ADMIN:
+                        case SystemRoles.FAMILY_USER:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, familyHeadLinks);
                             break;
                     }
@@ -95,7 +96,7 @@ public class PMSInterceptor implements HandlerInterceptor {
                 httpServletResponse.flushBuffer();
             }
         }
-         return indicatorToProceed;
+        return indicatorToProceed;
     }
 
     private boolean checkURLIsAllowedForCurrentUser(String urlAction, List<String> urlList) {

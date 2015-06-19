@@ -36,17 +36,6 @@
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-
-        <!--<property name="configurationClass">
-            <value>org.hibernate.cfg.AnnotationConfiguration</value>
-        </property>-->
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
-                <prop key="hibernate.show_sql">true</prop>
-
-            </props>
-        </property>
         <property name="packagesToScan" value="org.pms.models"/>
     </bean>
 
@@ -62,31 +51,7 @@
     <mvc:annotation-driven/>
 
     <mvc:interceptors>
-
         <bean class="org.pms.interceptor.PMSInterceptor"/>
-
     </mvc:interceptors>
-
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <!--<property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-            </props>
-        </property>-->
-
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="port" value="465"/>
-        <property name="username" value="tijomathew1988@gmail.com"/>
-        <property name="password" value="tijojohn"/>
-        <property name="protocol" value="smtps"/>
-        <property name="javaMailProperties">
-            <props>
-                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
-                <prop key="mail.smtp.auth">true</prop>
-                <!-- Use TLS to encrypt communication with SMTP server -->
-                <prop key="mail.smtp.starttls.enable">true</prop>
-            </props>
-        </property>
-    </bean>
 
 </beans>

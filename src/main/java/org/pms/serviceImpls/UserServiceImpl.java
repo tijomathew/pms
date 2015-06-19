@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUserName(String userName) {
-        return userDao.getUserByUserName(userName);
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 
     @Override
@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> createUserDtos(List<User> userList) throws IllegalArgumentException {
         List<UserDto> userDtoList = new ArrayList<>(userList.size());
-        if(!userList.isEmpty()){
+        if (!userList.isEmpty()) {
             Integer uniqueId = 0;
-            for(User user: userList){
+            for (User user : userList) {
                 UserDto userDto = new UserDto();
                 userDto.setId(uniqueId);
                 userDto.setEmail(user.getEmail());
@@ -52,12 +52,10 @@ public class UserServiceImpl implements UserService {
                 userDto.setFamilyId(user.getMassCenterId());
                 userDto.setParishId(user.getParishId());
                 userDto.setSystemRole(user.getSystemRole());
-                userDto.setUserName(user.getUserName());
                 userDtoList.add(userDto);
                 uniqueId += 1;
             }
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("UserList Cannot be null");
         }
 
