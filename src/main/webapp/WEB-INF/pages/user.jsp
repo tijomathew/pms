@@ -11,12 +11,17 @@
     <title id="title">Users</title>
 
     <%@include file="scriptlibraryTemplate.jsp" %>
-    <script src="<c:url value="/resources/js/userselectbox.js" />" type="text/javascript"
+
+    <spring:url value="/resources/js/userselectbox.js" var="userSelectBoxURL"/>
+    
+    <script src="${userSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
+            <c:if test="${showForPrayerUnitAdmin == false}">
             loadSelectBox("${pageContext.request.contextPath}");
+            </c:if>
         });
     </script>
     <script type="text/javascript">
@@ -101,20 +106,16 @@
                                                 <td>Email :</td>
                                                 <td><form:input path="email" id="email"/></td>
                                             </tr>
-                                            <%--<tr>
-                                                <td>Password :</td>
-                                                <td><form:password path="password" id="password"/></td>
-                                            </tr>--%>
                                             <tr>
                                                 <td>System Role :</td>
                                                 <td><form:select path="systemRole" id="systemRole">
-                                                    <form:option value="Family Head">Family Head</form:option>
+                                                    <form:option value="Family User">Family User</form:option>
                                                     <form:option value="Parish Admin">Parish Admin</form:option>
                                                     <form:option
                                                             value="Mass Center Admin">Mass Center Admin</form:option>
                                                     <form:option
                                                             value="Prayer Unit Admin">Prayer Unit Admin</form:option>
-                                                    <form:option value="Family User">Family User</form:option>
+
                                                 </form:select>
                                                 </td>
                                             </tr>
@@ -127,26 +128,45 @@
                                                 </form:select>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Parish:</td>
-                                                <td><form:select path="parishId" id="parishSelectBox">
-                                                </form:select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mass Center:</td>
-                                                <td><form:select path="massCenterId" id="massCenterSelectBox">
-                                                </form:select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prayer Unit:</td>
-                                                <td><form:select path="prayerUnitId" id="prayerUnitSelectBox">
-                                                </form:select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Family:</td>
-                                                <td><form:select path="familyId" id="familySelectBox">
-                                                </form:select></td>
-                                            </tr>
+                                            <c:if test="${showForPrayerUnitAdmin == false}">
+                                                <tr>
+                                                    <td>Parish:</td>
+                                                    <td><form:select path="parishId" id="parishSelectBox">
+                                                    </form:select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mass Center:</td>
+                                                    <td><form:select path="massCenterId" id="massCenterSelectBox">
+                                                    </form:select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Prayer Unit:</td>
+                                                    <td><form:select path="prayerUnitId" id="prayerUnitSelectBox">
+                                                    </form:select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Family:</td>
+                                                    <td><form:select path="familyId" id="familySelectBox">
+                                                    </form:select></td>
+                                                </tr>
+                                            </c:if>
+                                            <c:if test="${showForPrayerUnitAdmin == true}">
+                                                <tr>
+                                                    <td>Parish:</td>
+                                                    <td><form:select path="parishId"
+                                                                     items="${parishList}"></form:select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mass Center:</td>
+                                                    <td><form:select path="massCenterId"
+                                                                     items="${massCenterList}"></form:select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Prayer Unit:</td>
+                                                    <td><form:select path="prayerUnitId"
+                                                                     items="${prayerUnitList}"></form:select></td>
+                                                </tr>
+                                            </c:if>
                                         </table>
                                     </div>
                                 </section>

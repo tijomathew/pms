@@ -20,6 +20,10 @@ import java.util.List;
 @Repository
 public class PriestDaoImpl extends GenericDaoImpl<Priest> implements PriestDao {
 
+    public PriestDaoImpl() {
+        setType(Priest.class);
+    }
+
     @Override
     public boolean addPriestDM(Priest priest) {
         createAndSave(priest);

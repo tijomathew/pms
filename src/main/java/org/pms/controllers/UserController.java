@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserController description
@@ -59,6 +61,9 @@ public class UserController {
     public String usersPageDisplay(Model model) {
         model.addAttribute("user", new User());
 
+        if (requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class).getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            createModelSelectBoxes(model);
+        }
         return PageNames.USER;
     }
 
@@ -104,13 +109,6 @@ public class UserController {
                     user.setFamilyId(0l);
                     insertUser = true;
                 }
-            } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
-                if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0 && user.getFamilyId() != 0) {
-                    user.setParishId(0l);
-                    user.setMassCenterId(0l);
-                    user.setPrayerUnitId(0l);
-                    insertUser = true;
-                }
             } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
                 if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0) {
                 /*user.setParishId(0l);
@@ -128,9 +126,11 @@ public class UserController {
         if (insertUser && !userEmailAlreadyExists) {
             model.addAttribute("user", new User());
             userService.addUserSM(user);
-            if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
-                user.setPassword(passwordBeforeHashing);
-                mailService.sendUserCredentials(user);
+            user.setPassword(passwordBeforeHashing);
+            mailService.sendUserCredentials(user);
+
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+                createModelSelectBoxes(model);
             }
         }
 
@@ -217,6 +217,30 @@ public class UserController {
         }
         SelectBox<String> selectBox = new SelectBox<String>(null, null);
         return selectBox.getJsonForSelectBoxCreation(selectBoxList);
+    }
+
+    private Model createModelSelectBoxes(Model model) {
+        Map<Long, String> parishMap = new HashMap<Long, String>();
+        List<Parish> addedParishes = parishService.getAllParish();
+        for (Parish parish : addedParishes)
+            parishMap.put(parish.getId(), parish.getName());
+
+        Map<Long, String> massCenterMap = new HashMap<Long, String>();
+        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
+        for (MassCenter massCenter : massCenterList)
+            massCenterMap.put(massCenter.getId(), massCenter.getName());
+
+        Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
+        List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();
+
+        for (PrayerUnit prayerUnit : prayerUnitList)
+            prayerUnitMap.put(prayerUnit.getId(), prayerUnit.getPrayerUnitName());
+
+        model.addAttribute("parishList", parishMap);
+        model.addAttribute("massCenterList", massCenterMap);
+        model.addAttribute("prayerUnitList", prayerUnitMap);
+
+        return model;
     }
 
 }

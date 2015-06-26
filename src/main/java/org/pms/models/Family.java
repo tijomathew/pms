@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class Family implements Serializable {
     @Column(name = "family_id")
     private String familyID;
 
+    @NotEmpty
     @Column(name = "parish_in_native")
     private String parishInNative;
 

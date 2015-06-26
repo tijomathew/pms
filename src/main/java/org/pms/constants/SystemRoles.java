@@ -15,7 +15,5 @@ public interface SystemRoles {
 
     String PMS_CURRENT_USER = "PMS CURRENT USER";
 
-    String FAMILY_ADMIN = "Family Head";
-
     String FAMILY_USER = "Family User";
 }

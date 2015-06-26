@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.dtos.MemberDto;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the Member Controller module.
@@ -50,10 +52,16 @@ public class MemberController {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
+    @Autowired
+    private FactorySelectBox factorySelectBox;
+
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
         model.addAttribute("member", new Member());
-        return "member";
+        if (requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class).getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            factorySelectBox.createSelectBox(model);
+        }
+        return PageNames.MEMBER;
     }
 
     @RequestMapping(value = "/createfamilyselectbox.action", method = RequestMethod.GET)
@@ -68,7 +76,7 @@ public class MemberController {
             familyList = familyService.getAllFamilyForMassCenterID(currentUser.getMassCenterId());
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
             familyList = familyService.getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)||currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
         } else {
             familyList = familyService.getAllFamilySM();
@@ -127,7 +135,7 @@ public class MemberController {
                 allMembers.addAll(family.getMemberList());
             }
             totalMembersCount = allMembers.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)||currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             allMembers.addAll(familyService.getFamilyForID(currentUser.getFamilyId()).getMemberList());
             totalMembersCount = allMembers.size();
         }
@@ -149,5 +157,7 @@ public class MemberController {
 
         return JsonBuilder.convertToJson(resultContainer);
     }
+
+
 
 }

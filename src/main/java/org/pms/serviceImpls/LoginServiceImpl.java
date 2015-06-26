@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired(required = true)
     private PMSApplicationBuilder pmsApplicationBuilder;
 
-    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyHeadRole"};
+    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyUserRole"};
 
     @Override
     public String verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword) throws IllegalArgumentException {
@@ -61,7 +61,6 @@ public class LoginServiceImpl implements LoginService {
             case SystemRoles.PRAYER_UNIT_ADMIN:
                 redirectPageName = PageNames.PRAYERUNIT;
                 break;
-            case SystemRoles.FAMILY_ADMIN:
             case SystemRoles.FAMILY_USER:
                 redirectPageName = PageNames.FAMILY;
                 break;
@@ -83,9 +82,8 @@ public class LoginServiceImpl implements LoginService {
             case SystemRoles.PRAYER_UNIT_ADMIN:
                 createUserAndRolesInSessionScope(differentRolesInSessionValues, "prayerUnitAdminRole", loggedInUser);
                 break;
-            case SystemRoles.FAMILY_ADMIN:
             case SystemRoles.FAMILY_USER:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "familyHeadRole", loggedInUser);
+                createUserAndRolesInSessionScope(differentRolesInSessionValues, "familyUserRole", loggedInUser);
                 break;
         }
 

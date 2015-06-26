@@ -1,12 +1,9 @@
-<%@ page import="javax.mail.Session" %>
 <%--
   User: tijo
   Date: 29/9/14
   Time: 9:17 PM  
 --%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="tagLibraryTemplate.jsp" %>
 <html>
 <head>
     <style type="text/css">
@@ -15,16 +12,21 @@
         }
     </style>
     <title>PMS-Login</title>
-    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-    <script src="<c:url value="/resources/js/jquery-1.10.2.js" />" type="text/javascript"
+    <spring:url value="/resources/css/style.css" var="styleURL"/>
+    <spring:url value="/resources/js/jquery-1.10.2.js" var="jqueryURL"/>
+    <spring:url value="/resources/js/jquery-ui.js" var="jqueryUIURL"/>
+    <spring:url value="/resources/js/jquery.layout-latest.min.js" var="layoutURL"/>
+    <spring:url value="/resources/js/jquery.validate.min.js" var="validateURL"/>
+
+    <link href="${styleURL}" rel="stylesheet">
+    <script src="${jqueryURL}" type="text/javascript"
             language="javascript"></script>
-    <script src="<c:url value="/resources/js/jquery-ui.js" />" type="text/javascript" language="javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.layout-latest.min.js" />" type="text/javascript"
+    <script src="${jqueryUIURL}" type="text/javascript" language="javascript"></script>
+    <script src="${layoutURL}" type="text/javascript"
             language="javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.validate.min.js" />" type="text/javascript"
+    <script src="${validateURL}" type="text/javascript"
             language="javascript"></script>
-    <!-- Scripts @Bilahari -->
-    <%-- <script src="<c:url value="/resources/js/utility.js" />" type="text/javascript" language="javascript"></script>--%>
+
     <script>
         $(document).ready(function () {
             $('#loginForm').validate({
@@ -76,10 +78,11 @@
                     </tr>
                 </table>
                 <% String showMessage = "";
-                    if(session!=null){
-                    if (session.getAttribute("showURLAccessDenied") != null) {
-                        showMessage = (String) session.getAttribute("showURLAccessDenied");
-                    }} %>
+                    if (session != null) {
+                        if (session.getAttribute("showURLAccessDenied") != null) {
+                            showMessage = (String) session.getAttribute("showURLAccessDenied");
+                        }
+                    } %>
                 <%= showMessage %>
                 <form:errors id="loginErrorDisplay" cssClass="error"></form:errors>
             </form:form>

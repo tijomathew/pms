@@ -7,7 +7,7 @@ import org.apache.commons.lang3.text.WordUtils;
  * User: tijo
  */
 public enum Roles {
-    ADMIN, PARISH_ADMIN, MASS_CENTER_ADMIN, PRAYER_UNIT_ADMIN, FAMILY_HEAD;
+    ADMIN, PARISH_ADMIN, MASS_CENTER_ADMIN, PRAYER_UNIT_ADMIN, FAMILY_USER;
 
     @Override
     public String toString() {

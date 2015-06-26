@@ -79,7 +79,6 @@ public class PMSInterceptor implements HandlerInterceptor {
                         case SystemRoles.PRAYER_UNIT_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, prayerUnitAdminLinks);
                             break;
-                        case SystemRoles.FAMILY_ADMIN:
                         case SystemRoles.FAMILY_USER:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, familyHeadLinks);
                             break;

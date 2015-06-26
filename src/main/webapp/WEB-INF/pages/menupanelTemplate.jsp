@@ -34,12 +34,7 @@
     });*/
 
 </script>
-<c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
-<c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
-<c:set var="showForMassCenterAdmin" value="${sessionScope.massCenterAdminRole}"/>
-<c:set var="showForPrayerUnitAdmin" value="${sessionScope.prayerUnitAdminRole}"/>
-<c:set var="showForFamilyHead" value="${sessionScope.familyHeadRole}"/>
-<c:set var="loggedInUser" scope="session" value="${sessionScope.PMS_CURRENT_USER}"/>
+
 <div class="outer-west">
     <div id="leftmenuAccordion">
         <h3>Menu</h3>
@@ -98,7 +93,7 @@
                     <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><span
                             class="file">Family Members</span></a></li>
                 </c:if>
-                <c:if test="${showForFamilyHead == true}">
+                <c:if test="${showForFamilyUser == true}">
                     <li id=family><a href="${pageContext.request.contextPath}/viewfamily.action"><span
                             class="file">Family</span></a></li>
                     <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><span

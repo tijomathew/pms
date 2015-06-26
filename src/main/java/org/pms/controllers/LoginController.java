@@ -2,6 +2,8 @@ package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.pms.constants.PageNames;
+import org.pms.constants.SystemRoles;
+import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -54,16 +56,8 @@ public class LoginController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
-    /**
-     * This method redirects to index page when application starts.
-     *
-     * @return the name of the page to which application has to redirect which will be resolved with the help of spring's internal view resolver.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String indexPageDisplay() {
-        logger.debug("Application redirects to the index page");
-        return PageNames.INDEX;
-    }
+    @Autowired
+    private FactorySelectBox factorySelectBox;
 
     /**
      * This method redirects to the login page after creating login user's model object to backup as model attribute object in the UI display.
@@ -137,9 +131,11 @@ public class LoginController {
                 break;
             case PageNames.FAMILY:
                 model.addAttribute("family", new Family());
+                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class));
                 break;
             case PageNames.MEMBER:
                 model.addAttribute("member", new Member());
+                factorySelectBox.createSelectBox(model);
                 break;
         }
     }

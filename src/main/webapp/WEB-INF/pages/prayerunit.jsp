@@ -12,14 +12,17 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/wardvalidator.js" />" type="text/javascript"
+    <spring:url value="/resources/js/prayerunitvalidator.js" var="prayerUnitValidatorURL"/>
+
+    <script src="${prayerUnitValidatorURL}" type="text/javascript"
             language="javascript"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function () {
             jQuery('#ui-id-2').bind("click", function () {
                 loadWardGrid();
             });
-            $( "#prayerUnitAccordion" ).accordion();
+            $("#prayerUnitAccordion").accordion();
 
         });
 
@@ -40,7 +43,7 @@
                         mtype: 'GET',
                         datatype: 'json',
                         rowList: [2, 4, 6],
-                        colNames: ['PrayerUnit ID','PrayerUnit Code' ,'PrayerUnit Name','PrayerUnit Place','MassCenter Name','Local address'],
+                        colNames: ['PrayerUnit ID', 'PrayerUnit Code', 'PrayerUnit Name', 'PrayerUnit Place', 'MassCenter Name', 'Local address'],
                         colModel: [
 
                             {name: 'wardID', index: 'wardID', width: 90},
@@ -88,10 +91,9 @@
                                id="addWardForm">
 
 
-
-
                         <div id="prayerUnitAccordion">
                             <h3>Prayer Unit Details</h3>
+
                             <div>
                                 <section class="contentDoc ">
                                     <div class="mainConte">
@@ -102,7 +104,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Prayer Unit Code :</td>
-                                                <td><form:input path="prayerUnitCode" id="prayerUnitCode" readonly="true"/></td>
+                                                <td><form:input path="prayerUnitCode" id="prayerUnitCode"
+                                                                readonly="true"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Prayer Unit Place :</td>
@@ -117,6 +120,7 @@
                                 </section>
                             </div>
                             <h3>Ireland Address</h3>
+
                             <div>
                                 <section class="contentDoc">
                                     <div class="mainConte">
@@ -142,7 +146,8 @@
                                             </tr>
                                             <tr>
                                                 <td>County:</td>
-                                                <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
+                                                <td><form:input path="localAddress.county"
+                                                                id="localAddresscounty"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Pin code:</td>
@@ -150,14 +155,14 @@
                                             </tr>
                                             <tr>
                                                 <td>Country:</td>
-                                                <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
+                                                <td><form:input path="localAddress.country"
+                                                                id="localAddresscountry"/></td>
                                             </tr>
                                         </table>
                                     </div>
                                 </section>
                             </div>
                         </div>
-
 
 
                         <div class="sectionLeft">

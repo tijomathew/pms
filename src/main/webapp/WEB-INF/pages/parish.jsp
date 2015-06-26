@@ -12,17 +12,13 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/parishvalidator.js" />" type="text/javascript"
+    <spring:url value="/resources/js/parishvalidator.js" var="parishValidatorURL"/>
+    <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
+
+    <script src="${parishValidatorURL}" type="text/javascript"
             language="javascript"></script>
 
-    <%--<script type="text/javascript">
-        $(document).ready(function () {
-            setTimeout(loadPriestWithDesignation("${pageContext.request.contextPath}"), 500000);
-            //loadPriestWithDesignation("${pageContext.request.contextPath}");
-        });
-    </script>--%>
-
-    <script src="<c:url value="/resources/js/priestdesignationdisplay.js" />" type="text/javascript"
+    <script src="${priestdesignationdisplayURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">

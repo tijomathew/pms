@@ -11,8 +11,11 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/priestvalidator.js" />" type="text/javascript"
+    <spring:url value="/resources/js/priestvalidator.js" var="priestValidatorURL"/>
+
+    <script src="${priestValidatorURL}" type="text/javascript"
             language="javascript"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function () {
             $("#priestAccordian").accordion();

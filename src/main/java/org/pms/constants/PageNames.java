@@ -9,7 +9,7 @@ public interface PageNames {
 
     String LOGIN = "login";
 
-    String FAMILY = "family";
+    String FAMILY = "newfamily";
 
     String MASSCENTER = "masscenter";
 

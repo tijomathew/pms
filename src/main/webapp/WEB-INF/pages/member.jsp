@@ -12,17 +12,23 @@
 
     <%@include file="scriptlibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/membervaildator.js" />" type="text/javascript"
+    <spring:url value="/resources/js/membervaildator.js" var="memberValidator"/>
+    <spring:url value="/resources/js/memberselectbox.js" var="memberSelectBox"/>
+
+
+    <script src="${memberValidator}" type="text/javascript"
             language="javascript"></script>
+    <script src="${memberSelectBox}" type="text/javascript"
+            language="javascript"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#memberAccordian").accordion();
+            <c:if test="${showForFamilyUser == false}">
             loadSelectBox("${pageContext.request.contextPath}");
+            </c:if>
         });
     </script>
-
-    <script src="<c:url value="/resources/js/memberselectbox.js" />" type="text/javascript"
-            language="javascript"></script>
 
 
     <script type="text/javascript">
@@ -378,10 +384,19 @@
                                 <section class="contentDoc">
                                     <div class="mainConte">
                                         <table>
-                                            <tr>
-                                                <td>Family :</td>
-                                                <td><form:select path="familyId" id="familySelectBox"/></td>
-                                            </tr>
+                                            <c:if test="${showForFamilyUser == false}">
+                                                <tr>
+                                                    <td>Family :</td>
+                                                    <td><form:select path="familyId" id="familySelectBox"/></td>
+                                                </tr>
+                                            </c:if>
+                                            <c:if test="${showForFamilyUser == true}">
+                                                <tr>
+                                                    <td>Family :</td>
+                                                    <td><form:select path="familyId" id="familySelectBox"
+                                                                     items="${familyName}"/></td>
+                                                </tr>
+                                            </c:if>
                                             <tr>
                                                 <td>Salutation :</td>
                                                 <td><form:select path="memberAsPerson.salutation"
