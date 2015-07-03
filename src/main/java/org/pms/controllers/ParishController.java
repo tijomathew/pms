@@ -4,6 +4,8 @@ import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
@@ -11,9 +13,12 @@ import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -39,20 +44,39 @@ public class ParishController {
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
-        parishService.createParishFormBackObjectModel(model);
+        model.addAttribute("parish", new Parish());
         model.addAttribute("showAddButton", true);
         return PageNames.PARISH;
     }
 
-    @RequestMapping(value = "/addParish.action", method = RequestMethod.POST)
-    public String addParish(@ModelAttribute("parish") Parish parish, Model model) {
-        parishService.addParishSM(parish);
-        parishService.createParishFormBackObjectModel(model);
-        model.addAttribute("showAddButton", true);
-        return PageNames.PARISH;
+    @RequestMapping(value = "/addparish.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    CustomResponse addParish(Model model, @ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+        if (!result.hasErrors()) {
+            String attachedStringToID = "PA";
+            Long parishCounter = parishService.getParishCount();
+            if (parishCounter < 10l) {
+                attachedStringToID += "0";
+            }
+            parish.setParishID(attachedStringToID + (++parishCounter));
+            parishService.addParishSM(parish);
+            model.addAttribute("showAddButton", true);
+            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
+            res = new CustomResponse("SUCCESS", customErrorMessages);
+        } else {
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
+        }
+        return res;
     }
 
-    @RequestMapping(value = "displayParishGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displayparishgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
@@ -112,7 +136,6 @@ public class ParishController {
     @RequestMapping(value = "/updateparishinformation.action", method = RequestMethod.POST)
     public String updateParish(@ModelAttribute("parish") Parish parish, Model model) {
         parishService.addParishSM(parish);
-        parishService.createParishFormBackObjectModel(model);
         model.addAttribute("showUpdateButton", false);
         return PageNames.PARISH;
     }

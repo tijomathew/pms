@@ -4,6 +4,8 @@ import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.dtos.MemberDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
@@ -13,6 +15,8 @@ import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -20,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,21 +95,36 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/addmember.action", method = RequestMethod.POST)
-    public String addMember(@ModelAttribute("member") Member member, Model model) {
-        model.addAttribute("member", new Member());
-        Family family = familyService.getFamilyForID(member.getFamilyId());
-        family.addMemberForFamily(member);
-        member.setFamilyMember(family);
+    public
+    @ResponseBody
+    CustomResponse addMember(Model model, @ModelAttribute("member") @Valid Member member, BindingResult result) {
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+        if (!result.hasErrors()) {
+            model.addAttribute("member", new Member());
+            Family family = familyService.getFamilyForID(member.getFamilyId());
+            family.addMemberForFamily(member);
+            member.setFamilyMember(family);
 
-        String attachedStringToID = family.getFamilyID() + "-M";
-        Long memberCountForFamily = memberService.getMemberCountForFamily(family.getId());
-        if (memberCountForFamily < 10) {
-            attachedStringToID += "0";
+            String attachedStringToID = family.getFamilyID() + "-M";
+            Long memberCountForFamily = memberService.getMemberCountForFamily(family.getId());
+            if (memberCountForFamily < 10) {
+                attachedStringToID += "0";
+            }
+            member.setMemberID(attachedStringToID + (++memberCountForFamily));
+
+            memberService.addMemberSM(member);
+            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
+            res = new CustomResponse("SUCCESS", customErrorMessages);
+
+        } else {
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
         }
-        member.setMemberID(attachedStringToID + (++memberCountForFamily));
-
-        memberService.addMemberSM(member);
-        return "member";
+        return res;
     }
 
     @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)
@@ -157,7 +177,6 @@ public class MemberController {
 
         return JsonBuilder.convertToJson(resultContainer);
     }
-
 
 
 }

@@ -4,6 +4,8 @@ import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.PrayerUnitWrapper;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
@@ -14,8 +16,11 @@ import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,35 +54,48 @@ public class PrayerUnitController {
 
 
     @RequestMapping(value = "/addprayerunit.action", method = RequestMethod.POST)
-    public String addWard(@ModelAttribute("prayerUnit") PrayerUnit prayerUnit, Model modelMap) {
+    public
+    @ResponseBody
+    CustomResponse addWard(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
 
-        MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
-        prayerUnit.setMappedMassCenter(massCenter);
-        massCenter.addPrayerUnitsForMassCenter(prayerUnit);
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
-        String attachedStringToID = massCenter.getMassCenterID() + "-PU";
-        Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
-        if (prayerUnitCounter < 10) {
-            attachedStringToID += "0";
-        }
+        if (!result.hasErrors()) {
+            MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
+            prayerUnit.setMappedMassCenter(massCenter);
+            massCenter.addPrayerUnitsForMassCenter(prayerUnit);
 
-        prayerUnit.setPrayerUnitCode(attachedStringToID + (++prayerUnitCounter));
+            String attachedStringToID = massCenter.getMassCenterID() + "-PU";
+            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+            if (prayerUnitCounter < 10) {
+                attachedStringToID += "0";
+            }
 
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
-        boolean permissionDenied = false;
+            prayerUnit.setPrayerUnitCode(attachedStringToID + (++prayerUnitCounter));
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
-            permissionDenied = true;
-        }
-        if (!permissionDenied) {
-            prayerUnitService.addPrayerUnitSM(prayerUnit);
+            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+            boolean permissionDenied = false;
+
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+                permissionDenied = true;
+            }
+            if (!permissionDenied) {
+                prayerUnitService.addPrayerUnitSM(prayerUnit);
+            } else {
+                // show the error that prayer unit cannot be add by Prayer Unit admin. He can edit only its information.
+            }
+
+            prayerUnitService.createPrayerUnitFormBackObject(modelMap);
         } else {
-            // show the error that prayer unit cannot be add by Prayer Unit admin. He can edit only its information.
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
         }
 
-        prayerUnitService.createPrayerUnitFormBackObject(modelMap);
-
-        return PageNames.PRAYERUNIT;
+        return res;
     }
 
     @RequestMapping(value = "displayprayerunitgrid.action", method = RequestMethod.GET)

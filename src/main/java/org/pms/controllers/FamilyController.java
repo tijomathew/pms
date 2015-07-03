@@ -59,57 +59,53 @@ public class FamilyController {
     }
 
     @RequestMapping(value = "/addfamily.action", method = RequestMethod.POST)
-    public @ResponseBody CustomResponse addFamily( Model model,@ModelAttribute("family") @Valid Family family,BindingResult result) {
-        /*model.addAttribute("family", new Family());
-        Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
-        MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
-        PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
-        family.setFamilyParish(parishForFamily);
-        parishForFamily.addFamilyForParish(family);
-        family.setFamilyMassCenter(massCenterForFamily);
-        massCenterForFamily.addFamilyForMassCenter(family);
-        family.setFamilyPrayerUnit(prayerUnitForFamily);
-        prayerUnitForFamily.addFamilyForWard(family);
+    public
+    @ResponseBody
+    CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+        if (!result.hasErrors()) {
+            model.addAttribute("family", new Family());
+            Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
+            MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
+            PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
+            family.setFamilyParish(parishForFamily);
+            parishForFamily.addFamilyForParish(family);
+            family.setFamilyMassCenter(massCenterForFamily);
+            massCenterForFamily.addFamilyForMassCenter(family);
+            family.setFamilyPrayerUnit(prayerUnitForFamily);
+            prayerUnitForFamily.addFamilyForWard(family);
 
-        String attachedStringToID = prayerUnitForFamily.getPrayerUnitCode() + "-FA";
-        Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
-        if (familyCounterForParish < 10) {
-            attachedStringToID += "0";
-        }
+            String attachedStringToID = prayerUnitForFamily.getPrayerUnitCode() + "-FA";
+            Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
+            if (familyCounterForParish < 10) {
+                attachedStringToID += "0";
+            }
 
-        family.setFamilyID(attachedStringToID + (++familyCounterForParish));
+            family.setFamilyID(attachedStringToID + (++familyCounterForParish));
 
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
 
-        familyService.addFamilySM(family);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
-            factorySelectBox.generateSelectBoxInModel(model, currentUser);
-        }
+            familyService.addFamilySM(family);
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+                factorySelectBox.generateSelectBoxInModel(model, currentUser);
+            }
 
-        //TODO check whether the user is already assigned with a family.
+            //TODO check whether the user is already assigned with a family.
 
-        currentUser.setFamilyId(family.getId());
-        userService.addUserSM(currentUser);
+            currentUser.setFamilyId(family.getId());
+            userService.addUserSM(currentUser);
 
-
-        //show the error that family cannot be add by family admin. He can edit only his information.*/
-
-        CustomResponse res=null;
-        if(!result.hasErrors()){
-           /* res.setStatus("SUCCESS");
-            res.setResult("Congratulations your form is valid");*/
-        }else{
+        } else {
            /* res.setStatus("FAIL");*/
             List<FieldError> allErrors = result.getFieldErrors();
-            List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
             for (FieldError objectError : allErrors) {
                 customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
             }
-            res=new CustomResponse("FAIL",customErrorMessages);
+            res = new CustomResponse("FAIL", customErrorMessages);
 
         }
 
-       /* return PageNames.FAMILY;*/
         return res;
     }
 

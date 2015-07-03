@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -40,6 +42,7 @@ public class Member implements Serializable {
     @Column(name = "date_of_first_communion")
     private String dateOfFirstCommunion;
 
+    @NotEmpty
     @Column(name = "date_of_marriage")
     private String dateOfMarriage;
 

@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class MassCenter implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
+    @NotEmpty
     @Column(name = "name")
     private String name;
 

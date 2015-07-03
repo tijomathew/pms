@@ -7,8 +7,8 @@
 
     <util:list id="adminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewparish.action</value>
-        <value>addParish.action</value>
-        <value>displayParishGrid.action</value>
+        <value>addparish.action</value>
+        <value>displayparishgrid.action</value>
         <value>createpriestdesignationbox.action</value>
         <value>editparishdetails.action</value>
         <value>updateparishinformation.action</value>
@@ -17,9 +17,9 @@
         <value>addpriest.action</value>
         <value>displaypriestgrid.action</value>
 
-        <value>viewmassCenter.action</value>
+        <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displayMassCenterGrid.action</value>
+        <value>displaymasscentergrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>
@@ -46,15 +46,15 @@
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewparish.action</value>
-        <value>addParish.action</value>
-        <value>displayParishGrid.action</value>
+        <value>addparish.action</value>
+        <value>displayparishgrid.action</value>
         <value>createpriestdesignationbox.action</value>
         <value>editparishdetails.action</value>
         <value>updateparishinformation.action</value>
 
-        <value>viewmassCenter.action</value>
+        <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displayMassCenterGrid.action</value>
+        <value>displaymasscentergrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>
@@ -80,9 +80,9 @@
     </util:list>
 
     <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
-        <value>viewmassCenter.action</value>
+        <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displayMassCenterGrid.action</value>
+        <value>displaymasscentergrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>

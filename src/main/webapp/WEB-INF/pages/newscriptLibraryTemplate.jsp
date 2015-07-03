@@ -57,15 +57,17 @@
 <spring:url value="/resources/js/placeholdr.js" var="placeholderURL"/>
 <spring:url value="/resources/js/application.js" var="applicationURL"/>
 <spring:url value="/resources/js/demo.js" var="demoURL"/>
+<spring:url value="/resources/js/jquery-css-bootstrap.js" var="bootStrapOverrideJqgrid"/>
 
 <script type='text/javascript' src="${demoindexURL}"></script>
 <script type='text/javascript' src="${placeholderURL}"></script>
 <script type='text/javascript' src="${applicationURL}"></script>
 <script type='text/javascript' src="${demoURL}"></script>
+<script type='text/javascript' src="${bootStrapOverrideJqgrid}"></script>
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
 <c:set var="showForMassCenterAdmin" value="${sessionScope.massCenterAdminRole}"/>
 <c:set var="showForPrayerUnitAdmin" value="${sessionScope.prayerUnitAdminRole}"/>
 <c:set var="showForFamilyUser" value="${sessionScope.familyUserRole}"/>
-<c:set var="loggedInUser" scope="session" value="${sessionScope.PMS_CURRENT_USER}"/>
+<c:set var="loggedInUserEmail" value="${sessionScope.currentUserEmail}"/>

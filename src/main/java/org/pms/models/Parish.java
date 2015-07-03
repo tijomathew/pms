@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.List;
  * It contains various getters and setters of attributes of the parish.
  * It contains various relationships with priest, mass center and families.
  * It contains various methods for adding priest, mass center and families.
- * <p/>
+ * <p>
  * User: tijo
  */
 @Entity
@@ -27,30 +28,37 @@ public class Parish implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
+    @NotEmpty
     @Column(name = "church_name")
     private String churchName;
 
+    @NotEmpty
     @Column(name = "rite_name")
     private String riteName;
 
+    @NotEmpty
     @Column(name = "diocese_name")
     private String dioceseName;
 
     @Column(name = "parish_id")
     private String parishID;
 
+    @NotEmpty
     @Column(name = "forane_name")
     private String foraneName;
 
+    @NotEmpty
     @Column(name = "name")
     private String name;
 
+    @NotEmpty
     @Column(name = "place")
     private String place;
 
     @Column(name = "code")
     private String code;
 
+    @NotEmpty
     @Column(name = "website")
     private String webSite;
 

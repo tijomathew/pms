@@ -99,6 +99,7 @@ public class LoginServiceImpl implements LoginService {
         }
         String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);
         pmsApplicationBuilder.addUserInSessionMap(loggedInUser, sessionContextKey);
-        requestResponseHolder.getCurrentSession().setAttribute(SystemRoles.PMS_CURRENT_USER, loggedInUser);
+        requestResponseHolder.setAttributeToSession(SystemRoles.PMS_CURRENT_USER, loggedInUser);
+        requestResponseHolder.setAttributeToSession("currentUserEmail", loggedInUser.getEmail());
     }
 }

@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public class Priest implements Serializable {
     @Column(name = "priest_id")
     private String priestID;
 
+    @NotEmpty
     @Column(name = "date_of_ordination")
     private String dateOfOrdination;
 

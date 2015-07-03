@@ -11,15 +11,15 @@ public interface PageNames {
 
     String FAMILY = "newfamily";
 
-    String MASSCENTER = "masscenter";
+    String MASSCENTER = "newmasscenter";
 
-    String MEMBER = "member";
+    String MEMBER = "newmember";
 
-    String PARISH = "parish";
+    String PARISH = "newparish";
 
-    String PRAYERUNIT = "prayerunit";
+    String PRAYERUNIT = "newprayerunit";
 
-    String PRIEST = "priest";
+    String PRIEST = "newpriest";
 
-    String USER = "user";
+    String USER = "newuser";
 }

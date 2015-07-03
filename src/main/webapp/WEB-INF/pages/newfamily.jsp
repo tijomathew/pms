@@ -5,12 +5,15 @@
   Time: 9:29 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@include file="tagLibraryTemplate.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <%@ include file="newscriptLibraryTemplate.jsp" %>
+
+    <spring:url value="/addfamily.action" var="familyActionURL"/>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -68,11 +71,43 @@
 
     </script>
 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var $form = $('#familyForm1');
+            $form.bind('submit', function (e) {
+                // Ajax validation
+                /*var $inputs = $form.find('input');
+                var data = collectFormData($inputs);*/
+
+                $.post('${familyActionURL}', $form.serializeArray(), function (response) {
+                    $form.find('.control-group').removeClass('error');
+                    $form.find('.help-inline').empty();
+                    $form.find('.alert').remove();
+
+                    if (response.statusMessage == 'FAIL') {
+                        for (var i = 0; i < response.customErrorMessages.length; i++) {
+                            var item = response.customErrorMessages[i];
+                            var $controlGroup = $('#' + item.fieldName);
+                            $controlGroup.addClass('error');
+                            $controlGroup.find('.help-inline').html(item.message);
+                        }
+                    } else {
+                        var $alert = $('<div class="alert alert-success"></div>');
+                        $alert.html(response.customErrorMessages);
+                        $alert.prependTo($form);
+                    }
+                }, 'json');
+
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+
 </head>
 
 <body>
-
-<spring:url value="/addfamily.action" var="familyActionURL"/>
 
 <%@include file="newheaderTemplate.jsp" %>
 
@@ -135,25 +170,14 @@
                                                             <h4>Family Details</h4>
                                                         </div>
                                                         <div class="panel-body">
-                                                                <%--<div class="form-group has-error">
-                                                                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-
-                                                                    <div class="col-sm-10">
-                                                                        <input type="email" class="form-control"
-                                                                               id="inputEmail3" placeholder="Email">
-                                                                    </div>
-                                                                    <p class=""></p>
-                                                                </div>--%>
 
                                                             <div class="control-group" id="familyName">
                                                                 <label class="control-label">Family Name :</label>
 
-                                                                <div class="controls">
                                                                     <form:input path="familyName" id="familyName"
                                                                                 class="textBox"/>
                                                                  <span class="help-inline"><form:errors
                                                                          path="familyName"/></span>
-                                                                </div>
                                                             </div>
 
                                                             <div class="control-group" id="parishInNative">
@@ -168,24 +192,21 @@
 
                                                             <div class="control-group" id="dioceseInNative">
                                                                 <label class="control-label">Native Diocese :</label>
-
-                                                                <div class="controls"><form:input path="dioceseInNative"
+                                                              <form:input path="dioceseInNative"
                                                                                                   id="dioceseInNative"/>
                                                          <span class="help-inline"><form:errors
                                                                  path="dioceseInNative"/> </span>
-                                                                </div>
                                                             </div>
 
                                                             <div class="control-group" id="dateOfRegistration">
                                                                 <label class="control-label">Date Of Registration
                                                                     :</label>
 
-                                                                <div class="controls"><form:input
+                                                               <form:input
                                                                         path="dateOfRegistration"
                                                                         id="dateOfRegistration"/>
                                                          <span class="help-inline"><form:errors
                                                                  path="dateOfRegistration"/> </span>
-                                                                </div>
                                                             </div>
 
                                                             <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
@@ -193,20 +214,18 @@
                                                                 <div class="control-group" id="parishId">
                                                                     <label class="control-label">Parish :</label>
 
-                                                                    <div class="controls"><form:select path="parishId"
+                                                                 <form:select path="parishId"
                                                                                                        id="parishSelectBox">
                                                                         <option value="select">--Please select--
                                                                         </option>
                                                                     </form:select>
                                                                          <span class="help-inline"><form:errors
                                                                                  path="parishId"/> </span>
-                                                                    </div>
                                                                 </div>
 
                                                                 <div class="control-group" id="massCenterId">
                                                                     <label class="control-label">Mass Center :</label>
-
-                                                                    <div class="controls"><form:select
+                                                                 <form:select
                                                                             path="massCenterId"
                                                                             id="massCenterSelectBox">
                                                                         <option value="select">--Please select--
@@ -214,13 +233,12 @@
                                                                     </form:select>
                                                              <span class="help-inline"><form:errors
                                                                      path="massCenterId"/> </span>
-                                                                    </div>
                                                                 </div>
 
                                                                 <div class="control-group" id="prayerUnitId">
                                                                     <label class="control-label">Prayer Unit :</label>
 
-                                                                    <div class="controls"><form:select
+                                                                   <form:select
                                                                             path="prayerUnitId"
                                                                             id="wardSelectBox">
                                                                         <option value="select">--Please select--
@@ -476,46 +494,6 @@
     <%@include file="newfooterPanelTemplate.jsp" %>
 
 </div>
-<script type="text/javascript">
-    function collectFormData(fields) {
-        var data = {};
-        for (var i = 0; i < fields.length; i++) {
-            var $item = $(fields[i]);
-            data[$item.attr('name')] = $item.val();
-        }
-        return data;
-    }
 
-    $(document).ready(function () {
-        var $form = $('#familyForm1');
-        $form.bind('submit', function (e) {
-            // Ajax validation
-            var $inputs = $form.find('input');
-            var data = collectFormData($inputs);
-
-            $.post('${familyActionURL}', data, function (response) {
-                $form.find('.control-group').removeClass('error');
-                $form.find('.help-inline').empty();
-                $form.find('.alert').remove();
-
-                if (response.statusMessage == 'FAIL') {
-                    for (var i = 0; i < response.customErrorMessages.length; i++) {
-                        var item = response.customErrorMessages[i];
-                        var $controlGroup = $('#' + item.fieldName);
-                        $controlGroup.addClass('error');
-                        $controlGroup.find('.help-inline').html(item.message);
-                    }
-                } else {
-                    var $alert = $('<div class="alert alert-success"></div>');
-                    $alert.html(response.customErrorMessages);
-                    $alert.prependTo($form);
-                }
-            }, 'json');
-
-            e.preventDefault();
-            return false;
-        });
-    });
-</script>
 </body>
 </html>

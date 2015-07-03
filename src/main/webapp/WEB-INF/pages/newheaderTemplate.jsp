@@ -16,7 +16,7 @@
   <ul class="nav navbar-nav pull-right toolbar">
     <li class="dropdown">
       <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
-        <span class="hidden-xs">tijopower888@gmail.com <i class="fa fa-caret-down"></i></span>
+        <span class="hidden-xs">${loggedInUserEmail} <i class="fa fa-caret-down"></i></span>
         <spring:url value="/resources/images/dangerfield.png" var="dangerimageURL"/>
         <img src="${dangerimageURL}" alt="Dangerfield"/>
       </a>
@@ -24,8 +24,8 @@
         <li class="username">
           <a href="#">
             <div class="pull-left"><img src="${dangerimageURL}" alt="Jeff Dangerfield"/></div>
-            <div class="pull-right"><h5>tijopower888@gmail.com!</h5>
-              <small>Logged in as <span>tijopower888@gmail.com</span></small>
+            <div class="pull-right"><h5>${loggedInUserEmail}</h5>
+              <small>Logged in as <span>${loggedInUserEmail}</span></small>
             </div>
           </a>
         </li>
@@ -35,7 +35,7 @@
             <li><a href="#">Account <i class="pull-right fa fa-cog"></i></a></li>
             <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
             <li class="divider"></li>
-            <li><a href="#" class="text-right">Sign Out</a></li>
+            <li><a href="${pageContext.request.contextPath}/loggedout.action" class="text-right">Sign Out</a></li>
           </ul>
         </li>
       </ul>

@@ -4,6 +4,8 @@ import org.pms.constants.PageNames;
 import org.pms.constants.SystemRoles;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.dtos.MassCenterDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
@@ -12,9 +14,12 @@ import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,105 +48,119 @@ public class MassCenterController {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    @RequestMapping(value = "/viewmassCenter.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewmasscenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
         massCenterService.createMassCenterFormBackObject(modelMap);
         return PageNames.MASSCENTER;
     }
 
     @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)
-    public String addMassCenter(@ModelAttribute("massCenter") MassCenter massCenter, Model modelMap) {
+    public
+    @ResponseBody
+    CustomResponse addMassCenter(Model modelMap, @ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
+
         modelMap.addAttribute("massCenter", new MassCenter());
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
-        //get the parish for mass center to map with mass center and parish.
-        Parish parish = parishService.getParishForIDSM(massCenter.getParish());
+        if(!result.hasErrors()) {
 
-        //set the parish to the mass center.
-        massCenter.setMappedParish(parish);
+            //get the parish for mass center to map with mass center and parish.
+            Parish parish = parishService.getParishForIDSM(massCenter.getParish());
 
-        //add mass center to the parish mass center list.
-        parish.addMassCentersForParish(massCenter);
+            //set the parish to the mass center.
+            massCenter.setMappedParish(parish);
 
-        String attachedStringToID = parish.getParishID() + "-MC";
+            //add mass center to the parish mass center list.
+            parish.addMassCentersForParish(massCenter);
 
-        //set mass center ID if its not set in the view code.
-        if (massCenter.getMassCenterID().isEmpty()) {
-            Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
-            if (massCenterCount < 10) {
-                attachedStringToID += "0";
-            }
-            massCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
-        }
+            String attachedStringToID = parish.getParishID() + "-MC";
 
-        //get all active priests for the respective parish.
-        /**
-         * TODO
-         * add parish id to get the active priests under particular parish.
-         */
-        List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
-
-        Map<Long, String> mappedPriestDesignations = new HashMap<>();
-
-        //get priest designations whose designations got selected from the UI and stored in the map.
-        for (Long priestID : allActivePriestsIDs) {
-            if (request.getParameter(priestID.toString()) != null) {
-                mappedPriestDesignations.put(priestID, request.getParameter(priestID.toString()));
-            }
-        }
-
-        //get the priest IDs who got selected from the UI as incharge for the particular mass center.
-        String[] priestsForParish = request.getParameterValues("priest");
-
-        List<PriestDesignation> mappedPriestDesignationList = new ArrayList<>();
-
-        //set the priest designation for priest who got selected from UI using the respective map.
-        for (String priestID : priestsForParish) {
-
-            //get the priest using priest ID.
-            Priest priest = priestService.getPriestForPriestIDSM(Long.valueOf(priestID));
-
-            //set mass center to the priest.
-            priest.setMassCenter(massCenter);
-
-            //set the designation for each priest which are selected from the UI.
-            if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
-                String priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
-
-                PriestDesignation priestDesignation = new PriestDesignation();
-                priestDesignation.setDesignation(priestDesignationFromMap);
-                priestDesignation.setPriestId(priest.getPriestID());
-                priestDesignation.setMassCenterId(massCenter.getMassCenterID());
-
-                mappedPriestDesignationList.add(priestDesignation);
+            //set mass center ID if its not set in the view code.
+            if (massCenter.getMassCenterID().isEmpty()) {
+                Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
+                if (massCenterCount < 10) {
+                    attachedStringToID += "0";
+                }
+                massCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
             }
 
-        }
+            //get all active priests for the respective parish.
+            /**
+             * TODO
+             * add parish id to get the active priests under particular parish.
+             */
+            List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
 
-        if (!mappedPriestDesignationList.isEmpty()) {
-            for (PriestDesignation priestDesignation : mappedPriestDesignationList) {
-                priestService.addPriestDesignation(priestDesignation);
+            Map<Long, String> mappedPriestDesignations = new HashMap<>();
+
+            //get priest designations whose designations got selected from the UI and stored in the map.
+            for (Long priestID : allActivePriestsIDs) {
+                if (request.getParameter(priestID.toString()) != null) {
+                    mappedPriestDesignations.put(priestID, request.getParameter(priestID.toString()));
+                }
             }
+
+            //get the priest IDs who got selected from the UI as incharge for the particular mass center.
+            String[] priestsForParish = request.getParameterValues("priest");
+
+            List<PriestDesignation> mappedPriestDesignationList = new ArrayList<>();
+
+            //set the priest designation for priest who got selected from UI using the respective map.
+            for (String priestID : priestsForParish) {
+
+                //get the priest using priest ID.
+                Priest priest = priestService.getPriestForPriestIDSM(Long.valueOf(priestID));
+
+                //set mass center to the priest.
+                priest.setMassCenter(massCenter);
+
+                //set the designation for each priest which are selected from the UI.
+                if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
+                    String priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
+
+                    PriestDesignation priestDesignation = new PriestDesignation();
+                    priestDesignation.setDesignation(priestDesignationFromMap);
+                    priestDesignation.setPriestId(priest.getPriestID());
+                    priestDesignation.setMassCenterId(massCenter.getMassCenterID());
+
+                    mappedPriestDesignationList.add(priestDesignation);
+                }
+
+            }
+
+            if (!mappedPriestDesignationList.isEmpty()) {
+                for (PriestDesignation priestDesignation : mappedPriestDesignationList) {
+                    priestService.addPriestDesignation(priestDesignation);
+                }
+            }
+
+            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+            boolean permissionDenied = false;
+
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+                permissionDenied = true;
+            }
+            //save the mass center with its various relationships.
+            if (!permissionDenied) {
+                massCenterService.addMassCenterSM(massCenter);
+            } else {
+                // show the error that mass center cannot be add by mass center admin. He can edit only his mass center information.
+            }
+
+            massCenterService.createMassCenterFormBackObject(modelMap);
+        }else{
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
         }
 
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
-        boolean permissionDenied = false;
-
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
-            permissionDenied = true;
-        }
-        //save the mass center with its various relationships.
-        if (!permissionDenied) {
-            massCenterService.addMassCenterSM(massCenter);
-        } else {
-            // show the error that mass center cannot be add by mass center admin. He can edit only his mass center information.
-        }
-
-        massCenterService.createMassCenterFormBackObject(modelMap);
-
-        return PageNames.MASSCENTER;
+        return res;
     }
 
-    @RequestMapping(value = "displayMassCenterGrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displaymasscentergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {

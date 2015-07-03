@@ -3,6 +3,8 @@ package org.pms.controllers;
 import org.pms.constants.PageNames;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -18,8 +20,11 @@ import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,31 +68,44 @@ public class PriestController {
     }
 
     @RequestMapping(value = "/addpriest.action", method = RequestMethod.POST)
-    public String addPriest(@ModelAttribute("priest") Priest priest, Model model, @RequestParam(value = "image", required = false) File file) {
-        File image = file;
-        Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
-        priest.setParish(mappedParish);
-        mappedParish.addPriestsForParish(priest);
+    public @ResponseBody
+    CustomResponse addPriest(Model model, @ModelAttribute("priest") @Valid Priest priest, BindingResult result) {
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
-        String attachedStringToID = mappedParish.getParishID()+"-"+"PR";
-        Long priestAutoID = priestService.getHighestAutoIDSM();
-        if(priestAutoID<10){
-            attachedStringToID+="0";
+        if (!result.hasErrors()) {
+            Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
+            priest.setParish(mappedParish);
+            mappedParish.addPriestsForParish(priest);
+
+            String attachedStringToID = mappedParish.getParishID() + "-" + "PR";
+            Long priestAutoID = priestService.getHighestAutoIDSM();
+            if (priestAutoID < 10) {
+                attachedStringToID += "0";
+            }
+
+            priest.setPriestID(attachedStringToID + priestAutoID);
+
+            PriestDesignation priestDesignation = new PriestDesignation();
+            priestDesignation.setDesignation(priest.getDesignation());
+            priestDesignation.setParishId(mappedParish.getParishID());
+            priestDesignation.setPriestId(priest.getPriestID());
+
+            priestService.addPriestDesignation(priestDesignation);
+            priestService.addPriestSM(priest);
+
+            createPriestFormBackObject(model);
+            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
+            res = new CustomResponse("SUCCESS", customErrorMessages);
+        }else {
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
         }
 
-        priest.setPriestID(attachedStringToID+priestAutoID);
-
-        PriestDesignation priestDesignation = new PriestDesignation();
-        priestDesignation.setDesignation(priest.getDesignation());
-        priestDesignation.setParishId(mappedParish.getParishID());
-        priestDesignation.setPriestId(priest.getPriestID());
-
-        priestService.addPriestDesignation(priestDesignation);
-        priestService.addPriestSM(priest);
-
-        createPriestFormBackObject(model);
-
-        return "priest";
+        return res;
     }
 
     @RequestMapping(value = "/displaypriestgrid.action", method = RequestMethod.GET)
