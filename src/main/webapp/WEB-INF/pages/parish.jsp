@@ -24,6 +24,9 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
+
+            loadParishGrid();
+
             globalSubmissionOfForms('parishForm', '${parishActionURL}');
 
         });
@@ -61,7 +64,36 @@
             <div id="page-heading">
                 <!--<h1>Dashboard</h1>-->
             </div>
-            <div class="container" id="please">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue">
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape">
+                                                    <div class="panel-heading">
+                                                        <h4>Parish Information</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <table id="parishGrid"></table>
+                                                        <div id="parishGridPager"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-midnightblue">
@@ -69,293 +101,298 @@
                                 <h4>
                                     <ul class="nav nav-tabs">
                                         <li class="active">
-                                            <a href="#parishRegistration" data-toggle="tab"><i
+                                            <a href="#parish1" data-toggle="tab"><i
                                                     class="fa fa-list visible-xs icon-scale"></i><span
-                                                    class="hidden-xs">Parish Registration</span></a>
+                                                    class="hidden-xs">Parish Details</span></a>
                                         </li>
                                         <li>
-                                            <a href="#parishView" data-toggle="tab" id="parishViewer"><i
+                                            <a href="#parish2" data-toggle="tab"><i
                                                     class="fa fa-comments visible-xs icon-scale"></i><span
-                                                    class="hidden-xs">Parish View</span></a>
+                                                    class="hidden-xs">Contact Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#parish3" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Address</span></a>
                                         </li>
                                     </ul>
                                 </h4>
                             </div>
                             <div class="panel-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="parishRegistration">
-                                        <form:form modelAttribute="parish"
-                                                   action="${parishActionURL}" method="post"
-                                                   id="parishForm1" class="form-horizontal">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="panel panel-indigo">
-                                                        <div class="panel-heading">
-                                                            <h4>Parish Details</h4>
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <div class="control-group" id="churchName">
-                                                                <label class="control-label">Church Name :</label>
-                                                                <form:input path="churchName"
-                                                                            id="churchName"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="churchName"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="riteName">
-                                                                <label class="control-label">Rite Name :</label>
 
-                                                                <form:input path="riteName"
-                                                                            id="riteName"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="riteName"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="dioceseName">
-                                                                <label class="control-label">Diocese Name :</label>
+                                <form:form modelAttribute="parish"
+                                           action="${parishActionURL}" method="post"
+                                           id="parishForm" class="form-horizontal">
 
-                                                                <form:input path="dioceseName"
-                                                                            id="dioceseName"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="dioceseName"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="foraneName">
-                                                                <label class="control-label">Forane Name :</label>
+                                    <div class="tab-content">
 
-                                                                <form:input path="foraneName"
-                                                                            id="foraneName"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="foraneName"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="parishID">
-                                                                <label class="control-label">Parish ID :</label>
+                                        <div class="tab-pane active" id="parish1">
 
-                                                                <form:input path="parishID"
-                                                                            id="parishID"
-                                                                            class="textBox"
-                                                                            readonly="true"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="parishID"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="name">
-                                                                <label class="control-label">Parish Name :</label>
-
-                                                                <form:input path="name" id="name"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="name"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="place">
-                                                                <label class="control-label">Parish Place :</label>
-
-                                                                <form:input path="place"
-                                                                            id="place"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="place"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="code">
-                                                                <label class="control-label">Parish Code :</label>
-
-                                                                <form:input path="code" id="code"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="code"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="webSite">
-                                                                <label class="control-label">Parish Web-site :</label>
-
-                                                                <form:input path="webSite"
-                                                                            id="webSite"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="webSite"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="facebookPage">
-                                                                <label class="control-label">Parish Facebook Page
-                                                                    :</label>
-
-                                                                <form:input path="facebookPage"
-                                                                            id="facebookPage"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="facebookPage"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="drivingRoute">
-                                                                <label class="control-label">Driving Route :</label>
-
-                                                                <form:input path="drivingRoute"
-                                                                            id="drivingRoute"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="drivingRoute"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="map">
-                                                                <label class="control-label">Map :</label>
-
-                                                                <form:input path="map" id="map"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="map"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="registeredDate">
-                                                                <label class="control-label">Registered Date :</label>
-
-                                                                <form:input path="registeredDate"
-                                                                            id="registeredDate"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="registeredDate"/></span>
-                                                            </div>
-
-                                                        </div>
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape">
+                                                    <div class="panel-heading">
+                                                        <h4>Parish Details</h4>
                                                     </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="panel panel-grape">
-                                                        <div class="panel-heading">
-                                                            <h4>
-                                                                Contact
-                                                                Details</h4>
+                                                    <div class="panel-body">
+                                                        <div class="control-group" id="churchName">
+                                                            <label class="control-label">Church Name :</label>
+                                                            <form:input path="churchName"
+                                                                        id="churchName"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="churchName"/></span>
                                                         </div>
-                                                        <div class="panel-body">
-                                                            <div class="control-group" id="mobileNo">
-                                                                <label class="control-label">Mobile No. :</label>
+                                                        <div class="control-group" id="riteName">
+                                                            <label class="control-label">Rite Name :</label>
 
-                                                                <form:input path="mobileNo"
-                                                                            id="mobileNo"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="mobileNo"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="email">
-                                                                <label class="control-label">Email :</label>
-
-                                                                <form:input path="email"
-                                                                            id="email"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="email"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="landLineNo">
-                                                                <label class="control-label">Land Line No. :</label>
-
-                                                                <form:input path="landLineNo"
-                                                                            id="landLineNo"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="landLineNo"/></span>
-                                                            </div>
-                                                            <div class="control-group" id="faxNo">
-                                                                <label class="control-label">Fax No. :</label>
-
-                                                                <form:input path="faxNo"
-                                                                            id="faxNo"
-                                                                            class="textBox"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="faxNo"/></span>
-                                                            </div>
+                                                            <form:input path="riteName"
+                                                                        id="riteName"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="riteName"/></span>
                                                         </div>
-                                                    </div>
-                                                </div>
+                                                        <div class="control-group" id="dioceseName">
+                                                            <label class="control-label">Diocese Name :</label>
 
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="panel panel-grape">
-                                                        <div class="panel-heading">
-                                                            <h4>
-                                                                Address</h4>
+                                                            <form:input path="dioceseName"
+                                                                        id="dioceseName"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="dioceseName"/></span>
                                                         </div>
-                                                        <div class="panel-body">
-                                                            <div class="control-group" id="localAddressaddressLineOne">
-                                                                <label class="control-label">Address Line 1 :</label>
-                                                                <form:input path="localAddress.addressLineOne"
-                                                                            id="localAddressaddressLineOne"/> <span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.addressLineOne"/> </span>
-                                                            </div>
-                                                            <div class="control-group" id="localAddressaddressLineTwo">
-                                                                <label class="control-label">Address Line 2 :</label>
-                                                                <form:input
-                                                                        path="localAddress.addressLineTwo"
-                                                                        id="localAddressaddressLineTwo"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.addressLineTwo"/> </span>
-                                                            </div>
+                                                        <div class="control-group" id="foraneName">
+                                                            <label class="control-label">Forane Name :</label>
 
-                                                            <div class="control-group"
-                                                                 id="localAddressaddressLineThree">
-                                                                <label class="control-label">Address Line 3 :</label>
-                                                                <form:input
-                                                                        path="localAddress.addressLineThree"
-                                                                        id="localAddressaddressLineThree"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.addressLineThree"/> </span>
-                                                            </div>
+                                                            <form:input path="foraneName"
+                                                                        id="foraneName"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="foraneName"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="parishID">
+                                                            <label class="control-label">Parish ID :</label>
 
-                                                            <div class="control-group" id="localAddresstown">
-                                                                <label class="control-label">Town:</label>
-                                                                <form:input
-                                                                        path="localAddress.town"
-                                                                        id="localAddresstown"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.town"/> </span>
-                                                            </div>
+                                                            <form:input path="parishID"
+                                                                        id="parishID"
+                                                                        class="textBox"
+                                                                        readonly="true"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="parishID"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="name">
+                                                            <label class="control-label">Parish Name :</label>
 
-                                                            <div class="control-group" id="localAddresscounty">
-                                                                <label class="control-label">County:</label>
-                                                                <form:input
-                                                                        path="localAddress.county"
-                                                                        id="localAddresscounty"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.county"/></span>
-                                                            </div>
+                                                            <form:input path="name" id="name"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="name"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="place">
+                                                            <label class="control-label">Parish Place :</label>
 
-                                                            <div class="control-group" id="localAddresspin">
-                                                                <label class="control-label">Pin code:</label>
-                                                                <form:input
-                                                                        path="localAddress.pin"
-                                                                        id="localAddresspin"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.pin"/> </span>
-                                                            </div>
+                                                            <form:input path="place"
+                                                                        id="place"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="place"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="code">
+                                                            <label class="control-label">Parish Code :</label>
 
-                                                            <div class="control-group" id="localAddresscountry">
-                                                                <label class="control-label">Country:</label>
-                                                                <form:input
-                                                                        path="localAddress.country"
-                                                                        id="localAddresscountry"/><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="localAddress.country"/> </span>
-                                                            </div>
+                                                            <form:input path="code" id="code"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="code"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="webSite">
+                                                            <label class="control-label">Parish Web-site :</label>
+
+                                                            <form:input path="webSite"
+                                                                        id="webSite"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="webSite"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="facebookPage">
+                                                            <label class="control-label">Parish Facebook Page
+                                                                :</label>
+
+                                                            <form:input path="facebookPage"
+                                                                        id="facebookPage"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="facebookPage"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="drivingRoute">
+                                                            <label class="control-label">Driving Route :</label>
+
+                                                            <form:input path="drivingRoute"
+                                                                        id="drivingRoute"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="drivingRoute"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="map">
+                                                            <label class="control-label">Map :</label>
+
+                                                            <form:input path="map" id="map"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="map"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="registeredDate">
+                                                            <label class="control-label">Registered Date :</label>
+
+                                                            <form:input path="registeredDate"
+                                                                        id="registeredDate"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="registeredDate"/></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-actions">
-                                                <button type="submit"
-                                                        value="Save"
-                                                        class="btn btn-primary"/>
+                                        </div>
+
+                                        <div class="tab-pane" id="parish2">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Contact Details</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="control-group" id="mobileNo">
+                                                            <label class="control-label">Mobile No. :</label>
+
+                                                            <form:input path="mobileNo"
+                                                                        id="mobileNo"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="mobileNo"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="email">
+                                                            <label class="control-label">Email :</label>
+
+                                                            <form:input path="email"
+                                                                        id="email"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="email"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="landLineNo">
+                                                            <label class="control-label">Land Line No. :</label>
+
+                                                            <form:input path="landLineNo"
+                                                                        id="landLineNo"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="landLineNo"/></span>
+                                                        </div>
+                                                        <div class="control-group" id="faxNo">
+                                                            <label class="control-label">Fax No. :</label>
+
+                                                            <form:input path="faxNo"
+                                                                        id="faxNo"
+                                                                        class="textBox"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="faxNo"/></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </form:form>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="parish3">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Local Address</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="control-group" id="localAddressaddressLineOne">
+                                                            <label class="control-label">Address Line 1 :</label>
+                                                            <form:input path="localAddress.addressLineOne"
+                                                                        id="localAddressaddressLineOne"/> <span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.addressLineOne"/> </span>
+                                                        </div>
+                                                        <div class="control-group" id="localAddressaddressLineTwo">
+                                                            <label class="control-label">Address Line 2 :</label>
+                                                            <form:input
+                                                                    path="localAddress.addressLineTwo"
+                                                                    id="localAddressaddressLineTwo"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.addressLineTwo"/> </span>
+                                                        </div>
+
+                                                        <div class="control-group"
+                                                             id="localAddressaddressLineThree">
+                                                            <label class="control-label">Address Line 3 :</label>
+                                                            <form:input
+                                                                    path="localAddress.addressLineThree"
+                                                                    id="localAddressaddressLineThree"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.addressLineThree"/> </span>
+                                                        </div>
+
+                                                        <div class="control-group" id="localAddresstown">
+                                                            <label class="control-label">Town:</label>
+                                                            <form:input
+                                                                    path="localAddress.town"
+                                                                    id="localAddresstown"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.town"/> </span>
+                                                        </div>
+
+                                                        <div class="control-group" id="localAddresscounty">
+                                                            <label class="control-label">County:</label>
+                                                            <form:input
+                                                                    path="localAddress.county"
+                                                                    id="localAddresscounty"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.county"/></span>
+                                                        </div>
+
+                                                        <div class="control-group" id="localAddresspin">
+                                                            <label class="control-label">Pin code:</label>
+                                                            <form:input
+                                                                    path="localAddress.pin"
+                                                                    id="localAddresspin"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.pin"/> </span>
+                                                        </div>
+
+                                                        <div class="control-group" id="localAddresscountry">
+                                                            <label class="control-label">Country:</label>
+                                                            <form:input
+                                                                    path="localAddress.country"
+                                                                    id="localAddresscountry"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="localAddress.country"/> </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                    <div class="tab-pane "
-                                         id="parishView">
-                                        <table id="parishGrid"></table>
-                                        <div id="parishGridPager"></div>
+                                    <div class="form-actions">
+                                        <button type="submit"
+                                                value="Save"
+                                                class="btn btn-primary"/>
                                     </div>
-
-                                </div>
+                                </form:form>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
+                <!-- container -->
             </div>
             <!-- container -->
         </div>

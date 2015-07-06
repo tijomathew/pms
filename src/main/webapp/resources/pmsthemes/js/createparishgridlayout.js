@@ -3,9 +3,7 @@
  */
 
 jQuery(document).ready(function () {
-    jQuery('#parishViewer').bind("click", function () {
-        loadParishGrid();
-    });
+
 
     jQuery('#editParishForm').bind("click", function () {
         var gsr = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
