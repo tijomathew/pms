@@ -14,8 +14,10 @@
 <meta name="author" content="Tijo">
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapUrl"/>
+<spring:url value="/resources/css/jqgrowl.css" var="jqGrowlCSS"/>
 
 <link href="${bootstrapUrl}" rel="stylesheet">
+<link href="${jqGrowlCSS}" rel="stylesheet">
 
 <spring:url value="/resources/css/styles.min.css" var="styleminURL"/>
 
@@ -66,8 +68,10 @@
 <script type='text/javascript' src="${bootStrapOverrideJqgrid}"></script>
 
 <spring:url value="/resources/js/globalutils.js" var="globalUtilizor"/>
+<spring:url value="/resources/js/jqgrowl.js" var="jqGrowlURL"/>
 
 <script src="${globalUtilizor}" type="text/javascript"></script>
+<script src="${jqGrowlURL}" type="text/javascript"></script>
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
