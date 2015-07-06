@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="newscriptLibraryTemplate.jsp" %>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
     <spring:url value="/addfamily.action" var="familyActionURL"/>
 
@@ -21,99 +21,21 @@
                 loadFamilyGrid();
             });
 
-        });
+            globalSubmissionOfForms('familyForm','${familyActionURL}');
 
-        function loadFamilyGrid() {
-
-            $("#familyGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayfamilygrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['Family ID', 'Family Name', 'parishInNative', 'dioceseInNative', 'dateOfRegistration', 'parishLocal', "massCenter", "prayerUnit", "localAddress", "nativeAddress"],
-                        colModel: [
-
-                            {name: 'familyID', index: 'familyID', width: 90},
-                            {name: 'familyName', index: 'familyName', width: 100},
-                            {name: 'parishInNative', index: 'parishInNative', width: 100},
-                            {name: 'dioceseInNative', index: 'dioceseInNative', width: 100},
-                            {name: 'dateOfRegistration', index: 'dateOfRegistration', width: 100},
-                            {name: 'parishLocal', index: 'parishLocal', width: 100},
-                            {name: 'massCenter', index: 'massCenter', width: 100},
-                            {name: 'prayerUnit', index: 'prayerUnit', width: 100},
-                            {name: 'localAddress', index: 'localAddress', width: 100},
-                            {name: 'nativeAddress', index: 'nativeAddress', width: 100},
-                        ],
-                        rowNum: 2,
-                        pager: '#familyGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Families",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {edit: true, add: true, del: true});
-        }
-
-
-    </script>
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            var $form = $('#familyForm1');
-            $form.bind('submit', function (e) {
-                // Ajax validation
-                /*var $inputs = $form.find('input');
-                var data = collectFormData($inputs);*/
-
-                $.post('${familyActionURL}', $form.serializeArray(), function (response) {
-                    $form.find('.control-group').removeClass('error');
-                    $form.find('.help-inline').empty();
-                    $form.find('.alert').remove();
-
-                    if (response.statusMessage == 'FAIL') {
-                        for (var i = 0; i < response.customErrorMessages.length; i++) {
-                            var item = response.customErrorMessages[i];
-                            var $controlGroup = $('#' + item.fieldName);
-                            $controlGroup.addClass('error');
-                            $controlGroup.find('.help-inline').html(item.message);
-                        }
-                    } else {
-                        var $alert = $('<div class="alert alert-success"></div>');
-                        $alert.html(response.customErrorMessages);
-                        $alert.prependTo($form);
-                    }
-                }, 'json');
-
-                e.preventDefault();
-                return false;
-            });
         });
     </script>
+
 
 </head>
 
 <body>
 
-<%@include file="newheaderTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
 <div id="page-container">
 
-    <%@include file="newleftMenuPanelTemplate.jsp" %>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
     <!-- BEGIN RIGHTBAR -->
     <div id="page-rightbar">
@@ -162,7 +84,7 @@
                                     <div class="tab-pane active" id="familyRegistration">
                                         <form:form modelAttribute="family"
                                                    action="${familyActionURL}" method="post"
-                                                   id="familyForm1" cssClass="form-inline">
+                                                   id="familyForm" cssClass="form-inline">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="panel panel-indigo">
@@ -491,7 +413,7 @@
     </div>
     <!-- page-content -->
 
-    <%@include file="newfooterPanelTemplate.jsp" %>
+    <%@include file="footerPanelTemplate.jsp" %>
 
 </div>
 

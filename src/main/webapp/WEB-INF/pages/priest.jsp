@@ -10,152 +10,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="newscriptLibraryTemplate.jsp" %>
-
-    <spring:url value="/resources/js/priestvalidator.js" var="priestValidatorURL"/>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
     <spring:url value="/addpriest.action" var="priestActionURL"/>
+    <spring:url value="/resources/js/createpriestgridlayout.js" var="priestGridURL"/>
 
-    <%--<script src="${priestValidatorURL}" type="text/javascript"
-            language="javascript"></script>--%>
+    <script src="${priestGridURL}" type="text/javascript"
+            language="javascript"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
             jQuery('#priestViewer').bind("click", function () {
                 loadPriestGrid();
             });
+            globalSubmissionOfForms('priestForm', '${priestActionURL}');
 
         });
-
-        function loadPriestGrid() {
-
-            jQuery("#priestGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displaypriestgrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['ID', 'Name', 'Designation', 'Heavenly Patron', 'Native Diocese', 'Native Parish', 'Native Place', 'Priest Card Validity', 'Ordained To Diocese', 'Father Name', 'Mother Name', 'Priest Status', 'Congregation', 'Local Address', 'Native Address', 'Emergency Contact'],
-                        colModel: [
-
-                            {name: 'priestID', index: 'priestID', width: 120},
-                            {name: 'name', index: 'name', width: 150},
-                            {name: 'designation', index: 'designation', width: 150, align: "right"},
-                            {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right"},
-                            {name: 'nativeDiocese', index: 'nativeDiocese', width: 150, align: "right"},
-                            {name: 'nativeParish', index: 'nativeParish', width: 150, align: "right"},
-                            {name: 'nativePlace', index: 'nativePlace', width: 150, align: "right"},
-                            {name: 'priestCardValidity', index: 'priestCardValidity', width: 150, align: "right"},
-                            {name: 'ordainedToDiocese', index: 'ordainedToDiocese', width: 150, align: "right"},
-                            {name: 'fatherName', index: 'fatherName', width: 150, align: "right"},
-                            {name: 'motherName', index: 'motherName', width: 150, align: "right"},
-                            {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right"},
-                            {name: 'congregation', index: 'congregation', width: 150, align: "right"},
-                            {name: 'localAddress', index: 'localAddress', width: 150, align: "right"},
-                            {name: 'nativeAddress', index: 'nativeAddress', width: 150, align: "right"},
-                            {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right"}
-                        ],
-                        rowNum: 2,
-                        pager: '#priestGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Priests",
-                        autowidth: true,
-                        shrinkToFit: false,
-                        emptyrecords: "Nothing to display"
-
-                    });
-            jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {edit: true, add: true, del: true});
-        }
-
-
     </script>
 
-    <script type="text/javascript">
-
-        jQuery(document).ready(function () {
-            var $form = $('#priestForm1');
-            $form.bind('submit', function (e) {
-                // Ajax validation
-                //var $inputs = $form.find('input');
-                var data = collectFormData();
-
-                /* var $selects=$form.find('select');
-                 var selectData=collectFormData($selects);
-                 data.push(selectData);*/
-
-                jQuery.post('${priestActionURL}', data, function (response) {
-                    $form.find('.control-group').removeClass('error');
-                    $form.find('.help-inline').empty();
-                    $form.find('.alert').remove();
-
-                    if (response.statusMessage == 'FAIL') {
-                        for (var i = 0; i < response.customErrorMessages.length; i++) {
-                            var item = response.customErrorMessages[i];
-                            var $controlGroup = $('#' + item.fieldName);
-                            $controlGroup.addClass('error');
-                            $controlGroup.find('.help-inline').html(item.message);
-                        }
-                    } else {
-                        var $alert = $('<div class="alert alert-success"></div>');
-                        $alert.html(response.customErrorMessages[0].message);
-                        $alert.prependTo($form);
-                        $('#priestForm1')[0].reset();
-                    }
-                }, 'json');
-
-                e.preventDefault();
-                return false;
-            });
-        });
-
-        function collectFormData() {
-            var data = {};
-            var $form = $('#priestForm1');
-            var $inputs = $form.find('input');
-            if ($inputs.length != 0) {
-                for (var i = 0; i < $inputs.length; i++) {
-                    var $item = $($inputs[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            var $selects = $form.find('select');
-            if ($selects.length != 0) {
-                for (var i = 0; i < $selects.length; i++) {
-                    var $item = $($selects[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            var $radiobuttons = $form.find('radiobutton');
-            if ($radiobuttons.length != 0) {
-                for (var i = 0; i < $radiobuttons.length; i++) {
-                    var $item = $($radiobuttons[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            return data;
-        }
-    </script>
 </head>
 
 <body>
 
 
-<%@include file="newheaderTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
 <div id="page-container">
 
-    <%@include file="newleftMenuPanelTemplate.jsp" %>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
     <!-- BEGIN RIGHTBAR -->
     <div id="page-rightbar">
@@ -204,7 +86,7 @@
                                     <div class="tab-pane active" id="priestRegistration">
                                         <form:form modelAttribute="priest"
                                                    action="${priestActionURL}" method="post"
-                                                   id="priestForm1">
+                                                   id="priestForm">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="panel panel-indigo">
@@ -849,7 +731,7 @@
     <!-- page-content -->
 
     <%@include
-            file="newfooterPanelTemplate.jsp" %>
+            file="footerPanelTemplate.jsp" %>
 
 </div>
 </body>

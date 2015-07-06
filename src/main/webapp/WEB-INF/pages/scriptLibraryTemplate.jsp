@@ -14,15 +14,17 @@
 <meta name="author" content="Tijo">
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapUrl"/>
+
 <link href="${bootstrapUrl}" rel="stylesheet">
 
 <spring:url value="/resources/css/styles.min.css" var="styleminURL"/>
-<link rel="stylesheet" href="${styleminURL}">
 
+<link rel="stylesheet" href="${styleminURL}">
 
 
 <spring:url value="/resources/css/ui.jqgrid.css" var="jqgridcssURL"/>
 <spring:url value="/resources/css/jquery-ui-custom.css" var="uicustomcssURL"/>
+
 <link type="text/css" rel="stylesheet" href="${jqgridcssURL}"/>
 <link type="text/css" rel="stylesheet" href="${uicustomcssURL}"/>
 
@@ -38,9 +40,6 @@
 <spring:url value="/resources/js/jquery.nicescroll.min.js" var="nicescrollURL"/>
 
 
-
-
-
 <script type='text/javascript' src="${jqueryURL}"></script>
 <script type='text/javascript' src="${jqueryUIURL}"></script>
 <script type='text/javascript' src="${bootstrapURL}"></script>
@@ -50,6 +49,7 @@
 
 <spring:url value="/resources/js/jquery.jqGrid.min.js" var="jqgridminURL"/>
 <spring:url value="/resources/js/grid.locale-en.js" var="localeURL"/>
+
 <script src="${localeURL}" type="text/javascript"></script>
 <script src="${jqgridminURL}" type="text/javascript"></script>
 
@@ -64,6 +64,10 @@
 <script type='text/javascript' src="${applicationURL}"></script>
 <script type='text/javascript' src="${demoURL}"></script>
 <script type='text/javascript' src="${bootStrapOverrideJqgrid}"></script>
+
+<spring:url value="/resources/js/globalutils.js" var="globalUtilizor"/>
+
+<script src="${globalUtilizor}" type="text/javascript"></script>
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>

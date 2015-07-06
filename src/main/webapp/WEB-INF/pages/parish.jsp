@@ -10,15 +10,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="newscriptLibraryTemplate.jsp" %>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <spring:url value="/resources/js/parishvalidator.js" var="parishValidatorURL"/>
     <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
     <spring:url value="/resources/js/createparishgridlayout.js" var="parishGridURL"/>
     <spring:url value="/addparish.action" var="parishActionURL"/>
-
-    <%--<script src="${parishValidatorURL}" type="text/javascript"
-            language="javascript"></script>--%>
 
     <script src="${priestdesignationdisplayURL}" type="text/javascript"
             language="javascript"></script>
@@ -28,58 +24,20 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
-        var $form = $('#parishForm1');
-        $form.bind('submit', function (e) {
-            // Ajax validation
-            var $inputs = $form.find('input');
-            var data = collectFormData($inputs);
+            globalSubmissionOfForms('parishForm', '${parishActionURL}');
 
-            $.post('${parishActionURL}', data, function (response) {
-                $form.find('.control-group').removeClass('error');
-                $form.find('.help-inline').empty();
-                $form.find('.alert').remove();
-
-                if (response.statusMessage == 'FAIL') {
-                    for (var i = 0; i < response.customErrorMessages.length; i++) {
-                        var item = response.customErrorMessages[i];
-                        var $controlGroup = $('#' + item.fieldName);
-                        $controlGroup.addClass('error');
-                        $controlGroup.find('.help-inline').html(item.message);
-                    }
-                } else {
-                    var $alert = $('<div class="alert alert-success"></div>');
-                    $alert.html(response.customErrorMessages[0].message);
-                    $alert.prependTo($form);
-                    $('#parishForm1')[0].reset();
-                }
-            }, 'json');
-
-            e.preventDefault();
-            return false;
-        });
         });
 
-        function collectFormData(fields) {
-            var data = {};
-            for (var i = 0; i < fields.length; i++) {
-                var $item = $(fields[i]);
-                data[$item.attr('name')] = $item.val();
-            }
-            return data;
-        }
     </script>
 
-    <%@include file="newheaderTemplate.jsp" %>
+    <%@include file="headerTemplate.jsp" %>
 </head>
 
 <body>
 
-
-
-
 <div id="page-container">
 
-    <%@include file="newleftMenuPanelTemplate.jsp" %>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
     <!-- BEGIN RIGHTBAR -->
     <div id="page-rightbar">
@@ -138,118 +96,118 @@
                                                         <div class="panel-body">
                                                             <div class="control-group" id="churchName">
                                                                 <label class="control-label">Church Name :</label>
-                                                               <form:input path="churchName"
-                                                                                                  id="churchName"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="churchName"/></span>
+                                                                <form:input path="churchName"
+                                                                            id="churchName"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="churchName"/></span>
                                                             </div>
                                                             <div class="control-group" id="riteName">
                                                                 <label class="control-label">Rite Name :</label>
 
                                                                 <form:input path="riteName"
-                                                                                                  id="riteName"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="riteName"/></span>
+                                                                            id="riteName"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="riteName"/></span>
                                                             </div>
                                                             <div class="control-group" id="dioceseName">
                                                                 <label class="control-label">Diocese Name :</label>
 
                                                                 <form:input path="dioceseName"
-                                                                                                  id="dioceseName"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="dioceseName"/></span>
+                                                                            id="dioceseName"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="dioceseName"/></span>
                                                             </div>
                                                             <div class="control-group" id="foraneName">
                                                                 <label class="control-label">Forane Name :</label>
 
                                                                 <form:input path="foraneName"
-                                                                                                  id="foraneName"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="foraneName"/></span>
+                                                                            id="foraneName"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="foraneName"/></span>
                                                             </div>
                                                             <div class="control-group" id="parishID">
                                                                 <label class="control-label">Parish ID :</label>
 
                                                                 <form:input path="parishID"
-                                                                                                  id="parishID"
-                                                                                                  class="textBox"
-                                                                                                  readonly="true"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="parishID"/></span>
+                                                                            id="parishID"
+                                                                            class="textBox"
+                                                                            readonly="true"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="parishID"/></span>
                                                             </div>
                                                             <div class="control-group" id="name">
                                                                 <label class="control-label">Parish Name :</label>
 
                                                                 <form:input path="name" id="name"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="name"/></span>
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="name"/></span>
                                                             </div>
                                                             <div class="control-group" id="place">
                                                                 <label class="control-label">Parish Place :</label>
 
                                                                 <form:input path="place"
-                                                                                                  id="place"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="place"/></span>
+                                                                            id="place"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="place"/></span>
                                                             </div>
                                                             <div class="control-group" id="code">
                                                                 <label class="control-label">Parish Code :</label>
 
                                                                 <form:input path="code" id="code"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="code"/></span>
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="code"/></span>
                                                             </div>
                                                             <div class="control-group" id="webSite">
                                                                 <label class="control-label">Parish Web-site :</label>
 
                                                                 <form:input path="webSite"
-                                                                                                  id="webSite"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="webSite"/></span>
+                                                                            id="webSite"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="webSite"/></span>
                                                             </div>
                                                             <div class="control-group" id="facebookPage">
                                                                 <label class="control-label">Parish Facebook Page
                                                                     :</label>
 
                                                                 <form:input path="facebookPage"
-                                                                                                  id="facebookPage"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="facebookPage"/></span>
+                                                                            id="facebookPage"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="facebookPage"/></span>
                                                             </div>
                                                             <div class="control-group" id="drivingRoute">
                                                                 <label class="control-label">Driving Route :</label>
 
                                                                 <form:input path="drivingRoute"
-                                                                                                  id="drivingRoute"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="drivingRoute"/></span>
+                                                                            id="drivingRoute"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="drivingRoute"/></span>
                                                             </div>
                                                             <div class="control-group" id="map">
                                                                 <label class="control-label">Map :</label>
 
                                                                 <form:input path="map" id="map"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="map"/></span>
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="map"/></span>
                                                             </div>
                                                             <div class="control-group" id="registeredDate">
                                                                 <label class="control-label">Registered Date :</label>
 
                                                                 <form:input path="registeredDate"
-                                                                                                  id="registeredDate"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="registeredDate"/></span>
+                                                                            id="registeredDate"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="registeredDate"/></span>
                                                             </div>
 
                                                         </div>
@@ -268,37 +226,37 @@
                                                                 <label class="control-label">Mobile No. :</label>
 
                                                                 <form:input path="mobileNo"
-                                                                                                  id="mobileNo"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="mobileNo"/></span>
+                                                                            id="mobileNo"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="mobileNo"/></span>
                                                             </div>
                                                             <div class="control-group" id="email">
                                                                 <label class="control-label">Email :</label>
 
                                                                 <form:input path="email"
-                                                                                                  id="email"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="email"/></span>
+                                                                            id="email"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="email"/></span>
                                                             </div>
                                                             <div class="control-group" id="landLineNo">
                                                                 <label class="control-label">Land Line No. :</label>
 
                                                                 <form:input path="landLineNo"
-                                                                                                  id="landLineNo"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="landLineNo"/></span>
+                                                                            id="landLineNo"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="landLineNo"/></span>
                                                             </div>
                                                             <div class="control-group" id="faxNo">
                                                                 <label class="control-label">Fax No. :</label>
 
                                                                 <form:input path="faxNo"
-                                                                                                  id="faxNo"
-                                                                                                  class="textBox"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="faxNo"/></span>
+                                                                            id="faxNo"
+                                                                            class="textBox"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="faxNo"/></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -315,18 +273,18 @@
                                                         <div class="panel-body">
                                                             <div class="control-group" id="localAddressaddressLineOne">
                                                                 <label class="control-label">Address Line 1 :</label>
-                                                                    <form:input path="localAddress.addressLineOne"
-                                                                                id="localAddressaddressLineOne"/> <span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineOne"/> </span>
+                                                                <form:input path="localAddress.addressLineOne"
+                                                                            id="localAddressaddressLineOne"/> <span
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineOne"/> </span>
                                                             </div>
                                                             <div class="control-group" id="localAddressaddressLineTwo">
                                                                 <label class="control-label">Address Line 2 :</label>
                                                                 <form:input
                                                                         path="localAddress.addressLineTwo"
                                                                         id="localAddressaddressLineTwo"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineTwo"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineTwo"/> </span>
                                                             </div>
 
                                                             <div class="control-group"
@@ -335,8 +293,8 @@
                                                                 <form:input
                                                                         path="localAddress.addressLineThree"
                                                                         id="localAddressaddressLineThree"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineThree"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineThree"/> </span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresstown">
@@ -344,26 +302,26 @@
                                                                 <form:input
                                                                         path="localAddress.town"
                                                                         id="localAddresstown"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.town"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.town"/> </span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresscounty">
                                                                 <label class="control-label">County:</label>
-                                                               <form:input
+                                                                <form:input
                                                                         path="localAddress.county"
                                                                         id="localAddresscounty"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.county"/></span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.county"/></span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresspin">
                                                                 <label class="control-label">Pin code:</label>
-                                                               <form:input
+                                                                <form:input
                                                                         path="localAddress.pin"
                                                                         id="localAddresspin"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.pin"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.pin"/> </span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresscountry">
@@ -371,8 +329,8 @@
                                                                 <form:input
                                                                         path="localAddress.country"
                                                                         id="localAddresscountry"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.country"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.country"/> </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -406,7 +364,7 @@
     <!-- page-content -->
 
     <%@include
-            file="newfooterPanelTemplate.jsp" %>
+            file="footerPanelTemplate.jsp" %>
 
 </div>
 <script type="text/javascript">

@@ -11,11 +11,16 @@
 <html lang="en">
 <head>
 
-    <%@ include file="newscriptLibraryTemplate.jsp" %>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
     <spring:url value="/resources/js/userselectbox.js" var="userSelectBoxURL"/>
+    <spring:url value="/resources/js/createusergridlayout.js" var="userGridURL"/>
+    <spring:url value="/adduser.action" var="userActionURL"/>
 
     <script src="${userSelectBoxURL}" type="text/javascript"
+            language="javascript"></script>
+
+    <script src="${userGridURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
@@ -23,6 +28,8 @@
             <c:if test = "${showForPrayerUnitAdmin == false}" >
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
+
+            globalSubmissionOfForms('userForm', '${userActionURL}');
         });
     </script>
 
@@ -34,47 +41,6 @@
 
         });
 
-        function loadUserGrid() {
-
-            jQuery("#userGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayusergrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [10, 20, 30],
-                        colNames: ['id', 'User Name', 'Role', 'isActive', 'Email', 'Phone No'],
-                        colModel: [
-                            {name: 'id', index: 'id', width: 90},
-                            {name: 'userName', index: 'userName', width: 90},
-                            {name: 'systemRole', index: 'systemRole', width: 90},
-                            {name: 'isActive', index: 'isActive', width: 100},
-                            {name: 'email', index: 'email', width: 100},
-                            {name: 'phoneNo', index: 'phoneNo', width: 100}
-
-                        ],
-                        rowNum: 10,
-                        pager: '#userGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Users",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {edit: true, add: true, del: true});
-        }
-
 
     </script>
 
@@ -82,13 +48,11 @@
 
 <body>
 
-<spring:url value="/adduser.action" var="userActionURL"/>
-
-<%@include file="newheaderTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
 <div id="page-container">
 
-    <%@include file="newleftMenuPanelTemplate.jsp" %>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
     <!-- BEGIN RIGHTBAR -->
     <div id="page-rightbar">
@@ -136,7 +100,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="userRegistration">
                                         <form:form modelAttribute="user"
-                                                   action="${userActionURL}" method="post" id="adminForm">
+                                                   action="${userActionURL}" method="post" id="userForm">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="panel panel-indigo">
@@ -300,7 +264,7 @@
     </div>
     <!-- page-content -->
 
-    <%@include file="newfooterPanelTemplate.jsp" %>
+    <%@include file="footerPanelTemplate.jsp" %>
 
 </div>
 <script type="text/javascript">
@@ -314,7 +278,7 @@
     }
 
     $(document).ready(function () {
-        var $form = $('#adminForm');
+        var $form = $('#userForm');
         $form.bind('submit', function (e) {
             // Ajax validation
             var $inputs = $form.find('input');

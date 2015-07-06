@@ -11,141 +11,34 @@
 <html lang="en">
 <head>
 
-    <%@ include file="newscriptLibraryTemplate.jsp" %>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <spring:url value="/resources/js/prayerunitvalidator.js" var="prayerUnitValidatorURL"/>
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
+    <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
 
-   <%-- <script src="${prayerUnitValidatorURL}" type="text/javascript"
-            language="javascript"></script>--%>
+    <script src="${prayerUnitGrid}" type="text/javascript"
+            language="javascript"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
             jQuery('#prayerUnitViewer').bind("click", function () {
                 loadPrayerUnitGrid();
             });
+
+            globalSubmissionOfForms('prayerUnitForm','${prayerUnitActionURL}');
         });
 
-        function loadPrayerUnitGrid() {
-
-            jQuery("#prayerUnitGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayprayerunitgrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['PrayerUnit ID', 'PrayerUnit Code', 'PrayerUnit Name', 'PrayerUnit Place', 'MassCenter Name', 'Local address'],
-                        colModel: [
-
-                            {name: 'prayerUnitID', index: 'prayerUnitID', width: 90},
-                            {name: 'prayerUnitCode', index: 'prayerUnitCode', width: 90},
-                            {name: 'prayerUnitName', index: 'prayerUnitName', width: 100},
-                            {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100},
-                            {name: 'massCenterName', index: 'massCenterName', width: 100},
-                            {name: 'localAddress', index: 'localAddress', width: 100},
-
-                        ],
-                        rowNum: 2,
-                        pager: '#prayerUnitGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Prayer Unit",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#prayerUnitGrid").jqGrid('navGrid', '#prayerUnitGridPager', {edit: true, add: true, del: true});
-        }
-
-
-    </script>
-
-    <script type="text/javascript">
-
-        jQuery(document).ready(function () {
-            var $form = $('#prayerUnitForm');
-            $form.bind('submit', function (e) {
-                // Ajax validation
-                //var $inputs = $form.find('input');
-                //var data = collectFormData();
-
-                /* var $selects=$form.find('select');
-                 var selectData=collectFormData($selects);
-                 data.push(selectData);*/
-
-                jQuery.post('${prayerUnitActionURL}', $form.serializeArray(), function (response) {
-                    $form.find('.control-group').removeClass('error');
-                    $form.find('.help-inline').empty();
-                    $form.find('.alert').remove();
-
-                    if (response.statusMessage == 'FAIL') {
-                        for (var i = 0; i < response.customErrorMessages.length; i++) {
-                            var item = response.customErrorMessages[i];
-                            var $controlGroup = $('#' + item.fieldName);
-                            $controlGroup.addClass('error');
-                            $controlGroup.find('.help-inline').html(item.message);
-                        }
-                    } else {
-                        var $alert = $('<div class="alert alert-success"></div>');
-                        $alert.html(response.customErrorMessages[0].message);
-                        $alert.prependTo($form);
-                        $('#prayerUnitForm')[0].reset();
-                    }
-                }, 'json');
-
-                e.preventDefault();
-                return false;
-            });
-        });
-
-        function collectFormData() {
-            var data = {};
-            var $form = $('#priestForm1');
-            var $inputs = $form.find('input');
-            if ($inputs.length != 0) {
-                for (var i = 0; i < $inputs.length; i++) {
-                    var $item = $($inputs[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            var $selects = $form.find('select');
-            if ($selects.length != 0) {
-                for (var i = 0; i < $selects.length; i++) {
-                    var $item = $($selects[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            var $radiobuttons = $form.find('radiobutton');
-            if ($radiobuttons.length != 0) {
-                for (var i = 0; i < $radiobuttons.length; i++) {
-                    var $item = $($radiobuttons[i]);
-                    data[$item.attr('name')] = $item.val();
-                }
-            }
-            return data;
-        }
     </script>
 
 </head>
 
 <body>
 
-<%@include file="newheaderTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
 <div id="page-container">
 
-    <%@include file="newleftMenuPanelTemplate.jsp" %>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
     <!-- BEGIN RIGHTBAR -->
     <div id="page-rightbar">
@@ -206,38 +99,38 @@
                                                                 <label class="control-label">Prayer Unit Name :</label>
 
                                                                 <form:input path="prayerUnitName"
-                                                                                                  id="prayerUnitName"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="prayerUnitName"/></span>
+                                                                            id="prayerUnitName"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="prayerUnitName"/></span>
 
                                                             </div>
                                                             <div class="control-group" id="prayerUnitCode">
                                                                 <label class="control-label">Prayer Unit Code :</label>
 
                                                                 <form:input path="prayerUnitCode"
-                                                                                                  id="prayerUnitCode"
-                                                                                                  readonly="true"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="prayerUnitCode"/></span>
+                                                                            id="prayerUnitCode"
+                                                                            readonly="true"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="prayerUnitCode"/></span>
 
                                                             </div>
                                                             <div class="control-group" id="prayerUnitPlace">
                                                                 <label class="control-label">Prayer Unit Place :</label>
 
                                                                 <form:input path="prayerUnitPlace"
-                                                                                                  id="prayerUnitPlace"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="prayerUnitPlace"/></span>
+                                                                            id="prayerUnitPlace"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="prayerUnitPlace"/></span>
 
                                                             </div>
                                                             <div class="control-group" id="massCenterId">
                                                                 <label class="control-label">Mass Center:</label>
 
-                                                               <form:select path="massCenterId"
-                                                                                                   items="${massCenterMap}"
-                                                                                                   id="massCenterId"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="massCenterId"/></span>
+                                                                <form:select path="massCenterId"
+                                                                             items="${massCenterMap}"
+                                                                             id="massCenterId"/><span
+                                                                    class="help-inline"><form:errors
+                                                                    path="massCenterId"/></span>
 
                                                             </div>
 
@@ -253,20 +146,20 @@
                                                             <div class="control-group" id="localAddressaddressLineOne">
                                                                 <label class="control-label">Address Line 1 :</label>
 
-                                                                    <form:input path="localAddress.addressLineOne"
-                                                                                id="localAddressaddressLineOne"/> <span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineOne"/> </span>
+                                                                <form:input path="localAddress.addressLineOne"
+                                                                            id="localAddressaddressLineOne"/> <span
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineOne"/> </span>
 
                                                             </div>
                                                             <div class="control-group" id="localAddressaddressLineTwo">
                                                                 <label class="control-label">Address Line 2 :</label>
 
-                                                             <form:input
+                                                                <form:input
                                                                         path="localAddress.addressLineTwo"
                                                                         id="localAddressaddressLineTwo"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineTwo"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineTwo"/> </span>
 
                                                             </div>
 
@@ -274,52 +167,52 @@
                                                                  id="localAddressaddressLineThree">
                                                                 <label class="control-label">Address Line 3 :</label>
 
-                                                               <form:input
+                                                                <form:input
                                                                         path="localAddress.addressLineThree"
                                                                         id="localAddressaddressLineThree"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.addressLineThree"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.addressLineThree"/> </span>
 
                                                             </div>
 
                                                             <div class="control-group" id="localAddresstown">
                                                                 <label class="control-label">Town:</label>
 
-                                                               <form:input
+                                                                <form:input
                                                                         path="localAddress.town"
                                                                         id="localAddresstown"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.town"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.town"/> </span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresscounty">
                                                                 <label class="control-label">County:</label>
 
-                                                            <form:input
+                                                                <form:input
                                                                         path="localAddress.county"
                                                                         id="localAddresscounty"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.county"/></span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.county"/></span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresspin">
                                                                 <label class="control-label">Pin code:</label>
 
-                                                             <form:input
+                                                                <form:input
                                                                         path="localAddress.pin"
                                                                         id="localAddresspin"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.pin"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.pin"/> </span>
                                                             </div>
 
                                                             <div class="control-group" id="localAddresscountry">
                                                                 <label class="control-label">Country:</label>
 
-                                                              <form:input
+                                                                <form:input
                                                                         path="localAddress.country"
                                                                         id="localAddresscountry"/><span
-                                                                        class="help-inline"><form:errors
-                                                                        path="localAddress.country"/> </span>
+                                                                    class="help-inline"><form:errors
+                                                                    path="localAddress.country"/> </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -349,7 +242,7 @@
     </div>
     <!-- page-content -->
 
-    <%@include file="newfooterPanelTemplate.jsp" %>
+    <%@include file="footerPanelTemplate.jsp" %>
 
 </div>
 </body>

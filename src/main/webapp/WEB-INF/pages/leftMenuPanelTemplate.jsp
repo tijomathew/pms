@@ -8,32 +8,6 @@
 
 <!-- BEGIN SIDEBAR -->
 
-<script>
-    jQuery(document).ready(function () {
-        <c:if test="${f:contains(pageContext.request.requestURI, 'priest')}">
-        jQuery('#priest').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'parish')}">
-        jQuery('#parish').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'massCenter')}">
-        jQuery('#masscenter').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'prayerunit')}">
-        jQuery('#prayerunit').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'family')}">
-        jQuery('#family').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'member')}">
-        jQuery('#member').addClass('menubtnstyle');
-        </c:if>
-        <c:if test="${f:contains(pageContext.request.requestURI, 'users')}">
-        jQuery('#users').addClass('menubtnstyle');
-        </c:if>
-    });
-
-</script>
 
 <nav id="page-leftbar" role="navigation">
     <!-- BEGIN SIDEBAR MENU -->

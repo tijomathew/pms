@@ -9,17 +9,17 @@ public interface PageNames {
 
     String LOGIN = "login";
 
-    String FAMILY = "newfamily";
+    String FAMILY = "family";
 
-    String MASSCENTER = "newmasscenter";
+    String MASSCENTER = "masscenter";
 
-    String MEMBER = "newmember";
+    String MEMBER = "member";
 
-    String PARISH = "newparish";
+    String PARISH = "parish";
 
-    String PRAYERUNIT = "newprayerunit";
+    String PRAYERUNIT = "prayerunit";
 
-    String PRIEST = "newpriest";
+    String PRIEST = "priest";
 
-    String USER = "newuser";
+    String USER = "user";
 }
