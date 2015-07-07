@@ -82,7 +82,7 @@ public class FamilyController {
                 attachedStringToID += "0";
             }
 
-            family.setFamilyID(attachedStringToID + (++familyCounterForParish));
+            family.setFamilyID((++familyCounterForParish).toString());
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
 

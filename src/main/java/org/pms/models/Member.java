@@ -42,7 +42,7 @@ public class Member implements Serializable {
     @Column(name = "date_of_first_communion")
     private String dateOfFirstCommunion;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "date_of_marriage")
     private String dateOfMarriage;
 

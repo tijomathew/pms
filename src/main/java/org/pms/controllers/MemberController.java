@@ -18,18 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the Member Controller module.
@@ -106,12 +98,15 @@ public class MemberController {
             family.addMemberForFamily(member);
             member.setFamilyMember(family);
 
+            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getParishId());
+            Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
+
             String attachedStringToID = family.getFamilyID() + "-M";
-            Long memberCountForFamily = memberService.getMemberCountForFamily(family.getId());
+            Long memberCountForFamily = 0l;//memberService.getMemberCountForParish(family.getId());
             if (memberCountForFamily < 10) {
                 attachedStringToID += "0";
             }
-            member.setMemberID(attachedStringToID + (++memberCountForFamily));
+            member.setMemberID((++memberCountForParish).toString());
 
             memberService.addMemberSM(member);
             customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));

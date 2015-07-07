@@ -35,7 +35,7 @@ public class Family implements Serializable {
     @Column(name = "family_id")
     private String familyID;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "parish_in_native")
     private String parishInNative;
 

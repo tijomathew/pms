@@ -21,7 +21,7 @@ function globalSubmissionOfForms(formId,formAction) {
                 }
             }  else if(response.statusMessage == 'SUCCESS'){
                 jQuery.jqGrowl.timeout = 500;
-                jQuery.jqGrowl.init( { right: '8px', bottom: '8px', top: '',left: ''});
+                jQuery.jqGrowl.init( { right: '8px', bottom: '', top: '',left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].message ,response.customErrorMessages[0].fieldName);
 
                 if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")

@@ -172,7 +172,7 @@
                                                     </div>
                                                     <div class="panel-body">
                                                         <c:if test="${showForFamilyUser == false}">
-                                                            <div class="control-group" id="familySelectBox">
+                                                            <div class="control-group" id="familySelectBoxer">
                                                                 <label class="control-label">Family :</label>
 
                                                                 <form:select path="familyId"

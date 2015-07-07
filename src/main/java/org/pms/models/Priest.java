@@ -31,7 +31,7 @@ public class Priest implements Serializable {
     @Column(name = "priest_id")
     private String priestID;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "date_of_ordination")
     private String dateOfOrdination;
 

@@ -28,7 +28,7 @@ public class MassCenter implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
-    @NotEmpty
+    //@NotEmpty
     @Column(name = "name")
     private String name;
 

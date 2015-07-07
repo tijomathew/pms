@@ -14,7 +14,7 @@ function loadPrayerUnitGrid() {
 
 
             },
-            url: '${pageContext.request.contextPath}/displayprayerunitgrid.action',
+            url: 'displayprayerunitgrid.action',
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',

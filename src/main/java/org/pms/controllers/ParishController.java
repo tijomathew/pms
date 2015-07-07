@@ -56,12 +56,8 @@ public class ParishController {
         CustomResponse res = null;
         List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
         if (!result.hasErrors()) {
-            String attachedStringToID = "PA";
             Long parishCounter = parishService.getParishCount();
-            if (parishCounter < 10l) {
-                attachedStringToID += "0";
-            }
-            parish.setParishID(attachedStringToID + (++parishCounter));
+            parish.setParishID((++parishCounter).toString());
             parishService.addParishSM(parish);
             model.addAttribute("showAddButton", true);
             customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));

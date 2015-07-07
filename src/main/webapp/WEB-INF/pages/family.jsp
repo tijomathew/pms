@@ -15,12 +15,19 @@
 
     <spring:url value="/addfamily.action" var="familyActionURL"/>
     <spring:url value="/resources/js/createfamilygridlayout.js" var="familyGridURL"/>
+    <spring:url value="/resources/js/familyselectbox.js" var="familySelectBox"/>
+
+    <script src="${familySelectBox}" type="text/javascript"
+            language="javascript"></script>
 
     <script src="${familyGridURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
+            <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
+            loadSelectBox("${pageContext.request.contextPath}");
+            </c:if>
 
             loadFamilyGrid();
             globalSubmissionOfForms('familyForm', '${familyActionURL}');

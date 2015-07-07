@@ -68,7 +68,8 @@ public class PriestController {
     }
 
     @RequestMapping(value = "/addpriest.action", method = RequestMethod.POST)
-    public @ResponseBody
+    public
+    @ResponseBody
     CustomResponse addPriest(Model model, @ModelAttribute("priest") @Valid Priest priest, BindingResult result) {
         CustomResponse res = null;
         List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
@@ -78,13 +79,9 @@ public class PriestController {
             priest.setParish(mappedParish);
             mappedParish.addPriestsForParish(priest);
 
-            String attachedStringToID = mappedParish.getParishID() + "-" + "PR";
             Long priestAutoID = priestService.getHighestAutoIDSM();
-            if (priestAutoID < 10) {
-                attachedStringToID += "0";
-            }
 
-            priest.setPriestID(attachedStringToID + priestAutoID);
+            priest.setPriestID(priestAutoID.toString());
 
             PriestDesignation priestDesignation = new PriestDesignation();
             priestDesignation.setDesignation(priest.getDesignation());
@@ -97,7 +94,7 @@ public class PriestController {
             createPriestFormBackObject(model);
             customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
             res = new CustomResponse("SUCCESS", customErrorMessages);
-        }else {
+        } else {
             List<FieldError> allErrors = result.getFieldErrors();
             for (FieldError objectError : allErrors) {
                 customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));

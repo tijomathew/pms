@@ -66,13 +66,9 @@ public class PrayerUnitController {
             prayerUnit.setMappedMassCenter(massCenter);
             massCenter.addPrayerUnitsForMassCenter(prayerUnit);
 
-            String attachedStringToID = massCenter.getMassCenterID() + "-PU";
             Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
-            if (prayerUnitCounter < 10) {
-                attachedStringToID += "0";
-            }
 
-            prayerUnit.setPrayerUnitCode(attachedStringToID + (++prayerUnitCounter));
+            prayerUnit.setPrayerUnitCode((++prayerUnitCounter).toString());
 
             User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
             boolean permissionDenied = false;

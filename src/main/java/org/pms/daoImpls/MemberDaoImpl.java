@@ -1,15 +1,10 @@
 package org.pms.daoImpls;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.MemberDao;
 import org.pms.models.Member;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,8 +32,8 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     }
 
     @Override
-    public Long getMemberCountForFamily(Long familyId) {
-        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).uniqueResult();
+    public Long getMemberCountForParish(List<Long> familyIdsList) {
+        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.in("member.familyMember.id", familyIdsList)).uniqueResult();
     }
 
     @Override

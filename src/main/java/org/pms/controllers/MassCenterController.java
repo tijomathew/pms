@@ -63,7 +63,7 @@ public class MassCenterController {
         CustomResponse res = null;
         List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
-        if(!result.hasErrors()) {
+        if (!result.hasErrors()) {
 
             //get the parish for mass center to map with mass center and parish.
             Parish parish = parishService.getParishForIDSM(massCenter.getParish());
@@ -74,16 +74,9 @@ public class MassCenterController {
             //add mass center to the parish mass center list.
             parish.addMassCentersForParish(massCenter);
 
-            String attachedStringToID = parish.getParishID() + "-MC";
+            Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
 
-            //set mass center ID if its not set in the view code.
-            if (massCenter.getMassCenterID().isEmpty()) {
-                Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
-                if (massCenterCount < 10) {
-                    attachedStringToID += "0";
-                }
-                massCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
-            }
+            massCenter.setMassCenterID((++massCenterCount).toString());
 
             //get all active priests for the respective parish.
             /**
@@ -149,7 +142,7 @@ public class MassCenterController {
             }
 
             massCenterService.createMassCenterFormBackObject(modelMap);
-        }else{
+        } else {
             List<FieldError> allErrors = result.getFieldErrors();
             for (FieldError objectError : allErrors) {
                 customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
