@@ -70,4 +70,9 @@ public class MassCenterDaoImpl extends GenericDaoImpl<MassCenter> implements Mas
     public Long getAllMassCenterCount() {
         return (Long) getDb(false).createCriteria(MassCenter.class, "massCenter").setProjection(Projections.rowCount()).uniqueResult();
     }
+
+    @Override
+    public List<Long> getAllMassCenterIdsForParish(Long parishId) {
+        return getDb(false).createCriteria(MassCenter.class, "massCenter").setProjection(Projections.property("id")).add(Restrictions.eq("massCenter.mappedParish.id", parishId)).list();
+    }
 }

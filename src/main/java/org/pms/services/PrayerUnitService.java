@@ -30,4 +30,6 @@ public interface PrayerUnitService {
 
     PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
 
+    List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds);
+
 }

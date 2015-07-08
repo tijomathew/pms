@@ -106,7 +106,7 @@ public class MemberController {
             if (memberCountForFamily < 10) {
                 attachedStringToID += "0";
             }
-            member.setMemberID((++memberCountForParish).toString());
+            member.setMemberID(++memberCountForParish);
 
             memberService.addMemberSM(member);
             customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));

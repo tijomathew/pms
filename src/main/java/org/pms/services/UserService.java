@@ -20,4 +20,12 @@ public interface UserService {
     List<UserDto> createUserDtos(List<User> userList) throws IllegalArgumentException;
 
     Long getAllUserCount();
+
+    List<User> getAllUsersForParishIds(List<Long> parishIds);
+
+    List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds);
+
+    List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
+
+    List<User> getAllUsersForFamilyIds(List<Long> familyIds);
 }

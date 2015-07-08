@@ -66,4 +66,24 @@ public class UserServiceImpl implements UserService {
     public Long getAllUserCount() {
         return userDao.getAllUserCount();
     }
+
+    @Override
+    public List<User> getAllUsersForParishIds(List<Long> parishIds) {
+        return userDao.getAllUsersForParishIds(parishIds);
+    }
+
+    @Override
+    public List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds) {
+        return userDao.getAllUsersForMassCenterIds(massCenterIds);
+    }
+
+    @Override
+    public List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds) {
+        return userDao.getAllUsersForPrayerUnitIds(prayerUnitIds);
+    }
+
+    @Override
+    public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
+        return userDao.getAllUsersForFamilyIds(familyIds);
+    }
 }

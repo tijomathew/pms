@@ -15,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private UserDto userDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id", "systemRole", "isActive", "email"};
+    private String[] VALID_BEAN_PROPERTIES = {"systemRole", "isActive", "email"};
 
     public UserWrapper(UserDto userDto) {
         this.userDto = userDto;

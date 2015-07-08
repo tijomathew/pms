@@ -102,4 +102,9 @@ public class FamilyServiceImpl implements FamilyService {
     public List<Long> getAllFamiliesIDForParishID(Long parishId) {
         return familyDao.getAllFamiliesIDForParishID(parishId);
     }
+
+    @Override
+    public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
+        return familyDao.getAllFamilyIdsForPrayerUnitId(prayerUnitIds);
+    }
 }

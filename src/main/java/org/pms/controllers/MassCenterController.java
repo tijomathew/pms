@@ -76,7 +76,7 @@ public class MassCenterController {
 
             Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
 
-            massCenter.setMassCenterID((++massCenterCount).toString());
+            massCenter.setMassCenterID(++massCenterCount);
 
             //get all active priests for the respective parish.
             /**

@@ -6,7 +6,7 @@ package org.pms.dtos;
 public class FamilyDto {
 
     private Integer id;
-    private String familyID;
+    private Long familyID;
     private String familyName;
     private String parishIndia;
     private String dioceseIndia;
@@ -25,11 +25,11 @@ public class FamilyDto {
         this.id = id;
     }
 
-    public String getFamilyID() {
+    public Long getFamilyID() {
         return familyID;
     }
 
-    public void setFamilyID(String familyID) {
+    public void setFamilyID(Long familyID) {
         this.familyID = familyID;
     }
 

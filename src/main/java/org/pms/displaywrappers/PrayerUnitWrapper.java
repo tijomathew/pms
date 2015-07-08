@@ -15,7 +15,7 @@ public class PrayerUnitWrapper implements GridRow {
 
     private PrayerUnitDto prayerUnitDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitID", "prayerUnitCode","prayerUnitName","prayerUnitPlace","massCenterName","localAddress"};
+    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitID","prayerUnitName","prayerUnitPlace","massCenterName","localAddress"};
 
     public PrayerUnitWrapper(PrayerUnitDto prayerUnitDto) {
         this.prayerUnitDto = prayerUnitDto;

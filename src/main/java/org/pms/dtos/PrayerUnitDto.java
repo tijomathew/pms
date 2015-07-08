@@ -7,7 +7,6 @@ public class PrayerUnitDto {
 
     private Integer id;
     private Long prayerUnitID;
-    private String prayerUnitCode;
     private String prayerUnitName;
     private String prayerUnitPlace;
     private String parishName;
@@ -79,11 +78,4 @@ public class PrayerUnitDto {
         this.localAddress = localAddress;
     }
 
-    public String getPrayerUnitCode() {
-        return prayerUnitCode;
-    }
-
-    public void setPrayerUnitCode(String prayerUnitCode) {
-        this.prayerUnitCode = prayerUnitCode;
-    }
 }

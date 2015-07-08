@@ -41,7 +41,7 @@ public class Parish implements Serializable {
     private String dioceseName;
 
     @Column(name = "parish_id")
-    private String parishID;
+    private Long parishID;
 
     //@NotEmpty
     @Column(name = "forane_name")
@@ -136,11 +136,11 @@ public class Parish implements Serializable {
         this.dioceseName = dioceseName;
     }
 
-    public String getParishID() {
+    public Long getParishID() {
         return parishID;
     }
 
-    public void setParishID(String parishID) {
+    public void setParishID(Long parishID) {
         this.parishID = parishID;
     }
 

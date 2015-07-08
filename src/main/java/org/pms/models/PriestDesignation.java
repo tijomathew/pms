@@ -20,16 +20,16 @@ public class PriestDesignation {
     private String designation;
 
     @Column(name = "priest_id")
-    private String priestId;
+    private Long priestId;
 
     @Column(name = "parish_id")
-    private String parishId;
+    private Long parishId;
 
     @Column(name = "masscenter_id")
-    private String massCenterId;
+    private Long massCenterId;
 
     @Column(name = "prayerunit_id")
-    private String prayerUnitId;
+    private Long prayerUnitId;
 
     public PriestDesignation() {
     }
@@ -46,35 +46,35 @@ public class PriestDesignation {
         this.designation = designation;
     }
 
-    public String getPriestId() {
+    public Long getPriestId() {
         return priestId;
     }
 
-    public void setPriestId(String priestId) {
+    public void setPriestId(Long priestId) {
         this.priestId = priestId;
     }
 
-    public String getParishId() {
+    public Long getParishId() {
         return parishId;
     }
 
-    public void setParishId(String parishId) {
+    public void setParishId(Long parishId) {
         this.parishId = parishId;
     }
 
-    public String getMassCenterId() {
+    public Long getMassCenterId() {
         return massCenterId;
     }
 
-    public void setMassCenterId(String massCenterId) {
+    public void setMassCenterId(Long massCenterId) {
         this.massCenterId = massCenterId;
     }
 
-    public String getPrayerUnitId() {
+    public Long getPrayerUnitId() {
         return prayerUnitId;
     }
 
-    public void setPrayerUnitId(String prayerUnitId) {
+    public void setPrayerUnitId(Long prayerUnitId) {
         this.prayerUnitId = prayerUnitId;
     }
 }

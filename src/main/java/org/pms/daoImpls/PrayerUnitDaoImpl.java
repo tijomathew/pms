@@ -59,4 +59,9 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
         return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.rowCount()).add(Restrictions.eq("prayerUnit.mappedMassCenter.id", massCenterId)).uniqueResult();
     }
+
+    @Override
+    public List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds) {
+        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.property("id")).add(Restrictions.in("prayerUnit.mappedMassCenter.id", massCenterIds)).list();
+    }
 }

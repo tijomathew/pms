@@ -76,11 +76,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
             for (PrayerUnit prayerUnit : prayerUnitList) {
                 PrayerUnitDto prayerUnitDto = new PrayerUnitDto();
                 prayerUnitDto.setId(uniqueId);
-                prayerUnitDto.setPrayerUnitID(prayerUnit.getId());
-                prayerUnitDto.setPrayerUnitCode(prayerUnit.getPrayerUnitCode());
+                prayerUnitDto.setPrayerUnitID(prayerUnit.getPrayerUnitCode());
                 prayerUnitDto.setPrayerUnitName(prayerUnit.getPrayerUnitName());
                 prayerUnitDto.setPrayerUnitPlace(prayerUnit.getPrayerUnitPlace());
-                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(prayerUnit.getLocalAddress(),7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(prayerUnit.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
                 prayerUnitDto.setMassCenterName(prayerUnit.getMappedMassCenter().getName());
                 prayerUnitDtoList.add(prayerUnitDto);
                 uniqueId += 1;
@@ -140,5 +139,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         }
         modelMap.addAttribute("massCenterMap", massCenterMap);
         return formBackPrayerUnit;
+    }
+
+    @Override
+    public List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds) {
+        return prayerUnitDao.getAllPrayerUnitIdsForMassCenterIds(massCenterIds);
     }
 }

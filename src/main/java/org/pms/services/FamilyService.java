@@ -33,4 +33,6 @@ public interface FamilyService {
 
     List<Long> getAllFamiliesIDForParishID(Long parishId);
 
+    List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds);
+
 }

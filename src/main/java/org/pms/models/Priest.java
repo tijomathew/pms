@@ -29,7 +29,7 @@ public class Priest implements Serializable {
     private Long id;
 
     @Column(name = "priest_id")
-    private String priestID;
+    private Long priestID;
 
     //@NotEmpty
     @Column(name = "date_of_ordination")
@@ -104,11 +104,11 @@ public class Priest implements Serializable {
         return id;
     }
 
-    public String getPriestID() {
+    public Long getPriestID() {
         return priestID;
     }
 
-    public void setPriestID(String priestID) {
+    public void setPriestID(Long priestID) {
         this.priestID = priestID;
     }
 

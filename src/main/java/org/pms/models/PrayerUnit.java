@@ -28,7 +28,7 @@ public class PrayerUnit implements Serializable {
     private String prayerUnitName;
 
     @Column(name = "code")
-    private String prayerUnitCode;
+    private Long prayerUnitCode;
 
     @Column(name = "place")
     private String prayerUnitPlace;
@@ -62,11 +62,11 @@ public class PrayerUnit implements Serializable {
         this.prayerUnitName = prayerUnitName;
     }
 
-    public String getPrayerUnitCode() {
+    public Long getPrayerUnitCode() {
         return prayerUnitCode;
     }
 
-    public void setPrayerUnitCode(String prayerUnitCode) {
+    public void setPrayerUnitCode(Long prayerUnitCode) {
         this.prayerUnitCode = prayerUnitCode;
     }
 

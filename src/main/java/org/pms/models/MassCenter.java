@@ -36,7 +36,7 @@ public class MassCenter implements Serializable {
     private String centerCode;
 
     @Column(name = "massCenterID")
-    private String massCenterID;
+    private Long massCenterID;
 
     @Column(name = "patron_name")
     private String patronName;
@@ -113,11 +113,11 @@ public class MassCenter implements Serializable {
         this.centerCode = centerCode;
     }
 
-    public String getMassCenterID() {
+    public Long getMassCenterID() {
         return massCenterID;
     }
 
-    public void setMassCenterID(String massCenterID) {
+    public void setMassCenterID(Long massCenterID) {
         this.massCenterID = massCenterID;
     }
 

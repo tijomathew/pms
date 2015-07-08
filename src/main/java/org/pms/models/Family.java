@@ -33,9 +33,9 @@ public class Family implements Serializable {
     private String familyName;
 
     @Column(name = "family_id")
-    private String familyID;
+    private Long familyID;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "parish_in_native")
     private String parishInNative;
 
@@ -91,11 +91,11 @@ public class Family implements Serializable {
         this.familyName = familyName;
     }
 
-    public String getFamilyID() {
+    public Long getFamilyID() {
         return familyID;
     }
 
-    public void setFamilyID(String familyID) {
+    public void setFamilyID(Long familyID) {
         this.familyID = familyID;
     }
 

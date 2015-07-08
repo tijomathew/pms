@@ -68,7 +68,7 @@ public class PrayerUnitController {
 
             Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
 
-            prayerUnit.setPrayerUnitCode((++prayerUnitCounter).toString());
+            prayerUnit.setPrayerUnitCode(++prayerUnitCounter);
 
             User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
             boolean permissionDenied = false;

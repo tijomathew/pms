@@ -6,7 +6,7 @@ package org.pms.dtos;
 public class MassCenterDto {
 
     private Integer id;
-    private String massCenterID;
+    private Long massCenterID;
     private String massCenterName;
     private String parishName;
     private String priestNames;
@@ -22,7 +22,7 @@ public class MassCenterDto {
     private String faxNo;
     private String localAddress;
 
-    public MassCenterDto(Integer id, String massCenterID, String massCenterName, String patronName, String place, String facebookPage, String registeredDate, String drivingRoute, String map, Long landLineNo, Long mobileNo, String email, String faxNo) {
+    public MassCenterDto(Integer id, Long massCenterID, String massCenterName, String patronName, String place, String facebookPage, String registeredDate, String drivingRoute, String map, Long landLineNo, Long mobileNo, String email, String faxNo) {
         this.id = id;
         this.massCenterID = massCenterID;
         this.massCenterName = massCenterName;
@@ -46,11 +46,11 @@ public class MassCenterDto {
         this.id = id;
     }
 
-    public String getMassCenterID() {
+    public Long getMassCenterID() {
         return massCenterID;
     }
 
-    public void setMassCenterID(String massCenterID) {
+    public void setMassCenterID(Long massCenterID) {
         this.massCenterID = massCenterID;
     }
 

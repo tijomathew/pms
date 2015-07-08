@@ -28,4 +28,6 @@ public interface MassCenterDao {
     MassCenter getMassCenterByMassCenterID(String massCenterID);
 
     Long getAllMassCenterCount();
+
+    List<Long> getAllMassCenterIdsForParish(Long parishId);
 }

@@ -17,4 +17,12 @@ public interface UserDao {
     List<User> getAllUsers();
 
     Long getAllUserCount();
+
+    List<User> getAllUsersForParishIds(List<Long> parishIds);
+
+    List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds);
+
+    List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
+
+    List<User> getAllUsersForFamilyIds(List<Long> familyIds);
 }

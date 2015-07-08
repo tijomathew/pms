@@ -18,13 +18,11 @@ function loadUserGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Role', 'isActive', 'Email', 'Phone No'],
+            colNames: ['Role', 'isActive', 'Email'],
             colModel: [
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
                 {name: 'isActive', index: 'isActive', width: 100, sortable: false},
-                {name: 'email', index: 'email', width: 100, sortable: false},
-                {name: 'phoneNo', index: 'phoneNo', width: 100, sortable: false}
-
+                {name: 'email', index: 'email', width: 100, sortable: false}
             ],
             rowNum: 10,
             pager: '#userGridPager',

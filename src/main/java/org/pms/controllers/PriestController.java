@@ -81,7 +81,7 @@ public class PriestController {
 
             Long priestAutoID = priestService.getHighestAutoIDSM();
 
-            priest.setPriestID(priestAutoID.toString());
+            priest.setPriestID(priestAutoID);
 
             PriestDesignation priestDesignation = new PriestDesignation();
             priestDesignation.setDesignation(priest.getDesignation());

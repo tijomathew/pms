@@ -150,34 +150,37 @@ public class UserController {
     @RequestMapping(value = "displayusergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForWard(@RequestParam(value = "rows", required = false) Integer
+    Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
                                               rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
         List<User> allUsers = new ArrayList<>();
-        Integer totalRows = 0;
 
-        /*if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
-            List<User> allUsersUnderParishAdmin = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
-            for (Family family : allFamiliesUnderParish) {
-                allUsers.addAll(family.getMemberList());
-            }
-            totalRows = allUsers.size();
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            List<Long> massCenterIdsUnderParishAdmin = massCenterService.getAllMassCenterIdsForParish(currentUser.getParishId());
+            allUsers.addAll(userService.getAllUsersForMassCenterIds(massCenterIdsUnderParishAdmin));
+
+            List<Long> prayerUnitIdsUnderParishAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdsUnderParishAdmin);
+            allUsers.addAll(userService.getAllUsersForPrayerUnitIds(prayerUnitIdsUnderParishAdmin));
+
+            List<Long> familyIdsUnderParishAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderParishAdmin);
+            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderParishAdmin));
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
-            List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
-            for (Family family : allFamiliesUnderMassCenter) {
-                allUsers.addAll(family.getMemberList());
-            }
-            totalRows = allUsers.size();
+            List<Long> massCenterIdAsList = new ArrayList<>();
+            massCenterIdAsList.add(currentUser.getMassCenterId());
+            List<Long> prayerUnitIdsUnderMassCenterAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdAsList);
+            allUsers.addAll(userService.getAllUsersForPrayerUnitIds(prayerUnitIdsUnderMassCenterAdmin));
+
+            List<Long> familyIdsUnderMassCenterAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderMassCenterAdmin);
+            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderMassCenterAdmin));
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
-            List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
-            for (Family family : allFamiliesUnderPrayerUnit) {
-                allUsers.addAll(family.getMemberList());
-            }
-            totalRows = allUsers.size();
-        } else {*/
-        allUsers = userService.getAllUsers();
-        totalRows = allUsers.size();
-       /* }*/
+            List<Long> prayerUnitIdAsList = new ArrayList<>();
+            prayerUnitIdAsList.add(currentUser.getPrayerUnitId());
+            List<Long> familyIdsUnderPrayerUnitAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdAsList);
+            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderPrayerUnitAdmin));
+        } else {
+            allUsers = userService.getAllUsers();
+        }
+        Integer totalRows = allUsers.size();
 
         List<UserDto> userDtoList = userService.createUserDtos(allUsers);
 

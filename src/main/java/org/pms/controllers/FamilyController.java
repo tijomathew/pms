@@ -76,13 +76,9 @@ public class FamilyController {
             family.setFamilyPrayerUnit(prayerUnitForFamily);
             prayerUnitForFamily.addFamilyForWard(family);
 
-            String attachedStringToID = prayerUnitForFamily.getPrayerUnitCode() + "-FA";
             Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
-            if (familyCounterForParish < 10) {
-                attachedStringToID += "0";
-            }
 
-            family.setFamilyID((++familyCounterForParish).toString());
+            family.setFamilyID(++familyCounterForParish);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
 
