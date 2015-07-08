@@ -134,121 +134,116 @@
                                                         <h4>Parish Details</h4>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <div class="control-group" id="churchName">
-                                                            <label class="control-label">Church Name :</label>
-                                                            <form:input path="churchName"
-                                                                        id="churchName"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="churchName"/></span>
+                                                        <div class="form-group">
+                                                            <label for="churchName"  class="col-sm-1 control-label">Name</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="churchName"
+                                                                        id="churchName" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
+                                                            <label for="riteName"  class="col-sm-1 control-label">Name</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="riteName"
+                                                                        id="riteName" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="riteName">
-                                                            <label class="control-label">Rite Name :</label>
 
-                                                            <form:input path="riteName"
-                                                                        id="riteName"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="riteName"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="dioceseName">
-                                                            <label class="control-label">Diocese Name :</label>
 
-                                                            <form:input path="dioceseName"
-                                                                        id="dioceseName"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="dioceseName"/></span>
+                                                        <div class="form-group">
+                                                            <label for="dioceseName"  class="col-sm-1 control-label">Diocese Name</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="dioceseName"
+                                                                        id="dioceseName" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
+                                                            <label for="foraneName"  class="col-sm-1 control-label">Forane Name</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="foraneName"
+                                                                        id="foraneName" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="foraneName">
-                                                            <label class="control-label">Forane Name :</label>
 
-                                                            <form:input path="foraneName"
-                                                                        id="foraneName"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="foraneName"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="parishID">
-                                                            <label class="control-label">Parish ID :</label>
 
-                                                            <form:input path="parishID"
-                                                                        id="parishID"
-                                                                        class="textBox"
-                                                                        readonly="true"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="parishID"/></span>
+                                                        <div class="form-group">
+                                                            <label for="parishID"  class="col-sm-1 control-label">Parish ID</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="parishID"
+                                                                        id="parishID" class = "form-control" readonly="true" />
+                                                                    <%--</div>--%>
+                                                            </div>
+                                                            <label for="name"  class="col-sm-1 control-label">Parish Name</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="name"
+                                                                        id="name" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="name">
-                                                            <label class="control-label">Parish Name :</label>
 
-                                                            <form:input path="name" id="name"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="name"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="place">
-                                                            <label class="control-label">Parish Place :</label>
 
-                                                            <form:input path="place"
-                                                                        id="place"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="place"/></span>
+                                                        <div class="form-group">
+                                                            <label for="place"  class="col-sm-1 control-label">Parish Place</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="place"
+                                                                        id="place" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
+                                                            <label for="code"  class="col-sm-1 control-label">Parish Code</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="code"
+                                                                        id="code" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="code">
-                                                            <label class="control-label">Parish Code :</label>
 
-                                                            <form:input path="code" id="code"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="code"/></span>
+                                                        <div class="form-group">
+                                                            <label for="webSite"  class="col-sm-1 control-label">Parish Web-site</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="webSite"
+                                                                        id="webSite" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
+                                                            <label for="facebookPage"  class="col-sm-1 control-label">Parish Facebook Page</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="facebookPage"
+                                                                        id="facebookPage" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="webSite">
-                                                            <label class="control-label">Parish Web-site :</label>
 
-                                                            <form:input path="webSite"
-                                                                        id="webSite"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="webSite"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="facebookPage">
-                                                            <label class="control-label">Parish Facebook Page
-                                                                :</label>
+                                                        <div class="form-group">
+                                                            <label for="registeredDate"  class="col-sm-1 control-label">Registered Date</label>
+                                                            <div class="col-sm-3">
+                                                                    <%-- <div class="input-group input-group-sm">--%>
+                                                                <form:input
+                                                                        path="registeredDate"
+                                                                        id="registeredDate" class = "form-control" />
+                                                                    <%--</div>--%>
+                                                            </div>
 
-                                                            <form:input path="facebookPage"
-                                                                        id="facebookPage"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="facebookPage"/></span>
                                                         </div>
-                                                        <div class="control-group" id="drivingRoute">
-                                                            <label class="control-label">Driving Route :</label>
 
-                                                            <form:input path="drivingRoute"
-                                                                        id="drivingRoute"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="drivingRoute"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="map">
-                                                            <label class="control-label">Map :</label>
-
-                                                            <form:input path="map" id="map"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="map"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="registeredDate">
-                                                            <label class="control-label">Registered Date :</label>
-
-                                                            <form:input path="registeredDate"
-                                                                        id="registeredDate"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="registeredDate"/></span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -385,7 +380,7 @@
                                     <div class="form-actions">
                                         <button type="submit"
                                                 value="Save"
-                                                class="btn btn-primary"/>
+                                                class="btn btn-primary">SAVE</button>
                                     </div>
                                 </form:form>
                             </div>

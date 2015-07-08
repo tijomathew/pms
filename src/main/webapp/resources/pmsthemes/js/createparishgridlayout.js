@@ -72,13 +72,14 @@ function loadParishGrid() {
             height: 'auto',
             width: 'auto'
         });
-    jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {
+   /* jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {
         edit: false,
         add: false,
         del: false,
         search: false, refresh: false
-    });
-    replaceDefaultGridCss();
+    });*/
     addJqgridCustomButtons("parishGrid", "parishForm");
+    replaceDefaultGridCss();
+
 
 }

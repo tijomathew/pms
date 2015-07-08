@@ -3616,6 +3616,13 @@ button.close {
   background-color: #000000;
   border-radius: 1px;
 }
+.tooltip-error {
+  color: red !important;
+  background-color: #ffffff !important;
+  border-color: #ff0000 !important;
+  border-style: solid;
+}
+
 .tooltip-arrow {
   position: absolute;
   width: 0;
@@ -15248,4 +15255,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .input-group-addon:not(:first-child) {
   border-left: 0;
+}
+.borderRed{
+  border:1px solid red !important;
+  color: #003399!important;
+}
+
+.labelErrorAlert{
+  color:red !important;
 }

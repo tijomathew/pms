@@ -13,13 +13,35 @@ function globalSubmissionOfForms(formId,formAction) {
             $form.find('.alert').remove();
 
             if (response.statusMessage == 'FAIL') {
-                for (var i = 0; i < response.customErrorMessages.length; i++) {
+               /* for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
                     var $controlGroup = $('#' + item.fieldName);
                     $controlGroup.addClass('error');
                     $controlGroup.find('.help-inline').html(item.message);
+*/
+
+                    for (var i = 0; i < response.customErrorMessages.length; i++) {
+                        var item = response.customErrorMessages[i];
+                        var $field = $('#' + item.fieldName);
+                        $('label[for= '+item.fieldName+']').addClass('labelErrorAlert');
+                        $field.addClass('borderRed');
+                        $field.attr('title', item.message);
+                        $field.tooltip({
+                            placement: "top",
+                            trigger: "hover",
+                            template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner tooltip-error"></div></div>'
+                        });
+                        $field.change(function(){
+                            $('label[for= '+$(this).attr('name')+']').removeClass('labelErrorAlert');
+                            $(this).removeClass('borderRed');
+                            $(this).removeAttr('title');
+                            $(this).tooltip('destroy');
+                        });
+                    }
+                    return [true,"",""];
+
                 }
-            }  else if(response.statusMessage == 'SUCCESS'){
+              else if(response.statusMessage == 'SUCCESS'){
                 jQuery.jqGrowl.timeout = 500;
                 jQuery.jqGrowl.init( { right: '8px', bottom: '', top: '',left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].message ,response.customErrorMessages[0].fieldName);

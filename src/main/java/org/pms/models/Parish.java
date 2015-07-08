@@ -28,37 +28,37 @@ public class Parish implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "church_name")
     private String churchName;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "rite_name")
     private String riteName;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "diocese_name")
     private String dioceseName;
 
     @Column(name = "parish_id")
     private Long parishID;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "forane_name")
     private String foraneName;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "name")
     private String name;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "place")
     private String place;
 
     @Column(name = "code")
     private String code;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "website")
     private String webSite;
 
