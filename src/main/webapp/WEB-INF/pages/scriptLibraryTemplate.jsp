@@ -26,9 +26,11 @@
 
 <spring:url value="/resources/css/ui.jqgrid.css" var="jqgridcssURL"/>
 <spring:url value="/resources/css/jquery-ui-custom.css" var="uicustomcssURL"/>
+<spring:url value="/resources/css/layout.jqgrid.css" var="uitestcssURL"/>
 
+<%--<link type="text/css" rel="stylesheet" href="${uicustomcssURL}"/>--%>
 <link type="text/css" rel="stylesheet" href="${jqgridcssURL}"/>
-<link type="text/css" rel="stylesheet" href="${uicustomcssURL}"/>
+<link type="text/css" rel="stylesheet" href="${uitestcssURL}"/>
 
 <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>

@@ -1359,15 +1359,12 @@
                                                                 the
                                                                 Sick
                                                                 :</label>
-
-                                                            <div class="controls">
                                                                 <form:input
                                                                         path="ministerOfAnointingTheSick"
                                                                         id="ministerOfAnointingTheSick"
                                                                         class="textBox"/><span
                                                                     class="help-inline"><form:errors
                                                                     path="ministerOfAnointingTheSick"/> </span>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

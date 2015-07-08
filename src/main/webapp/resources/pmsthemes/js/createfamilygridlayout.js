@@ -18,31 +18,37 @@ function loadFamilyGrid() {
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
-            rowList: [2, 4, 6],
+            //rowList: [2, 4, 6],
             colNames: ['Family ID', 'Family Name', 'parishInNative', 'dioceseInNative', 'dateOfRegistration', 'parishLocal', "massCenter", "prayerUnit", "localAddress", "nativeAddress"],
             colModel: [
 
-                {name: 'familyID', index: 'familyID', width: 90},
-                {name: 'familyName', index: 'familyName', width: 100},
-                {name: 'parishInNative', index: 'parishInNative', width: 100},
-                {name: 'dioceseInNative', index: 'dioceseInNative', width: 100},
-                {name: 'dateOfRegistration', index: 'dateOfRegistration', width: 100},
-                {name: 'parishLocal', index: 'parishLocal', width: 100},
-                {name: 'massCenter', index: 'massCenter', width: 100},
-                {name: 'prayerUnit', index: 'prayerUnit', width: 100},
-                {name: 'localAddress', index: 'localAddress', width: 100},
-                {name: 'nativeAddress', index: 'nativeAddress', width: 100},
+                {name: 'familyID', index: 'familyID', width: 90, sortable: false},
+                {name: 'familyName', index: 'familyName', width: 100, sortable: false},
+                {name: 'parishInNative', index: 'parishInNative', width: 100, sortable: false},
+                {name: 'dioceseInNative', index: 'dioceseInNative', width: 100, sortable: false},
+                {name: 'dateOfRegistration', index: 'dateOfRegistration', width: 100, sortable: false},
+                {name: 'parishLocal', index: 'parishLocal', width: 100, sortable: false},
+                {name: 'massCenter', index: 'massCenter', width: 100, sortable: false},
+                {name: 'prayerUnit', index: 'prayerUnit', width: 100, sortable: false},
+                {name: 'localAddress', index: 'localAddress', width: 100, sortable: false},
+                {name: 'nativeAddress', index: 'nativeAddress', width: 100, sortable: false},
             ],
-            rowNum: 2,
+            rowNum: 10,
             pager: '#familyGridPager',
-            sortname: 'id',
+            //sortname: 'id',
             viewrecords: true,
-            sortorder: "desc",
+            //sortorder: "desc",
             caption: "Families",
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
             width: 'auto'
         });
-    jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {edit: true, add: true, del: true});
+    jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {
+        edit: false, add: false, del: false,
+        search: false, refresh: false
+    });
+
+    replaceDefaultGridCss();
+    addJqgridCustomButtons("familyGrid", "familyForm");
 }

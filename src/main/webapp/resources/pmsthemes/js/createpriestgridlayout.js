@@ -17,28 +17,28 @@ function loadPriestGrid() {
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
-            rowList: [2, 4, 6],
+            //rowList: [2, 4, 6],
             colNames: ['ID', 'Name', 'Designation', 'Heavenly Patron', 'Native Diocese', 'Native Parish', 'Native Place', 'Priest Card Validity', 'Ordained To Diocese', 'Father Name', 'Mother Name', 'Priest Status', 'Congregation', 'Local Address', 'Native Address', 'Emergency Contact'],
             colModel: [
 
-                {name: 'priestID', index: 'priestID', width: 120},
-                {name: 'name', index: 'name', width: 150},
-                {name: 'designation', index: 'designation', width: 150, align: "right"},
-                {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right"},
-                {name: 'nativeDiocese', index: 'nativeDiocese', width: 150, align: "right"},
-                {name: 'nativeParish', index: 'nativeParish', width: 150, align: "right"},
-                {name: 'nativePlace', index: 'nativePlace', width: 150, align: "right"},
-                {name: 'priestCardValidity', index: 'priestCardValidity', width: 150, align: "right"},
-                {name: 'ordainedToDiocese', index: 'ordainedToDiocese', width: 150, align: "right"},
-                {name: 'fatherName', index: 'fatherName', width: 150, align: "right"},
-                {name: 'motherName', index: 'motherName', width: 150, align: "right"},
-                {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right"},
-                {name: 'congregation', index: 'congregation', width: 150, align: "right"},
-                {name: 'localAddress', index: 'localAddress', width: 150, align: "right"},
-                {name: 'nativeAddress', index: 'nativeAddress', width: 150, align: "right"},
-                {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right"}
+                {name: 'priestID', index: 'priestID', width: 120, sortable: false},
+                {name: 'name', index: 'name', width: 150, sortable: false},
+                {name: 'designation', index: 'designation', width: 150, align: "right", sortable: false},
+                {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right", sortable: false},
+                {name: 'nativeDiocese', index: 'nativeDiocese', width: 150, align: "right", sortable: false},
+                {name: 'nativeParish', index: 'nativeParish', width: 150, align: "right", sortable: false},
+                {name: 'nativePlace', index: 'nativePlace', width: 150, align: "right", sortable: false},
+                {name: 'priestCardValidity', index: 'priestCardValidity', width: 150, align: "right", sortable: false},
+                {name: 'ordainedToDiocese', index: 'ordainedToDiocese', width: 150, align: "right", sortable: false},
+                {name: 'fatherName', index: 'fatherName', width: 150, align: "right", sortable: false},
+                {name: 'motherName', index: 'motherName', width: 150, align: "right", sortable: false},
+                {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right", sortable: false},
+                {name: 'congregation', index: 'congregation', width: 150, align: "right", sortable: false},
+                {name: 'localAddress', index: 'localAddress', width: 150, align: "right", sortable: false},
+                {name: 'nativeAddress', index: 'nativeAddress', width: 150, align: "right", sortable: false},
+                {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right", sortable: false}
             ],
-            rowNum: 2,
+            rowNum: 10,
             pager: '#priestGridPager',
             sortname: 'id',
             viewrecords: true,
@@ -49,6 +49,15 @@ function loadPriestGrid() {
             emptyrecords: "Nothing to display"
 
         });
-    jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {edit: true, add: true, del: true});
+    jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {
+        edit: false,
+        add: false,
+        del: false,
+        search: false,
+        refresh: false
+    });
+
+    replaceDefaultGridCss();
+    addJqgridCustomButtons("priestGrid", "priestForm");
 }
 

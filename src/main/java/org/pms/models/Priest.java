@@ -13,7 +13,7 @@ import java.util.List;
  * This class describes the various attributes of the Priest.
  * It contains various getters and setters for the attributes of the priest.
  * It contains relationship with parish.
- * <p/>
+ * <p>
  * User: tijo
  */
 
@@ -67,6 +67,9 @@ public class Priest implements Serializable {
 
     @Column(name = "congregation")
     private String congregation;
+
+    @Column(name = "family_name")
+    private String familyName;
 
     @Embedded
     private Person priestAsPerson;
@@ -269,5 +272,11 @@ public class Priest implements Serializable {
         this.parishId = parishId;
     }
 
+    public String getFamilyName() {
+        return familyName;
+    }
 
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
 }

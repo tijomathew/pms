@@ -46,3 +46,77 @@ function globalSubmissionOfForms(formId,formAction) {
         return false;
     });
 }
+
+function addJqgridCustomButtons(gridId,formId){
+
+    jQuery('#'+gridId).jqGrid('navGrid', '#'+gridId+'Pager', {
+        edit: false,
+        add: false,
+        del: true,
+        search:true,
+        refresh: false
+    }).navButtonAdd('#'+gridId+'Pager', {
+        caption: "",
+        buttonicon: "ui-icon-refrsh",
+        onClickButton: function () {
+
+            jQuery('#'+gridId).jqGrid('resetSelection');
+            $('#'+formId+ ' input').removeAttr('disabled');
+            $('#'+formId+ ' select').removeAttr("disabled");
+            $('#'+formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
+            $('#'+formId).find('input[type="reset"]').addClass('hidedisplay');
+
+            $(':input', '#'+formId)
+                .not(':button, :submit, :reset, :checkbox')
+                .attr('value', '')
+                .removeAttr('checked')
+                .removeAttr('selected');
+
+            jQuery('form').trigger('reset');
+            $('.actionSpan').text("View");
+        },
+        position: "first"
+    }).navButtonAdd('#'+gridId+'Pager', {
+        caption: "",
+        buttonicon: "ui-icon-edit",
+        onClickButton: function () {
+
+            if(!jQuery("#"+gridId).jqGrid('getGridParam', 'selrow')){
+                $.jgrid.viewModal("#alertmod_" + this.id, {toTop: true, jqm: true});
+            }
+            else{
+                $('#'+formId+ ' input').removeAttr('disabled');
+                $('#'+formId+ ' select').removeAttr("disabled");
+                $('#'+formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
+                $('#'+formId).find('input[type="reset"]').removeClass('hidedisplay');
+
+                //  jQuery('form').trigger('reset');
+                $('.actionSpan').text("Edit");
+            }
+        },
+        position: "first"
+    }).navButtonAdd('#'+gridId+'Pager', {
+        caption: "",
+        buttonicon: "ui-icon-add",
+        onClickButton: function () {
+
+            jQuery('#'+gridId).jqGrid('resetSelection'); //to reset the selected row
+
+            $('#'+formId+ ' input').removeAttr('disabled');
+            $('#'+formId+ ' select').removeAttr("disabled");
+
+            $(':input', '#'+formId)
+                .not(':button, :submit, :reset, :checkbox')
+                .attr('value', '')
+                .removeAttr('checked')
+                .removeAttr('selected');
+
+            $('#'+formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
+            $('#'+formId).find('input[type="reset"]').removeClass('hidedisplay');
+
+            jQuery('form').trigger('reset');
+            $('.actionSpan').text("Add");
+        },
+        position: "first"
+    });
+}

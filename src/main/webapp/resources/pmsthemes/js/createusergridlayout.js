@@ -17,27 +17,31 @@ function loadUserGrid() {
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
-            rowList: [10, 20, 30],
-            colNames: ['id', 'User Name', 'Role', 'isActive', 'Email', 'Phone No'],
+            //rowList: [10, 20, 30],
+            colNames: ['Role', 'isActive', 'Email', 'Phone No'],
             colModel: [
-                {name: 'id', index: 'id', width: 90},
-                {name: 'userName', index: 'userName', width: 90},
-                {name: 'systemRole', index: 'systemRole', width: 90},
-                {name: 'isActive', index: 'isActive', width: 100},
-                {name: 'email', index: 'email', width: 100},
-                {name: 'phoneNo', index: 'phoneNo', width: 100}
+                {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
+                {name: 'isActive', index: 'isActive', width: 100, sortable: false},
+                {name: 'email', index: 'email', width: 100, sortable: false},
+                {name: 'phoneNo', index: 'phoneNo', width: 100, sortable: false}
 
             ],
             rowNum: 10,
             pager: '#userGridPager',
-            sortname: 'id',
+            //sortname: 'id',
             viewrecords: true,
-            sortorder: "desc",
+           // sortorder: "desc",
             caption: "Users",
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
             width: 'auto'
         });
-    jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {edit: true, add: true, del: true});
+    jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {
+        edit: false, add: false, del: false,
+        search: false, refresh: false
+    });
+
+    replaceDefaultGridCss();
+    addJqgridCustomButtons("userGrid", "userForm");
 }

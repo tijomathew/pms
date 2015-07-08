@@ -21,9 +21,7 @@ jQuery(document).ready(function () {
     });
 
 
-
 });
-
 
 
 function loadParishGrid() {
@@ -40,30 +38,30 @@ function loadParishGrid() {
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
-            rowList: [10, 20, 30],
+            //rowList: [10, 20, 30],
             colNames: ['ID', 'Parish Name', 'Rite Name', 'Arch Diocese Name', 'Diocese Name', 'Forane Name', "Parish Facebook Page", "Parish Website", "Parish Code", "Parish Place", "Parish Driving Route", "Parish Map", "Registered Date", "Mobile No", "Parish Email", "Parish LandLineNo", "Parish FaxNo", "Parish LocalAddress"],
             colModel: [
 
-                {name: 'parishID', index: 'parishID', width: 90},
-                {name: 'parishName', index: 'parishName', width: 100},
-                {name: 'riteName', index: 'riteName', width: 80, align: "right"},
-                {name: 'archDioceseName', index: 'archDioceseName', width: 80, align: "right"},
-                {name: 'dioceseName', index: 'dioceseName', width: 80, align: "right"},
-                {name: 'foraneName', index: 'foraneName', width: 80, align: "right"},
-                {name: 'parishFacebookPage', index: 'parishFacebookPage', width: 80, align: "right"},
-                {name: 'parishWebsite', index: 'parishWebsite', width: 80, align: "right"},
-                {name: 'parishCode', index: 'parishCode', width: 80, align: "right"},
-                {name: 'parishPlace', index: 'parishPlace', width: 80, align: "right"},
-                {name: 'parishDrivingRoute', index: 'parishDrivingRoute', width: 80, align: "right"},
-                {name: 'parishMap', index: 'parishMap', width: 80, align: "right"},
-                {name: 'registeredDate', index: 'registeredDate', width: 80, align: "right"},
-                {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right"},
-                {name: 'parishEmail', index: 'parishEmail', width: 80, align: "right"},
-                {name: 'parishLandLineNo', index: 'parishLandLineNo', width: 80, align: "right"},
-                {name: 'parishFaxNo', index: 'parishFaxNo', width: 80, align: "right"},
-                {name: 'localAddress', index: 'localAddress', width: 80, align: "right"}
+                {name: 'parishID', index: 'parishID', width: 90, sortable: false},
+                {name: 'parishName', index: 'parishName', width: 100, sortable: false},
+                {name: 'riteName', index: 'riteName', width: 80, align: "right", sortable: false},
+                {name: 'archDioceseName', index: 'archDioceseName', width: 80, align: "right", sortable: false},
+                {name: 'dioceseName', index: 'dioceseName', width: 80, align: "right", sortable: false},
+                {name: 'foraneName', index: 'foraneName', width: 80, align: "right", sortable: false},
+                {name: 'parishFacebookPage', index: 'parishFacebookPage', width: 80, align: "right", sortable: false},
+                {name: 'parishWebsite', index: 'parishWebsite', width: 80, align: "right", sortable: false},
+                {name: 'parishCode', index: 'parishCode', width: 80, align: "right", sortable: false},
+                {name: 'parishPlace', index: 'parishPlace', width: 80, align: "right", sortable: false},
+                {name: 'parishDrivingRoute', index: 'parishDrivingRoute', width: 80, align: "right", sortable: false},
+                {name: 'parishMap', index: 'parishMap', width: 80, align: "right", sortable: false},
+                {name: 'registeredDate', index: 'registeredDate', width: 80, align: "right", sortable: false},
+                {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right", sortable: false},
+                {name: 'parishEmail', index: 'parishEmail', width: 80, align: "right", sortable: false},
+                {name: 'parishLandLineNo', index: 'parishLandLineNo', width: 80, align: "right", sortable: false},
+                {name: 'parishFaxNo', index: 'parishFaxNo', width: 80, align: "right", sortable: false},
+                {name: 'localAddress', index: 'localAddress', width: 80, align: "right", sortable: false}
             ],
-            rowNum: 2,
+            rowNum: 10,
             pager: '#parishGridPager',
             sortname: 'id',
             viewrecords: true,
@@ -78,7 +76,9 @@ function loadParishGrid() {
         edit: false,
         add: false,
         del: false,
-        search: false
+        search: false, refresh: false
     });
+    replaceDefaultGridCss();
+    addJqgridCustomButtons("parishGrid", "parishForm");
 
 }

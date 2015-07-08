@@ -199,7 +199,7 @@
                                                                 <label class="control-label">Family:</label>
                                                                 <form:select path="familyId"
                                                                              id="familySelectBox">
-                                                                </form:select><<span
+                                                                </form:select><span
                                                                     class="help-inline"><form:errors
                                                                     path="familyId"/></span>
                                                             </div>

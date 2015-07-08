@@ -213,6 +213,15 @@
                                                                 class="help-inline"><form:errors
                                                                 path="priestAsPerson.dateOfBirth"/></span>
                                                         </div>
+                                                        <div class="control-group" id="familyName">
+                                                            <label class="control-label">Family Name :</label>
+
+                                                            <form:input
+                                                                    path="familyName"
+                                                                    id="familyName"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="familyName"/></span>
+                                                        </div>
                                                         <div class="control-group" id="priestAsPersonplaceOfBirth">
                                                             <label class="control-label">Place of Birth :</label>
 

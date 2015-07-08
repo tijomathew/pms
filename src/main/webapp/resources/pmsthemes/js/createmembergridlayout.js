@@ -17,112 +17,112 @@ function loadMemberGrid() {
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
-            rowList: [2, 4, 6],
+            //rowList: [2, 4, 6],
             colNames: ['MemberID', 'Member Name', 'Date of Birth', 'placeOfBirth', 'gender', 'nationality', 'jobDetails', 'personalStatus', 'bloodGroup', 'carNumber', 'liveStatus', 'personalRemarks', 'piousAssociation', 'sundayCatechism', 'sacramentalLife', 'churchRemarks', 'email', 'mobNo', 'landLineNo', 'faxNo', 'dateOfBaptism', 'churchOfBaptism', 'countryOfBaptism', 'baptismName', 'ministerOfBaptism', 'baptismGodFather', 'baptismGodMother', 'patronSaint', 'patronSaintFeastDay', "dateOfConfirmation", "churchOfConfirmation", "countryOfConfirmation", "ministerOfConfirmation", "confirmationGodFather", "confirmationGodMother", "dateOfFirstCommunion", "churchOfHolyCommunion", "countryOfHolyCommunion", "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName", "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo", "dateOfMarriage", "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "dateOfDeath", "placeOfDeath", "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick"],
             colModel: [
 
-                {name: 'memberID', index: 'memberID', width: 90},
-                {name: 'name', index: 'name', width: 100},
-                {name: 'dob', index: 'dob', width: 100},
-                {name: 'placeOfBirth', index: 'placeOfBirth', width: 100},
-                {name: 'gender', index: 'gender', width: 100},
-                {name: 'nationality', index: 'nationality', width: 100},
-                {name: 'jobDetails', index: 'jobDetails', width: 100},
-                {name: 'personalStatus', index: 'personalStatus', width: 100},
-                {name: 'bloodGroup', index: 'bloodGroup', width: 100},
-                {name: 'carNumber', index: 'carNumber', width: 100},
-                {name: 'liveStatus', index: 'liveStatus', width: 100},
-                {name: 'personalRemarks', index: 'personalRemarks', width: 100},
-                {name: 'piousAssociation', index: 'piousAssociation', width: 100},
-                {name: 'sundayCatechism', index: 'sundayCatechism', width: 100},
-                {name: 'sacramentalLife', index: 'sacramentalLife', width: 100},
-                {name: 'churchRemarks', index: 'churchRemarks', width: 100},
-                {name: 'email', index: 'email', width: 100},
-                {name: 'mobNo', index: 'mobNo', width: 100},
-                {name: 'landLineNo', index: 'landLineNo', width: 100},
-                {name: 'faxNo', index: 'faxNo', width: 100},
-                {name: 'dateOfBaptism', index: 'dateOfBaptism', width: 100},
-                {name: 'churchOfBaptism', index: 'churchOfBaptism', width: 100},
-                {name: 'countryOfBaptism', index: 'countryOfBaptism', width: 100},
-                {name: 'baptismName', index: 'baptismName', width: 100},
-                {name: 'ministerOfBaptism', index: 'ministerOfBaptism', width: 100},
-                {name: 'baptismGodFather', index: 'baptismGodFather', width: 100},
-                {name: 'baptismGodMother', index: 'baptismGodMother', width: 100},
-                {name: 'patronSaint', index: 'patronSaint', width: 100},
-                {name: 'patronSaintFeastDay', index: 'patronSaintFeastDay', width: 100},
-                {name: 'dateOfConfirmation', index: 'dateOfConfirmation', width: 100},
-                {name: 'churchOfConfirmation', index: 'churchOfConfirmation', width: 100},
-                {name: 'countryOfConfirmation', index: 'countryOfConfirmation', width: 100},
-                {name: 'ministerOfConfirmation', index: 'ministerOfConfirmation', width: 100},
-                {name: 'confirmationGodFather', index: 'confirmationGodFather', width: 100},
-                {name: 'confirmationGodMother', index: 'confirmationGodMother', width: 100},
-                {name: 'dateOfFirstCommunion', index: 'dateOfFirstCommunion', width: 90},
-                {name: 'churchOfHolyCommunion', index: 'churchOfHolyCommunion', width: 100},
-                {name: 'countryOfHolyCommunion', index: 'countryOfHolyCommunion', width: 100},
-                {name: 'ministerOfHolyCommunion', index: 'ministerOfHolyCommunion', width: 100},
+                {name: 'memberID', index: 'memberID', width: 90, sortable: false},
+                {name: 'name', index: 'name', width: 100, sortable: false},
+                {name: 'dob', index: 'dob', width: 100, sortable: false},
+                {name: 'placeOfBirth', index: 'placeOfBirth', width: 100, sortable: false},
+                {name: 'gender', index: 'gender', width: 100, sortable: false},
+                {name: 'nationality', index: 'nationality', width: 100, sortable: false},
+                {name: 'jobDetails', index: 'jobDetails', width: 100, sortable: false},
+                {name: 'personalStatus', index: 'personalStatus', width: 100, sortable: false},
+                {name: 'bloodGroup', index: 'bloodGroup', width: 100, sortable: false},
+                {name: 'carNumber', index: 'carNumber', width: 100, sortable: false},
+                {name: 'liveStatus', index: 'liveStatus', width: 100, sortable: false},
+                {name: 'personalRemarks', index: 'personalRemarks', width: 100, sortable: false},
+                {name: 'piousAssociation', index: 'piousAssociation', width: 100, sortable: false},
+                {name: 'sundayCatechism', index: 'sundayCatechism', width: 100, sortable: false},
+                {name: 'sacramentalLife', index: 'sacramentalLife', width: 100, sortable: false},
+                {name: 'churchRemarks', index: 'churchRemarks', width: 100, sortable: false},
+                {name: 'email', index: 'email', width: 100, sortable: false},
+                {name: 'mobNo', index: 'mobNo', width: 100, sortable: false},
+                {name: 'landLineNo', index: 'landLineNo', width: 100, sortable: false},
+                {name: 'faxNo', index: 'faxNo', width: 100, sortable: false},
+                {name: 'dateOfBaptism', index: 'dateOfBaptism', width: 100, sortable: false},
+                {name: 'churchOfBaptism', index: 'churchOfBaptism', width: 100, sortable: false},
+                {name: 'countryOfBaptism', index: 'countryOfBaptism', width: 100, sortable: false},
+                {name: 'baptismName', index: 'baptismName', width: 100, sortable: false},
+                {name: 'ministerOfBaptism', index: 'ministerOfBaptism', width: 100, sortable: false},
+                {name: 'baptismGodFather', index: 'baptismGodFather', width: 100, sortable: false},
+                {name: 'baptismGodMother', index: 'baptismGodMother', width: 100, sortable: false},
+                {name: 'patronSaint', index: 'patronSaint', width: 100, sortable: false},
+                {name: 'patronSaintFeastDay', index: 'patronSaintFeastDay', width: 100, sortable: false},
+                {name: 'dateOfConfirmation', index: 'dateOfConfirmation', width: 100, sortable: false},
+                {name: 'churchOfConfirmation', index: 'churchOfConfirmation', width: 100, sortable: false},
+                {name: 'countryOfConfirmation', index: 'countryOfConfirmation', width: 100, sortable: false},
+                {name: 'ministerOfConfirmation', index: 'ministerOfConfirmation', width: 100, sortable: false},
+                {name: 'confirmationGodFather', index: 'confirmationGodFather', width: 100, sortable: false},
+                {name: 'confirmationGodMother', index: 'confirmationGodMother', width: 100, sortable: false},
+                {name: 'dateOfFirstCommunion', index: 'dateOfFirstCommunion', width: 90, sortable: false},
+                {name: 'churchOfHolyCommunion', index: 'churchOfHolyCommunion', width: 100, sortable: false},
+                {name: 'countryOfHolyCommunion', index: 'countryOfHolyCommunion', width: 100, sortable: false},
+                {name: 'ministerOfHolyCommunion', index: 'ministerOfHolyCommunion', width: 100, sortable: false},
                 {
                     name: 'dateOfBetrothal',
                     index: 'dateOfBetrothal',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'churchOfBetrothal',
                     index: 'churchOfBetrothal',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'countryOfBetrothal',
                     index: 'countryOfBetrothal',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'priestOfBetrothal',
                     index: 'priestOfBetrothal',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
-                {name: 'spouseName', index: 'spouseName', width: 100, hidedlg: true, hidden: true},
+                {name: 'spouseName', index: 'spouseName', width: 100, hidedlg: true, hidden: true, sortable: false},
                 {
                     name: 'spouseBaptismName',
                     index: 'spouseBaptismName',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'spouseNativeParish',
                     index: 'spouseNativeParish',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'spouseNativeDiocese',
                     index: 'spouseNativeDiocese',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'spouseFatherName',
                     index: 'spouseFatherName',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'spouseMotherName',
                     index: 'spouseMotherName',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'spouseNativeAddress',
@@ -136,92 +136,92 @@ function loadMemberGrid() {
                     index: 'spouseNationality',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'betrothalWitnessOne',
                     index: 'betrothalWitnessOne',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'betrothalWitnessTwo',
                     index: 'betrothalWitnessTwo',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
-                {name: 'dateOfMarriage', index: 'dateOfMarriage', width: 100, hidedlg: true, hidden: true},
+                {name: 'dateOfMarriage', index: 'dateOfMarriage', width: 100, hidedlg: true, hidden: true, sortable: false},
                 {
                     name: 'churchOfMarriage',
                     index: 'churchOfMarriage',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'priestOfMarriage',
                     index: 'priestOfMarriage',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'marriageWitnessOne',
                     index: 'marriageWitnessOne',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'marriageWitnessTwo',
                     index: 'marriageWitnessTwo',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
-                {name: 'dateOfDeath', index: 'dateOfDeath', width: 100, hidedlg: true, hidden: true},
-                {name: 'placeOfDeath', index: 'placeOfDeath', width: 100, hidedlg: true, hidden: true},
-                {name: 'funeralDate', index: 'funeralDate', width: 100, hidedlg: true, hidden: true},
-                {name: 'buriedChurch', index: 'buriedChurch', width: 100, hidedlg: true, hidden: true},
+                {name: 'dateOfDeath', index: 'dateOfDeath', width: 100, hidedlg: true, hidden: true, sortable: false},
+                {name: 'placeOfDeath', index: 'placeOfDeath', width: 100, hidedlg: true, hidden: true, sortable: false},
+                {name: 'funeralDate', index: 'funeralDate', width: 100, hidedlg: true, hidden: true, sortable: false},
+                {name: 'buriedChurch', index: 'buriedChurch', width: 100, hidedlg: true, hidden: true, sortable: false},
                 {
                     name: 'ministerOfDeath',
                     index: 'ministerOfDeath',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'placeOfCemetery',
                     index: 'placeOfCemetery',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
-                {name: 'tombNo', index: 'tombNo', width: 100, hidedlg: true, hidden: true},
-                {name: 'confession', index: 'confession', width: 100, hidedlg: true, hidden: true},
-                {name: 'communion', index: 'communion', width: 100, hidedlg: true, hidden: true},
+                {name: 'tombNo', index: 'tombNo', width: 100, hidedlg: true, hidden: true, sortable: false},
+                {name: 'confession', index: 'confession', width: 100, hidedlg: true, hidden: true, sortable: false},
+                {name: 'communion', index: 'communion', width: 100, hidedlg: true, hidden: true, sortable: false},
                 {
                     name: 'anointingTheSick',
                     index: 'anointingTheSick',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
                 {
                     name: 'ministerOfAnointingTheSick',
                     index: 'ministerOfAnointingTheSick',
                     width: 100,
                     hidedlg: true,
-                    hidden: true
+                    hidden: true, sortable: false
                 },
             ],
-            rowNum: 2,
+            rowNum: 10,
             pager: '#memberGridPager',
-            sortname: 'id',
+            //sortname: 'id',
             viewrecords: true,
-            sortorder: "desc",
+            //sortorder: "desc",
             caption: "Members",
             autowidth: true,
             shrinkToFit: false,
@@ -237,39 +237,39 @@ function loadMemberGrid() {
                     data: subGridData,
                     colNames: ["dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName", "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo", "dateOfMarriage", "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "dateOfDeath", "placeOfDeath", "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick"],
                     colModel: [
-                        {name: 'dateOfBetrothal', index: 'dateOfBetrothal', width: 120},
-                        {name: 'churchOfBetrothal', index: 'churchOfBetrothal', width: 120},
-                        {name: 'countryOfBetrothal', index: 'countryOfBetrothal', width: 120},
-                        {name: 'priestOfBetrothal', index: 'priestOfBetrothal', width: 120},
-                        {name: 'spouseName', index: 'spouseName', width: 120},
-                        {name: 'spouseBaptismName', index: 'spouseBaptismName', width: 120},
-                        {name: 'spouseNativeParish', index: 'spouseNativeParish', width: 120},
-                        {name: 'spouseNativeDiocese', index: 'spouseNativeDiocese', width: 120},
-                        {name: 'spouseFatherName', index: 'spouseFatherName', width: 120},
-                        {name: 'spouseMotherName', index: 'spouseMotherName', width: 120},
-                        {name: 'spouseNativeAddress', index: 'spouseNativeAddress', width: 120},
-                        {name: 'spouseNationality', index: 'spouseNationality', width: 120},
-                        {name: 'betrothalWitnessOne', index: 'betrothalWitnessOne', width: 120},
-                        {name: 'betrothalWitnessTwo', index: 'betrothalWitnessTwo', width: 120},
-                        {name: 'dateOfMarriage', index: 'dateOfMarriage', width: 120},
-                        {name: 'churchOfMarriage', index: 'churchOfMarriage', width: 120},
-                        {name: 'priestOfMarriage', index: 'priestOfMarriage', width: 120},
-                        {name: 'marriageWitnessOne', index: 'marriageWitnessOne', width: 120},
-                        {name: 'marriageWitnessTwo', index: 'marriageWitnessTwo', width: 120},
-                        {name: 'dateOfDeath', index: 'dateOfDeath', width: 120},
-                        {name: 'placeOfDeath', index: 'placeOfDeath', width: 120},
-                        {name: 'funeralDate', index: 'funeralDate', width: 120},
-                        {name: 'buriedChurch', index: 'buriedChurch', width: 120},
-                        {name: 'ministerOfDeath', index: 'ministerOfDeath', width: 120},
-                        {name: 'placeOfCemetery', index: 'placeOfCemetery', width: 120},
-                        {name: 'tombNo', index: 'tombNo', width: 120},
-                        {name: 'confession', index: 'confession', width: 120},
-                        {name: 'communion', index: 'communion', width: 120},
-                        {name: 'anointingTheSick', index: 'anointingTheSick', width: 120},
+                        {name: 'dateOfBetrothal', index: 'dateOfBetrothal', width: 120, sortable: false},
+                        {name: 'churchOfBetrothal', index: 'churchOfBetrothal', width: 120, sortable: false},
+                        {name: 'countryOfBetrothal', index: 'countryOfBetrothal', width: 120, sortable: false},
+                        {name: 'priestOfBetrothal', index: 'priestOfBetrothal', width: 120, sortable: false},
+                        {name: 'spouseName', index: 'spouseName', width: 120, sortable: false},
+                        {name: 'spouseBaptismName', index: 'spouseBaptismName', width: 120, sortable: false},
+                        {name: 'spouseNativeParish', index: 'spouseNativeParish', width: 120, sortable: false},
+                        {name: 'spouseNativeDiocese', index: 'spouseNativeDiocese', width: 120, sortable: false},
+                        {name: 'spouseFatherName', index: 'spouseFatherName', width: 120, sortable: false},
+                        {name: 'spouseMotherName', index: 'spouseMotherName', width: 120, sortable: false},
+                        {name: 'spouseNativeAddress', index: 'spouseNativeAddress', width: 120, sortable: false},
+                        {name: 'spouseNationality', index: 'spouseNationality', width: 120, sortable: false},
+                        {name: 'betrothalWitnessOne', index: 'betrothalWitnessOne', width: 120, sortable: false},
+                        {name: 'betrothalWitnessTwo', index: 'betrothalWitnessTwo', width: 120, sortable: false},
+                        {name: 'dateOfMarriage', index: 'dateOfMarriage', width: 120, sortable: false},
+                        {name: 'churchOfMarriage', index: 'churchOfMarriage', width: 120, sortable: false},
+                        {name: 'priestOfMarriage', index: 'priestOfMarriage', width: 120, sortable: false},
+                        {name: 'marriageWitnessOne', index: 'marriageWitnessOne', width: 120, sortable: false},
+                        {name: 'marriageWitnessTwo', index: 'marriageWitnessTwo', width: 120, sortable: false},
+                        {name: 'dateOfDeath', index: 'dateOfDeath', width: 120, sortable: false},
+                        {name: 'placeOfDeath', index: 'placeOfDeath', width: 120, sortable: false},
+                        {name: 'funeralDate', index: 'funeralDate', width: 120, sortable: false},
+                        {name: 'buriedChurch', index: 'buriedChurch', width: 120, sortable: false},
+                        {name: 'ministerOfDeath', index: 'ministerOfDeath', width: 120, sortable: false},
+                        {name: 'placeOfCemetery', index: 'placeOfCemetery', width: 120, sortable: false},
+                        {name: 'tombNo', index: 'tombNo', width: 120, sortable: false},
+                        {name: 'confession', index: 'confession', width: 120, sortable: false},
+                        {name: 'communion', index: 'communion', width: 120, sortable: false},
+                        {name: 'anointingTheSick', index: 'anointingTheSick', width: 120, sortable: false},
                         {
                             name: 'ministerOfAnointingTheSick',
                             index: 'ministerOfAnointingTheSick',
-                            width: 120
+                            width: 120, sortable: false
                         }],
                     rowNum: 1,
                     height: 'auto',
@@ -301,7 +301,13 @@ function loadMemberGrid() {
             }
         });
 
-    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: true, add: true, del: true});
+    replaceDefaultGridCss();
+
+    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: false, add: false, del: false,
+        search: false, refresh: false});
+
+    replaceDefaultGridCss();
+    addJqgridCustomButtons("memberGrid", "memberForm");
 
     //to solve groupheader duplicate issue on clicking #tab-2 more than once
     jQuery("#memberGrid").jqGrid('destroyGroupHeader');
