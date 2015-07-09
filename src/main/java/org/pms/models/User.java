@@ -63,6 +63,9 @@ public class User implements Serializable {
     @Transient
     private String extensionOfEmail;
 
+    @Transient
+    private String sendMailFlag;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
     private Parish mappedParish;
 
@@ -186,6 +189,14 @@ public class User implements Serializable {
         this.extensionOfEmail = extensionOfEmail;
     }
 
+    public String getSendMailFlag() {
+        return sendMailFlag;
+    }
+
+    public void setSendMailFlag(String sendMailFlag) {
+        this.sendMailFlag = sendMailFlag;
+    }
+
     public Parish getMappedParish() {
         return mappedParish;
     }
@@ -238,6 +249,8 @@ public class User implements Serializable {
         result = 31 * result + (familyId != null ? familyId.hashCode() : 0);
         return result;
     }
+
+
 
 
 }

@@ -75,7 +75,9 @@ public class UserController {
         user.setCreatedBy(currentUser.getEmail());
         user.setUpdatedBy(currentUser.getEmail());
         String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
-        user.setPassword(generatedPassword);
+        if (user.getPassword() == null) {
+            user.setPassword(generatedPassword);
+        }
         String passwordBeforeHashing = user.getPassword();
         user.setPassword(DigestUtils.shaHex(user.getPassword()));
 
@@ -93,6 +95,7 @@ public class UserController {
                     user.setMassCenterId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
+                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
@@ -100,6 +103,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
+                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
@@ -107,6 +111,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setMassCenterId(0l);
                     user.setFamilyId(0l);
+                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
@@ -127,7 +132,11 @@ public class UserController {
             model.addAttribute("user", new User());
             userService.addUserSM(user);
             user.setPassword(passwordBeforeHashing);
-            mailService.sendUserCredentials(user);
+            if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+                if (user.getSendMailFlag().equalsIgnoreCase("true")) {
+                    mailService.sendUserCredentials(user);
+                }
+            }
 
             if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
                 createModelSelectBoxes(model);
@@ -151,7 +160,7 @@ public class UserController {
     public
     @ResponseBody
     Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
-                                              rows, @RequestParam(value = "page", required = false) Integer page) {
+                                                    rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
         List<User> allUsers = new ArrayList<>();
 

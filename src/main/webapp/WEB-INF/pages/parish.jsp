@@ -27,7 +27,7 @@
 
             loadParishGrid();
 
-            globalSubmissionOfForms('parishForm', '${parishActionURL}');
+            globalSubmissionOfForms('parishForm', '${parishActionURL}','parishGrid');
 
         });
 

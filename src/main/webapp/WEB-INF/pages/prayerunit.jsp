@@ -23,7 +23,7 @@
         jQuery(document).ready(function () {
 
             loadPrayerUnitGrid();
-            globalSubmissionOfForms('prayerUnitForm', '${prayerUnitActionURL}');
+            globalSubmissionOfForms('prayerUnitForm', '${prayerUnitActionURL}','prayerUnitGrid');
         });
 
     </script>

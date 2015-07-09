@@ -30,7 +30,7 @@
                 loadPriestDesignationBoxes('${pageContext.request.contextPath}');
             });
 
-            globalSubmissionOfForms('massCenterForm', '${massCenterActionURL}');
+            globalSubmissionOfForms('massCenterForm', '${massCenterActionURL}','massCenterGrid');
 
         });
 

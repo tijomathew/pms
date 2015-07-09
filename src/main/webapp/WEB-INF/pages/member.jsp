@@ -31,7 +31,7 @@
             </c:if>
 
             loadMemberGrid();
-            globalSubmissionOfForms('memberForm', '${memberActionURL}');
+            globalSubmissionOfForms('memberForm', '${memberActionURL}','memberGrid');
         });
     </script>
 

@@ -26,6 +26,11 @@
         .hideClass {
             display: none !important;
         }
+        .hideSelectImage{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
     </style>
 
     <script type="text/javascript">
@@ -40,21 +45,25 @@
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
 
-            globalSubmissionOfForms('userForm', '${userActionURL}');
+            globalSubmissionOfForms('userForm', '${userActionURL}','userGrid');
 
             $('#systemRole').change(function () {
-                var systemRole = $("#systemRole option:selected").val();
-                if (systemRole == 'Parish Admin') {
-                    $('#extensionOfMail').removeClass('hideClass');
-                    var parish = $("#parishSelectBox option:selected").text();
-                    var displayValue = "@" + parish + ".pms";
-                    $('#extensionOfMail').val(displayValue);
-                }
-                if (systemRole == 'Family User') {
-                    $('#extensionOfMail').addClass('hideClass');
-                    $('#extensionOfMail').empty();
+                $('#extensionOfMail').addClass('hideClass');
+                $('#extensionOfMail').empty();
 
-                }
+                $('#parishSelectBox').prop('selectedIndex',0);
+                $('#massCenterSelectBox').prop('selectedIndex',0);
+                $('#prayerUnitSelectBox').prop('selectedIndex',0);
+                $('#familySelectBox').prop('selectedIndex',0);
+
+                $('#massCenterSelectBox').prop('disabled', false);
+                $('#prayerUnitSelectBox').prop('disabled', false);
+                $('#familySelectBox').prop('disabled', false);
+
+                $('#massCenterSelectBox').removeClass('hideSelectImage');
+                $('#prayerUnitSelectBox').removeClass('hideSelectImage');
+                $('#familySelectBox').removeClass('hideSelectImage');
+
             });
         });
     </script>
@@ -271,13 +280,14 @@
                                                                 <form:input path="email"
                                                                             id="email" class="form-control"/> <div><form:input path="extensionOfEmail"
                                                                                                                              readonly="true"
-                                                                                                                             id="extensionOfMail" class="form-control"/></div>
+                                                                                                                             id="extensionOfMail" class="form-control hideClass"/></div>
                                                             </div>
                                                             <label for="password" class="col-sm-1 control-label">Password</label>
 
                                                             <div class="col-sm-3" id="password">
                                                                 <form:password path="password"
                                                                                id="password" class="form-control"/>
+                                                                <form:checkbox path="sendMailFlag" value="true" checked="true"/>Send an email
                                                             </div>
                                                         </div>
                                                     </div>

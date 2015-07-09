@@ -23,7 +23,7 @@
 
             loadPriestGrid();
 
-            globalSubmissionOfForms('priestForm', '${priestActionURL}');
+            globalSubmissionOfForms('priestForm', '${priestActionURL}','priestGrid');
 
         });
     </script>
@@ -94,6 +94,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-midnightblue">
+                            <form:form modelAttribute="priest"
+                                       action="${priestActionURL}" method="post"
+                                       id="priestForm" class="form-horizontal">
+                            <div class="form-actions">
+                                <button type="submit"
+                                        value="Save"
+                                        class="btn btn-primary">Save</button>
+                            </div>
                             <div class="panel-heading">
                                 <h4>
                                     <ul class="nav nav-tabs">
@@ -120,11 +128,9 @@
                                     </ul>
                                 </h4>
                             </div>
+
                             <div class="panel-body">
 
-                                <form:form modelAttribute="priest"
-                                           action="${priestActionURL}" method="post"
-                                           id="priestForm" class="form-horizontal">
 
                                     <div class="tab-content">
 
@@ -754,11 +760,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="form-actions">
-                                        <button type="submit"
-                                                value="Save"
-                                                class="btn btn-primary">Save</button>
-                                    </div>
+
                                 </form:form>
                             </div>
                         </div>

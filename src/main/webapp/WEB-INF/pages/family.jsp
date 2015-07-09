@@ -30,7 +30,7 @@
             </c:if>
 
             loadFamilyGrid();
-            globalSubmissionOfForms('familyForm', '${familyActionURL}');
+            globalSubmissionOfForms('familyForm', '${familyActionURL}','familyGrid');
 
         });
     </script>
