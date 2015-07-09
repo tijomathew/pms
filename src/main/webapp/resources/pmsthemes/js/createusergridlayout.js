@@ -36,10 +36,10 @@ function loadUserGrid() {
             width: 'auto'
         });
     jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {
-        edit: false, add: false, del: false,
-        search: false, refresh: false
+        edit: false, add: false, del: true,
+        search: true, refresh: false
     });
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("userGrid", "userForm");
+    replaceDefaultGridCss();
 }

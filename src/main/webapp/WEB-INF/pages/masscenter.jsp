@@ -284,7 +284,7 @@
                                     <div class="form-actions">
                                         <button type="submit"
                                                 value="Save"
-                                                class="btn btn-primary"/>
+                                                class="btn btn-primary">Save</button>
                                     </div>
                                 </form:form>
                             </div>

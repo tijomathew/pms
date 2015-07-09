@@ -45,10 +45,11 @@ function loadFamilyGrid() {
             width: 'auto'
         });
     jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {
-        edit: false, add: false, del: false,
-        search: false, refresh: false
+        edit: false, add: false, del: true,
+        search: true, refresh: false
     });
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("familyGrid", "familyForm");
+    replaceDefaultGridCss();
+
 }

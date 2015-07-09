@@ -51,8 +51,9 @@ function loadMassCenterGrid() {
             width: 'auto',
             emptyrecords:'no data available to show!!..Please add data to view'
         });
-    jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {edit: false, add: false, del: false, search: false, refresh: false});
+    jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {edit: false, add: false, del: true,
+        search: true, refresh: false});
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("massCenterGrid","massCenterForm");
+    replaceDefaultGridCss();
 }

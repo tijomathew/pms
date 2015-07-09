@@ -42,10 +42,10 @@ function loadPrayerUnitGrid() {
             width: 'auto'
         });
     jQuery("#prayerUnitGrid").jqGrid('navGrid', '#prayerUnitGridPager', {
-        edit: false, add: false, del: false,
-        search: false, refresh: false
+        edit: false, add: false, del: true,
+        search: true, refresh: false
     });
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("prayerUnitGrid", "prayerUnitForm");
+    replaceDefaultGridCss();
 }

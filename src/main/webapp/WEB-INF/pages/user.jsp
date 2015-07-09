@@ -155,7 +155,7 @@
                                                             <label for="systemRole"
                                                                    class="col-sm-1 control-label">System Role</label>
 
-                                                            <div class="col-sm-3">
+                                                            <div class="col-sm-3" >
                                                                 <form:select path="systemRole"
                                                                              id="systemRole" class="form-control">
                                                                     <form:option value="Family User">Family
@@ -182,39 +182,6 @@
                                                                 </form:select>
                                                             </div>
                                                         </div>
-
-                                                        <%--<div class="control-group" id="systemRole">
-                                                            <label class="control-label">System Role :</label>
-                                                            <form:select path="systemRole"
-                                                                         id="systemRole">
-                                                                <form:option value="Family User">Family
-                                                                    User</form:option>
-                                                                <form:option value="Parish Admin">Parish
-                                                                    Admin</form:option>
-                                                                <form:option
-                                                                        value="Mass Center Admin">Mass Center
-                                                                    Admin</form:option>
-                                                                <form:option
-                                                                        value="Prayer Unit Admin">Prayer Unit
-                                                                    Admin</form:option>
-
-                                                            </form:select>
-                                                               <span class="help-inline"><form:errors
-                                                                       path="systemRole"/></span>
-                                                        </div>
-
-                                                        <div class="control-group" id="isActive">
-                                                            <label class="control-label">Active :</label>
-                                                            <form:select path="isActive"
-                                                                         id="isActive">
-                                                                <form:option value="Active">Active</form:option>
-                                                                <form:option
-                                                                        value="De-active">De-active</form:option>
-                                                            </form:select>
-                                                               <span class="help-inline"><form:errors
-                                                                       path="isActive"/></span>
-                                                        </div>--%>
-
                                                         <c:if test="${showForPrayerUnitAdmin == false}">
                                                             <div class="form-group">
                                                                 <label for="parishId"
@@ -253,42 +220,6 @@
                                                                     </form:select>
                                                                 </div>
                                                             </div>
-
-                                                          <%--  <div class="control-group" id="parishSelectBoxer">
-                                                                <label class="control-label">Parish:</label>
-                                                                <form:select path="parishId"
-                                                                             id="parishSelectBox">
-                                                                </form:select><span class="help-inline"><form:errors
-                                                                    path="parishId"/></span>
-                                                            </div>
-
-                                                            <div class="control-group" id="massCenterSelectBoxer">
-                                                                <label class="control-label">Mass Center:</label>
-                                                                <form:select
-                                                                        path="massCenterId"
-                                                                        id="massCenterSelectBox">
-                                                                </form:select><span class="help-inline"><form:errors
-                                                                    path="massCenterId"/></span>
-                                                            </div>
-
-                                                            <div class="control-group" id="prayerUnitSelectBoxer">
-                                                                <label class="control-label">Prayer Unit:</label>
-                                                                <form:select
-                                                                        path="prayerUnitId"
-                                                                        id="prayerUnitSelectBox">
-                                                                </form:select><span class="help-inline"><form:errors
-                                                                    path="prayerUnitId"/></span>
-                                                            </div>
-
-                                                            <div class="control-group" id="familySelectBoxer">
-                                                                <label class="control-label">Family:</label>
-                                                                <form:select path="familyId"
-                                                                             id="familySelectBox">
-                                                                </form:select><span
-                                                                    class="help-inline"><form:errors
-                                                                    path="familyId"/></span>
-                                                            </div>--%>
-
                                                         </c:if>
                                                         <c:if test="${showForPrayerUnitAdmin == true}">
 
@@ -330,41 +261,6 @@
                                                                     </form:select>
                                                                 </div>
                                                             </div>
-
-
-                                                            <%--
-
-
-
-                                                            <div class="control-group" id="parishId">
-                                                                <label class="control-label">Parish:</label>
-                                                                <form:select path="parishId"
-                                                                             items="${parishList}"
-                                                                             id="parishId"></form:select>
-                                                                    <span class="help-inline"><form:errors
-                                                                            path="parishId"/></span>
-                                                            </div>
-
-                                                            <div class="control-group" id="massCenterId">
-                                                                <label class="control-label">Mass Center:</label>
-                                                                <form:select
-                                                                        path="massCenterId"
-                                                                        items="${massCenterList}"
-                                                                        id="massCenterId"></form:select>
-                                                                   <span class="help-inline"><form:errors
-                                                                           path="massCenterId"/></span>
-                                                            </div>
-
-                                                            <div class="control-group" id="prayerUnitId">
-                                                                <label class="control-label">Prayer Unit:</label>
-                                                                <form:select
-                                                                        path="prayerUnitId"
-                                                                        items="${prayerUnitList}"
-                                                                        id="prayerUnitId"></form:select>
-                                                                   <span class="help-inline"><form:errors
-                                                                           path="prayerUnitId"/></span>
-                                                            </div>--%>
-
                                                         </c:if>
 
                                                         <div class="form-group">
@@ -384,26 +280,6 @@
                                                                                id="password" class="form-control"/>
                                                             </div>
                                                         </div>
-
-
-                                                       <%-- <div class="control-group" id="email">
-                                                            <label class="control-label">Email :</label>
-                                                            <form:input path="email"
-                                                                        id="email"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="email"/><form:input path="extensionOfEmail"
-                                                                                          readonly="true"
-                                                                                          id="extensionOfMail"/></span>
-
-                                                        </div>
-                                                        <div class="control-group" id="email">
-                                                            <label class="control-label">Password :</label>
-                                                            <form:password path="password"
-                                                                           id="password"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="password"/></span>
-
-                                                        </div>--%>
                                                     </div>
                                                 </div>
                                             </div>
@@ -413,7 +289,7 @@
                                     <div class="form-actions">
                                         <button type="submit"
                                                 value="Save"
-                                                class="btn btn-primary"/>
+                                                class="btn btn-primary">Save</button>
                                     </div>
                                 </form:form>
                             </div>

@@ -407,7 +407,7 @@
                                                                         path="sundayCatechism"
                                                                         id="sundayCatechism" class="form-control"/>
                                                             </div>
-                                                            <label for="centerCode"  class="col-sm-1 control-label">Sacramental
+                                                            <label for="sacramentalLife"  class="col-sm-1 control-label">Sacramental
                                                                 Life
                                                                 Remarks</label>
                                                             <div class="col-sm-3">
@@ -451,7 +451,7 @@
                                                                         path="memberAsPerson.email"
                                                                         id="memberAsPersonemail" class="form-control"/>
                                                             </div>
-                                                            <label for="centerCode"  class="col-sm-1 control-label">Mobile
+                                                            <label for="memberAsPerson.mobileNo"  class="col-sm-1 control-label">Mobile
                                                                 No.</label>
                                                             <div class="col-sm-3">
                                                                 <form:input
@@ -936,7 +936,7 @@
                                                     <div class="panel-body">
 
                                                         <div class="form-group">
-                                                            <label for="name"  class="col-sm-1 control-label">Date
+                                                            <label for="dateOfDeath"  class="col-sm-1 control-label">Date
                                                                 of
                                                                 Death</label>
                                                             <div class="col-sm-3">
@@ -944,7 +944,7 @@
                                                                         path="dateOfDeath"
                                                                         id="dateOfDeath" class="form-control"/>
                                                             </div>
-                                                            <label for="centerCode"  class="col-sm-1 control-label">Place
+                                                            <label for="placeOfDeath"  class="col-sm-1 control-label">Place
                                                                 of
                                                                 Death</label>
                                                             <div class="col-sm-3">
@@ -1050,7 +1050,7 @@
                                     <div class="form-actions">
                                         <button type="submit"
                                                 value="Save"
-                                                class="btn btn-primary"/>
+                                                class="btn btn-primary">Save</button>
                                     </div>
                                 </form:form>
                             </div>

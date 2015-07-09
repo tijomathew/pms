@@ -303,11 +303,11 @@ function loadMemberGrid() {
 
     replaceDefaultGridCss();
 
-    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: false, add: false, del: false,
-        search: false, refresh: false});
+    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: false, add: false, del: true,
+        search: true, refresh: false});
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("memberGrid", "memberForm");
+    replaceDefaultGridCss();
 
     //to solve groupheader duplicate issue on clicking #tab-2 more than once
     jQuery("#memberGrid").jqGrid('destroyGroupHeader');

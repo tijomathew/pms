@@ -45,19 +45,21 @@ function loadPriestGrid() {
             sortorder: "desc",
             caption: "Priests",
             autowidth: true,
-            shrinkToFit: false,
+            shrinkToFit: true,
+            height: 'auto',
+            width: 'auto',
             emptyrecords: "Nothing to display"
 
         });
     jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {
         edit: false,
         add: false,
-        del: false,
-        search: false,
+        del: true,
+        search: true,
         refresh: false
     });
 
-    replaceDefaultGridCss();
     addJqgridCustomButtons("priestGrid", "priestForm");
+    replaceDefaultGridCss();
 }
 
