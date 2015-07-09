@@ -8,7 +8,8 @@ function loadSelectBox(contextPath) {
         function (data) {
             $('#massCenterSelectBox').empty();
             $('#prayerUnitSelectBox').empty();
-            var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+            //var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+            var html;
             var len = data.length;
             for (var i = 0; i < len; i++) {
                 html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
@@ -21,7 +22,8 @@ function loadSelectBox(contextPath) {
                 function (data) {
                     $('#massCenterSelectBox').empty();
                     $('#prayerUnitSelectBox').empty();
-                    var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    //var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    var html;
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
@@ -36,7 +38,8 @@ function loadSelectBox(contextPath) {
                 {selectedMassCenterId: $('#massCenterSelectBox').val()},
                 function (data) {
                     $('#prayerUnitSelectBox').empty();
-                    var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    //var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    var html;
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
@@ -51,7 +54,8 @@ function loadSelectBox(contextPath) {
                 {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},
                 function (data) {
                     $('#familySelectBox').empty();
-                    var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    //var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                    var html;
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';

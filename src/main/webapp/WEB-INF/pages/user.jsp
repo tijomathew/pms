@@ -22,9 +22,17 @@
 
     <script src="${userGridURL}" type="text/javascript"
             language="javascript"></script>
+    <style type="text/css">
+        .hideClass {
+            display: none !important;
+        }
+    </style>
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('#extensionOfMail').addClass('hideClass');
+            $('#extensionOfMail').empty();
 
             loadUserGrid();
 
@@ -33,6 +41,21 @@
             </c:if>
 
             globalSubmissionOfForms('userForm', '${userActionURL}');
+
+            $('#systemRole').change(function () {
+                var systemRole = $("#systemRole option:selected").val();
+                if (systemRole == 'Parish Admin') {
+                    $('#extensionOfMail').removeClass('hideClass');
+                    var parish = $("#parishSelectBox option:selected").text();
+                    var displayValue = "@" + parish + ".pms";
+                    $('#extensionOfMail').val(displayValue);
+                }
+                if (systemRole == 'Family User') {
+                    $('#extensionOfMail').addClass('hideClass');
+                    $('#extensionOfMail').empty();
+
+                }
+            });
         });
     </script>
 
@@ -115,7 +138,7 @@
                             <div class="panel-body">
 
                                 <form:form modelAttribute="user"
-                                           action="${userActionURL}" method="post" id="userForm">
+                                           action="${userActionURL}" method="post" id="userForm" class="form-horizontal">
 
                                     <div class="tab-content">
 
@@ -127,16 +150,40 @@
                                                         <h4>User Details</h4>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <div class="control-group" id="email">
-                                                            <label class="control-label">Email :</label>
-                                                            <form:input path="email"
-                                                                        id="email"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="email"/></span>
 
+                                                        <div class="form-group">
+                                                            <label for="systemRole"
+                                                                   class="col-sm-1 control-label">System Role</label>
+
+                                                            <div class="col-sm-3">
+                                                                <form:select path="systemRole"
+                                                                             id="systemRole" class="form-control">
+                                                                    <form:option value="Family User">Family
+                                                                        User</form:option>
+                                                                    <form:option value="Parish Admin">Parish
+                                                                        Admin</form:option>
+                                                                    <form:option
+                                                                            value="Mass Center Admin">Mass Center
+                                                                        Admin</form:option>
+                                                                    <form:option
+                                                                            value="Prayer Unit Admin">Prayer Unit
+                                                                        Admin</form:option>
+
+                                                                </form:select>
+                                                            </div>
+                                                            <label for="isActive" class="col-sm-1 control-label">Active</label>
+
+                                                            <div class="col-sm-3">
+                                                                <form:select path="isActive"
+                                                                             id="isActive" class="form-control">
+                                                                    <form:option value="Active">Active</form:option>
+                                                                    <form:option
+                                                                            value="De-active">De-active</form:option>
+                                                                </form:select>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="control-group" id="systemRole">
+                                                        <%--<div class="control-group" id="systemRole">
                                                             <label class="control-label">System Role :</label>
                                                             <form:select path="systemRole"
                                                                          id="systemRole">
@@ -166,10 +213,48 @@
                                                             </form:select>
                                                                <span class="help-inline"><form:errors
                                                                        path="isActive"/></span>
-                                                        </div>
+                                                        </div>--%>
 
                                                         <c:if test="${showForPrayerUnitAdmin == false}">
-                                                            <div class="control-group" id="parishSelectBoxer">
+                                                            <div class="form-group">
+                                                                <label for="parishId"
+                                                                       class="col-sm-1 control-label">Parish</label>
+
+                                                                <div class="col-sm-3" id="parishSelectBoxer">
+                                                                    <form:select path="parishId"
+                                                                                 id="parishSelectBox" class="form-control">
+                                                                    </form:select>
+                                                                </div>
+                                                                <label for="massCenterId" class="col-sm-1 control-label">Mass Center</label>
+
+                                                                <div class="col-sm-3" id="massCenterSelectBoxer">
+                                                                    <form:select
+                                                                            path="massCenterId"
+                                                                            id="massCenterSelectBox" class="form-control">
+                                                                    </form:select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="prayerUnitId"
+                                                                       class="col-sm-1 control-label">Prayer Unit</label>
+
+                                                                <div class="col-sm-3" id="prayerUnitSelectBoxer">
+                                                                    <form:select
+                                                                            path="prayerUnitId"
+                                                                            id="prayerUnitSelectBox" class="form-control">
+                                                                    </form:select>
+                                                                </div>
+                                                                <label for="familyId" class="col-sm-1 control-label">Family</label>
+
+                                                                <div class="col-sm-3" id="familySelectBoxer">
+                                                                    <form:select path="familyId"
+                                                                                 id="familySelectBox" class="form-control">
+                                                                    </form:select>
+                                                                </div>
+                                                            </div>
+
+                                                          <%--  <div class="control-group" id="parishSelectBoxer">
                                                                 <label class="control-label">Parish:</label>
                                                                 <form:select path="parishId"
                                                                              id="parishSelectBox">
@@ -202,10 +287,55 @@
                                                                 </form:select><span
                                                                     class="help-inline"><form:errors
                                                                     path="familyId"/></span>
-                                                            </div>
+                                                            </div>--%>
 
                                                         </c:if>
                                                         <c:if test="${showForPrayerUnitAdmin == true}">
+
+                                                            <div class="form-group">
+                                                                <label for="parishId"
+                                                                       class="col-sm-1 control-label">Parish</label>
+
+                                                                <div class="col-sm-3" id="parishSelectBoxer">
+                                                                    <form:select path="parishId"
+                                                                                 items="${parishList}"
+                                                                                 id="parishId" class="form-control"></form:select>
+                                                                </div>
+                                                                <label for="massCenterId" class="col-sm-1 control-label">Mass Center</label>
+
+                                                                <div class="col-sm-3" id="massCenterSelectBoxer">
+                                                                    <form:select
+                                                                            path="massCenterId"
+                                                                            items="${massCenterList}"
+                                                                            id="massCenterId" class="form-control"></form:select>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="prayerUnitId"
+                                                                       class="col-sm-1 control-label">Prayer Unit</label>
+
+                                                                <div class="col-sm-3" id="prayerUnitSelectBoxer">
+                                                                    <form:select
+                                                                            path="prayerUnitId"
+                                                                            items="${prayerUnitList}"
+                                                                            id="prayerUnitId" class="form-control"></form:select>
+                                                                </div>
+                                                                <label for="familyId" class="col-sm-1 control-label">Family</label>
+
+                                                                <div class="col-sm-3" id="familySelectBoxer">
+                                                                    <form:select path="familyId"
+                                                                                 id="familySelectBox" class="form-control">
+                                                                    </form:select>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <%--
+
+
+
                                                             <div class="control-group" id="parishId">
                                                                 <label class="control-label">Parish:</label>
                                                                 <form:select path="parishId"
@@ -233,9 +363,47 @@
                                                                         id="prayerUnitId"></form:select>
                                                                    <span class="help-inline"><form:errors
                                                                            path="prayerUnitId"/></span>
-                                                            </div>
+                                                            </div>--%>
 
                                                         </c:if>
+
+                                                        <div class="form-group">
+                                                            <label for="email"
+                                                                   class="col-sm-1 control-label">Email</label>
+
+                                                            <div class="col-sm-3" id="email">
+                                                                <form:input path="email"
+                                                                            id="email" class="form-control"/> <div><form:input path="extensionOfEmail"
+                                                                                                                             readonly="true"
+                                                                                                                             id="extensionOfMail" class="form-control"/></div>
+                                                            </div>
+                                                            <label for="password" class="col-sm-1 control-label">Password</label>
+
+                                                            <div class="col-sm-3" id="password">
+                                                                <form:password path="password"
+                                                                               id="password" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+
+                                                       <%-- <div class="control-group" id="email">
+                                                            <label class="control-label">Email :</label>
+                                                            <form:input path="email"
+                                                                        id="email"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="email"/><form:input path="extensionOfEmail"
+                                                                                          readonly="true"
+                                                                                          id="extensionOfMail"/></span>
+
+                                                        </div>
+                                                        <div class="control-group" id="email">
+                                                            <label class="control-label">Password :</label>
+                                                            <form:password path="password"
+                                                                           id="password"/><span
+                                                                class="help-inline"><form:errors
+                                                                path="password"/></span>
+
+                                                        </div>--%>
                                                     </div>
                                                 </div>
                                             </div>

@@ -60,6 +60,9 @@ public class User implements Serializable {
     @Column(name = "family_id")
     private Long familyId;
 
+    @Transient
+    private String extensionOfEmail;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
     private Parish mappedParish;
 
@@ -173,6 +176,14 @@ public class User implements Serializable {
 
     public void setIsLoggedInForFirstTime(Boolean isLoggedInForFirstTime) {
         this.isLoggedInForFirstTime = isLoggedInForFirstTime;
+    }
+
+    public String getExtensionOfEmail() {
+        return extensionOfEmail;
+    }
+
+    public void setExtensionOfEmail(String extensionOfEmail) {
+        this.extensionOfEmail = extensionOfEmail;
     }
 
     public Parish getMappedParish() {

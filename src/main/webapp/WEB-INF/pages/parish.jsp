@@ -135,111 +135,110 @@
                                                     </div>
                                                     <div class="panel-body">
                                                         <div class="form-group">
-                                                            <label for="churchName"  class="col-sm-1 control-label">Name</label>
+                                                            <label for="churchName"
+                                                                   class="col-sm-1 control-label">Name</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="churchName"
-                                                                        id="churchName" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="churchName" class="form-control"/>
                                                             </div>
-                                                            <label for="riteName"  class="col-sm-1 control-label">Name</label>
+                                                            <label for="riteName" class="col-sm-1 control-label">Rite
+                                                                Name</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="riteName"
-                                                                        id="riteName" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="riteName" class="form-control"/>
                                                             </div>
                                                         </div>
-
-
                                                         <div class="form-group">
-                                                            <label for="dioceseName"  class="col-sm-1 control-label">Diocese Name</label>
+                                                            <label for="dioceseName" class="col-sm-1 control-label">Diocese
+                                                                Name</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="dioceseName"
-                                                                        id="dioceseName" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="dioceseName" class="form-control"/>
                                                             </div>
-                                                            <label for="foraneName"  class="col-sm-1 control-label">Forane Name</label>
+                                                            <label for="foraneName" class="col-sm-1 control-label">Forane
+                                                                Name</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="foraneName"
-                                                                        id="foraneName" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="foraneName" class="form-control"/>
                                                             </div>
                                                         </div>
 
 
                                                         <div class="form-group">
-                                                            <label for="parishID"  class="col-sm-1 control-label">Parish ID</label>
+                                                            <label for="parishID" class="col-sm-1 control-label">Parish
+                                                                ID</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="parishID"
-                                                                        id="parishID" class = "form-control" readonly="true" />
-                                                                    <%--</div>--%>
+                                                                        id="parishID" class="form-control"
+                                                                        readonly="true"/>
                                                             </div>
-                                                            <label for="name"  class="col-sm-1 control-label">Parish Name</label>
+                                                            <label for="name" class="col-sm-1 control-label">Parish
+                                                                Name</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="name"
-                                                                        id="name" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="name" class="form-control"/>
                                                             </div>
                                                         </div>
 
 
                                                         <div class="form-group">
-                                                            <label for="place"  class="col-sm-1 control-label">Parish Place</label>
+                                                            <label for="place" class="col-sm-1 control-label">Parish
+                                                                Place</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="place"
-                                                                        id="place" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="place" class="form-control"/>
                                                             </div>
-                                                            <label for="code"  class="col-sm-1 control-label">Parish Code</label>
+                                                            <label for="code" class="col-sm-1 control-label">Parish
+                                                                Code</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="code"
-                                                                        id="code" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="code" class="form-control"/>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="webSite"  class="col-sm-1 control-label">Parish Web-site</label>
+                                                            <label for="webSite" class="col-sm-1 control-label">Parish
+                                                                Web-site</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="webSite"
-                                                                        id="webSite" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="webSite" class="form-control"/>
                                                             </div>
-                                                            <label for="facebookPage"  class="col-sm-1 control-label">Parish Facebook Page</label>
+                                                            <label for="facebookPage" class="col-sm-1 control-label">Parish
+                                                                Facebook Page</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="facebookPage"
-                                                                        id="facebookPage" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="facebookPage" class="form-control"/>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="registeredDate"  class="col-sm-1 control-label">Registered Date</label>
+                                                            <label for="registeredDate" class="col-sm-1 control-label">Registered
+                                                                Date</label>
+
                                                             <div class="col-sm-3">
-                                                                    <%-- <div class="input-group input-group-sm">--%>
                                                                 <form:input
                                                                         path="registeredDate"
-                                                                        id="registeredDate" class = "form-control" />
-                                                                    <%--</div>--%>
+                                                                        id="registeredDate" class="form-control"/>
                                                             </div>
 
                                                         </div>
@@ -258,41 +257,41 @@
                                                             Contact Details</h4>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <div class="control-group" id="mobileNo">
-                                                            <label class="control-label">Mobile No. :</label>
+                                                        <div class="form-group">
+                                                            <label for="mobileNo" class="col-sm-1 control-label">Mobile
+                                                                No.</label>
 
-                                                            <form:input path="mobileNo"
-                                                                        id="mobileNo"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="mobileNo"/></span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="mobileNo"
+                                                                        id="mobileNo" class="form-control"/>
+                                                            </div>
+                                                            <label for="email"
+                                                                   class="col-sm-1 control-label">Email</label>
+
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="email"
+                                                                        id="email" class="form-control"/>
+                                                            </div>
                                                         </div>
-                                                        <div class="control-group" id="email">
-                                                            <label class="control-label">Email :</label>
+                                                        <div class="form-group">
+                                                            <label for="landLineNo" class="col-sm-1 control-label">Land
+                                                                Line No.</label>
 
-                                                            <form:input path="email"
-                                                                        id="email"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="email"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="landLineNo">
-                                                            <label class="control-label">Land Line No. :</label>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="landLineNo"
+                                                                        id="landLineNo" class="form-control"/>
+                                                            </div>
+                                                            <label for="faxNo" class="col-sm-1 control-label">Fax
+                                                                No.</label>
 
-                                                            <form:input path="landLineNo"
-                                                                        id="landLineNo"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="landLineNo"/></span>
-                                                        </div>
-                                                        <div class="control-group" id="faxNo">
-                                                            <label class="control-label">Fax No. :</label>
-
-                                                            <form:input path="faxNo"
-                                                                        id="faxNo"
-                                                                        class="textBox"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="faxNo"/></span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="faxNo"
+                                                                        id="faxNo" class="form-control"/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -309,66 +308,62 @@
                                                             Local Address</h4>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <div class="control-group" id="localAddressaddressLineOne">
-                                                            <label class="control-label">Address Line 1 :</label>
-                                                            <form:input path="localAddress.addressLineOne"
-                                                                        id="localAddressaddressLineOne"/> <span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.addressLineOne"/> </span>
-                                                        </div>
-                                                        <div class="control-group" id="localAddressaddressLineTwo">
-                                                            <label class="control-label">Address Line 2 :</label>
-                                                            <form:input
-                                                                    path="localAddress.addressLineTwo"
-                                                                    id="localAddressaddressLineTwo"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.addressLineTwo"/> </span>
-                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="localAddressaddressLineOne" class="col-sm-1 control-label">Address Line 1</label>
 
-                                                        <div class="control-group"
-                                                             id="localAddressaddressLineThree">
-                                                            <label class="control-label">Address Line 3 :</label>
-                                                            <form:input
-                                                                    path="localAddress.addressLineThree"
-                                                                    id="localAddressaddressLineThree"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.addressLineThree"/> </span>
-                                                        </div>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.addressLineOne"
+                                                                        id="localAddressaddressLineOne" class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddressaddressLineTwo" class="col-sm-1 control-label">Address Line 2 </label>
 
-                                                        <div class="control-group" id="localAddresstown">
-                                                            <label class="control-label">Town:</label>
-                                                            <form:input
-                                                                    path="localAddress.town"
-                                                                    id="localAddresstown"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.town"/> </span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.addressLineTwo"
+                                                                        id="localAddressaddressLineTwo" class="form-control"/>
+                                                            </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="localAddressaddressLineThree" class="col-sm-1 control-label">Address Line 3 </label>
 
-                                                        <div class="control-group" id="localAddresscounty">
-                                                            <label class="control-label">County:</label>
-                                                            <form:input
-                                                                    path="localAddress.county"
-                                                                    id="localAddresscounty"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.county"/></span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.addressLineThree"
+                                                                        id="localAddressaddressLineThree" class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddresstown" class="col-sm-1 control-label">Town</label>
+
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.town"
+                                                                        id="localAddresstown" class="form-control"/>
+                                                            </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="localAddresscounty" class="col-sm-1 control-label">County</label>
 
-                                                        <div class="control-group" id="localAddresspin">
-                                                            <label class="control-label">Pin code:</label>
-                                                            <form:input
-                                                                    path="localAddress.pin"
-                                                                    id="localAddresspin"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.pin"/> </span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.county"
+                                                                        id="localAddresscounty" class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddresspin" class="col-sm-1 control-label">Pin code</label>
+
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.pin"
+                                                                        id="localAddresspin" class="form-control"/>
+                                                            </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="localAddresscountry" class="col-sm-1 control-label">Country</label>
 
-                                                        <div class="control-group" id="localAddresscountry">
-                                                            <label class="control-label">Country:</label>
-                                                            <form:input
-                                                                    path="localAddress.country"
-                                                                    id="localAddresscountry"/><span
-                                                                class="help-inline"><form:errors
-                                                                path="localAddress.country"/> </span>
+                                                            <div class="col-sm-3">
+                                                                <form:input
+                                                                        path="localAddress.country"
+                                                                        id="localAddresscountry" class="form-control"/>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,7 +375,8 @@
                                     <div class="form-actions">
                                         <button type="submit"
                                                 value="Save"
-                                                class="btn btn-primary">SAVE</button>
+                                                class="btn btn-primary">SAVE
+                                        </button>
                                     </div>
                                 </form:form>
                             </div>
