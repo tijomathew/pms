@@ -1,6 +1,6 @@
 package org.pms.serviceImpls;
 
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.daos.ParishDao;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.RequestResponseHolder;

@@ -1,6 +1,6 @@
 package org.pms.helpers;
 
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
 import org.pms.services.MassCenterService;

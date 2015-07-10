@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.constants.PageNames;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.PageNames;
+import org.pms.enums.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
 import org.springframework.beans.factory.annotation.Autowired;

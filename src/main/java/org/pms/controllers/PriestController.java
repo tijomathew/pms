@@ -1,6 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.constants.PageNames;
+import org.pms.enums.Gender;
+import org.pms.enums.PageNames;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
 import org.pms.error.CustomErrorMessage;
@@ -12,9 +13,6 @@ import org.pms.helpers.JsonBuilder;
 import org.pms.models.Parish;
 import org.pms.models.Priest;
 import org.pms.models.PriestDesignation;
-import org.pms.models.User;
-import org.pms.serviceImpls.MailServiceImpl;
-import org.pms.services.MailService;
 import org.pms.services.ParishService;
 import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -149,6 +146,9 @@ public class PriestController {
 
         model.addAttribute("parishList", parishMap);
         model.addAttribute("priestDesignation", priestDesignationsMap);
+
+        Map referenceData = new HashMap();
+        model.addAttribute("sex", Gender.values());
     }
 
 }

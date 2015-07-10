@@ -3,14 +3,14 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.pms.constants.PageNames;
+import org.pms.enums.PageNames;
 import org.pms.displaywrappers.UserWrapper;
 import org.pms.dtos.UserDto;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;

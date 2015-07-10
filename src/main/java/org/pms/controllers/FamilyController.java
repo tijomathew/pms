@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.constants.PageNames;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.PageNames;
+import org.pms.enums.SystemRoles;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
 import org.pms.error.CustomErrorMessage;

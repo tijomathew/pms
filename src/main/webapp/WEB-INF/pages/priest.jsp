@@ -232,18 +232,18 @@
                                                                         id="priestAsPersonplaceOfBirth"
                                                                         class="form-control"/>
                                                             </div>
-                                                            <label for="priestAsPerson.gender"
+                                                            <label for="priestAsPersongender"
                                                                    class="col-sm-2 control-label">Gender</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:radiobutton
+                                                                <form:radiobuttons
                                                                         path="priestAsPerson.gender"
-                                                                        id="priestAsPersongender" value="Male"
-                                                                        class="form-control"/>Male
+                                                                        id="priestAsPersongender" items="${sex}"
+                                                                        class="form-control"/>
 
-                                                                <form:radiobutton path="priestAsPerson.gender"
+                                                               <%-- <form:radiobutton path="priestAsPerson.gender"
                                                                                   id="priestAsPersongender"
-                                                                                  value="Female" class="form-control"/>Female
+                                                                                  value="Female" class="form-control"/>Female--%>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">

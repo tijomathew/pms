@@ -1,8 +1,8 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.constants.PageNames;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.PageNames;
+import org.pms.enums.SystemRoles;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
