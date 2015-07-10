@@ -5294,6 +5294,30 @@ i.visible-print {
 .fa-th:before {
   content: "\f00a";
 }
+.pms-users{
+  background-position: -6px -6px;
+}
+.pms-parish{
+  background-position: -6px -29px;
+}
+.pms-priest{
+  background-position: -6px -52px;
+}
+.pms-massCenters{
+  background-position: -6px -74px;
+}
+.pms-prayerUnits{
+  background-position: -6px -97px;
+}
+.pms-family{
+  background-position: -6px -121px;
+}
+.pms-members{
+  background-position: -6px -145px;
+}
+.pms-reports{
+  background-position: -6px -168px;
+}
 .fa-th-list:before {
   content: "\f00b";
 }
@@ -8716,7 +8740,7 @@ body.static-header {
   border: 0 !important;
   
   height: 40px;
-  width: 106px;
+  
 }
 @media (max-width: 480px) {
   ul.toolbar {
@@ -9846,8 +9870,11 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
   margin-left: 1px;
   margin-right: 8px;
   min-width: 15px;
+  height:15px;
   text-align: center;
   display: inline-block;
+  background-image:url(../images/sprite.png);
+  background-repeat:no-repeat;
 }
 #sidebar .divider {
   height: 1px;
@@ -15263,4 +15290,35 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 
 .labelErrorAlert{
   color:red !important;
+}
+
+.noborder{
+  border:0px !important;
+}
+.nomargin{
+  margin:0px !important;
+}
+.nopadding{
+  padding:0px !important;
+}
+.padding7{
+  padding:7px !important;
+}
+.paddingTop0{
+  padding-top:0px !important;
+}
+.marginBottom7{
+  margin-bottom:7px !important;
+}
+.marginTop7{
+  margin-top:7px !important;
+}
+.defaultButtonWidth{
+  width:130px;
+}
+.navbar .dropdown-menu:before{
+  top: -10px;
+}
+.navbar .dropdown-menu:after{
+  top: -8px;
 }

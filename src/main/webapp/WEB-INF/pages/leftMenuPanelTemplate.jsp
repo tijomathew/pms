@@ -14,14 +14,14 @@
 
     <c:if test="${showForAdmin == true}">
         <ul class="acc-menu" id="sidebar">
-            <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><i class="fa fa-home"></i> <span>Users</span></a></li>
-            <li id="parish"><a href="${pageContext.request.contextPath}/viewparish.action"><i class="fa fa-th"></i> <span>Parish</span> </a></li>
-            <li id="priest"><a href="${pageContext.request.contextPath}/viewpriest.action"><i class="fa fa-list-ol"></i> <span>Priest</span> </a></li>
-            <li id="masscenter"><a href="${pageContext.request.contextPath}/viewmasscenter.action"><i class="fa fa-tasks"></i> <span>Mass Centers</span></a></li>
-            <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i class="fa fa-table"></i> <span>Prayer Units</span></a></li>
-            <li id="family"><a href="${pageContext.request.contextPath}/viewfamily.action"><i class="fa fa-pencil"></i> <span>Family</span></a></li>
-            <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i class="fa fa-map-marker"></i> <span>Members</span></a></li>
-            <li><a href="javascript:;"><i class="fa fa-flag"></i> <span>Reports</span> <span
+            <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><i class="fa pms-users"></i> <span>Users</span></a></li>
+            <li id="parish"><a href="${pageContext.request.contextPath}/viewparish.action"><i class="fa pms-parish"></i> <span>Parish</span> </a></li>
+            <li id="priest"><a href="${pageContext.request.contextPath}/viewpriest.action"><i class="fa pms-priest"></i> <span>Priest</span> </a></li>
+            <li id="masscenter"><a href="${pageContext.request.contextPath}/viewmasscenter.action"><i class="fa pms-massCenters"></i> <span>Mass Centers</span></a></li>
+            <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
+            <li id="family"><a href="${pageContext.request.contextPath}/viewfamily.action"><i class="fa pms-family"></i> <span>Family</span></a></li>
+            <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i class="fa pms-members"></i> <span>Members</span></a></li>
+            <li><a href="javascript:;"><i class="fa pms-reports"></i> <span>Reports</span> <span
                     class="badge badge-orange">5</span></a>
                 <ul class="acc-menu">
                     <li><a href="#">Birth</a></li>

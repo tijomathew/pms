@@ -10,7 +10,7 @@
   <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom" title="Toggle Infobar"></a>
 
   <div class="navbar-header pull-left">
-    <a class="navbar-brand" href="#">PMS</a>
+    <a class="navbar-brand" href="#">PMS | <small>Parish Management System</small></a>
   </div>
 
   <ul class="nav navbar-nav pull-right toolbar">
@@ -31,11 +31,12 @@
         </li>
         <li class="userlinks">
           <ul class="dropdown-menu">
-            <li><a href="#">Edit Profile <i class="pull-right fa fa-pencil"></i></a></li>
+            <%--<li><a href="#">Edit Profile <i class="pull-right fa fa-pencil"></i></a></li>
             <li><a href="#">Account <i class="pull-right fa fa-cog"></i></a></li>
-            <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
-            <li class="divider"></li>
-            <li><a href="${pageContext.request.contextPath}/loggedout.action" class="text-right">Sign Out</a></li>
+            <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>--%>
+            <%--<li class="divider"></li>--%>
+            <li class="text-right"><button class="btn btn-primary defaultButtonWidth">Sign Out</button></li>
+            <%--<li><a href="${pageContext.request.contextPath}/loggedout.action" class="text-right">Sign Out</a></li>--%>
           </ul>
         </li>
       </ul>
