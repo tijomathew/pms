@@ -6,10 +6,9 @@ package org.pms.dtos;
 public class PrayerUnitDto {
 
     private Integer id;
-    private Long wardID;
-    private String wardCode;
-    private String wardName;
-    private String wardPlace;
+    private Long prayerUnitID;
+    private String prayerUnitName;
+    private String prayerUnitPlace;
     private String parishName;
     private String massCenterName;
     private String priestNames;
@@ -23,20 +22,20 @@ public class PrayerUnitDto {
         this.id = id;
     }
 
-    public Long getWardID() {
-        return wardID;
+    public Long getPrayerUnitID() {
+        return prayerUnitID;
     }
 
-    public void setWardID(Long wardID) {
-        this.wardID = wardID;
+    public void setPrayerUnitID(Long prayerUnitID) {
+        this.prayerUnitID = prayerUnitID;
     }
 
-    public String getWardName() {
-        return wardName;
+    public String getPrayerUnitName() {
+        return prayerUnitName;
     }
 
-    public void setWardName(String wardName) {
-        this.wardName = wardName;
+    public void setPrayerUnitName(String prayerUnitName) {
+        this.prayerUnitName = prayerUnitName;
     }
 
     public String getParishName() {
@@ -63,12 +62,12 @@ public class PrayerUnitDto {
         this.priestNames = priestNames;
     }
 
-    public String getWardPlace() {
-        return wardPlace;
+    public String getPrayerUnitPlace() {
+        return prayerUnitPlace;
     }
 
-    public void setWardPlace(String wardPlace) {
-        this.wardPlace = wardPlace;
+    public void setPrayerUnitPlace(String prayerUnitPlace) {
+        this.prayerUnitPlace = prayerUnitPlace;
     }
 
     public String getLocalAddress() {
@@ -79,11 +78,4 @@ public class PrayerUnitDto {
         this.localAddress = localAddress;
     }
 
-    public String getWardCode() {
-        return wardCode;
-    }
-
-    public void setWardCode(String wardCode) {
-        this.wardCode = wardCode;
-    }
 }

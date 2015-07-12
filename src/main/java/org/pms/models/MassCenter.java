@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class MassCenter implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
+    //@NotEmpty
     @Column(name = "name")
     private String name;
 
@@ -34,7 +36,7 @@ public class MassCenter implements Serializable {
     private String centerCode;
 
     @Column(name = "massCenterID")
-    private String massCenterID;
+    private Long massCenterID;
 
     @Column(name = "patron_name")
     private String patronName;
@@ -111,11 +113,11 @@ public class MassCenter implements Serializable {
         this.centerCode = centerCode;
     }
 
-    public String getMassCenterID() {
+    public Long getMassCenterID() {
         return massCenterID;
     }
 
-    public void setMassCenterID(String massCenterID) {
+    public void setMassCenterID(Long massCenterID) {
         this.massCenterID = massCenterID;
     }
 

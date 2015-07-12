@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,11 +23,12 @@ public class PrayerUnit implements Serializable {
     @Column(name = "auto_id", unique = true, nullable = false)
     private long id;
 
+    //@NotEmpty
     @Column(name = "name")
     private String prayerUnitName;
 
     @Column(name = "code")
-    private String prayerUnitCode;
+    private Long prayerUnitCode;
 
     @Column(name = "place")
     private String prayerUnitPlace;
@@ -60,11 +62,11 @@ public class PrayerUnit implements Serializable {
         this.prayerUnitName = prayerUnitName;
     }
 
-    public String getPrayerUnitCode() {
+    public Long getPrayerUnitCode() {
         return prayerUnitCode;
     }
 
-    public void setPrayerUnitCode(String prayerUnitCode) {
+    public void setPrayerUnitCode(Long prayerUnitCode) {
         this.prayerUnitCode = prayerUnitCode;
     }
 

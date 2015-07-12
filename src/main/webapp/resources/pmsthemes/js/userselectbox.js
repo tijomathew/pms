@@ -6,8 +6,9 @@ function loadSelectBox(contextPath) {
     $.getJSON(contextPath + '/createparishselectbox.action',
         {},
         function (data) {
-            $('#massCenterSelectBox').empty();
-            $('#prayerUnitSelectBox').empty();
+            $('#massCenterSelectBox').find('option').remove();
+            $('#prayerUnitSelectBox').find('option').remove();
+            $('#familySelectBox').find('option').remove();
             var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
             var len = data.length;
             for (var i = 0; i < len; i++) {
@@ -19,15 +20,39 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createmasscenterselectbox.action",
                 {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
-                    $('#massCenterSelectBox').empty();
-                    $('#prayerUnitSelectBox').empty();
-                    var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
-                    var len = data.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+                    var systemRole = $("#systemRole option:selected").val();
+                    if (systemRole != 'Parish Admin') {
+                        $('#massCenterSelectBox').find('option').remove();
+                        $('#prayerUnitSelectBox').find('option').remove();
+                        $('#familySelectBox').find('option').remove();
+                        var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                        var len = data.length;
+                        for (var i = 0; i < len; i++) {
+                            html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+                        }
+                        $('#massCenterSelectBox').append(html);
                     }
-                    $('#massCenterSelectBox').append(html);
                 });
+            var systemRole = $("#systemRole option:selected").val();
+            if (systemRole == 'Parish Admin') {
+                $('#extensionOfMail').removeClass('hideClass');
+                var parish = $("#parishSelectBox option:selected").text();
+                var displayValue = "@" + parish + ".pms";
+                $('#extensionOfMail').val(displayValue);
+
+                $('#massCenterSelectBox').find('option').remove();
+                $('#prayerUnitSelectBox').find('option').remove();
+                $('#familySelectBox').find('option').remove();
+
+                $('#massCenterSelectBox').addClass('hideSelectImage');
+                $('#prayerUnitSelectBox').addClass('hideSelectImage');
+                $('#familySelectBox').addClass('hideSelectImage');
+
+
+                $('#massCenterSelectBox').prop('disabled', true);
+                $('#prayerUnitSelectBox').prop('disabled', true);
+                $('#familySelectBox').prop('disabled', true);
+            }
         }
     );
 
@@ -35,14 +60,34 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createprayerunitselectbox.action",
                 {selectedMassCenterId: $('#massCenterSelectBox').val()},
                 function (data) {
-                    $('#prayerUnitSelectBox').empty();
-                    var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
-                    var len = data.length;
-                    for (var i = 0; i < len; i++) {
-                        html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
+                    var systemRole = $("#systemRole option:selected").val();
+                    if (systemRole != 'Mass Center Admin') {
+                        $('#prayerUnitSelectBox').find('option').remove();
+                        $('#familySelectBox').find('option').remove();
+                        var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                        var len = data.length;
+                        for (var i = 0; i < len; i++) {
+                            html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
+                        }
+                        $('#prayerUnitSelectBox').append(html);
                     }
-                    $('#prayerUnitSelectBox').append(html);
                 });
+            var systemRole = $("#systemRole option:selected").val();
+            if (systemRole == 'Mass Center Admin') {
+                $('#extensionOfMail').removeClass('hideClass');
+                var massCenter = $("#massCenterSelectBox option:selected").text();
+                var displayValue = "@" + massCenter + ".pms";
+                $('#extensionOfMail').val(displayValue);
+
+                $('#prayerUnitSelectBox').find('option').remove();
+                $('#familySelectBox').find('option').remove();
+
+                $('#prayerUnitSelectBox').addClass('hideSelectImage');
+                $('#familySelectBox').addClass('hideSelectImage');
+
+                $('#prayerUnitSelectBox').prop('disabled', true);
+                $('#familySelectBox').prop('disabled', true);
+            }
         }
     );
 
@@ -50,14 +95,30 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createfamilyselectboxofusers.action",
                 {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},
                 function (data) {
-                    $('#familySelectBox').empty();
+                    var systemRole = $("#systemRole option:selected").val();
+                    if (systemRole != 'Prayer Unit Admin') {
+                    $('#familySelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                     }
                     $('#familySelectBox').append(html);
+                }
                 });
+            var systemRole = $("#systemRole option:selected").val();
+            if (systemRole == 'Prayer Unit Admin') {
+                $('#extensionOfMail').removeClass('hideClass');
+                var prayerUnit = $("#prayerUnitSelectBox option:selected").text();
+                var displayValue = "@" + prayerUnit + ".pms";
+                $('#extensionOfMail').val(displayValue);
+
+                $('#familySelectBox').find('option').remove();
+
+                $('#familySelectBox').addClass('hideSelectImage');
+
+                $('#familySelectBox').prop('disabled', true);
+            }
         }
     );
 }

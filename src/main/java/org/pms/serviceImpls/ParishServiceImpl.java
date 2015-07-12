@@ -1,6 +1,6 @@
 package org.pms.serviceImpls;
 
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.daos.ParishDao;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.RequestResponseHolder;
@@ -84,13 +84,9 @@ public class ParishServiceImpl implements ParishService {
     }
 
     public Parish createParishFormBackObjectModel(Model model) {
-        String attachedStringToID = "PA";
         Long parishCounter = getParishCount();
-        if (parishCounter < 10l) {
-            attachedStringToID += "0";
-        }
         Parish formBackParish = new Parish();
-        formBackParish.setParishID(attachedStringToID + (++parishCounter));
+        formBackParish.setParishID(++parishCounter);
         model.addAttribute("parish", formBackParish);
         return formBackParish;
     }

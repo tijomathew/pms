@@ -1,11 +1,9 @@
 package org.pms.interceptor;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.pms.applicationbuilder.PMSApplicationBuilder;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
-import org.pms.services.PriestService;
 import org.pms.sessionmanager.PMSSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -79,7 +77,7 @@ public class PMSInterceptor implements HandlerInterceptor {
                         case SystemRoles.PRAYER_UNIT_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, prayerUnitAdminLinks);
                             break;
-                        case SystemRoles.FAMILY_ADMIN:
+                        case SystemRoles.FAMILY_USER:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, familyHeadLinks);
                             break;
                     }
@@ -95,7 +93,7 @@ public class PMSInterceptor implements HandlerInterceptor {
                 httpServletResponse.flushBuffer();
             }
         }
-         return indicatorToProceed;
+        return indicatorToProceed;
     }
 
     private boolean checkURLIsAllowedForCurrentUser(String urlAction, List<String> urlList) {

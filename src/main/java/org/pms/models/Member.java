@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,7 +9,7 @@ import java.io.Serializable;
  * This class describes the various attributes of the member of the family.
  * It contains various getters and setters of the attributes of the member.
  * It contains relationship with family where member belongs to.
- * <p/>
+ * <p>
  * User: tijo
  */
 
@@ -26,7 +28,7 @@ public class Member implements Serializable {
     private Person memberAsPerson;
 
     @Column(name = "member_id")
-    private String memberID;
+    private Long memberID;
 
     @Column(name = "relationship_in_family")
     private String relationshipInFamily;
@@ -40,6 +42,7 @@ public class Member implements Serializable {
     @Column(name = "date_of_first_communion")
     private String dateOfFirstCommunion;
 
+    //@NotEmpty
     @Column(name = "date_of_marriage")
     private String dateOfMarriage;
 
@@ -212,11 +215,11 @@ public class Member implements Serializable {
         this.memberAsPerson = memberAsPerson;
     }
 
-    public String getMemberID() {
+    public Long getMemberID() {
         return memberID;
     }
 
-    public void setMemberID(String memberID) {
+    public void setMemberID(Long memberID) {
         this.memberID = memberID;
     }
 

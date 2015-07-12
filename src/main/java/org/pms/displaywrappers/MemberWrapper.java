@@ -15,7 +15,7 @@ public class MemberWrapper implements GridRow {
 
     private MemberDto memberDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"memberID", "name", "dob","placeOfBirth","gender","nationality","jobDetails","personalStatus","bloodGroup","carNumber","liveStatus","personalRemarks","piousAssociation","sundayCatechism","sacramentalLife","churchRemarks","email","mobNo","landLineNo","faxNo","dateOfBaptism","churchOfBaptism","countryOfBaptism","baptismName","ministerOfBaptism","baptismGodFather","baptismGodMother","patronSaint","patronSaintFeastDay","dateOfConfirmation","churchOfConfirmation","countryOfConfirmation","ministerOfConfirmation","confirmationGodFather","confirmationGodMother","dateOfFirstCommunion","churchOfHolyCommunion","countryOfHolyCommunion","ministerOfHolyCommunion","dateOfBetrothal","churchOfBetrothal","countryOfBetrothal","priestOfBetrothal","spouseName","spouseBaptismName","spouseNativeParish","spouseNativeDiocese","spouseFatherName","spouseMotherName","spouseNativeAddress","spouseNationality","betrothalWitnessOne","betrothalWitnessTwo","dateOfMarriage","churchOfMarriage","priestOfMarriage","marriageWitnessOne","marriageWitnessTwo","dateOfDeath","placeOfDeath","funeralDate","buriedChurch","ministerOfDeath","placeOfCemetery","tombNo","confession","communion","anointingTheSick","ministerOfAnointingTheSick"};
+    private String[] VALID_BEAN_PROPERTIES = {"memberID", "name"};
 
     public MemberWrapper(MemberDto memberDto) {
         this.memberDto = memberDto;

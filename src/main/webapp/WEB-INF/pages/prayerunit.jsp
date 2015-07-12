@@ -1,252 +1,270 @@
-<%--  
+<%--
+  Created by IntelliJ IDEA.
   User: tijo
-  Date: 5/10/14
-  Time: 11:49 AM  
+  Date: 26/6/15
+  Time: 10:52 AM
+  To change this template use File | Settings | File Templates.
 --%>
 <%@include file="tagLibraryTemplate.jsp" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title id="title">Prayer Unit</title>
 
-    <%@include file="scriptlibraryTemplate.jsp" %>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <script src="<c:url value="/resources/js/wardvalidator.js" />" type="text/javascript"
+    <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
+    <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
+
+    <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            jQuery('#ui-id-2').bind("click", function () {
-                loadWardGrid();
-            });
-            $( "#prayerUnitAccordion" ).accordion();
 
+            loadPrayerUnitGrid();
+            globalSubmissionOfForms('prayerUnitForm', '${prayerUnitActionURL}','prayerUnitGrid');
         });
 
-        function loadWardGrid() {
-
-            jQuery("#wardGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayprayerunitgrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['PrayerUnit ID','PrayerUnit Code' ,'PrayerUnit Name','PrayerUnit Place','MassCenter Name','Local address'],
-                        colModel: [
-
-                            {name: 'wardID', index: 'wardID', width: 90},
-                            {name: 'wardCode', index: 'wardCode', width: 90},
-                            {name: 'wardName', index: 'wardName', width: 100},
-                            {name: 'wardPlace', index: 'wardPlace', width: 100},
-                            {name: 'massCenterName', index: 'massCenterName', width: 100},
-                            {name: 'localAddress', index: 'localAddress', width: 100},
-
-                        ],
-                        rowNum: 2,
-                        pager: '#wardGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Wards",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#wardGrid").jqGrid('navGrid', '#wardGridPager', {edit: true, add: true, del: true});
-        }
-
-
     </script>
+
 </head>
+
 <body>
 
-<%@include file="toolbarTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
-<%@include file="menupanelTemplate.jsp" %>
+<div id="page-container">
 
-<div class="outer-center">
-    <div class="middle-center">
-        <div class="inner-center">
-            <div id="tabs" class="contentTabs">
-                <ul class="tabHead">
-                    <li><a href="#tabs-1">Prayer Unit Registration</a></li>
-                    <li><a href="#tabs-2">Prayer Unit View</a></li>
-                </ul>
-                <div id="tabs-1" class="contentTabs">
-                    <form:form modelAttribute="prayerUnit"
-                               action="${pageContext.request.contextPath}/addprayerunit.action" method="post"
-                               id="addWardForm">
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
+    <!-- BEGIN RIGHTBAR -->
+    <div id="page-rightbar">
 
-
-
-                        <div id="prayerUnitAccordion">
-                            <h3>Prayer Unit Details</h3>
-                            <div>
-                                <section class="contentDoc ">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Prayer Unit Name :</td>
-                                                <td><form:input path="prayerUnitName" id="prayerUnitName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prayer Unit Code :</td>
-                                                <td><form:input path="prayerUnitCode" id="prayerUnitCode" readonly="true"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prayer Unit Place :</td>
-                                                <td><form:input path="prayerUnitPlace" id="prayerUnitPlace"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mass Center:</td>
-                                                <td><form:select path="massCenterId" items="${massCenterMap}"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                            <h3>Ireland Address</h3>
-                            <div>
-                                <section class="contentDoc">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Address Line 1 :</td>
-                                                <td><form:input path="localAddress.addressLineOne"
-                                                                id="localAddressaddressLineOne"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 2 :</td>
-                                                <td><form:input path="localAddress.addressLineTwo"
-                                                                id="localAddressaddressLineTwo"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 3 :</td>
-                                                <td><form:input path="localAddress.addressLineThree"
-                                                                id="localAddressaddressLineThree"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Town:</td>
-                                                <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>County:</td>
-                                                <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pin code:</td>
-                                                <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country:</td>
-                                                <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-
-
-
-                        <div class="sectionLeft">
-
-
-                        </div>
-
-                        <div class="sectionRight">
-
-                        </div>
-
-                        <div class="clear"></div>
-                        <p>
-                            <input type="submit" value="Add" class="filterbutton"/>
-                        </p>
-
-
-                    </form:form>
+        <div id="widgetarea">
+            <div class="widget">
+                <div class="widget-heading">
+                    <a href="javascript:;" data-toggle="collapse" data-target="#accsummary"><h4>Search Panel</h4></a>
                 </div>
-                <div id="tabs-2" class="contentTabs">
-                    <table id="wardGrid"></table>
-                    <div id="wardGridPager"></div>
+                <div class="widget-body collapse in" id="accsummary">
+                    Search Criteria Entries shows here in this panel
                 </div>
             </div>
-        </div>
-        <div class="footer ui-layout-south">
-            <h3>SEARCH PANEL</h3>
 
-            <div class="filter_left">
-            </div>
-            <div class="filter_left bottomElementsPanel">
-                <table>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Find</button>
-                        </td>
-                        <%--<td>
-                            Test
-                        </td>
-                        <td>
-                            <select>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                            </select>
-                        </td>
-                        <td>
-                            Test
-                        </td>
-                        <td>
-                            <input type="text"/>
-                        </td>--%>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Print</button>
-                        </td>
-                        <%-- <td>
-                             Test
-                         </td>
-                         <td>
-                             <select>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                             </select>
-                         </td>
-                         <td>
-                             Test
-                         </td>
-                         <td>
-                             <input type="text"/>
-                         </td>--%>
-                    </tr>
-                </table>
-            </div>
-            <div class="bottomRight">
 
-            </div>
-            <div class="clear"></div>
         </div>
     </div>
-</div>
+    <!-- END RIGHTBAR -->
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container padding7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-body noborder nopadding">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape nomargin">
+                                                    <div class="panel-heading">
+                                                        <h4>Prayer Unit Information</h4>
+                                                    </div>
+                                                    <div class="panel-body nopadding">
+                                                        <table id="prayerUnitGrid"></table>
+                                                        <div id="prayerUnitGridPager"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+
+            <div class="container padding7 paddingTop0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#prayerunit1" data-toggle="tab"><i
+                                                    class="fa fa-list visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Prayer Unit Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#prayerunit2" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Local Address</span></a>
+                                        </li>
+                                    </ul>
+                                </h4>
+                            </div>
+                            <div class="panel-body padding7">
+
+                                <form:form modelAttribute="prayerUnit"
+                                           action="${prayerUnitActionURL}" method="post"
+                                           id="prayerUnitForm" cssClass="form-horizontal nomargin">
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="prayerunit1">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>Prayer Unit Details</h4>
+                                                    </div>
+                                                    <div class="panel-body padding7">
+                                                        <div class="form-group">
+                                                            <label for="prayerUnitName"
+                                                                   class="col-sm-2 control-label">Prayer Unit
+                                                                Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="prayerUnitName"
+                                                                            id="prayerUnitName" class="form-control"/>
+                                                            </div>
+                                                            <label for="prayerUnitCode" class="col-sm-2 control-label">Prayer
+                                                                Unit Code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="prayerUnitCode"
+                                                                            id="prayerUnitCode"
+                                                                            readonly="true" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="prayerUnitPlace"
+                                                                   class="col-sm-2 control-label">Prayer Unit
+                                                                Place</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="prayerUnitPlace"
+                                                                            id="prayerUnitPlace" class="form-control"/>
+                                                            </div>
+                                                            <label for="massCenterId" class="col-sm-2 control-label">Mass
+                                                                Center</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="massCenterId"
+                                                                             items="${massCenterMap}"
+                                                                             id="massCenterId" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="prayerunit2">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Local Address</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineOne"
+                                                                   class="col-sm-2 control-label">Address Line 1</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineOne"
+                                                                            id="localAddressaddressLineOne"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Address Line 2</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineTwo"
+                                                                            id="localAddressaddressLineTwo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">Address Line 3</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineThree"
+                                                                            id="localAddressaddressLineThree"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.town"
+                                                                   class="col-sm-2 control-label">Town</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.town"
+                                                                            id="localAddresstown" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.county"
+                                                                   class="col-sm-2 control-label">County</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.county"
+                                                                            id="localAddresscounty"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.pin"
+                                                                   class="col-sm-2 control-label">Pin code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.pin" id="localAddresspin"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.country"
+                                                                   class="col-sm-2 control-label">Country</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.country"
+                                                                            id="localAddresscountry"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row nomargin">
+                                            <div class="col-md-12 text-left">
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">SAVE
+                                                </button>
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">RESET
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- container -->
+            </div>
+            <!--wrap -->
+        </div>
+
+    </div>
+
+        <%@include file="footerPanelTemplate.jsp" %>
 </body>
 </html>

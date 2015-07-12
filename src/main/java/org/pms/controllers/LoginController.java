@@ -1,7 +1,9 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.constants.PageNames;
+import org.pms.enums.PageNames;
+import org.pms.enums.SystemRoles;
+import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -54,16 +54,8 @@ public class LoginController {
     @Autowired
     private PrayerUnitService prayerUnitService;
 
-    /**
-     * This method redirects to index page when application starts.
-     *
-     * @return the name of the page to which application has to redirect which will be resolved with the help of spring's internal view resolver.
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String indexPageDisplay() {
-        logger.debug("Application redirects to the index page");
-        return PageNames.INDEX;
-    }
+    @Autowired
+    private FactorySelectBox factorySelectBox;
 
     /**
      * This method redirects to the login page after creating login user's model object to backup as model attribute object in the UI display.
@@ -93,7 +85,7 @@ public class LoginController {
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
-            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getUserName(), user.getPassword());
+            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getEmail(), user.getPassword());
 
         } catch (IllegalArgumentException ex) {
             logger.error("The authentication and authorization of the user is failed in the system");
@@ -103,7 +95,7 @@ public class LoginController {
             //redirectedPage = "login";
         }
         createFormBackObjectForRedirectPage(model, redirectPageName);
-        // mailService.sendUserCredentials(new User());
+
        /* if (redirectPageName) {
             model.addAttribute("parish", formBackParish);
         } else {
@@ -123,9 +115,8 @@ public class LoginController {
                 model.addAttribute("loginUser", new User());
                 break;
             case PageNames.PARISH:
-                Parish parishFormBackObject = parishService.createParishFormBackObjectModel(model);
                 model.addAttribute("showAddButton", true);
-                model.addAttribute("parish", parishFormBackObject);
+                model.addAttribute("parish", new Parish());
                 break;
             case PageNames.MASSCENTER:
                 MassCenter formBackMassCenter = massCenterService.createMassCenterFormBackObject(model);
@@ -137,9 +128,11 @@ public class LoginController {
                 break;
             case PageNames.FAMILY:
                 model.addAttribute("family", new Family());
+                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class));
                 break;
             case PageNames.MEMBER:
                 model.addAttribute("member", new Member());
+                factorySelectBox.createSelectBox(model);
                 break;
         }
     }

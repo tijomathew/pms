@@ -8,5 +8,5 @@ import org.pms.models.User;
  */
 public interface LoginService {
 
-    String verifyUserAndGetRedirectPageSM(String loginUserName, String loginUserPassword);
+    String verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword);
 }

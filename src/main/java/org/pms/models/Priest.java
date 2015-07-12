@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class describes the various attributes of the Priest.
  * It contains various getters and setters for the attributes of the priest.
  * It contains relationship with parish.
- * <p/>
+ * <p>
  * User: tijo
  */
 
@@ -28,8 +29,9 @@ public class Priest implements Serializable {
     private Long id;
 
     @Column(name = "priest_id")
-    private String priestID;
+    private Long priestID;
 
+    //@NotEmpty
     @Column(name = "date_of_ordination")
     private String dateOfOrdination;
 
@@ -66,6 +68,9 @@ public class Priest implements Serializable {
     @Column(name = "congregation")
     private String congregation;
 
+    @Column(name = "family_name")
+    private String familyName;
+
     @Embedded
     private Person priestAsPerson;
 
@@ -99,11 +104,11 @@ public class Priest implements Serializable {
         return id;
     }
 
-    public String getPriestID() {
+    public Long getPriestID() {
         return priestID;
     }
 
-    public void setPriestID(String priestID) {
+    public void setPriestID(Long priestID) {
         this.priestID = priestID;
     }
 
@@ -267,5 +272,11 @@ public class Priest implements Serializable {
         this.parishId = parishId;
     }
 
+    public String getFamilyName() {
+        return familyName;
+    }
 
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
 }

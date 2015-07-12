@@ -1,517 +1,785 @@
-<%--  
+<%--
+  Created by IntelliJ IDEA.
   User: tijo
-  Date: 12/10/14
-  Time: 5:46 PM  
+  Date: 26/6/15
+  Time: 10:53 AM
+  To change this template use File | Settings | File Templates.
 --%>
 <%@include file="tagLibraryTemplate.jsp" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title id="title">Priest</title>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <%@include file="scriptlibraryTemplate.jsp" %>
+    <spring:url value="/addpriest.action" var="priestActionURL"/>
+    <spring:url value="/resources/js/createpriestgridlayout.js" var="priestGridURL"/>
 
-    <script src="<c:url value="/resources/js/priestvalidator.js" />" type="text/javascript"
+    <script src="${priestGridURL}" type="text/javascript"
             language="javascript"></script>
+
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            $("#priestAccordian").accordion();
-            jQuery('#ui-id-2').bind("click", function () {
-                loadPriestGrid();
-            });
+
+            loadPriestGrid();
+
+            globalSubmissionOfForms('priestForm', '${priestActionURL}','priestGrid');
 
         });
-
-        function loadPriestGrid() {
-
-            jQuery("#priestGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displaypriestgrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['ID', 'Name', 'Designation', 'Heavenly Patron', 'Native Diocese', 'Native Parish', 'Native Place', 'Priest Card Validity', 'Ordained To Diocese', 'Father Name', 'Mother Name', 'Priest Status', 'Congregation', 'Local Address', 'Native Address', 'Emergency Contact'],
-                        colModel: [
-
-                            {name: 'priestID', index: 'priestID', width: 120},
-                            {name: 'name', index: 'name', width: 150},
-                            {name: 'designation', index: 'designation', width: 150, align: "right"},
-                            {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right"},
-                            {name: 'nativeDiocese', index: 'nativeDiocese', width: 150, align: "right"},
-                            {name: 'nativeParish', index: 'nativeParish', width: 150, align: "right"},
-                            {name: 'nativePlace', index: 'nativePlace', width: 150, align: "right"},
-                            {name: 'priestCardValidity', index: 'priestCardValidity', width: 150, align: "right"},
-                            {name: 'ordainedToDiocese', index: 'ordainedToDiocese', width: 150, align: "right"},
-                            {name: 'fatherName', index: 'fatherName', width: 150, align: "right"},
-                            {name: 'motherName', index: 'motherName', width: 150, align: "right"},
-                            {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right"},
-                            {name: 'congregation', index: 'congregation', width: 150, align: "right"},
-                            {name: 'localAddress', index: 'localAddress', width: 150, align: "right"},
-                            {name: 'nativeAddress', index: 'nativeAddress', width: 150, align: "right"},
-                            {name: 'emergencyContact', index: 'emergencyContact', width: 150, align: "right"}
-                        ],
-                        rowNum: 2,
-                        pager: '#priestGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Priests",
-                        autowidth: true,
-                        shrinkToFit: false,
-                        emptyrecords: "Nothing to display"
-
-                    });
-            jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {edit: true, add: true, del: true});
-        }
-
-
     </script>
 
 </head>
+
 <body>
 
-<%@include file="toolbarTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
-<%@include file="menupanelTemplate.jsp" %>
+<div id="page-container">
 
-<div class="outer-center">
-    <div class="middle-center">
-        <div class="inner-center">
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
-            <div id="tabs" class="contentTabs">
-                <ul class="tabHead">
-                    <li><a href="#tabs-1">Priest Registration</a></li>
-                    <li><a href="#tabs-2">Priest View</a></li>
-                </ul>
-                <div id="tabs-1" class="contentTabs">
-                    <form:form modelAttribute="priest"
-                               action="${pageContext.request.contextPath}/addpriest.action" method="post"
-                               id="priestForm1">
-                        <div id="priestAccordian">
-                            <h3>Personal Details</h3>
+    <!-- BEGIN RIGHTBAR -->
+    <div id="page-rightbar">
 
-                            <div>
-                                <section class="contentDoc ">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Priest Status :</td>
-                                                <td><form:select path="priestStatus" id="priestStatus">
-                                                    <form:option value="Active" selected="selected">Active</form:option>
-                                                    <form:option value="Transferred">Transferred</form:option>
-                                                    <form:option value="Not-Active">Not-Active</form:option>
-                                                </form:select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Priest ID:</td>
-                                                <td><form:input path="priestID"
-                                                                id="priestID" readonly="true"
-                                                                placeholder="auto generated value"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Salutation :</td>
-                                                <td><form:select path="priestAsPerson.salutation"
-                                                                 id="priestAsPerson.salutation">
-                                                    <form:option value="Rev." selected="selected">Rev.</form:option>
-                                                    <form:option value="Rev. Dr.">Rev. Dr.</form:option>
-                                                </form:select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>First Name :</td>
-                                                <td><form:input path="priestAsPerson.firstName"
-                                                                id="priestAsPersonfirstName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Middle Name :</td>
-                                                <td><form:input path="priestAsPerson.middleName"
-                                                                id="priestAsPersonmiddleName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Last Name :</td>
-                                                <td><form:input path="priestAsPerson.lastName"
-                                                                id="priestAsPersonlastName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date of Birth :</td>
-                                                <td><form:input path="priestAsPerson.dateOfBirth"
-                                                                id="priestAsPersondateOfBirth"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Place of Birth :</td>
-                                                <td><form:input path="priestAsPerson.placeOfBirth"
-                                                                id="priestAsPersonplaceOfBirth"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender :</td>
-                                                <td><form:radiobutton path="priestAsPerson.gender"
-                                                                      id="priestAsPersongender" value="Male"/>Male
-                                                </td>
-                                                <td><form:radiobutton path="priestAsPerson.gender"
-                                                                      id="priestAsPersongender" value="Female"/>Female
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nationality :</td>
-                                                <td><form:input path="priestAsPerson.nationality"
-                                                                id="priestAsPersonnationality"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Designation:</td>
-                                                <td><form:select path="designation"
-                                                                 items="${priestDesignation}"></form:select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Parish:</td>
-                                                <td><form:select path="parishId"
-                                                                 items="${parishList}"></form:select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Education Qualifications :</td>
-                                                <td><form:textarea path="priestAsPerson.educationQualifications"
-                                                                   id="priestAsPersoneducationQualifications"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Job Details :</td>
-                                                <td><form:textarea path="priestAsPerson.jobDetails"
-                                                                   id="priestAsPersonjobDetails"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Personal Status :</td>
-                                                <td><form:select path="priestAsPerson.personalStatus"
-                                                                 id="personalStatus">
-                                                    <form:option value="Priest" selected="selected">Priest</form:option>
-                                                </form:select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Blood Group :</td>
-                                                <td><form:select path="priestAsPerson.bloodGroup" id="bloodGroup">
-                                                    <form:option value="select">--select--</form:option>
-                                                    <form:option value="O-">O-</form:option>
-                                                    <form:option value="O+">O+</form:option>
-                                                    <form:option value="A-">A-</form:option>
-                                                    <form:option value="A+">A+</form:option>
-                                                    <form:option value="B-">B-</form:option>
-                                                    <form:option value="B+">B+</form:option>
-                                                    <form:option value="AB-">AB-</form:option>
-                                                    <form:option value="AB+">AB+</form:option>
-                                                </form:select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Car Number :</td>
-                                                <td><form:input path="priestAsPerson.carNumber" id="carNumber"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Life Status :</td>
-                                                <td><form:select path="priestAsPerson.lifeStatus" id="lifeStatus">
-                                                    <form:option value="Live" selected="selected">Live</form:option>
-                                                    <form:option value="Late">Late</form:option>
-                                                </form:select>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Personal Remarks :</td>
-                                                <td><form:textarea path="priestAsPerson.personalRemarks"
-                                                                   id="personalRemarks"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Date of Ordination :</td>
-                                                <td><form:input path="dateOfOrdination" id="dateOfOrdination"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Feast Day :</td>
-                                                <td><form:input path="feastDay" id="feastDay"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Heavenly Patron :</td>
-                                                <td><form:input path="heavenlyPatron" id="heavenlyPatron"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Native Diocese :</td>
-                                                <td><form:input path="nativeDiocese" id="nativeDiocese"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Congregation :</td>
-                                                <td><form:input path="congregation" id="congregation"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Native Parish :</td>
-                                                <td><form:input path="nativeParish" id="nativeParish"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Native Place :</td>
-                                                <td><form:input path="nativePlace" id="nativePlace"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Card Validity :</td>
-                                                <td><form:input path="priestCardValidity" id="priestCardValidity"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ordained To Diocese :</td>
-                                                <td><form:input path="ordainedToDiocese" id="ordainedToDiocese"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Father's Name :</td>
-                                                <td><form:input path="fatherName" id="fatherName"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mother's Name :</td>
-                                                <td><form:input path="motherName" id="motherName"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                            <h3>Contact Details</h3>
-
-                            <div>
-                                <section class="contentDoc ">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Email :</td>
-                                                <td><form:input path="priestAsPerson.email"
-                                                                id="priestAsPersonemail"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile No. :</td>
-                                                <td><form:input path="priestAsPerson.mobileNo"
-                                                                id="priestAsPersonmobileNo"
-                                                                value=""/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Land Line No. :</td>
-                                                <td><form:input path="priestAsPerson.landLine"
-                                                                id="priestAsPersonlandLine"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fax No. :</td>
-                                                <td><form:input path="priestAsPerson.faxNo"
-                                                                id="priestAsPersonfaxNo"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Name :</td>
-                                                <td><form:input path="emergencyContact.name"
-                                                                id="emergencyContactname"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 1 :</td>
-                                                <td><form:input path="emergencyContact.addressLineOne"
-                                                                id="emergencyContactaddressLineOne"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 2 :</td>
-                                                <td><form:input path="emergencyContact.addressLineTwo"
-                                                                id="emergencyContactaddressLineTwo"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 3 :</td>
-                                                <td><form:input path="emergencyContact.addressLineThree"
-                                                                id="emergencyContactaddressLineThree"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email :</td>
-                                                <td><form:input path="emergencyContact.email"
-                                                                id="emergencyContactemail"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile No. :</td>
-                                                <td><form:input path="emergencyContact.mobileNo"
-                                                                id="emergencyContactmobileNo"
-                                                                value=""/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Land Line No. :</td>
-                                                <td><form:input path="emergencyContact.landLineNo"
-                                                                id="emergencyContactlandLineNo"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                            <h3>Local Address</h3>
-
-                            <div>
-                                <section class="contentDoc ">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Address Line 1 :</td>
-                                                <td><form:input path="localAddress.addressLineOne"
-                                                                id="localAddressaddressLineOne"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 2 :</td>
-                                                <td><form:input path="localAddress.addressLineTwo"
-                                                                id="localAddressaddressLineTwo"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 3 :</td>
-                                                <td><form:input path="localAddress.addressLineThree"
-                                                                id="localAddressaddressLineThree"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Town:</td>
-                                                <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>County:</td>
-                                                <td><form:input path="localAddress.county"
-                                                                id="localAddresscounty"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pin code:</td>
-                                                <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country:</td>
-                                                <td><form:input path="localAddress.country"
-                                                                id="localAddresscountry"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                            <h3>Native Address</h3>
-
-                            <div>
-                                <section class="contentDoc ">
-                                    <div class="mainConte">
-                                        <table>
-                                            <tr>
-                                                <td>Address Line 1 :</td>
-                                                <td><form:input path="nativeAddress.addressLineOne"
-                                                                id="nativeAddressaddressLineOne"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 2 :</td>
-                                                <td><form:input path="nativeAddress.addressLineTwo"
-                                                                id="nativeAddressaddressLineTwo"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address Line 3 :</td>
-                                                <td><form:input path="nativeAddress.addressLineThree"
-                                                                id="nativeAddressaddressLineThree"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Post Office :</td>
-                                                <td><form:input path="nativeAddress.postOffice"
-                                                                id="nativeAddresspostOffice"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>District :</td>
-                                                <td><form:input path="nativeAddress.district"
-                                                                id="nativeAddressdistrict"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>State :</td>
-                                                <td><form:input path="nativeAddress.state"
-                                                                id="nativeAddressstate"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Country :</td>
-                                                <td><form:input path="nativeAddress.country"
-                                                                id="nativeAddresscountry"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pin code :</td>
-                                                <td><form:input path="nativeAddress.pin" id="nativeAddresspin"/></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-                        <p>
-                            <input type="submit" value="Add" class="filterbutton"/>
-                        </p>
-
-
-                    </form:form>
+        <div id="widgetarea">
+            <div class="widget">
+                <div class="widget-heading">
+                    <a href="javascript:;" data-toggle="collapse" data-target="#accsummary"><h4>Search Panel</h4></a>
                 </div>
-                <div id="tabs-2" class="contentTabs">
-                    <table id="priestGrid"></table>
-                    <div id="priestGridPager"></div>
+                <div class="widget-body collapse in" id="accsummary">
+                    Search Criteria Entries shows here in this panel
                 </div>
+            </div>
 
-            </div>
-        </div>
-        <div class="footer ui-layout-south">
-            <h3>SEARCH PANEL</h3>
 
-            <div class="filter_left">
-            </div>
-            <div class="filter_left bottomElementsPanel">
-                <table>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Find</button>
-                        </td>
-                        <%--<td>
-                            Test
-                        </td>
-                        <td>
-                            <select>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                            </select>
-                        </td>
-                        <td>
-                            Test
-                        </td>
-                        <td>
-                            <input type="text"/>
-                        </td>--%>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Print</button>
-                        </td>
-                        <%-- <td>
-                             Test
-                         </td>
-                         <td>
-                             <select>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                             </select>
-                         </td>
-                         <td>
-                             Test
-                         </td>
-                         <td>
-                             <input type="text"/>
-                         </td>--%>
-                    </tr>
-                </table>
-            </div>
-            <div class="bottomRight">
-
-            </div>
-            <div class="clear"></div>
         </div>
     </div>
-</div>
+    <!-- END RIGHTBAR -->
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container padding7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-body noborder nopadding">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape nomargin">
+                                                    <div class="panel-heading">
+                                                        <h4>Priest Information</h4>
+                                                    </div>
+                                                    <div class="panel-body nopadding">
+                                                        <table id="priestGrid"></table>
+                                                        <div id="priestGridPager"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+
+            <div class="container padding7 paddingTop0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#priest1" data-toggle="tab"><i
+                                                    class="fa fa-list visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Personal Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#priest2" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Contact Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#priest3" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Local Address</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#priest4" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Native Address</span></a>
+                                        </li>
+                                    </ul>
+                                </h4>
+                            </div>
+
+                            <div class="panel-body padding7">
+
+                                <form:form modelAttribute="priest"
+                                           action="${priestActionURL}" method="post"
+                                           id="priestForm" class="form-horizontal nomargin">
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="priest1">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>Personal Details</h4>
+                                                    </div>
+                                                    <div class="panel-body padding7">
+                                                        <div class="form-group">
+                                                            <label for="priestStatus"
+                                                                   class="col-sm-2 control-label">Priest Status</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="priestStatus"
+                                                                             id="priestStatus" class="form-control">
+                                                                    <form:option value="Active"
+                                                                                 selected="selected">Active</form:option>
+                                                                    <form:option
+                                                                            value="Transferred">Transferred</form:option>
+                                                                    <form:option
+                                                                            value="Not-Active">Not-Active</form:option>
+                                                                </form:select>
+                                                            </div>
+                                                            <label for="priestID" class="col-sm-2 control-label">Priest
+                                                                ID</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="priestID"
+                                                                            id="priestID"
+                                                                            readonly="true"
+                                                                            placeholder="auto generated value"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.salutation"
+                                                                   class="col-sm-2 control-label">Salutation</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select
+                                                                        path="priestAsPerson.salutation"
+                                                                        id="priestAsPerson.salutation"
+                                                                        class="form-control">
+                                                                    <form:option value="Rev."
+                                                                                 selected="selected">Rev.</form:option>
+                                                                    <form:option value="Rev. Dr.">Rev. Dr.</form:option>
+                                                                </form:select>
+                                                            </div>
+                                                            <label for="priestAsPersonfirstName"
+                                                                   class="col-sm-2 control-label">First Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.firstName"
+                                                                        id="priestAsPersonfirstName"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPersonmiddleName"
+                                                                   class="col-sm-2 control-label">Middle Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.middleName"
+                                                                        id="priestAsPersonmiddleName"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="priestAsPersonlastName"
+                                                                   class="col-sm-2 control-label">Last Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.lastName"
+                                                                        id="priestAsPersonlastName"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPersondateOfBirth"
+                                                                   class="col-sm-2 control-label">Date of Birth</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.dateOfBirth"
+                                                                        id="priestAsPersondateOfBirth"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="familyName" class="col-sm-2 control-label">Family
+                                                                Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="familyName"
+                                                                        id="familyName" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPersonplaceOfBirth"
+                                                                   class="col-sm-2 control-label">Place of Birth</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.placeOfBirth"
+                                                                        id="priestAsPersonplaceOfBirth"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="priestAsPersongender"
+                                                                   class="col-sm-2 control-label">Gender</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:radiobuttons
+                                                                        path="priestAsPerson.gender"
+                                                                        id="priestAsPersongender" items="${sex}"
+                                                                        class="form-control"/>
+
+                                                               <%-- <form:radiobutton path="priestAsPerson.gender"
+                                                                                  id="priestAsPersongender"
+                                                                                  value="Female" class="form-control"/>Female--%>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.nationality"
+                                                                   class="col-sm-2 control-label">Nationality</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.nationality"
+                                                                        id="priestAsPersonnationality"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="designation" class="col-sm-2 control-label">Designation</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="designation"
+                                                                             items="${priestDesignation}"
+                                                                             class="form-control"></form:select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="parishId"
+                                                                   class="col-sm-2 control-label">Parish</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="parishId"
+                                                                             items="${parishList}" class="form-control"
+                                                                        ></form:select>
+                                                            </div>
+                                                            <label for="priestAsPerson.educationQualifications"
+                                                                   class="col-sm-2 control-label">Education
+                                                                Qualifications</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:textarea
+                                                                        path="priestAsPerson.educationQualifications"
+                                                                        id="priestAsPersoneducationQualifications"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.jobDetails"
+                                                                   class="col-sm-2 control-label">Job Details</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:textarea
+                                                                        path="priestAsPerson.jobDetails"
+                                                                        id="priestAsPersonjobDetails"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="priestAsPerson.personalStatus"
+                                                                   class="col-sm-2 control-label">Personal
+                                                                Status</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select
+                                                                        path="priestAsPerson.personalStatus"
+                                                                        id="personalStatus" class="form-control">
+                                                                    <form:option value="Priest"
+                                                                                 selected="selected">Priest</form:option>
+                                                                </form:select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.bloodGroup"
+                                                                   class="col-sm-2 control-label">Blood Group</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select
+                                                                        path="priestAsPerson.bloodGroup"
+                                                                        id="bloodGroup" class="form-control">
+                                                                    <form:option value="select">--select--</form:option>
+                                                                    <form:option value="O-">O-</form:option>
+                                                                    <form:option value="O+">O+</form:option>
+                                                                    <form:option value="A-">A-</form:option>
+                                                                    <form:option value="A+">A+</form:option>
+                                                                    <form:option value="B-">B-</form:option>
+                                                                    <form:option value="B+">B+</form:option>
+                                                                    <form:option value="AB-">AB-</form:option>
+                                                                    <form:option value="AB+">AB+</form:option>
+                                                                </form:select>
+                                                            </div>
+                                                            <label for="priestAsPerson.carNumber"
+                                                                   class="col-sm-2 control-label">Car Number</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.carNumber" id="carNumber"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.lifeStatus"
+                                                                   class="col-sm-2 control-label">Life Status</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select
+                                                                        path="priestAsPerson.lifeStatus"
+                                                                        id="lifeStatus" class="form-control">
+                                                                    <form:option value="Live"
+                                                                                 selected="selected">Live</form:option>
+                                                                    <form:option value="Late">Late</form:option>
+                                                                </form:select>
+                                                            </div>
+                                                            <label for="priestAsPerson.personalRemarks"
+                                                                   class="col-sm-2 control-label">Personal
+                                                                Remarks</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:textarea
+                                                                        path="priestAsPerson.personalRemarks"
+                                                                        id="personalRemarks" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="dateOfOrdination"
+                                                                   class="col-sm-2 control-label">Date of
+                                                                Ordination</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="dateOfOrdination"
+                                                                        id="dateOfOrdination" class="form-control"/>
+                                                            </div>
+                                                            <label for="feastDay" class="col-sm-2 control-label">Feast
+                                                                Day</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="feastDay"
+                                                                            id="feastDay" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="heavenlyPatron"
+                                                                   class="col-sm-2 control-label">Heavenly
+                                                                Patron</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="heavenlyPatron"
+                                                                            id="heavenlyPatron" class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeDiocese" class="col-sm-2 control-label">Native
+                                                                Diocese</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeDiocese"
+                                                                            id="nativeDiocese" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="congregation"
+                                                                   class="col-sm-2 control-label">Congregation</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="congregation"
+                                                                            id="congregation" class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeParish" class="col-sm-2 control-label">Native
+                                                                Parish</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeParish"
+                                                                            id="nativeParish" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nativePlace"
+                                                                   class="col-sm-2 control-label">Native Place</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativePlace"
+                                                                            id="nativePlace" class="form-control"/>
+                                                            </div>
+                                                            <label for="priestCardValidity"
+                                                                   class="col-sm-2 control-label">Card Validity</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestCardValidity"
+                                                                        id="priestCardValidity" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="ordainedToDiocese"
+                                                                   class="col-sm-2 control-label">Ordained To
+                                                                Diocese</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="ordainedToDiocese"
+                                                                        id="ordainedToDiocese" class="form-control"/>
+                                                            </div>
+                                                            <label for="fatherName" class="col-sm-2 control-label">Father's
+                                                                Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="fatherName"
+                                                                            id="fatherName" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="motherName"
+                                                                   class="col-sm-2 control-label">Mother's Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="motherName"
+                                                                            id="motherName" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="priest2">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Contact Details</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.email"
+                                                                   class="col-sm-2 control-label">Email</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.email"
+                                                                        id="priestAsPersonemail" class="form-control"/>
+                                                            </div>
+                                                            <label for="priestAsPerson.mobileNo"
+                                                                   class="col-sm-2 control-label">Mobile No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.mobileNo"
+                                                                        id="priestAsPersonmobileNo"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="priestAsPerson.landLine"
+                                                                   class="col-sm-2 control-label">Land Line No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.landLine"
+                                                                        id="priestAsPersonlandLine"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="priestAsPerson.faxNo"
+                                                                   class="col-sm-2 control-label">Fax No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="priestAsPerson.faxNo"
+                                                                        id="priestAsPersonfaxNo" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="emergencyContact.name"
+                                                                   class="col-sm-2 control-label">Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.name"
+                                                                        id="emergencyContactname" class="form-control"/>
+                                                            </div>
+                                                            <label for="emergencyContact.addressLineOne"
+                                                                   class="col-sm-2 control-label">Address Line 1</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.addressLineOne"
+                                                                        id="emergencyContactaddressLineOne"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="emergencyContact.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Address Line 2</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.addressLineTwo"
+                                                                        id="emergencyContactaddressLineTwo"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="emergencyContact.addressLineThree"
+                                                                   class="col-sm-2 control-label">Address Line 3</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.addressLineThree"
+                                                                        id="emergencyContactaddressLineThree"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="emergencyContact.email"
+                                                                   class="col-sm-2 control-label">Email</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.email"
+                                                                        id="emergencyContactemail"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="emergencyContact.mobileNo"
+                                                                   class="col-sm-2 control-label">Mobile No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.mobileNo"
+                                                                        id="emergencyContactmobileNo"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="emergencyContact.landLineNo"
+                                                                   class="col-sm-2 control-label">Land Line No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="emergencyContact.landLineNo"
+                                                                        id="emergencyContactlandLineNo"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="priest3">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Local Address</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineOne"
+                                                                   class="col-sm-2 control-label">Address Line 1</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineOne"
+                                                                            id="localAddressaddressLineOne"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Address Line 2</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineTwo"
+                                                                            id="localAddressaddressLineTwo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">Address Line 3</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineThree"
+                                                                            id="localAddressaddressLineThree"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.town"
+                                                                   class="col-sm-2 control-label">Town</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.town"
+                                                                            id="localAddresstown" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.county"
+                                                                   class="col-sm-2 control-label">County</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.county"
+                                                                            id="localAddresscounty"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.pin"
+                                                                   class="col-sm-2 control-label">Pin code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.pin" id="localAddresspin"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.country"
+                                                                   class="col-sm-2 control-label">Country</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.country"
+                                                                            id="localAddresscountry"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="priest4">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Native Address</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <label for="nativeAddress.addressLineOne"
+                                                                   class="col-sm-2 control-label">Address Line 1</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.addressLineOne"
+                                                                            id="nativeAddressaddressLineOne"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeAddress.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Address Line 2</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.addressLineTwo"
+                                                                            id="nativeAddressaddressLineTwo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nativeAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">Address Line 3</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.addressLineThree"
+                                                                            id="nativeAddressaddressLineThree"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeAddress.postOffice"
+                                                                   class="col-sm-2 control-label">Post Office</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.postOffice"
+                                                                            id="nativeAddresspostOffice"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nativeAddress.district"
+                                                                   class="col-sm-2 control-label">District</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.district"
+                                                                            id="nativeAddressdistrict"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeAddress.state"
+                                                                   class="col-sm-2 control-label">State</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.state"
+                                                                            id="nativeAddressstate"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nativeAddress.country"
+                                                                   class="col-sm-2 control-label">Country</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.country"
+                                                                            id="nativeAddresscountry"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="nativeAddress.pin"
+                                                                   class="col-sm-2 control-label">Pin code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="nativeAddress.pin"
+                                                                            id="nativeAddresspin" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row nomargin">
+                                            <div class="col-md-12 text-left">
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">SAVE
+                                                </button>
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">RESET
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- container -->
+            </div>
+            <!-- container -->
+        </div>
+        <!--wrap -->
+    </div>
+    <!-- page-content -->
+
+    <%@include
+            file="footerPanelTemplate.jsp" %>
+
+</div>
 </body>
+
+
 </html>

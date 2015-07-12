@@ -48,7 +48,7 @@ public class FamilyServiceImpl implements FamilyService {
             for (Family family : familyList) {
                 FamilyDto familyDto = new FamilyDto();
                 familyDto.setId(uniqueId);
-                familyDto.setFamilyID(family.getId());
+                familyDto.setFamilyID(family.getFamilyID());
                 familyDto.setFamilyName(family.getFamilyName());
                 familyDto.setDateOfRegistration(family.getDateOfRegistration());
                 familyDto.setDioceseIndia(family.getDioceseInNative());
@@ -96,5 +96,15 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public List<Family> getFamilyForFamilyID(Long familyId) {
         return familyDao.getFamilyForFamilyID(familyId);
+    }
+
+    @Override
+    public List<Long> getAllFamiliesIDForParishID(Long parishId) {
+        return familyDao.getAllFamiliesIDForParishID(parishId);
+    }
+
+    @Override
+    public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
+        return familyDao.getAllFamilyIdsForPrayerUnitId(prayerUnitIds);
     }
 }

@@ -1,7 +1,11 @@
 package org.pms.models;
 
+import org.pms.enums.Gender;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 /**
@@ -34,7 +38,8 @@ public class Person implements Serializable {
     private String placeOfBirth;
 
     @Column(name = "gender")
-    private String gender;
+    @Enumerated(value = EnumType.ORDINAL)
+    private Gender gender;
 
     @Column(name = "photo_location")
     private String photoPathLocation;
@@ -128,11 +133,11 @@ public class Person implements Serializable {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

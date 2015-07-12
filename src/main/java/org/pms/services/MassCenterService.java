@@ -33,4 +33,6 @@ public interface MassCenterService {
 
     MassCenter createMassCenterFormBackObject(Model model);
 
+    List<Long> getAllMassCenterIdsForParish(Long parishId);
+
 }

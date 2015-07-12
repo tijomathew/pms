@@ -24,4 +24,6 @@ public interface PrayerUnitDao {
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
     Long getPrayerUnitCountForMassCenter(Long massCenterId);
+
+    List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds);
 }

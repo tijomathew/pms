@@ -19,29 +19,50 @@ import java.util.List;
  */
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public UserDaoImpl() {
+        setType(User.class);
+    }
 
     @Override
     public boolean addUserDM(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        createAndSave(user);
         return true;
     }
 
     @Override
-    public User getUserByUserName(String userName) {
-        return (User) sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("userName", userName)).uniqueResult();
+    public User getUserByEmail(String email) {
+        return (User) getDb(true).createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
     }
 
     @Override
     public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession().createCriteria(User.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public Long getAllUserCount() {
-        return (Long)sessionFactory.getCurrentSession().createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(true).createCriteria(User.class).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Override
+    public List<User> getAllUsersForParishIds(List<Long> parishIds) {
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.parishId", parishIds)).list();
+    }
+
+    @Override
+    public List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds) {
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.massCenterId", massCenterIds)).list();
+    }
+
+    @Override
+    public List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds) {
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.prayerUnitId", prayerUnitIds)).list();
+    }
+
+    @Override
+    public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.familyId", familyIds)).list();
     }
 }

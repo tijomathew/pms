@@ -1,20 +1,22 @@
 package org.pms.controllers;
 
-import org.pms.constants.PageNames;
-import org.pms.constants.SystemRoles;
+import org.pms.enums.PageNames;
+import org.pms.enums.SystemRoles;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.*;
-import org.pms.services.FamilyService;
-import org.pms.services.MassCenterService;
-import org.pms.services.ParishService;
-import org.pms.services.PrayerUnitService;
+import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -38,48 +40,69 @@ public class FamilyController {
     private PrayerUnitService prayerUnitService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
+    private FactorySelectBox factorySelectBox;
+
+    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         model.addAttribute("family", new Family());
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            factorySelectBox.generateSelectBoxInModel(model, currentUser);
+        }
         return PageNames.FAMILY;
     }
 
     @RequestMapping(value = "/addfamily.action", method = RequestMethod.POST)
-    public String addFamily(@ModelAttribute("family") Family family, Model model) {
-        model.addAttribute("family", new Family());
-        Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
-        MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
-        PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
-        family.setFamilyParish(parishForFamily);
-        parishForFamily.addFamilyForParish(family);
-        family.setFamilyMassCenter(massCenterForFamily);
-        massCenterForFamily.addFamilyForMassCenter(family);
-        family.setFamilyPrayerUnit(prayerUnitForFamily);
-        prayerUnitForFamily.addFamilyForWard(family);
+    public
+    @ResponseBody
+    CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
+        CustomResponse res = null;
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+        if (!result.hasErrors()) {
+            model.addAttribute("family", new Family());
+            Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
+            MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
+            PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
+            family.setFamilyParish(parishForFamily);
+            parishForFamily.addFamilyForParish(family);
+            family.setFamilyMassCenter(massCenterForFamily);
+            massCenterForFamily.addFamilyForMassCenter(family);
+            family.setFamilyPrayerUnit(prayerUnitForFamily);
+            prayerUnitForFamily.addFamilyForWard(family);
 
-        String attachedStringToID = prayerUnitForFamily.getPrayerUnitCode() + "-FA";
-        Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
-        if (familyCounterForParish < 10) {
-            attachedStringToID += "0";
-        }
+            Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
 
-        family.setFamilyID(attachedStringToID + (++familyCounterForParish));
+            family.setFamilyID(++familyCounterForParish);
 
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
-        boolean permissionDenied = false;
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
-            permissionDenied = true;
-        }
-
-        if (!permissionDenied) {
             familyService.addFamilySM(family);
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+                factorySelectBox.generateSelectBoxInModel(model, currentUser);
+            }
+
+            //TODO check whether the user is already assigned with a family.
+
+            currentUser.setFamilyId(family.getId());
+            userService.addUserSM(currentUser);
+
         } else {
-            //show the error that family cannot be add by family admin. He can edit only his information.
+           /* res.setStatus("FAIL");*/
+            List<FieldError> allErrors = result.getFieldErrors();
+            for (FieldError objectError : allErrors) {
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+            }
+            res = new CustomResponse("FAIL", customErrorMessages);
+
         }
-        return PageNames.FAMILY;
+
+        return res;
     }
 
     @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
@@ -88,7 +111,7 @@ public class FamilyController {
     String generateParishSelectBox() {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
         List<Parish> parishList = new ArrayList<>();
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             parishList.add(parishService.getParishForIDSM(currentUser.getParishId()));
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
@@ -96,7 +119,7 @@ public class FamilyController {
         } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
             PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             parishList.add(prayerUnit.getMappedMassCenter().getMappedParish());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             Family family = familyService.getFamilyForID(currentUser.getFamilyId());
             parishList.add(family.getFamilyParish());
         } else {
@@ -118,12 +141,12 @@ public class FamilyController {
         User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
         if (selectedParishID != 0l) {
             List<MassCenter> massCenterListForParishID = new ArrayList<>();
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
                 massCenterListForParishID.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
             } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
                 PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
                 massCenterListForParishID.add(prayerUnitOfCurrentUser.getMappedMassCenter());
-            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
                 Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
                 massCenterListForParishID.add(familyOfCurrentUser.getFamilyMassCenter());
             } else {
@@ -146,7 +169,7 @@ public class FamilyController {
         if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
             PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             prayerUnitList.add(prayerUnitOfCurrentUser);
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
             prayerUnitList.add(familyOfCurrentUser.getFamilyPrayerUnit());
         } else {
@@ -181,7 +204,7 @@ public class FamilyController {
             List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
             allFamilies.addAll(allFamiliesUnderPrayerUnit);
             totalFamilyCount = allFamilies.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_ADMIN)) {
+        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
             allFamilies.add(familyService.getFamilyForID(currentUser.getFamilyId()));
             totalFamilyCount = 1;
         }
@@ -189,13 +212,13 @@ public class FamilyController {
         List<FamilyDto> familyDtoList = familyService.createFamilyDto(allFamilies);
         List<GridRow> familyGridRows = new ArrayList<GridRow>(familyDtoList.size());
 
-        List<FamilyDto> allFamilySublist = new ArrayList<>();
+        List<FamilyDto> allFamilySubList = new ArrayList<>();
 
         if (totalFamilyCount > 0) {
-            allFamilySublist = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
+            allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
         }
 
-        for (FamilyDto familyDto : allFamilySublist) {
+        for (FamilyDto familyDto : allFamilySubList) {
             familyGridRows.add(new FamilyWrapper(familyDto));
         }
 

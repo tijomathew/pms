@@ -1,301 +1,372 @@
-<%--  
+<%--
+  Created by IntelliJ IDEA.
   User: tijo
-  Date: 5/10/14
-  Time: 11:49 AM  
+  Date: 26/6/15
+  Time: 10:53 AM
+  To change this template use File | Settings | File Templates.
 --%>
 <%@include file="tagLibraryTemplate.jsp" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title id="title">Mass Center</title>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <%@include file="scriptlibraryTemplate.jsp" %>
+    <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
+    <spring:url value="/resources/js/createmasscentergridlayout.js" var="masscenterGridURL"/>
+    <spring:url value="/addmasscenter.action" var="massCenterActionURL"/>
 
-    <script src="<c:url value="/resources/js/masscentervalidator.js" />" type="text/javascript"
+    <script src="${masscenterGridURL}" type="text/javascript"
             language="javascript"></script>
 
-    <script src="<c:url value="/resources/js/priestdesignationdisplay.js" />" type="text/javascript"
+    <script src="${priestdesignationdisplayURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            $("#massCenterAccordian").accordion();
-            jQuery('#ui-id-2').bind("click", function () {
-                loadMassCenterGrid();
-            });
+            loadMassCenterGrid();
+
             jQuery('#parishSelectBox').change(function () {
                 loadPriestDesignationBoxes('${pageContext.request.contextPath}');
             });
 
+            globalSubmissionOfForms('massCenterForm', '${massCenterActionURL}', 'massCenterGrid');
+
         });
-
-        function loadMassCenterGrid() {
-
-            jQuery("#massCenterGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayMassCenterGrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['Mass Center ID', 'Mass CenterName','patronName','place','facebookPage','registeredDate','drivingRoute','map','landLineNo','mobileNo','email','faxNo','parishName','localAddress'],
-                        colModel: [
-
-                            {name: 'massCenterID', index: 'massCenterID', width: 90},
-                            {name: 'massCenterName', index: 'massCenterName', width: 100},
-                            {name: 'patronName', index: 'patronName', width: 90},
-                            {name: 'place', index: 'place', width: 90},
-                            {name: 'facebookPage', index: 'facebookPage', width: 90},
-                            {name: 'registeredDate', index: 'registeredDate', width: 90},
-                            {name: 'drivingRoute', index: 'drivingRoute', width: 90},
-                            {name: 'map', index: 'map', width: 90},
-                            {name: 'landLineNo', index: 'landLineNo', width: 90},
-                            {name: 'mobileNo', index: 'mobileNo', width: 90},
-                            {name: 'email', index: 'email', width: 90},
-                            {name: 'faxNo', index: 'faxNo', width: 90},
-                            {name: 'parishName', index: 'parishName', width: 90},
-                            {name: 'localAddress', index: 'localAddress', width: 90},
-
-
-
-
-                        ],
-                        rowNum: 2,
-                        pager: '#massCenterGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Mass Centers",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {edit: true, add: true, del: true});
-        }
-
 
     </script>
 
 </head>
+
 <body>
 
-<%@include file="toolbarTemplate.jsp" %>
+<%@include file="headerTemplate.jsp" %>
 
-<%@include file="menupanelTemplate.jsp" %>
+<div id="page-container">
 
-<div class="outer-center">
-    <div class="middle-center">
-        <div class="inner-center">
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
-            <div id="tabs" class="contentTabs">
-                <ul class="tabHead">
-                    <li><a href="#tabs-1">Mass Center Registration</a></li>
-                    <li><a href="#tabs-2">Mass Center View</a></li>
-                </ul>
-                <div id="tabs-1" class="contentTabs">
-                    <form:form modelAttribute="massCenter"
-                               action="${pageContext.request.contextPath}/addmasscenter.action" method="post"
-                               id="massCenterForm1">
-                        <div id="massCenterAccordian">
-                            <h3>Mass Center Details</h3>
-                        <div>
-                            <section class="contentDoc ">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Mass Center Name :</td>
-                                            <td><form:input path="name" id="name"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Code :</td>
-                                            <td><form:input path="centerCode" id="centerCode"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center ID :</td>
-                                            <td><form:input path="massCenterID" id="massCenterID" readonly="true"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Place :</td>
-                                            <td><form:input path="place" id="place"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Patron Name :</td>
-                                            <td><form:input path="patronName" id="patronName"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Land Line No. :</td>
-                                            <td><form:input path="landLineNo" id="landLineNo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Mobile No. :</td>
-                                            <td><form:input path="mobileNo" id="mobileNo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Email :</td>
-                                            <td><form:input path="email" id="email"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center Fax No. :</td>
-                                            <td><form:input path="faxNo" id="faxNo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Facebook Page :</td>
-                                            <td><form:input path="facebookPage" id="facebookPage"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Registered Date :</td>
-                                            <td><form:input path="registeredDate" id="registeredDate"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Driving Route :</td>
-                                            <td><form:input path="drivingRoute" id="drivingRoute"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Map :</td>
-                                            <td><form:input path="map" id="map"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish:</td>
-                                            <td><form:select path="parish" items="${parishList}"
-                                                             id="parishSelectBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Priest :</td>
-                                            <td id="priestSelectBox">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                            <h3>Local Address</h3>
-                        <div>
-                            <section class="contentDoc">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Address Line 1 :</td>
-                                            <td><form:input path="localAddress.addressLineOne"
-                                                            id="localAddressaddressLineOne"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 2 :</td>
-                                            <td><form:input path="localAddress.addressLineTwo"
-                                                            id="localAddressaddressLineTwo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 3 :</td>
-                                            <td><form:input path="localAddress.addressLineThree"
-                                                            id="localAddressaddressLineThree"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Town:</td>
-                                            <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>County:</td>
-                                            <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pin code:</td>
-                                            <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country:</td>
-                                            <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                       </div>
-                        <p>
-                            <input type="submit" value="Add" class="filterbutton"/>
-                        </p>
+    <!-- BEGIN RIGHTBAR -->
+    <div id="page-rightbar">
 
-
-                    </form:form>
+        <div id="widgetarea">
+            <div class="widget">
+                <div class="widget-heading">
+                    <a href="javascript:;" data-toggle="collapse" data-target="#accsummary"><h4>Search Panel</h4></a>
                 </div>
-                <div id="tabs-2" class="contentTabs">
-                    <table id="massCenterGrid"></table>
-                    <div id="massCenterGridPager"></div>
+                <div class="widget-body collapse in" id="accsummary">
+                    Search Criteria Entries shows here in this panel
                 </div>
+            </div>
 
-            </div>
-        </div>
-        <div class="footer ui-layout-south">
-            <h3>SEARCH PANEL</h3>
 
-            <div class="filter_left">
-            </div>
-            <div class="filter_left bottomElementsPanel">
-                <table>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Find</button>
-                        </td>
-                        <%--<td>
-                            Test
-                        </td>
-                        <td>
-                            <select>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                            </select>
-                        </td>
-                        <td>
-                            Test
-                        </td>
-                        <td>
-                            <input type="text"/>
-                        </td>--%>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Print</button>
-                        </td>
-                        <%-- <td>
-                             Test
-                         </td>
-                         <td>
-                             <select>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                             </select>
-                         </td>
-                         <td>
-                             Test
-                         </td>
-                         <td>
-                             <input type="text"/>
-                         </td>--%>
-                    </tr>
-                </table>
-            </div>
-            <div class="bottomRight">
-
-            </div>
-            <div class="clear"></div>
         </div>
     </div>
+    <!-- END RIGHTBAR -->
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container padding7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-body noborder nopadding">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape nomargin">
+                                                    <div class="panel-heading">
+                                                        <h4>Mass Center Information</h4>
+                                                    </div>
+                                                    <div class="panel-body nopadding">
+                                                        <table id="massCenterGrid"></table>
+                                                        <div id="massCenterGridPager"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container padding7 paddingTop0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#masscenter1" data-toggle="tab"><i
+                                                    class="fa fa-list visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Mass Center Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#masscenter2" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Local Address</span></a>
+                                        </li>
+                                    </ul>
+                                </h4>
+                            </div>
+                            <div class="panel-body padding7">
+
+                                <form:form modelAttribute="massCenter"
+                                           action="${massCenterActionURL}" method="post"
+                                           id="massCenterForm" cssClass="form-horizontal nomargin">
+
+                                    <div class="tab-content">
+
+                                        <div class="tab-pane active" id="masscenter1">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>Mass Center Details</h4>
+                                                    </div>
+                                                    <div class="panel-body padding7">
+
+                                                        <div class="form-group">
+                                                            <label for="name" class="col-sm-2 control-label">Mass Center
+                                                                Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="name" id="name" class="form-control"/>
+                                                            </div>
+                                                            <label for="centerCode" class="col-sm-2 control-label">Mass
+                                                                Center Code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="centerCode" id="centerCode"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="massCenterID" class="col-sm-2 control-label">Mass
+                                                                Center ID</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="massCenterID" id="massCenterID"
+                                                                            readonly="true" class="form-control"/>
+                                                            </div>
+                                                            <label for="place" class="col-sm-2 control-label">Mass
+                                                                Center Place</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="place" id="place"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="patronName" class="col-sm-2 control-label">Patron
+                                                                Name</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="patronName" id="patronName"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="landLineNo" class="col-sm-2 control-label">Mass
+                                                                Center Land Line No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="landLineNo" id="landLineNo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="mobileNo" class="col-sm-2 control-label">Mass
+                                                                Center Mobile No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="mobileNo" id="mobileNo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="email" class="col-sm-2 control-label">Mass
+                                                                Center Email</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="email" id="email"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="faxNo" class="col-sm-2 control-label">Mass
+                                                                Center Fax No.</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="faxNo" id="faxNo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="landLineNo" class="col-sm-2 control-label">Facebook
+                                                                Page</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="facebookPage" id="facebookPage"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="registeredDate" class="col-sm-2 control-label">Registered
+                                                                Date</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="registeredDate" id="registeredDate"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="drivingRoute" class="col-sm-2 control-label">Driving
+                                                                Route</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="drivingRoute" id="drivingRoute"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="map" class="col-sm-2 control-label">Map</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="map" id="map" class="form-control"/>
+                                                            </div>
+                                                            <label for="drivingRoute" class="col-sm-2 control-label">Parish</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="parish" items="${parishList}"
+                                                                             id="parishSelectBox" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="map"
+                                                                   class="col-sm-2 control-label">Priest</label>
+
+                                                            <div class="col-sm-4">
+                                                                <div id="priestSelectBox">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="masscenter2">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape marginBottom7">
+                                                    <div class="panel-heading">
+                                                        <h4>
+                                                            Local Address</h4>
+                                                    </div>
+                                                    <div class="panel-body">
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineOne"
+                                                                   class="col-sm-2 control-label">Address Line 1</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineOne"
+                                                                            id="localAddressaddressLineOne"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Address Line 2</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineTwo"
+                                                                            id="localAddressaddressLineTwo"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">Address Line 3</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.addressLineThree"
+                                                                            id="localAddressaddressLineThree"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.addressLineTwo"
+                                                                   class="col-sm-2 control-label">Town</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.town"
+                                                                            id="localAddresstown" class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">County</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.county"
+                                                                            id="localAddresscounty"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                            <label for="localAddress.pin"
+                                                                   class="col-sm-2 control-label">Pin code</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.pin" id="localAddresspin"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="localAddress.addressLineThree"
+                                                                   class="col-sm-2 control-label">Country</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="localAddress.country"
+                                                                            id="localAddresscountry"
+                                                                            class="form-control"/>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row nomargin">
+                                            <div class="col-md-12 text-left">
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">SAVE
+                                                </button>
+                                                <button type="submit" value="Save"
+                                                        class="btn btn-primary defaultButtonWidth">RESET
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- container -->
+            </div>
+            <!-- container -->
+        </div>
+        <!--wrap -->
+    </div>
+
+    <%@include file="footerPanelTemplate.jsp" %>
+
 </div>
 
 </body>

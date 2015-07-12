@@ -15,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private UserDto userDto;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id","userName","systemRole","isActive","email"};
+    private String[] VALID_BEAN_PROPERTIES = {"systemRole", "isActive", "email"};
 
     public UserWrapper(UserDto userDto) {
         this.userDto = userDto;
@@ -27,8 +27,7 @@ public class UserWrapper implements GridRow {
     }
 
     @Override
-    public List<String> getGridRow(Integer type)
-    {
+    public List<String> getGridRow(Integer type) {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {

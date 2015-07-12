@@ -1,320 +1,440 @@
-<%--  
+<%--
+  Created by IntelliJ IDEA.
   User: tijo
-  Date: 12/10/14
-  Time: 10:39 PM  
+  Date: 25/6/15
+  Time: 9:29 AM
+  To change this template use File | Settings | File Templates.
 --%>
+
 <%@include file="tagLibraryTemplate.jsp" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title id="title">Family</title>
+    <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <%@include file="scriptlibraryTemplate.jsp" %>
+    <spring:url value="/addfamily.action" var="familyActionURL"/>
+    <spring:url value="/resources/js/createfamilygridlayout.js" var="familyGridURL"/>
+    <spring:url value="/resources/js/familyselectbox.js" var="familySelectBox"/>
 
-    <script src="<c:url value="/resources/js/familyvalidator.js" />" type="text/javascript"
+    <script src="${familySelectBox}" type="text/javascript"
             language="javascript"></script>
-    <script src="<c:url value="/resources/js/familyselectbox.js" />" type="text/javascript"
+
+    <script src="${familyGridURL}" type="text/javascript"
             language="javascript"></script>
 
-    <c:set var="loadBox" value="false"/>
-    <%-- <c:if test="${loadBox==true}">--%>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#familyAccordian").accordion();
+            <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
             loadSelectBox("${pageContext.request.contextPath}");
-        });
-    </script>
-    <%-- </c:if>--%>
+            </c:if>
 
-
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery('#ui-id-2').bind("click", function () {
-                loadFamilyGrid();
-            });
+            loadFamilyGrid();
+            globalSubmissionOfForms('familyForm', '${familyActionURL}', 'familyGrid');
 
         });
-
-        function loadFamilyGrid() {
-
-            jQuery("#familyGrid").jqGrid(
-                    {
-                        jsonreader: {
-                            root: "rows",
-                            repeatitems: true,
-                            cell: "cells",
-                            id: "id"
-
-
-                        },
-                        url: '${pageContext.request.contextPath}/displayfamilygrid.action',
-                        autoencode: true,
-                        mtype: 'GET',
-                        datatype: 'json',
-                        rowList: [2, 4, 6],
-                        colNames: ['Family ID', 'Family Name', 'parishInNative', 'dioceseInNative', 'dateOfRegistration', 'parishLocal', "massCenter", "prayerUnit", "localAddress", "nativeAddress"],
-                        colModel: [
-
-                            {name: 'familyID', index: 'familyID', width: 90},
-                            {name: 'familyName', index: 'familyName', width: 100},
-                            {name: 'parishInNative', index: 'parishInNative', width: 100},
-                            {name: 'dioceseInNative', index: 'dioceseInNative', width: 100},
-                            {name: 'dateOfRegistration', index: 'dateOfRegistration', width: 100},
-                            {name: 'parishLocal', index: 'parishLocal', width: 100},
-                            {name: 'massCenter', index: 'massCenter', width: 100},
-                            {name: 'prayerUnit', index: 'prayerUnit', width: 100},
-                            {name: 'localAddress', index: 'localAddress', width: 100},
-                            {name: 'nativeAddress', index: 'nativeAddress', width: 100},
-                        ],
-                        rowNum: 2,
-                        pager: '#familyGridPager',
-                        sortname: 'id',
-                        viewrecords: true,
-                        sortorder: "desc",
-                        caption: "Families",
-                        autowidth: true,
-                        shrinkToFit: true,
-                        height: 'auto',
-                        width: 'auto'
-                    });
-            jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {edit: true, add: true, del: true});
-        }
-
-
     </script>
+
 
 </head>
+
 <body>
-<%@include file="toolbarTemplate.jsp" %>
 
+<%@include file="headerTemplate.jsp" %>
 
-<%@include file="menupanelTemplate.jsp" %>
+<div id="page-container">
 
-<div class="outer-center">
-    <div class="middle-center">
-        <div class="inner-center">
-            <div id="tabs" class="contentTabs">
-                <ul class="tabHead">
-                    <li><a href="#tabs-1">Family Registration</a></li>
-                    <li><a href="#tabs-2">Family View</a></li>
-                </ul>
-                <div id="tabs-1" class="contentTabs">
-                    <form:form modelAttribute="family"
-                               action="${pageContext.request.contextPath}/addfamily.action" method="post"
-                               id="familyForm1">
-                        <div id="familyAccordian">
-                            <h3>Family Details</h3>
-                        <div>
-                            <section class="contentDoc">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Family Name :</td>
-                                            <td><form:input path="familyName" id="familyName" class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Native Parish :</td>
-                                            <td><form:input path="parishInNative" id="parishInNative"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Native Diocese :</td>
-                                            <td><form:input path="dioceseInNative" id="dioceseInNative"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date Of Registration :</td>
-                                            <td><form:input path="dateOfRegistration" id="dateOfRegistration"
-                                                            class="textBox"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Parish :</td>
-                                            <td><form:select path="parishId"
-                                                             id="parishSelectBox"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass Center :</td>
-                                            <td><form:select path="massCenterId" id="massCenterSelectBox">
-                                                <option value="select">--Please select--</option>
-                                            </form:select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prayer Unit :</td>
-                                            <td><form:select path="prayerUnitId" id="wardSelectBox">
-                                                <option value="select">--Please select--</option>
-                                            </form:select>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                            <h3>Local Adderss</h3>
-                        <div>
-                            <section class="contentDoc">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Address Line 1 :</td>
-                                            <td><form:input path="localAddress.addressLineOne"
-                                                            id="localAddressaddressLineOne"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 2 :</td>
-                                            <td><form:input path="localAddress.addressLineTwo"
-                                                            id="localAddressaddressLineTwo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 3 :</td>
-                                            <td><form:input path="localAddress.addressLineThree"
-                                                            id="localAddressaddressLineThree"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Town:</td>
-                                            <td><form:input path="localAddress.town" id="localAddresstown"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>County:</td>
-                                            <td><form:input path="localAddress.county" id="localAddresscounty"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pin code:</td>
-                                            <td><form:input path="localAddress.pin" id="localAddresspin"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country:</td>
-                                            <td><form:input path="localAddress.country" id="localAddresscountry"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                            <h3>Native Address</h3>
-                        <div>
-                            <section class="contentDoc">
-                                <div class="mainConte">
-                                    <table>
-                                        <tr>
-                                            <td>Address Line 1 :</td>
-                                            <td><form:input path="nativeAddress.addressLineOne"
-                                                            id="nativeAddressaddressLineOne"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 2 :</td>
-                                            <td><form:input path="nativeAddress.addressLineTwo"
-                                                            id="nativeAddressaddressLineTwo"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address Line 3 :</td>
-                                            <td><form:input path="nativeAddress.addressLineThree"
-                                                            id="nativeAddressaddressLineThree"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Post Office :</td>
-                                            <td><form:input path="nativeAddress.postOffice"
-                                                            id="nativeAddresspostOffice"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>District :</td>
-                                            <td><form:input path="nativeAddress.district"
-                                                            id="nativeAddressdistrict"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>State :</td>
-                                            <td><form:input path="nativeAddress.state" id="nativeAddressstate"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country :</td>
-                                            <td><form:input path="nativeAddress.country"
-                                                            id="nativeAddresscountry"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pin code :</td>
-                                            <td><form:input path="nativeAddress.pin" id="nativeAddresspin"/></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </section>
-                        </div>
-                        </div>
-                        <p>
-                            <input type="submit" value="Add" class="filterbutton"/>
-                        </p>
+    <%@include file="leftMenuPanelTemplate.jsp" %>
 
+    <!-- BEGIN RIGHTBAR -->
+    <div id="page-rightbar">
 
-                    </form:form>
+        <div id="widgetarea">
+            <div class="widget">
+                <div class="widget-heading">
+                    <a href="javascript:;" data-toggle="collapse" data-target="#accsummary"><h4>Search Panel</h4></a>
                 </div>
-                <div id="tabs-2" class="contentTabs">
-                    <table id="familyGrid"></table>
-                    <div id="familyGridPager"></div>
+                <div class="widget-body collapse in" id="accsummary">
+                    Search Criteria Entries shows here in this panel
                 </div>
             </div>
-        </div>
-        <div class="footer ui-layout-south">
-            <h3>SEARCH PANEL</h3>
 
-            <div class="filter_left">
-            </div>
-            <div class="filter_left bottomElementsPanel">
-                <table>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Find</button>
-                        </td>
-                        <%--<td>
-                            Test
-                        </td>
-                        <td>
-                            <select>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                                <option>sdfjsdkf</option>
-                            </select>
-                        </td>
-                        <td>
-                            Test
-                        </td>
-                        <td>
-                            <input type="text"/>
-                        </td>--%>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="button" class="filterButton">Print</button>
-                        </td>
-                        <%-- <td>
-                             Test
-                         </td>
-                         <td>
-                             <select>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                                 <option>sdfjsdkf</option>
-                             </select>
-                         </td>
-                         <td>
-                             Test
-                         </td>
-                         <td>
-                             <input type="text"/>
-                         </td>--%>
-                    </tr>
-                </table>
-            </div>
-            <div class="bottomRight">
 
-            </div>
-            <div class="clear"></div>
         </div>
     </div>
+    <!-- END RIGHTBAR -->
+    <div id="page-content">
+        <div id='wrap'>
+            <div class="container padding7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-body noborder nopadding">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="panel panel-grape nomargin">
+                                                    <div class="panel-heading">
+                                                        <h4>Family Information</h4>
+                                                    </div>
+                                                    <div class="panel-body nopadding">
+                                                        <table id="familyGrid"></table>
+                                                        <div id="familyGridPager"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container padding7 paddingTop0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-midnightblue nomargin">
+                            <div class="panel-heading">
+                                <h4>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#family1" data-toggle="tab"><i
+                                                    class="fa fa-list visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Family Details</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#family2" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Local Address</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#family3" data-toggle="tab"><i
+                                                    class="fa fa-comments visible-xs icon-scale"></i><span
+                                                    class="hidden-xs">Native Address</span></a>
+                                        </li>
+                                    </ul>
+                                </h4>
+                            </div>
+                            <div class="panel-body padding7">
+
+                                <form:form modelAttribute="family"
+                                           action="${familyActionURL}" method="post"
+                                           id="familyForm" cssClass="form-horizontal nomargin">
+
+                                <div class="tab-content">
+
+                                    <div class="tab-pane active" id="family1">
+
+                                        <div class="col-md-12">
+                                            <div class="panel panel-grape marginBottom7">
+                                                <div class="panel-heading">
+                                                    <h4>Family Details</h4>
+                                                </div>
+                                                <div class="panel-body padding7">
+
+                                                    <div class="form-group">
+                                                        <label for="familyName" class="col-sm-2 control-label">Family
+                                                            Name</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="familyName" id="familyName"
+                                                                        class="form-control"/>
+                                                        </div>
+
+                                                        <label for="parishInNative" class="col-sm-2 control-label">Native
+                                                            Parish</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="parishInNative" id="parishInNative"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="dioceseInNative" class="col-sm-2 control-label">Native
+                                                            Diocese</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="dioceseInNative" id="dioceseInNative"
+                                                                        class="form-control"/>
+                                                        </div>
+
+                                                        <label for="dateOfRegistration" class="col-sm-2 control-label">Date
+                                                            Of Registration</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="dateOfRegistration"
+                                                                        id="dateOfRegistration" class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
+
+                                                    <div class="form-group">
+                                                        <label for="parishId"
+                                                               class="col-sm-2 control-label">Parish</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="parishId" id="parishSelectBox"
+                                                                         class="form-control">
+                                                                <option value="select">--Please select--</option>
+                                                            </form:select>
+                                                        </div>
+                                                        <label for="parishId" class="col-sm-2 control-label">Mass
+                                                            Center</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="massCenterId" id="massCenterSelectBox"
+                                                                         class="form-control">
+                                                                <option value="select">--Please select--</option>
+                                                            </form:select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="prayerUnitId" class="col-sm-2 control-label">Prayer
+                                                            Unit</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="prayerUnitId" id="wardSelectBox"
+                                                                         class="form-control">
+                                                                <option value="select">--Please select--</option>
+                                                            </form:select>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                </c:if>
+
+                                                <c:if test="${(showForPrayerUnitAdmin == true && showForFamilyUser == false)||(showForPrayerUnitAdmin == false && showForFamilyUser == true)}">
+
+
+                                                    <div class="form-group">
+                                                        <label for="parishId"
+                                                               class="col-sm-2 control-label">Parish</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="parishId" items="${parishList}"
+                                                                         class="form-control"></form:select>
+                                                        </div>
+                                                        <label for="massCenterId" class="col-sm-2 control-label">Mass
+                                                            Center</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="massCenterId" items="${massCenterList}"
+                                                                         class="form-control"></form:select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="prayerUnitId" class="col-sm-2 control-label">Prayer
+                                                            Unit</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:select path="prayerUnitId" items="${prayerUnitList}"
+                                                                         class="form-control"></form:select>
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="family2">
+
+                                        <div class="col-md-12">
+                                            <div class="panel panel-grape marginBottom7">
+                                                <div class="panel-heading">
+                                                    <h4>
+                                                        Local Address</h4>
+                                                </div>
+                                                <div class="panel-body">
+
+                                                    <div class="form-group">
+                                                        <label for="localAddress.addressLineOne"
+                                                               class="col-sm-2 control-label">Address Line 1</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.addressLineOne"
+                                                                        id="localAddressaddressLineOne"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                        <label for="localAddress.addressLineTwo"
+                                                               class="col-sm-2 control-label">Address Line 2</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.addressLineTwo"
+                                                                        id="localAddressaddressLineTwo"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="localAddress.addressLineThree"
+                                                               class="col-sm-2 control-label">Address Line 3</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.addressLineThree"
+                                                                        id="localAddressaddressLineThree"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                        <label for="localAddress.town" class="col-sm-2 control-label">Town</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.town" id="localAddresstown"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="localAddress.county" class="col-sm-2 control-label">County</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.county"
+                                                                        id="localAddresscounty" class="form-control"/>
+                                                        </div>
+                                                        <label for="localAddress.pin" class="col-sm-2 control-label">Pin
+                                                            code</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.pin" id="localAddresspin"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="localAddress.country"
+                                                               class="col-sm-2 control-label">Country</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="localAddress.country"
+                                                                        id="localAddresscountry" class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-pane" id="family3">
+
+                                        <div class="col-md-12">
+                                            <div class="panel panel-grape marginBottom7">
+                                                <div class="panel-heading">
+                                                    <h4>
+                                                        Native Address</h4>
+                                                </div>
+                                                <div class="panel-body">
+
+                                                    <div class="form-group">
+                                                        <label for="nativeAddress.addressLineOne"
+                                                               class="col-sm-2 control-label">Address Line 1</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.addressLineOne"
+                                                                        id="nativeAddressaddressLineOne"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                        <label for="nativeAddress.addressLineTwo"
+                                                               class="col-sm-2 control-label">Address Line 2</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.addressLineTwo"
+                                                                        id="nativeAddressaddressLineTwo"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nativeAddress.addressLineThree"
+                                                               class="col-sm-2 control-label">Address Line 3</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.addressLineThree"
+                                                                        id="nativeAddressaddressLineThree"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                        <label for="nativeAddress.postOffice"
+                                                               class="col-sm-2 control-label">Post Office</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.postOffice"
+                                                                        id="nativeAddresspostOffice"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nativeAddress.district"
+                                                               class="col-sm-2 control-label">District</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.district"
+                                                                        id="nativeAddressdistrict"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                        <label for="nativeAddress.state" class="col-sm-2 control-label">State</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.state"
+                                                                        id="nativeAddressstate" class="form-control"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nativeAddress.country"
+                                                               class="col-sm-2 control-label">Country</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.country"
+                                                                        id="nativeAddresscountry" class="form-control"/>
+                                                        </div>
+                                                        <label for="nativeAddress.pin" class="col-sm-2 control-label">Pin
+                                                            code</label>
+
+                                                        <div class="col-sm-4">
+                                                            <form:input path="nativeAddress.pin" id="nativeAddresspin"
+                                                                        class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row nomargin">
+                                    <div class="col-md-12 text-left">
+                                        <button type="submit" value="Save"
+                                                class="btn btn-primary defaultButtonWidth">SAVE
+                                        </button>
+                                        <button type="submit" value="Save"
+                                                class="btn btn-primary defaultButtonWidth">RESET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- container -->
+        </div>
+        <!--wrap -->
+    </div>
+    <!-- page-content -->
+
+    <%@include file="footerPanelTemplate.jsp" %>
+
 </div>
+
 </body>
 </html>

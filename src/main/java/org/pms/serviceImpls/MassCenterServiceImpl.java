@@ -1,8 +1,7 @@
 package org.pms.serviceImpls;
 
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.daos.MassCenterDao;
-import org.pms.daos.ParishDao;
 import org.pms.daos.PriestDao;
 import org.pms.dtos.MassCenterDto;
 import org.pms.helpers.RequestResponseHolder;
@@ -145,17 +144,18 @@ public class MassCenterServiceImpl implements MassCenterService {
         }
 
         if (parishForMassCenter != null) {
-            String attachedStringToID = parishForMassCenter.getParishID() + "-MC";
             Long massCenterCount = getMassCenterCountForParish(parishForMassCenter.getId());
-            if (massCenterCount < 10) {
-                attachedStringToID += "0";
-            }
-            formBackMassCenter.setMassCenterID(attachedStringToID + (++massCenterCount));
+            formBackMassCenter.setMassCenterID(++massCenterCount);
         }
     }
 
     @Override
     public Long getAllMassCenterCount() {
         return massCenterDao.getAllMassCenterCount();
+    }
+
+    @Override
+    public List<Long> getAllMassCenterIdsForParish(Long parishId) {
+        return massCenterDao.getAllMassCenterIdsForParish(parishId);
     }
 }

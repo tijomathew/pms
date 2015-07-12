@@ -37,8 +37,6 @@ public class ParishDto {
         this.parishWebsite = parishWebsite;
         this.parishCode = parishCode;
         this.parishPlace = parishPlace;
-        this.parishDrivingRoute = parishDrivingRoute;
-        this.parishMap = parishMap;
         this.registeredDate = registeredDate;
         this.mobileNo = mobileNo;
         this.parishEmail = parishEmail;

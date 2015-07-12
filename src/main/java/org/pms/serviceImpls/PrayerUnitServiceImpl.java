@@ -1,11 +1,10 @@
 package org.pms.serviceImpls;
 
-import org.pms.constants.SystemRoles;
+import org.pms.enums.SystemRoles;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.MassCenter;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
@@ -70,19 +69,18 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> wardList) throws IllegalArgumentException {
-        List<PrayerUnitDto> prayerUnitDtoList = new ArrayList<PrayerUnitDto>(wardList.size());
-        if (!wardList.isEmpty()) {
+    public List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> prayerUnitList) throws IllegalArgumentException {
+        List<PrayerUnitDto> prayerUnitDtoList = new ArrayList<PrayerUnitDto>(prayerUnitList.size());
+        if (!prayerUnitList.isEmpty()) {
             Integer uniqueId = 0;
-            for (PrayerUnit ward : wardList) {
+            for (PrayerUnit prayerUnit : prayerUnitList) {
                 PrayerUnitDto prayerUnitDto = new PrayerUnitDto();
                 prayerUnitDto.setId(uniqueId);
-                prayerUnitDto.setWardID(ward.getId());
-                prayerUnitDto.setWardCode(ward.getPrayerUnitCode());
-                prayerUnitDto.setWardName(ward.getPrayerUnitName());
-                prayerUnitDto.setWardPlace(ward.getPrayerUnitPlace());
-                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(ward.getLocalAddress(),7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
-                prayerUnitDto.setMassCenterName(ward.getMappedMassCenter().getName());
+                prayerUnitDto.setPrayerUnitID(prayerUnit.getPrayerUnitCode());
+                prayerUnitDto.setPrayerUnitName(prayerUnit.getPrayerUnitName());
+                prayerUnitDto.setPrayerUnitPlace(prayerUnit.getPrayerUnitPlace());
+                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(prayerUnit.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
+                prayerUnitDto.setMassCenterName(prayerUnit.getMappedMassCenter().getName());
                 prayerUnitDtoList.add(prayerUnitDto);
                 uniqueId += 1;
             }
@@ -141,5 +139,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         }
         modelMap.addAttribute("massCenterMap", massCenterMap);
         return formBackPrayerUnit;
+    }
+
+    @Override
+    public List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds) {
+        return prayerUnitDao.getAllPrayerUnitIdsForMassCenterIds(massCenterIds);
     }
 }

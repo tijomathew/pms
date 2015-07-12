@@ -18,50 +18,53 @@ import java.util.List;
  */
 
 @Repository
-public class ParishDaoImpl implements ParishDao {
+public class ParishDaoImpl extends GenericDaoImpl<Parish> implements ParishDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    @Override
-    public boolean addParishDM(Parish parish) {
-        sessionFactory.getCurrentSession().saveOrUpdate(parish);
-        return true;
+    public ParishDaoImpl() {
+        setType(Parish.class);
     }
 
     @Override
+    public boolean addParishDM(Parish parish) {
+        createAndSave(parish);
+        return true;
+    }
+
+    //TODO remove priest related dao operations from parish DAO.
+    @Override
     public Priest getPriestDM(String priestID) {
-        return (Priest) sessionFactory.getCurrentSession().createCriteria(Priest.class).add(Restrictions.eq("priestID", priestID)).uniqueResult();
+        return (Priest) getDb(false).createCriteria(Priest.class).add(Restrictions.eq("priestID", priestID)).uniqueResult();
     }
 
     @Override
     public boolean updatePriestForParish(Priest priest) {
-        sessionFactory.getCurrentSession().saveOrUpdate(priest);
+        getDb(false).saveOrUpdate(priest);
         return true;
     }
 
     @Override
     public List<Parish> getAllParish() {
-        return sessionFactory.getCurrentSession().createCriteria(Parish.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(false).createCriteria(Parish.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public Parish getParishForIDDM(Long id) {
-        return (Parish) sessionFactory.getCurrentSession().createCriteria(Parish.class, "parish").add(Restrictions.eq("parish.id", id)).uniqueResult();
+        return (Parish) getDb(false).createCriteria(Parish.class, "parish").add(Restrictions.eq("parish.id", id)).uniqueResult();
     }
 
     @Override
     public Long getParishCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Parish.class).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(Parish.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
     public void updateParish(Parish parish) {
-        sessionFactory.getCurrentSession().saveOrUpdate(parish);
+        getDb(false).saveOrUpdate(parish);
     }
 
     @Override
     public Parish getParishByParishID(String parishID) {
-        return (Parish) sessionFactory.getCurrentSession().createCriteria(Parish.class, "parish").add(Restrictions.eq("parish.parishID", parishID)).uniqueResult();
+        return (Parish) getDb(false).createCriteria(Parish.class, "parish").add(Restrictions.eq("parish.parishID", parishID)).uniqueResult();
     }
+
 }

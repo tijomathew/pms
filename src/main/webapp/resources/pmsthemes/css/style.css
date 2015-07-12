@@ -26,6 +26,21 @@ a{
 	text-decoration:none;
 }
 .clear{clear:both}
+.noborder{
+    border:0px !important;
+}
+.nopadding{
+    padding:0px !important;
+}
+.padding7{
+    padding:7px !important;
+}
+.marginBottom7{
+    margin-bottom:7px !important;
+}
+.marginTop7{
+    margin-top:7px !important;
+}
 /*----------------------------------------------*/
 .loginWrapper{
 	width:400px;

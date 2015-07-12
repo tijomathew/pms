@@ -24,6 +24,4 @@ public interface ParishService {
     Long getParishCount();
 
     void updateParish(Parish parish);
-
-    Parish createParishFormBackObjectModel(Model model);
 }

@@ -19,54 +19,65 @@ import java.util.List;
  */
 
 @Repository
-public class FamilyDaoImpl implements FamilyDao {
+public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    public FamilyDaoImpl() {
+        setType(Family.class);
+    }
 
     @Override
     public boolean addFamilyDM(Family family) {
-        sessionFactory.getCurrentSession().save(family);
+        createAndSave(family);
         return true;
     }
 
     @Override
     public List<Family> getAllFamilies() {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return readAllInstances();
     }
 
     @Override
     public Family getFamilyForID(Long id) {
-        return (Family) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.id", id)).uniqueResult();
+        return (Family) getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.id", id)).uniqueResult();
     }
 
     @Override
     public Long getFamilyTotalCount() {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
     public Long getFamilyCountForParish(Long parishId) {
-        return (Long) sessionFactory.getCurrentSession().createCriteria(Family.class, "family").setProjection(Projections.rowCount()).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.rowCount()).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
     }
 
     @Override
     public List<Family> getAllFamilyForParishID(Long parishId) {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyParish.id", parishId)).list();
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyParish.id", parishId)).list();
     }
 
     @Override
     public List<Family> getAllFamilyForMassCenterID(Long massCenterId) {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCenter.id", massCenterId)).list();
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCenter.id", massCenterId)).list();
     }
 
     @Override
     public List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId) {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitId)).list();
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitId)).list();
     }
 
     @Override
     public List<Family> getFamilyForFamilyID(Long familyId) {
-        return sessionFactory.getCurrentSession().createCriteria(Family.class, "family").add(Restrictions.eq("family.id", familyId)).list();
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.id", familyId)).list();
+    }
+
+    @Override
+    public List<Long> getAllFamiliesIDForParishID(Long parishId) {
+        return getDb(false).createCriteria(Family.class, "family").setProjection(Projections.property("id")).add(Restrictions.eq("family.familyParish.id", parishId)).list();
+    }
+
+    @Override
+    public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
+        return getDb(false).createCriteria(Family.class, "family").setProjection(Projections.property("id")).add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitIds)).list();
     }
 }

@@ -8,5 +8,5 @@ import org.pms.models.User;
  */
 public interface LoginDao {
 
-    public User getUserByUsernameDM(String loginUserName);
+    public User getUserByUserEmail(String loginUserEmail);
 }
