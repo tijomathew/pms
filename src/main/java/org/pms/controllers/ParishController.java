@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
 import org.pms.error.CustomErrorMessage;
@@ -46,7 +46,7 @@ public class ParishController {
     public String parishPageDisplay(Model model) {
         model.addAttribute("parish", new Parish());
         model.addAttribute("showAddButton", true);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
 
     @RequestMapping(value = "/addparish.action", method = RequestMethod.POST)
@@ -78,11 +78,11 @@ public class ParishController {
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Parish> allParishes = new ArrayList<>();
         Long totalParishCount = 0l;
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allParishes = parishService.getAllParish();
             totalParishCount = parishService.getParishCount();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             allParishes.add(parishService.getParishForIDSM(currentUser.getParishId()));
             //since user is parish Admin, only one parish will be assigned to the user. So data base access is not required to show the total count in the UI.
             totalParishCount = 1l;
@@ -126,14 +126,14 @@ public class ParishController {
         Parish parishToEdit = parishService.getParishForIDSM(parishName);
         model.addAttribute("parish", parishToEdit);
         model.addAttribute("showUpdateButton", true);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
 
     @RequestMapping(value = "/updateparishinformation.action", method = RequestMethod.POST)
     public String updateParish(@ModelAttribute("parish") Parish parish, Model model) {
         parishService.addParishSM(parish);
         model.addAttribute("showUpdateButton", false);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
 
 

@@ -1,5 +1,6 @@
 package org.pms.services;
 
+import org.pms.enums.PageName;
 import org.pms.models.User;
 
 /**
@@ -8,5 +9,5 @@ import org.pms.models.User;
  */
 public interface LoginService {
 
-    String verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword);
+    PageName verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword);
 }

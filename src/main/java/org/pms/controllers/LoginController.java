@@ -1,8 +1,8 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
@@ -67,7 +67,7 @@ public class LoginController {
     public String loginPageDisplay(Model model) {
         logger.debug("application creates the login user form back object and redirects to the login page");
         model.addAttribute("loginUser", new User());
-        return PageNames.LOGIN;
+        return PageName.LOGIN.toString();
     }
 
     /**
@@ -81,7 +81,7 @@ public class LoginController {
     @RequestMapping(value = "loggedin.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
         logger.debug("authenticating and authorizing the user in the system");
-        String redirectPageName = StringUtils.EMPTY;
+        PageName redirectPageName = PageName.LOGIN;
         requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
 
         try {
@@ -106,31 +106,31 @@ public class LoginController {
         }*/
 
 
-        return redirectPageName;
+        return redirectPageName.toString();
     }
 
-    private void createFormBackObjectForRedirectPage(Model model, String redirectPageName) {
+    private void createFormBackObjectForRedirectPage(Model model, PageName redirectPageName) {
         switch (redirectPageName) {
-            case PageNames.LOGIN:
+            case LOGIN:
                 model.addAttribute("loginUser", new User());
                 break;
-            case PageNames.PARISH:
+            case PARISH:
                 model.addAttribute("showAddButton", true);
                 model.addAttribute("parish", new Parish());
                 break;
-            case PageNames.MASSCENTER:
+            case MASSCENTER:
                 MassCenter formBackMassCenter = massCenterService.createMassCenterFormBackObject(model);
                 model.addAttribute("massCenter", formBackMassCenter);
                 break;
-            case PageNames.PRAYERUNIT:
+            case PRAYERUNIT:
                 PrayerUnit formBackPrayerUnit = prayerUnitService.createPrayerUnitFormBackObject(model);
                 model.addAttribute("prayerUnit", formBackPrayerUnit);
                 break;
-            case PageNames.FAMILY:
+            case FAMILY:
                 model.addAttribute("family", new Family());
-                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class));
+                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
                 break;
-            case PageNames.MEMBER:
+            case MEMBER:
                 model.addAttribute("member", new Member());
                 factorySelectBox.createSelectBox(model);
                 break;

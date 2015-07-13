@@ -1,8 +1,8 @@
 package org.pms.serviceImpls;
 
-import org.pms.enums.SystemRoles;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.enums.SystemRole;
 import org.pms.models.MassCenter;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.Parish;
@@ -111,14 +111,14 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
         List<MassCenter> massCenterList = new ArrayList<>();
 
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
             Parish parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
             massCenterList = parishForMassCenter.getMassCenterList();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) {
             massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) {
             PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             massCenterList.add(prayerUnit.getMappedMassCenter());
             Long prayerUnitCounter = getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());

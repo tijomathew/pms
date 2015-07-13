@@ -139,13 +139,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="priestStatus"
-                                                                             id="priestStatus" class="form-control">
-                                                                    <form:option value="Active"
-                                                                                 selected="selected">Active</form:option>
-                                                                    <form:option
-                                                                            value="Transferred">Transferred</form:option>
-                                                                    <form:option
-                                                                            value="Not-Active">Not-Active</form:option>
+                                                                             id="priestStatus" class="form-control" items="${priestStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestID" class="col-sm-2 control-label">Priest
@@ -160,17 +154,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="priestAsPerson.salutation"
+                                                            <label for="priestSalutation"
                                                                    class="col-sm-2 control-label">Salutation</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:select
-                                                                        path="priestAsPerson.salutation"
-                                                                        id="priestAsPerson.salutation"
-                                                                        class="form-control">
-                                                                    <form:option value="Rev."
-                                                                                 selected="selected">Rev.</form:option>
-                                                                    <form:option value="Rev. Dr.">Rev. Dr.</form:option>
+                                                                        path="priestSalutation"
+                                                                        id="priestSalutation"
+                                                                        class="form-control" items="${priestSalutation}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPersonfirstName"
@@ -240,10 +231,6 @@
                                                                         path="priestAsPerson.gender"
                                                                         id="priestAsPersongender" items="${sex}"
                                                                         class="form-control"/>
-
-                                                               <%-- <form:radiobutton path="priestAsPerson.gender"
-                                                                                  id="priestAsPersongender"
-                                                                                  value="Female" class="form-control"/>Female--%>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -301,9 +288,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.personalStatus"
-                                                                        id="personalStatus" class="form-control">
-                                                                    <form:option value="Priest"
-                                                                                 selected="selected">Priest</form:option>
+                                                                        id="personalStatus" class="form-control" items="${personalStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -314,16 +299,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.bloodGroup"
-                                                                        id="bloodGroup" class="form-control">
-                                                                    <form:option value="select">--select--</form:option>
-                                                                    <form:option value="O-">O-</form:option>
-                                                                    <form:option value="O+">O+</form:option>
-                                                                    <form:option value="A-">A-</form:option>
-                                                                    <form:option value="A+">A+</form:option>
-                                                                    <form:option value="B-">B-</form:option>
-                                                                    <form:option value="B+">B+</form:option>
-                                                                    <form:option value="AB-">AB-</form:option>
-                                                                    <form:option value="AB+">AB+</form:option>
+                                                                        id="bloodGroup" class="form-control" items="${bloodGroup}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPerson.carNumber"
@@ -342,10 +318,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.lifeStatus"
-                                                                        id="lifeStatus" class="form-control">
-                                                                    <form:option value="Live"
-                                                                                 selected="selected">Live</form:option>
-                                                                    <form:option value="Late">Late</form:option>
+                                                                        id="lifeStatus" class="form-control" items="${lifeStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPerson.personalRemarks"

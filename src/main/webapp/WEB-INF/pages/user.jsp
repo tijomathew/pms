@@ -165,18 +165,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="systemRole"
-                                                                             id="systemRole" class="form-control">
-                                                                    <form:option value="Family User">Family
-                                                                        User</form:option>
-                                                                    <form:option value="Parish Admin">Parish
-                                                                        Admin</form:option>
-                                                                    <form:option
-                                                                            value="Mass Center Admin">Mass Center
-                                                                        Admin</form:option>
-                                                                    <form:option
-                                                                            value="Prayer Unit Admin">Prayer Unit
-                                                                        Admin</form:option>
-
+                                                                             id="systemRole" class="form-control" items="${systemRoles}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="isActive"
@@ -184,10 +173,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="isActive"
-                                                                             id="isActive" class="form-control">
-                                                                    <form:option value="Active">Active</form:option>
-                                                                    <form:option
-                                                                            value="De-active">De-active</form:option>
+                                                                             id="isActive" class="form-control" items="${systemRoleStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>

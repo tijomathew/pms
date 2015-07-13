@@ -198,12 +198,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select path="memberAsPerson.salutation"
                                                                              id="memberAsPerson.salutation"
-                                                                             class="form-control">
-                                                                    <form:option value="Mr."
-                                                                                 selected="selected">Mr.</form:option>
-                                                                    <form:option value="Mrs.">Mrs.</form:option>
-                                                                    <form:option value="Master">Master</form:option>
-                                                                    <form:option value="Miss.">Miss.</form:option>
+                                                                             class="form-control" items="${salutation}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.firstName"
@@ -243,18 +238,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select path="relationshipInFamily"
                                                                              id="relationshipInFamily"
-                                                                             class="form-control">
-                                                                    <form:option value="Head of Family"
-                                                                                 selected="selected">Family Head</form:option>
-                                                                    <form:option
-                                                                            value="Spouse">Husband</form:option>
-                                                                    <form:option value="Son">Wife</form:option>
-                                                                    <form:option value="Daughter">Son</form:option>
-                                                                    <form:option
-                                                                            value="Cousin">Daughter</form:option>
-                                                                    <form:option
-                                                                            value="Relative">Father</form:option>
-                                                                    <form:option value="Friend">Mother</form:option>
+                                                                             class="form-control" items="${relationshipInFamily}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.dateOfBirth"
@@ -293,14 +277,10 @@
                                                                    class="col-sm-2 control-label">Gender</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:radiobutton
+                                                                <form:radiobuttons
                                                                         path="memberAsPerson.gender"
                                                                         id="memberAsPersongender"
-                                                                        value="Male" class="form-control"/>Male
-                                                                <form:radiobutton
-                                                                        path="memberAsPerson.gender"
-                                                                        id="memberAsPersongender"
-                                                                        value="Female" class="form-control"/>Female
+                                                                        value="Male" class="form-control" items="${sex}"/>
                                                             </div>
                                                             <label for="memberAsPerson.nationality"
                                                                    class="col-sm-2 control-label">Nationality</label>
@@ -343,18 +323,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.personalStatus"
-                                                                        id="personalStatus" class="form-control">
-                                                                    <form:option
-                                                                            value="Single"
-                                                                            selected="selected">Single</form:option>
-                                                                    <form:option
-                                                                            value="Married">Married</form:option>
-                                                                    <form:option
-                                                                            value="Student">Student</form:option>
-                                                                    <form:option
-                                                                            value="Divorsed">Divorsed</form:option>
-                                                                    <form:option
-                                                                            value="Other">Other</form:option>
+                                                                        id="personalStatus" class="form-control" items="${personalStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.bloodGroup"
@@ -363,25 +332,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.bloodGroup"
-                                                                        id="bloodGroup" class="form-control">
-                                                                    <form:option
-                                                                            value="select">--select--</form:option>
-                                                                    <form:option
-                                                                            value="O-">O-</form:option>
-                                                                    <form:option
-                                                                            value="O+">O+</form:option>
-                                                                    <form:option
-                                                                            value="A-">A-</form:option>
-                                                                    <form:option
-                                                                            value="A+">A+</form:option>
-                                                                    <form:option
-                                                                            value="B-">B-</form:option>
-                                                                    <form:option
-                                                                            value="B+">B+</form:option>
-                                                                    <form:option
-                                                                            value="AB-">AB-</form:option>
-                                                                    <form:option
-                                                                            value="AB+">AB+</form:option>
+                                                                        id="bloodGroup" class="form-control" items="${bloodGroup}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -401,12 +352,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.lifeStatus"
-                                                                        id="lifeStatus" class="form-control">
-                                                                    <form:option
-                                                                            value="Live"
-                                                                            selected="selected">Live</form:option>
-                                                                    <form:option
-                                                                            value="Late">Late</form:option>
+                                                                        id="lifeStatus" class="form-control" items="${lifeStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>

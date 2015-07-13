@@ -1,6 +1,8 @@
 package org.pms.models;
 
 import org.joda.time.DateTime;
+import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +27,8 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "system_role")
-    private String systemRole;
+    @Enumerated(EnumType.ORDINAL)
+    private SystemRole systemRole;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -40,7 +43,7 @@ public class User implements Serializable {
     private Long updatedOn = new DateTime().getMillis();
 
     @Column(name = "is_active")
-    private String isActive;
+    private SystemRolesStatus isActive;
 
     @Column(name = "email")
     private String email;
@@ -85,11 +88,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getSystemRole() {
+    public SystemRole getSystemRole() {
         return systemRole;
     }
 
-    public void setSystemRole(String systemRole) {
+    public void setSystemRole(SystemRole systemRole) {
         this.systemRole = systemRole;
     }
 
@@ -125,11 +128,11 @@ public class User implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public String getIsActive() {
+    public SystemRolesStatus getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(SystemRolesStatus isActive) {
         this.isActive = isActive;
     }
 

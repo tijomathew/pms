@@ -1,6 +1,6 @@
 package org.pms.models;
 
-import org.pms.enums.Gender;
+import org.pms.enums.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -20,7 +20,8 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 966228303336553974L;
 
     @Column(name = "salutation", nullable = false)
-    private String salutation;
+    @Enumerated(EnumType.ORDINAL)
+    private PersonSalutation salutation;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -48,7 +49,8 @@ public class Person implements Serializable {
     private String nationality;
 
     @Column(name = "personal_status", nullable = true)
-    private String personalStatus;
+    @Enumerated(EnumType.ORDINAL)
+    private PersonalStatus personalStatus;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -69,13 +71,15 @@ public class Person implements Serializable {
     private String jobDetails;
 
     @Column(name = "blood_group")
-    private String bloodGroup;
+    @Enumerated(EnumType.STRING)
+    private BloodGroup bloodGroup;
 
     @Column(name = "car_number")
     private String carNumber;
 
     @Column(name = "life_status")
-    private String lifeStatus;
+    @Enumerated(EnumType.ORDINAL)
+    private LifeStatus lifeStatus;
 
     @Column(name = "personal_remarks")
     private String personalRemarks;
@@ -85,11 +89,11 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public String getSalutation() {
+    public PersonSalutation getSalutation() {
         return salutation;
     }
 
-    public void setSalutation(String salutation) {
+    public void setSalutation(PersonSalutation salutation) {
         this.salutation = salutation;
     }
 
@@ -157,11 +161,11 @@ public class Person implements Serializable {
         this.nationality = nationality;
     }
 
-    public String getPersonalStatus() {
+    public PersonalStatus getPersonalStatus() {
         return personalStatus;
     }
 
-    public void setPersonalStatus(String personalStatus) {
+    public void setPersonalStatus(PersonalStatus personalStatus) {
         this.personalStatus = personalStatus;
     }
 
@@ -213,11 +217,11 @@ public class Person implements Serializable {
         this.jobDetails = jobDetails;
     }
 
-    public String getBloodGroup() {
+    public BloodGroup getBloodGroup() {
         return bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
+    public void setBloodGroup(BloodGroup bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
 
@@ -229,11 +233,11 @@ public class Person implements Serializable {
         this.carNumber = carNumber;
     }
 
-    public String getLifeStatus() {
+    public LifeStatus getLifeStatus() {
         return lifeStatus;
     }
 
-    public void setLifeStatus(String lifeStatus) {
+    public void setLifeStatus(LifeStatus lifeStatus) {
         this.lifeStatus = lifeStatus;
     }
 

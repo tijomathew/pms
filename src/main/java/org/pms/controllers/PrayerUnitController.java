@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.error.CustomErrorMessage;
@@ -49,7 +49,7 @@ public class PrayerUnitController {
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
-        return PageNames.PRAYERUNIT;
+        return PageName.PRAYERUNIT.toString();
     }
 
 
@@ -70,10 +70,10 @@ public class PrayerUnitController {
 
             prayerUnit.setPrayerUnitCode(++prayerUnitCounter);
 
-            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
             boolean permissionDenied = false;
 
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
                 permissionDenied = true;
             }
             if (!permissionDenied) {
@@ -98,23 +98,23 @@ public class PrayerUnitController {
     public
     @ResponseBody
     Object generateJsonDisplayForWard(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<PrayerUnit> allPrayerUnits = new ArrayList<>();
         Integer totalRows = 0;
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allPrayerUnits = prayerUnitService.getAllPrayerUnits();
             totalRows = prayerUnitService.getPrayerUnitCount().intValue();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
             for (MassCenter massCenter : massCentersUnderParish) {
                 allPrayerUnits.addAll(massCenter.getPrayerUnits());
             }
             totalRows = allPrayerUnits.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
             allPrayerUnits.addAll(massCenter.getPrayerUnits());
             totalRows = allPrayerUnits.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             allPrayerUnits.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
             totalRows = 1;
         }

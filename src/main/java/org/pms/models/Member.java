@@ -1,6 +1,7 @@
 package org.pms.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.pms.enums.RelationShipInFamily;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +32,8 @@ public class Member implements Serializable {
     private Long memberID;
 
     @Column(name = "relationship_in_family")
-    private String relationshipInFamily;
+    @Enumerated(EnumType.ORDINAL)
+    private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
     private String dateOfBaptism;
@@ -223,11 +225,11 @@ public class Member implements Serializable {
         this.memberID = memberID;
     }
 
-    public String getRelationshipInFamily() {
+    public RelationShipInFamily getRelationshipInFamily() {
         return relationshipInFamily;
     }
 
-    public void setRelationshipInFamily(String relationshipInFamily) {
+    public void setRelationshipInFamily(RelationShipInFamily relationshipInFamily) {
         this.relationshipInFamily = relationshipInFamily;
     }
 

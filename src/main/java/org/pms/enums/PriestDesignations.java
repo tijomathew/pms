@@ -5,8 +5,8 @@ import org.apache.commons.lang3.text.WordUtils;
 /**
  * User: Cufa User.
  */
-public enum PriestSalutation {
-    REV, REV_DR;
+public enum PriestDesignations {
+    SUPPORTING_PRIEST, CO_ORDINATOR, CHAPLAIN;
 
     @Override
     public String toString() {

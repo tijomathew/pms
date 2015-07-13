@@ -1,6 +1,6 @@
 package org.pms.serviceImpls;
 
-import org.pms.enums.SystemRoles;
+import org.pms.enums.SystemRole;
 import org.pms.daos.ParishDao;
 import org.pms.dtos.ParishDto;
 import org.pms.helpers.RequestResponseHolder;
@@ -33,9 +33,9 @@ public class ParishServiceImpl implements ParishService {
 
     @Override
     public boolean addParishSM(Parish parish) {
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
         boolean permissionDenied = false;
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
             permissionDenied = true;
         }
         if (!permissionDenied) {

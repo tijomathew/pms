@@ -1,7 +1,6 @@
 package org.pms.controllers;
 
-import org.pms.enums.Gender;
-import org.pms.enums.PageNames;
+import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
 import org.pms.error.CustomErrorMessage;
@@ -52,7 +51,7 @@ public class PriestController {
         model.addAttribute("error", "please errorrrrr");
         mailService.sendUserCredentials(new User());*/
 
-        return PageNames.PRIEST;
+        return PageName.PRIEST.toString();
     }
 
 
@@ -61,7 +60,7 @@ public class PriestController {
 
         createPriestFormBackObject(model);
 
-        return PageNames.PRIEST;
+        return PageName.PRIEST.toString();
     }
 
     @RequestMapping(value = "/addpriest.action", method = RequestMethod.POST)
@@ -138,17 +137,16 @@ public class PriestController {
         for (Parish parish : addedParishes)
             parishMap.put(parish.getId(), parish.getName());
 
-        Map<String, String> priestDesignationsMap = new HashMap<>();
-        priestDesignationsMap.put("Please Select", "--Please Select--");
-        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
-        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
-        priestDesignationsMap.put("Chaplain", "Chaplain");
-
         model.addAttribute("parishList", parishMap);
-        model.addAttribute("priestDesignation", priestDesignationsMap);
+        model.addAttribute("priestDesignation", PriestDesignations.values());
 
-        Map referenceData = new HashMap();
+
         model.addAttribute("sex", Gender.values());
+        model.addAttribute("priestSalutation", PriestSalutation.values());
+        model.addAttribute("priestStatus", PriestStatus.values());
+        model.addAttribute("lifeStatus", LifeStatus.values());
+        model.addAttribute("personalStatus", PersonalStatus.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
     }
 
 }
