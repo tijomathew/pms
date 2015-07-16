@@ -9,5 +9,11 @@ import org.pms.models.User;
  */
 public interface LoginService {
 
-    PageName verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword);
+    User verifyLoggedInUser(String loginUserEmail, String loginUserPassword);
+
+    PageName getRedirectPageForLoggedInUser(User currentUser);
+
+    User getUserByEmail(String userEmail);
+
+    boolean verifyEmailIsPresent(String mail);
 }

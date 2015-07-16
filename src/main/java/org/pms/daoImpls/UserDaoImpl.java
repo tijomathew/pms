@@ -26,7 +26,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public boolean addUserDM(User user) {
+    public boolean addOrUpdateUserDM(User user) {
         createAndSave(user);
         return true;
     }
@@ -64,5 +64,10 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     @Override
     public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
         return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.familyId", familyIds)).list();
+    }
+
+    @Override
+    public Long verifyEmailIsPresent(String mailID) {
+        return (Long) getDb(true).createCriteria(User.class, "user").setProjection(Projections.rowCount()).add(Restrictions.eq("email", mailID)).uniqueResult();
     }
 }

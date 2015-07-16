@@ -3,6 +3,7 @@ package org.pms.serviceImpls;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.pms.applicationbuilder.PMSApplicationBuilder;
+import org.pms.daos.UserDao;
 import org.pms.enums.PageName;
 import org.pms.daos.LoginDao;
 import org.pms.enums.SystemRole;
@@ -27,6 +28,9 @@ public class LoginServiceImpl implements LoginService {
     private LoginDao loginDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @Qualifier("PMSApplicationBuilderImpl")
@@ -36,16 +40,37 @@ public class LoginServiceImpl implements LoginService {
     private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyUserRole"};
 
     @Override
-    public PageName verifyUserAndGetRedirectPageSM(String loginUserEmail, String loginUserPassword) throws IllegalArgumentException {
-        PageName redirectPageName = PageName.LOGIN;
+    public User verifyLoggedInUser(String loginUserEmail, String loginUserPassword) {
         User loggedInUser = loginDao.getUserByUserEmail(loginUserEmail);
         if (loggedInUser != null) {
-            if (DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserEmail.equalsIgnoreCase(loggedInUser.getEmail()))) {
-                createUserRoleInSession(loggedInUser);
-                redirectPageName = getRedirectedPageName(loggedInUser);
+            if (!DigestUtils.shaHex(loginUserPassword).equalsIgnoreCase(loggedInUser.getPassword()) && (loginUserEmail.equalsIgnoreCase(loggedInUser.getEmail()))) {
+                loggedInUser = null;
             }
         }
+        return loggedInUser;
+    }
+
+    @Override
+    public PageName getRedirectPageForLoggedInUser(User currentUser) throws IllegalArgumentException {
+        PageName redirectPageName;
+        if (currentUser.getAlreadyLoggedIn()) {
+            createUserRoleInSession(currentUser);
+            redirectPageName = getRedirectedPageName(currentUser);
+        } else {
+            redirectPageName = PageName.CHANGEPASSWORD;
+        }
         return redirectPageName;
+    }
+
+    @Override
+    public User getUserByEmail(String userEmail) {
+        return loginDao.getUserByUserEmail(userEmail);
+    }
+
+    @Override
+    public boolean verifyEmailIsPresent(String mail) {
+        Long mailCount = userDao.verifyEmailIsPresent(mail);
+        return mailCount.longValue() > 0;
     }
 
     private PageName getRedirectedPageName(User loggedInUser) {

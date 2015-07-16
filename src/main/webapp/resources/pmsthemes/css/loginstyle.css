@@ -1,0 +1,55 @@
+body {
+    background-color: #CECECE;
+}
+
+.mainPanel {
+    border-color: #314D68;
+    background-color: #F4F4F4;
+
+}
+
+.mainPanel .panel-title {
+    color: #fff;
+}
+
+.mainPanel .panel-heading a {
+    color: #fff;
+}
+
+#loginbox .headerBackground, .headerBackground {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003466+0,314d68+100 */
+    background: rgb(0, 52, 102); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 52, 102, 1)), color-stop(100%, rgba(49, 77, 104, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#003466', endColorstr='#314d68', GradientType=0); /* IE6-9 */
+}
+
+#loginbox .borderColor {
+    border-color: #314D68;
+}
+
+#forgotPass .modal-header {
+    background: #003466;
+    color: #fff;
+}
+
+#forgotPass .modal-content {
+    background-color: #F4F4F4;
+}
+
+.noborder {
+    border: 0 !important;
+}
+
+.buttonWidth {
+    width: 130px;
+}
+
+button.close {
+    color: #fff;
+    opacity: .7;
+}

@@ -9,85 +9,99 @@
 
     <title>PMS-Login</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <spring:url value="/resources/css/bootstrap.min.latest.css" var="bootstrapcsslatestUrl"/>
+    <spring:url value="/resources/css/bootstrap-theme.min.css" var="bootstrapthemeUrl"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link href="${bootstrapcsslatestUrl}" rel="stylesheet">
+    <link href="${bootstrapthemeUrl}" rel="stylesheet">
 
+    <spring:url value="/resources/js/jquery-1.10.2.min.js" var="jqueryURL"/>
+    <spring:url value="/forgotpassword.action" var="forgotPasswordActionURL"/>
 
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src="${jqueryURL}"></script>
 
-    <style>
-        body{
-            background-color: #CECECE;
-        }
-        .mainPanel{
-            border-color: #314D68;
-            background-color: #F4F4F4;
+    <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapURL"/>
+    <script type='text/javascript' src="${bootstrapURL}"></script>
 
-        }
-        .mainPanel .panel-title{
-            color:#fff;
-        }
-        .mainPanel .panel-heading a{
-            color:#fff;
-        }
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#failureforgotpassword').hide();
+            $('#successforgotpassword').hide();
+            $('#forgotPasswordContainer').show();
+            var $form = $('#forgotpasswordform');
+            $form.bind('submit', function (e) {
+                $.post('${forgotPasswordActionURL}', $form.serializeArray(), function (response) {
 
+                    if (response.statusMessage == 'FAIL') {
+                        $('#successforgotpassword').hide();
+                        $('#failureforgotpassword').show();
+                        return [true, "", ""];
 
+                    } else if (response.statusMessage == 'SUCCESS') {
+                        $('#failureforgotpassword').hide();
+                        $('#forgotPasswordContainer').hide();
+                        $('#successforgotpassword').show();
+                        return [true, "", ""];
 
-        #loginbox .headerBackground, .headerBackground {
-            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003466+0,314d68+100 */
-            background: rgb(0,52,102); /* Old browsers */
-            background: -moz-linear-gradient(top,  rgba(0,52,102,1) 0%, rgba(49,77,104,1) 100%); /* FF3.6+ */
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,52,102,1)), color-stop(100%,rgba(49,77,104,1))); /* Chrome,Safari4+ */
-            background: -webkit-linear-gradient(top,  rgba(0,52,102,1) 0%,rgba(49,77,104,1) 100%); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(top,  rgba(0,52,102,1) 0%,rgba(49,77,104,1) 100%); /* Opera 11.10+ */
-            background: -ms-linear-gradient(top,  rgba(0,52,102,1) 0%,rgba(49,77,104,1) 100%); /* IE10+ */
-            background: linear-gradient(to bottom,  rgba(0,52,102,1) 0%,rgba(49,77,104,1) 100%); /* W3C */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003466', endColorstr='#314d68',GradientType=0 ); /* IE6-9 */
-        }
-        #loginbox .borderColor{
-            border-color: #314D68;
-        }
-        #forgotPass .modal-header{
-            background: #003466;
-            color:#fff;
-        }
-        #forgotPass .modal-content{background-color: #F4F4F4;}
-        .noborder{border: 0 !important;}
-        .buttonWidth{width:130px;}
-        button.close{color:#fff;  opacity: .7;}
-    </style>
+                    }
+                }, 'json');
+                return false;
+            });
+            $('#forgotPasswordClicker').click(function(){
+                $('#failureforgotpassword').hide();
+                $('#successforgotpassword').hide();
+                $('#forgotPasswordContainer').show();
+            });
+        });
+    </script>
+
+    <spring:url value="/resources/css/loginstyle.css" var="loginStyleURL"/>
+    <link href="${loginStyleURL}" rel="stylesheet">
+
 </head>
 <body>
 
-
-<!-- Modal -->
 <div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Forgot password?</h4>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" placeholder="Email">
-                            <p class="text-danger" style="margin: 0;padding-top:3px;">Invalid Email</p>
+                <div id="forgotPasswordContainer">
+                <form:form modelAttribute="loginUser"
+                           action="${pageContext.request.contextPath}/forgotpassword.action"
+                           id="forgotpasswordform" method="post">
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email</label>
+
+                            <div class="col-sm-10">
+                                <form:input path="email" class="form-control" placeholder="Email"/>
+                                <div class="alert alert-danger" role="alert" id="failureforgotpassword">This mail ID is
+                                    invalid in our system. Please re-check the mail ID.
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
-
-
+                    <div class="modal-footer noborder" style="padding-top:0">
+                        <button type="button" class="btn btn-primary buttonWidth" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary buttonWidth">Send Mail</button>
+                    </div>
+                </form:form>
                 </div>
+                <div class="alert alert-success" role="alert" id="successforgotpassword">Password sent
+                    to your registered mail ID at our system.
+                </div>
+            </div>
 
-            </div>
-            <div class="modal-footer noborder" style="padding-top:0">
-                <button type="button" class="btn btn-primary buttonWidth" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary buttonWidth">Save changes</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -99,13 +113,11 @@
             <div class="panel-heading headerBackground">
                 <div class="panel-title">Sign In</div>
                 <div style="float:right; font-size: 80%; position: relative; top:-10px">
-                    <a data-toggle="modal" data-target="#forgotPass">Forgot password?</a>
+                    <a data-toggle="modal" data-target="#forgotPass" id="forgotPasswordClicker">Forgot password?</a>
                 </div>
             </div>
 
             <div style="padding-top:30px" class="panel-body">
-
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
                 <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
                            id="loginForm1">

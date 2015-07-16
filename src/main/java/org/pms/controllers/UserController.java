@@ -133,7 +133,7 @@ public class UserController {
         //Insert a User Role only if he is assigned with a single role from UI.
         if (insertUser && !userEmailAlreadyExists) {
             model.addAttribute("user", new User());
-            userService.addUserSM(user);
+            userService.addOrUpdateUserSM(user);
             user.setPassword(passwordBeforeHashing);
             if (user.getSystemRole() == SystemRole.FAMILY_USER) {
                 if (user.getSendMailFlag().equalsIgnoreCase("true")) {

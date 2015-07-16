@@ -39,4 +39,18 @@ public class MailServiceImpl implements MailService {
             System.out.println("---Errorrr from Mail Sending---");
         }
     }
+
+    @Override
+    public void sendForgotPassword(String mailID, String generatedPassword) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
+        try {
+            mailMsg.setTo(mailID);
+            mailMsg.setSubject("Reset Password to login to the Parish Management Software System in Ireland!!..");
+            mailMsg.setText("Password:- " + generatedPassword);
+            mailSender.send(mimeMessage);
+        } catch (Exception e) {
+            System.out.println("---Errorrr from Mail Sending---");
+        }
+    }
 }

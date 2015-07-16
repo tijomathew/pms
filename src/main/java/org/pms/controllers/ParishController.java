@@ -10,13 +10,19 @@ import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
 import org.pms.services.PriestService;
+import org.pms.validators.ParishValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.MessageCodesResolver;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
@@ -40,6 +46,9 @@ public class ParishController {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    MessageSource messageSource;
 
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
@@ -65,7 +74,7 @@ public class ParishController {
         } else {
             List<FieldError> allErrors = result.getFieldErrors();
             for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
+                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
             }
             res = new CustomResponse("FAIL", customErrorMessages);
         }
@@ -135,6 +144,11 @@ public class ParishController {
         model.addAttribute("showUpdateButton", false);
         return PageName.PARISH.toString();
     }
+
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setValidator(new ParishValidator());
+    }*/
 
 
 }

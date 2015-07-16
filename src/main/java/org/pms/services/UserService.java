@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    boolean addUserSM(User user);
+    boolean addOrUpdateUserSM(User user);
 
     User getUserByEmail(String email);
 

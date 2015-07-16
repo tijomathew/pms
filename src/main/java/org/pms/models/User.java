@@ -49,7 +49,7 @@ public class User implements Serializable {
     private String email;
 
     @Column(name = "already_loggedIn")
-    private Boolean isLoggedInForFirstTime = Boolean.FALSE;
+    private Boolean alreadyLoggedIn = Boolean.FALSE;
 
     @Column(name = "mapped_parish")
     private Long parishId;
@@ -69,8 +69,14 @@ public class User implements Serializable {
     @Transient
     private String sendMailFlag;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
-    private Parish mappedParish;
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmPassword;
+
+    /*@OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
+    private Parish mappedParish;*/
 
 
     public User() {
@@ -176,12 +182,12 @@ public class User implements Serializable {
         this.familyId = familyId;
     }
 
-    public Boolean getIsLoggedInForFirstTime() {
-        return isLoggedInForFirstTime;
+    public Boolean getAlreadyLoggedIn() {
+        return alreadyLoggedIn;
     }
 
-    public void setIsLoggedInForFirstTime(Boolean isLoggedInForFirstTime) {
-        this.isLoggedInForFirstTime = isLoggedInForFirstTime;
+    public void setAlreadyLoggedIn(Boolean alreadyLoggedIn) {
+        this.alreadyLoggedIn = alreadyLoggedIn;
     }
 
     public String getExtensionOfEmail() {
@@ -200,13 +206,22 @@ public class User implements Serializable {
         this.sendMailFlag = sendMailFlag;
     }
 
-    public Parish getMappedParish() {
-        return mappedParish;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setMappedParish(Parish mappedParish) {
-        this.mappedParish = mappedParish;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -221,7 +236,7 @@ public class User implements Serializable {
         if (!email.equals(user.email)) return false;
         if (familyId != null ? !familyId.equals(user.familyId) : user.familyId != null) return false;
         if (!isActive.equals(user.isActive)) return false;
-        if (isLoggedInForFirstTime != null ? !isLoggedInForFirstTime.equals(user.isLoggedInForFirstTime) : user.isLoggedInForFirstTime != null)
+        if (alreadyLoggedIn != null ? !alreadyLoggedIn.equals(user.alreadyLoggedIn) : user.alreadyLoggedIn != null)
             return false;
         if (massCenterId != null ? !massCenterId.equals(user.massCenterId) : user.massCenterId != null) return false;
         if (parishId != null ? !parishId.equals(user.parishId) : user.parishId != null) return false;
@@ -245,15 +260,13 @@ public class User implements Serializable {
         result = 31 * result + (updatedOn != null ? updatedOn.hashCode() : 0);
         result = 31 * result + isActive.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + (isLoggedInForFirstTime != null ? isLoggedInForFirstTime.hashCode() : 0);
+        result = 31 * result + (alreadyLoggedIn != null ? alreadyLoggedIn.hashCode() : 0);
         result = 31 * result + (parishId != null ? parishId.hashCode() : 0);
         result = 31 * result + (massCenterId != null ? massCenterId.hashCode() : 0);
         result = 31 * result + (prayerUnitId != null ? prayerUnitId.hashCode() : 0);
         result = 31 * result + (familyId != null ? familyId.hashCode() : 0);
         return result;
     }
-
-
 
 
 }

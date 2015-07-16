@@ -90,7 +90,7 @@ public class FamilyController {
             //TODO check whether the user is already assigned with a family.
 
             currentUser.setFamilyId(family.getId());
-            userService.addUserSM(currentUser);
+            userService.addOrUpdateUserSM(currentUser);
 
         } else {
            /* res.setStatus("FAIL");*/
