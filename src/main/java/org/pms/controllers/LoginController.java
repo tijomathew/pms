@@ -5,8 +5,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
@@ -34,7 +37,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class LoginController {
+public class LoginController extends AbstractErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -84,62 +87,61 @@ public class LoginController {
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
         logger.debug("authenticating and authorizing the user in the system");
         PageName redirectPageName = PageName.LOGIN;
-        User loggedInUser = null;
-
-        //requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
+        User loggedInUser;
 
         try {
             loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
             if (loggedInUser != null) {
-                redirectPageName = loginService.getRedirectPageForLoggedInUser(loggedInUser);
-                createFormBackObjectForRedirectPage(model, redirectPageName, loggedInUser);
+                if (loggedInUser.getIsActive() == SystemRolesStatus.ACTIVE) {
+                    redirectPageName = loginService.getRedirectPageForLoggedInUser(loggedInUser);
+                    createFormBackObjectForRedirectPage(model, redirectPageName, loggedInUser);
+                } else {
+                    result.addError(new ObjectError("loginErrorDisplay", new String[]{"BlockedUserError"}, new String[]{}, "You are blocked to login to the system.Please contact your admin."));
+                }
+
+            } else {
+                result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginCredentialsError"}, new String[]{}, "Username or Password is invalid in our system. Please re-enter correct one."));
             }
 
         } catch (IllegalArgumentException ex) {
             logger.error("The authentication and authorization of the user is failed in the system");
         }
 
-        if (result.hasErrors()) {
-            //redirectedPage = "login";
-        }
-
-
-       /* if (redirectPageName) {
-            model.addAttribute("parish", formBackParish);
-        } else {
-            result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, new String[]{}, "default message"));
-            redirectedPage = "login";
-            //model.addAttribute("error", "please errorrrrr");
-            model.addAttribute("loginUser", user);
-        }*/
-
         return redirectPageName.toString();
     }
 
+    /**
+     * This method change the password of the user who login to the system for the first time.
+     *
+     * @param user current user logged in to the system.
+     * @return custom response with the status code of the response.
+     */
     @RequestMapping(value = "changepassword.action", method = RequestMethod.POST)
     public
     @ResponseBody
     CustomResponse changePassword(@ModelAttribute("changePasswordUser") @Valid User user) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
         if (user.getNewPassword() != null && user.getConfirmPassword() != null && user.getNewPassword().equals(user.getConfirmPassword())) {
             User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
             currentUserToUpdate.setAlreadyLoggedIn(Boolean.TRUE);
             currentUserToUpdate.setPassword(DigestUtils.shaHex(user.getNewPassword()));
             userService.addOrUpdateUserSM(currentUserToUpdate);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createStatusCodeResponse(StatusCode.SUCCESS);
+        } else {
+            customResponse = createStatusCodeResponse(StatusCode.FAIL);
         }
-
-        return res;
+        return customResponse;
     }
 
+    /**
+     * This method reset the password of the user who clicks on the forgot password menu and enters the registered mail ID in our system.
+     *
+     * @param user the user who has valid mail ID registered in our system.
+     * @return custom response with the status code of the response.
+     */
     @RequestMapping(value = "forgotpassword.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse forgotPassword(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+    CustomResponse forgotPassword(@ModelAttribute("loginUser") @Valid User user) {
         boolean isEmailIDPresent = loginService.verifyEmailIsPresent(user.getEmail());
         if (isEmailIDPresent) {
             String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
@@ -149,17 +151,22 @@ public class LoginController {
             currentUserToUpdate.setPassword(DigestUtils.shaHex(generatedPassword));
             userService.addOrUpdateUserSM(currentUserToUpdate);
 
-            mailService.sendForgotPassword(user.getEmail(),generatedPassword);
+            mailService.sendForgotPassword(user.getEmail(), generatedPassword);
 
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createStatusCodeResponse(StatusCode.SUCCESS);
         } else {
-            customErrorMessages.add(new CustomErrorMessage("fail", ""));
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createStatusCodeResponse(StatusCode.FAIL);
         }
-        return res;
+        return customResponse;
     }
 
+    /**
+     * This method creates the form back object for page wrt to the user's role in the system.
+     *
+     * @param model            model object of the redirecting page.
+     * @param redirectPageName the redirect page name in the system.
+     * @param currentUser      current logged in user.
+     */
     private void createFormBackObjectForRedirectPage(Model model, PageName redirectPageName, User currentUser) {
         switch (redirectPageName) {
             case CHANGEPASSWORD:
@@ -183,10 +190,6 @@ public class LoginController {
             case FAMILY:
                 model.addAttribute("family", new Family());
                 factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
-                break;
-            case MEMBER:
-                model.addAttribute("member", new Member());
-                factorySelectBox.createSelectBox(model);
                 break;
         }
     }

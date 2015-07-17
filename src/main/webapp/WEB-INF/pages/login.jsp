@@ -47,7 +47,7 @@
                 }, 'json');
                 return false;
             });
-            $('#forgotPasswordClicker').click(function(){
+            $('#forgotPasswordClicker').click(function () {
                 $('#failureforgotpassword').hide();
                 $('#successforgotpassword').hide();
                 $('#forgotPasswordContainer').show();
@@ -72,29 +72,31 @@
             </div>
             <div class="modal-body">
                 <div id="forgotPasswordContainer">
-                <form:form modelAttribute="loginUser"
-                           action="${pageContext.request.contextPath}/forgotpassword.action"
-                           id="forgotpasswordform" method="post">
+                    <form:form modelAttribute="loginUser"
+                               action="${pageContext.request.contextPath}/forgotpassword.action"
+                               id="forgotpasswordform" method="post">
 
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">Email</label>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email</label>
 
-                            <div class="col-sm-10">
-                                <form:input path="email" class="form-control" placeholder="Email"/>
-                                <div class="alert alert-danger" role="alert" id="failureforgotpassword">This mail ID is
-                                    invalid in our system. Please re-check the mail ID.
+                                <div class="col-sm-10">
+                                    <form:input path="email" class="form-control" placeholder="Email"/>
+                                    <div class="alert alert-danger" role="alert" id="failureforgotpassword">This mail ID
+                                        is
+                                        invalid in our system. Please re-check the mail ID.
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
-
-
-                    </div>
-                    <div class="modal-footer noborder" style="padding-top:0">
-                        <button type="button" class="btn btn-primary buttonWidth" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary buttonWidth">Send Mail</button>
-                    </div>
-                </form:form>
+                        <div class="modal-footer noborder" style="padding-top:0">
+                            <button type="button" class="btn btn-primary buttonWidth" data-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary buttonWidth">Send Mail</button>
+                        </div>
+                    </form:form>
                 </div>
                 <div class="alert alert-success" role="alert" id="successforgotpassword">Password sent
                     to your registered mail ID at our system.
@@ -140,7 +142,7 @@
                             </label>
                         </div>
                     </div>
-
+                    <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay" ></form:errors>
 
                     <div style="margin-top:10px" class="form-group">
 

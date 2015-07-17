@@ -4,8 +4,10 @@ import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
 import org.pms.enums.SystemRole;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -25,7 +27,7 @@ import java.util.*;
  */
 
 @Controller
-public class FamilyController {
+public class FamilyController extends AbstractErrorHandler {
 
     @Autowired
     private FamilyService familyService;
@@ -62,8 +64,7 @@ public class FamilyController {
     public
     @ResponseBody
     CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             model.addAttribute("family", new Family());
             Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
@@ -93,16 +94,11 @@ public class FamilyController {
             userService.addOrUpdateUserSM(currentUser);
 
         } else {
-           /* res.setStatus("FAIL");*/
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
 
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)

@@ -4,8 +4,10 @@ import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
@@ -33,7 +35,7 @@ import java.util.*;
  */
 
 @Controller
-public class ParishController {
+public class ParishController extends AbstractErrorHandler {
 
     @Autowired
     private ParishService parishService;
@@ -62,23 +64,17 @@ public class ParishController {
     public
     @ResponseBody
     CustomResponse addParish(Model model, @ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             Long parishCounter = parishService.getParishCount();
             parish.setParishID(++parishCounter);
             parishService.addParishSM(parish);
             model.addAttribute("showAddButton", true);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getName(), "added in to the system");
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "displayparishgrid.action", method = RequestMethod.GET)

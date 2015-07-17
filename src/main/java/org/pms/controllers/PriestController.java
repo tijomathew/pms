@@ -3,8 +3,10 @@ package org.pms.controllers;
 import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -33,7 +35,7 @@ import java.util.Map;
  */
 
 @Controller
-public class PriestController {
+public class PriestController extends AbstractErrorHandler {
 
     @Autowired
     private PriestService priestService;
@@ -67,8 +69,6 @@ public class PriestController {
     public
     @ResponseBody
     CustomResponse addPriest(Model model, @ModelAttribute("priest") @Valid Priest priest, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
         if (!result.hasErrors()) {
             Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
@@ -88,17 +88,12 @@ public class PriestController {
             priestService.addPriestSM(priest);
 
             createPriestFormBackObject(model);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, priest.getPriestAsPerson().getFirstName(), "added in to the system");
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "/displaypriestgrid.action", method = RequestMethod.GET)

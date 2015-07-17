@@ -5,8 +5,10 @@ import org.pms.enums.PriestStatus;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.dtos.MassCenterDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
@@ -32,7 +34,7 @@ import java.util.Map;
  */
 
 @Controller
-public class MassCenterController {
+public class MassCenterController extends AbstractErrorHandler{
 
     @Autowired
     private MassCenterService massCenterService;
@@ -61,8 +63,6 @@ public class MassCenterController {
     CustomResponse addMassCenter(Model modelMap, @ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
 
         modelMap.addAttribute("massCenter", new MassCenter());
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
         if (!result.hasErrors()) {
 
@@ -144,14 +144,10 @@ public class MassCenterController {
 
             massCenterService.createMassCenterFormBackObject(modelMap);
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "displaymasscentergrid.action", method = RequestMethod.GET)

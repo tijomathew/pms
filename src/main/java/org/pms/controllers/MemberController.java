@@ -3,8 +3,10 @@ package org.pms.controllers;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.dtos.MemberDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 
 @Controller
-public class MemberController {
+public class MemberController extends AbstractErrorHandler {
 
     @Autowired
     private MemberService memberService;
@@ -96,8 +98,7 @@ public class MemberController {
     public
     @ResponseBody
     CustomResponse addMember(Model model, @ModelAttribute("member") @Valid Member member, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             model.addAttribute("member", new Member());
             Family family = familyService.getFamilyForID(member.getFamilyId());
@@ -115,17 +116,17 @@ public class MemberController {
             member.setMemberID(++memberCountForParish);
 
             memberService.addMemberSM(member);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), "added in to the system");
 
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
+            /*List<FieldError> allErrors = result.getFieldErrors();
             for (FieldError objectError : allErrors) {
                 customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
             }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            res = new CustomResponse("FAIL", customErrorMessages);*/
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)

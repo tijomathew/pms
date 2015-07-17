@@ -4,8 +4,10 @@ import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
 import org.pms.dtos.PrayerUnitDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
@@ -30,7 +32,7 @@ import java.util.List;
  */
 
 @Controller
-public class PrayerUnitController {
+public class PrayerUnitController extends AbstractErrorHandler{
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -58,9 +60,6 @@ public class PrayerUnitController {
     @ResponseBody
     CustomResponse addWard(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
 
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
-
         if (!result.hasErrors()) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
             prayerUnit.setMappedMassCenter(massCenter);
@@ -84,14 +83,10 @@ public class PrayerUnitController {
 
             prayerUnitService.createPrayerUnitFormBackObject(modelMap);
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "displayprayerunitgrid.action", method = RequestMethod.GET)

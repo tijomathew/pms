@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * LoginServiceImpl description
  * User: tijo
@@ -96,26 +99,26 @@ public class LoginServiceImpl implements LoginService {
     private void createUserRoleInSession(User loggedInUser) {
         switch (loggedInUser.getSystemRole()) {
             case ADMIN:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "adminRole", loggedInUser);
+                createUserAndRolesInSessionScope("adminRole", loggedInUser);
                 break;
             case PARISH_ADMIN:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "parishAdminRole", loggedInUser);
+                createUserAndRolesInSessionScope("parishAdminRole", loggedInUser);
                 break;
             case MASS_CENTER_ADMIN:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "massCenterAdminRole", loggedInUser);
+                createUserAndRolesInSessionScope("massCenterAdminRole", loggedInUser);
                 break;
             case PRAYER_UNIT_ADMIN:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "prayerUnitAdminRole", loggedInUser);
+                createUserAndRolesInSessionScope("prayerUnitAdminRole", loggedInUser);
                 break;
             case FAMILY_USER:
-                createUserAndRolesInSessionScope(differentRolesInSessionValues, "familyUserRole", loggedInUser);
+                createUserAndRolesInSessionScope("familyUserRole", loggedInUser);
                 break;
         }
 
     }
 
-    private void createUserAndRolesInSessionScope(String[] passedRoleNames, String assignedRoleInSession, User loggedInUser) {
-        for (String rolesInSession : passedRoleNames) {
+    private void createUserAndRolesInSessionScope(String assignedRoleInSession, User loggedInUser) {
+        for (String rolesInSession : differentRolesInSessionValues) {
             if (!rolesInSession.equalsIgnoreCase(assignedRoleInSession)) {
                 requestResponseHolder.getCurrentSession().setAttribute(rolesInSession, Boolean.FALSE.booleanValue());
             } else {
