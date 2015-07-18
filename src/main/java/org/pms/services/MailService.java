@@ -8,4 +8,6 @@ import org.pms.models.User;
 public interface MailService {
 
     void sendUserCredentials(User registeredUser);
+
+    void sendForgotPassword(String mailID, String generatedPassword);
 }

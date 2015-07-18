@@ -1,9 +1,9 @@
 package org.pms.serviceImpls;
 
-import org.pms.enums.SystemRoles;
 import org.pms.daos.MassCenterDao;
 import org.pms.daos.PriestDao;
 import org.pms.dtos.MassCenterDto;
+import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
@@ -117,13 +117,13 @@ public class MassCenterServiceImpl implements MassCenterService {
         Map<Long, String> parishMap = new HashMap<>();
         parishMap.put(0l, "--please select--");
 
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> parishList = new ArrayList<>();
         Parish parishForMassCenter = null;
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.ADMIN.toString())) {
             parishList = parishService.getAllParish();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
             parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
             parishList.add(parishForMassCenter);
         }
@@ -138,8 +138,8 @@ public class MassCenterServiceImpl implements MassCenterService {
     private void setMassCenterIDUnderParish(MassCenter formBackMassCenter) {
         Parish parishForMassCenter = null;
 
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
             parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
         }
 

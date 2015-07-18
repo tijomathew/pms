@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ public class LogoutController {
     @RequestMapping(value = "/loggedout.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
         model.addAttribute("loginUser", new User());
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         if (currentUser != null) {
-            requestResponseHolder.removeAttributeFromSession(SystemRoles.PMS_CURRENT_USER);
+            requestResponseHolder.removeAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString());
             requestResponseHolder.getCurrentSession().invalidate();
         }
-        return PageNames.LOGIN;
+        return PageName.LOGIN.toString();
     }
 }

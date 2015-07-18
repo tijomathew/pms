@@ -1,12 +1,15 @@
 package org.pms.dtos;
 
+import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
+
 /**
  * Created by febin on 26/4/15.
  */
 public class UserDto {
     private Integer id;
-    private String systemRole;
-    private String isActive;
+    private SystemRole systemRole;
+    private SystemRolesStatus isActive;
     private String email;
     private Long parishId;
     private Long massCenterId;
@@ -21,19 +24,19 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getSystemRole() {
+    public SystemRole getSystemRole() {
         return systemRole;
     }
 
-    public void setSystemRole(String systemRole) {
+    public void setSystemRole(SystemRole systemRole) {
         this.systemRole = systemRole;
     }
 
-    public String getIsActive() {
+    public SystemRolesStatus getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(SystemRolesStatus isActive) {
         this.isActive = isActive;
     }
 

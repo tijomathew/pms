@@ -1,11 +1,12 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.dtos.MemberDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 
 @Controller
-public class MemberController {
+public class MemberController extends AbstractErrorHandler {
 
     @Autowired
     private MemberService memberService;
@@ -55,10 +56,17 @@ public class MemberController {
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
         model.addAttribute("member", new Member());
-        if (requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class).getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.FAMILY_USER) {
             factorySelectBox.createSelectBox(model);
         }
-        return PageNames.MEMBER;
+        model.addAttribute("sex", Gender.values());
+        model.addAttribute("salutation", PersonSalutation.values());
+        model.addAttribute("lifeStatus", LifeStatus.values());
+        model.addAttribute("personalStatus", PersonalStatus.values());
+        model.addAttribute("relationshipInFamily", RelationShipInFamily.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
+
+        return PageName.MEMBER.toString();
     }
 
     @RequestMapping(value = "/createfamilyselectbox.action", method = RequestMethod.GET)
@@ -66,14 +74,14 @@ public class MemberController {
     @ResponseBody
     String generateFamilySelectBox() {
         List<Family> familyList = new ArrayList<>();
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
+        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             familyList = familyService.getAllFamilyForParishID(currentUser.getParishId());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             familyList = familyService.getAllFamilyForMassCenterID(currentUser.getMassCenterId());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             familyList = familyService.getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
         } else {
             familyList = familyService.getAllFamilySM();
@@ -90,8 +98,7 @@ public class MemberController {
     public
     @ResponseBody
     CustomResponse addMember(Model model, @ModelAttribute("member") @Valid Member member, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             model.addAttribute("member", new Member());
             Family family = familyService.getFamilyForID(member.getFamilyId());
@@ -109,48 +116,48 @@ public class MemberController {
             member.setMemberID(++memberCountForParish);
 
             memberService.addMemberSM(member);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), "added in to the system");
 
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
+            /*List<FieldError> allErrors = result.getFieldErrors();
             for (FieldError objectError : allErrors) {
                 customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
             }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            res = new CustomResponse("FAIL", customErrorMessages);*/
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Member> allMembers = new ArrayList<>();
         Integer totalMembersCount = 0;
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allMembers = memberService.getAllMember();
             totalMembersCount = memberService.getMemberTotalCount().intValue();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
             for (Family family : allFamiliesUnderParish) {
                 allMembers.addAll(family.getMemberList());
             }
             totalMembersCount = allMembers.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
             for (Family family : allFamiliesUnderMassCenter) {
                 allMembers.addAll(family.getMemberList());
             }
             totalMembersCount = allMembers.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
             for (Family family : allFamiliesUnderPrayerUnit) {
                 allMembers.addAll(family.getMemberList());
             }
             totalMembersCount = allMembers.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             allMembers.addAll(familyService.getFamilyForID(currentUser.getFamilyId()).getMemberList());
             totalMembersCount = allMembers.size();
         }

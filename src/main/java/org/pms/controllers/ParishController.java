@@ -1,22 +1,30 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.dtos.ParishDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
 import org.pms.services.PriestService;
+import org.pms.validators.ParishValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.MessageCodesResolver;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
@@ -27,7 +35,7 @@ import java.util.*;
  */
 
 @Controller
-public class ParishController {
+public class ParishController extends AbstractErrorHandler {
 
     @Autowired
     private ParishService parishService;
@@ -41,35 +49,32 @@ public class ParishController {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
+    @Autowired
+    MessageSource messageSource;
+
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
         model.addAttribute("parish", new Parish());
         model.addAttribute("showAddButton", true);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
 
     @RequestMapping(value = "/addparish.action", method = RequestMethod.POST)
     public
     @ResponseBody
     CustomResponse addParish(Model model, @ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             Long parishCounter = parishService.getParishCount();
             parish.setParishID(++parishCounter);
             parishService.addParishSM(parish);
             model.addAttribute("showAddButton", true);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getName(), "added in to the system");
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "displayparishgrid.action", method = RequestMethod.GET)
@@ -78,11 +83,11 @@ public class ParishController {
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         List<Parish> allParishes = new ArrayList<>();
         Long totalParishCount = 0l;
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allParishes = parishService.getAllParish();
             totalParishCount = parishService.getParishCount();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             allParishes.add(parishService.getParishForIDSM(currentUser.getParishId()));
             //since user is parish Admin, only one parish will be assigned to the user. So data base access is not required to show the total count in the UI.
             totalParishCount = 1l;
@@ -126,15 +131,20 @@ public class ParishController {
         Parish parishToEdit = parishService.getParishForIDSM(parishName);
         model.addAttribute("parish", parishToEdit);
         model.addAttribute("showUpdateButton", true);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
 
     @RequestMapping(value = "/updateparishinformation.action", method = RequestMethod.POST)
     public String updateParish(@ModelAttribute("parish") Parish parish, Model model) {
         parishService.addParishSM(parish);
         model.addAttribute("showUpdateButton", false);
-        return PageNames.PARISH;
+        return PageName.PARISH.toString();
     }
+
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setValidator(new ParishValidator());
+    }*/
 
 
 }

@@ -1,11 +1,14 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.PriestStatus;
+import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.dtos.MassCenterDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
@@ -31,7 +34,7 @@ import java.util.Map;
  */
 
 @Controller
-public class MassCenterController {
+public class MassCenterController extends AbstractErrorHandler{
 
     @Autowired
     private MassCenterService massCenterService;
@@ -51,7 +54,7 @@ public class MassCenterController {
     @RequestMapping(value = "/viewmasscenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
         massCenterService.createMassCenterFormBackObject(modelMap);
-        return PageNames.MASSCENTER;
+        return PageName.MASSCENTER.toString();
     }
 
     @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)
@@ -60,8 +63,6 @@ public class MassCenterController {
     CustomResponse addMassCenter(Model modelMap, @ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
 
         modelMap.addAttribute("massCenter", new MassCenter());
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
         if (!result.hasErrors()) {
 
@@ -128,10 +129,10 @@ public class MassCenterController {
                 }
             }
 
-            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
             boolean permissionDenied = false;
 
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
                 permissionDenied = true;
             }
             //save the mass center with its various relationships.
@@ -143,31 +144,27 @@ public class MassCenterController {
 
             massCenterService.createMassCenterFormBackObject(modelMap);
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "displaymasscentergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<MassCenter> allMassCenters = new ArrayList<>();
         Long massCenterCount = 0l;
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allMassCenters = massCenterService.getAllMassCenter();
             massCenterCount = massCenterService.getAllMassCenterCount();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
             allMassCenters.addAll(massCentersUnderParish);
             massCenterCount = Long.valueOf(massCentersUnderParish.size());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             allMassCenters.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
             massCenterCount = 1l;
         }
@@ -199,7 +196,7 @@ public class MassCenterController {
             List<Priest> allPriests = selectedParish.getPriestList();
             List<PriestDesignationBox<String>> priestDesignationBoxList = new ArrayList<PriestDesignationBox<String>>();
             for (Priest priest : allPriests) {
-                if (priest.getPriestStatus().equalsIgnoreCase("Active")) {
+                if (priest.getPriestStatus() == PriestStatus.ACTIVE) {
                     Person priestAsPerson = priest.getPriestAsPerson();
                     priestDesignationBoxList.add(new PriestDesignationBox<String>(priestAsPerson.getFirstName() + priestAsPerson.getLastName(), priest.getId().toString(), "Not Selected"));
                 }

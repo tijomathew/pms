@@ -1,11 +1,13 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.dtos.FamilyDto;
+import org.pms.enums.SystemRole;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -25,7 +27,7 @@ import java.util.*;
  */
 
 @Controller
-public class FamilyController {
+public class FamilyController extends AbstractErrorHandler {
 
     @Autowired
     private FamilyService familyService;
@@ -51,19 +53,18 @@ public class FamilyController {
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         model.addAttribute("family", new Family());
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN || currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             factorySelectBox.generateSelectBoxInModel(model, currentUser);
         }
-        return PageNames.FAMILY;
+        return PageName.FAMILY.toString();
     }
 
     @RequestMapping(value = "/addfamily.action", method = RequestMethod.POST)
     public
     @ResponseBody
     CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
+
         if (!result.hasErrors()) {
             model.addAttribute("family", new Family());
             Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
@@ -80,46 +81,41 @@ public class FamilyController {
 
             family.setFamilyID(++familyCounterForParish);
 
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
             familyService.addFamilySM(family);
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN || currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
                 factorySelectBox.generateSelectBoxInModel(model, currentUser);
             }
 
             //TODO check whether the user is already assigned with a family.
 
             currentUser.setFamilyId(family.getId());
-            userService.addUserSM(currentUser);
+            userService.addOrUpdateUserSM(currentUser);
 
         } else {
-           /* res.setStatus("FAIL");*/
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
 
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
     String generateParishSelectBox() {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> parishList = new ArrayList<>();
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN || currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             parishList.add(parishService.getParishForIDSM(currentUser.getParishId()));
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
             parishList.add(massCenter.getMappedParish());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             parishList.add(prayerUnit.getMappedMassCenter().getMappedParish());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             Family family = familyService.getFamilyForID(currentUser.getFamilyId());
             parishList.add(family.getFamilyParish());
         } else {
@@ -138,15 +134,15 @@ public class FamilyController {
     public
     @ResponseBody
     String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRoles.PMS_CURRENT_USER);
+        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
         if (selectedParishID != 0l) {
             List<MassCenter> massCenterListForParishID = new ArrayList<>();
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN) || currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN || currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
                 massCenterListForParishID.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
-            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
                 PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
                 massCenterListForParishID.add(prayerUnitOfCurrentUser.getMappedMassCenter());
-            } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
                 Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
                 massCenterListForParishID.add(familyOfCurrentUser.getFamilyMassCenter());
             } else {
@@ -164,12 +160,12 @@ public class FamilyController {
     public
     @ResponseBody
     String generateWardSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<PrayerUnit> prayerUnitList = new ArrayList<>();
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             PrayerUnit prayerUnitOfCurrentUser = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             prayerUnitList.add(prayerUnitOfCurrentUser);
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             Family familyOfCurrentUser = familyService.getFamilyForID(currentUser.getFamilyId());
             prayerUnitList.add(familyOfCurrentUser.getFamilyPrayerUnit());
         } else {
@@ -185,26 +181,26 @@ public class FamilyController {
     public
     @ResponseBody
     Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Family> allFamilies = new ArrayList<>();
         Integer totalFamilyCount = 0;
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
             allFamilies = familyService.getAllFamilySM();
             totalFamilyCount = familyService.getFamilyTotalCount().intValue();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
             allFamilies.addAll(allFamiliesUnderParish);
             totalFamilyCount = allFamilies.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
             allFamilies.addAll(allFamiliesUnderMassCenter);
             totalFamilyCount = allFamilies.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
             allFamilies.addAll(allFamiliesUnderPrayerUnit);
             totalFamilyCount = allFamilies.size();
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+        } else if (currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
             allFamilies.add(familyService.getFamilyForID(currentUser.getFamilyId()));
             totalFamilyCount = 1;
         }

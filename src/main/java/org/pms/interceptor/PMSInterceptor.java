@@ -1,7 +1,7 @@
 package org.pms.interceptor;
 
 import org.pms.applicationbuilder.PMSApplicationBuilder;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
 import org.pms.sessionmanager.PMSSessionManager;
@@ -49,14 +49,14 @@ public class PMSInterceptor implements HandlerInterceptor {
             indicatorToProceed = true;
         }
         if (!indicatorToProceed) {
-            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action")) {
+            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action")|| urlAction.equalsIgnoreCase("changepassword.action")|| urlAction.equalsIgnoreCase("forgotpassword.action")) {
                 indicatorToProceed = true;
             } else {
                 String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);
                 User currentUser = null;
                 if (pmsApplicationBuilder.isUserSessionActive(sessionContextKey)) {
                     User userFromSessionMap = pmsApplicationBuilder.getUserFromUserSessionMap(sessionContextKey);
-                    User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+                    User userFromCurrentSession = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
                     if (userFromSessionMap.equals(userFromCurrentSession)) {
                         currentUser = userFromCurrentSession;
                     }
@@ -65,19 +65,19 @@ public class PMSInterceptor implements HandlerInterceptor {
                 }
                 if (currentUser != null && !indicatorToShowSessionTimedOut) {
                     switch (currentUser.getSystemRole()) {
-                        case SystemRoles.ADMIN:
+                        case ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, adminLinks);
                             break;
-                        case SystemRoles.PARISH_ADMIN:
+                        case PARISH_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, parishAdminLinks);
                             break;
-                        case SystemRoles.MASS_CENTER_ADMIN:
+                        case MASS_CENTER_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, massCenterAdminLinks);
                             break;
-                        case SystemRoles.PRAYER_UNIT_ADMIN:
+                        case PRAYER_UNIT_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, prayerUnitAdminLinks);
                             break;
-                        case SystemRoles.FAMILY_USER:
+                        case FAMILY_USER:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, familyHeadLinks);
                             break;
                     }

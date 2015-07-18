@@ -7,19 +7,12 @@ import java.util.List;
  */
 public final class CustomResponse {
 
-    private final String statusMessage;
+    private final StatusCode statusCode;
     private final List<CustomErrorMessage> customErrorMessages;
 
-    public CustomResponse(String statusMessage, List<CustomErrorMessage> customErrorMessages) {
-        this.statusMessage = statusMessage;
+    public CustomResponse(StatusCode statusCode, List<CustomErrorMessage> customErrorMessages) {
+        this.statusCode = statusCode;
         this.customErrorMessages = customErrorMessages;
     }
 
-    public String getStatusMessage() {
-        return statusMessage;
-    }
-
-    public List<CustomErrorMessage> getCustomErrorMessages() {
-        return customErrorMessages;
-    }
 }

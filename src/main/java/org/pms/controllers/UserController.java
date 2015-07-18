@@ -3,14 +3,15 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.pms.enums.PageNames;
+import org.pms.enums.PageName;
 import org.pms.displaywrappers.UserWrapper;
 import org.pms.dtos.UserDto;
+import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
-import org.pms.enums.SystemRoles;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -61,17 +62,19 @@ public class UserController {
     public String usersPageDisplay(Model model) {
         model.addAttribute("user", new User());
 
-        if (requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class).getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             createModelSelectBoxes(model);
         }
-        return PageNames.USER;
+        model.addAttribute("systemRoles", SystemRole.values());
+        model.addAttribute("systemRoleStatus", SystemRolesStatus.values());
+        return PageName.USER.toString();
     }
 
     @RequestMapping(value = "/adduser.action", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user, Model model, BindingResult result) {
         boolean insertUser = false;
         boolean userEmailAlreadyExists = true;
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         user.setCreatedBy(currentUser.getEmail());
         user.setUpdatedBy(currentUser.getEmail());
         String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
@@ -90,7 +93,7 @@ public class UserController {
         // A single user must have single role in the system. A single user cannot act as multiple role in the system.
 
         if (!userEmailAlreadyExists) {
-            if (user.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+            if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
                 if (user.getParishId() != 0) {
                     user.setMassCenterId(0l);
                     user.setPrayerUnitId(0l);
@@ -98,7 +101,7 @@ public class UserController {
                     user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
-            } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+            } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
                 if (user.getParishId() != 0 && user.getMassCenterId() != 0) {
                     user.setParishId(0l);
                     user.setPrayerUnitId(0l);
@@ -106,7 +109,7 @@ public class UserController {
                     user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
-            } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
                 if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0) {
                     user.setParishId(0l);
                     user.setMassCenterId(0l);
@@ -114,7 +117,7 @@ public class UserController {
                     user.setEmail(user.getEmail() + user.getExtensionOfEmail());
                     insertUser = true;
                 }
-            } else if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
                 if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0) {
                 /*user.setParishId(0l);
                 user.setMassCenterId(0l);
@@ -130,15 +133,15 @@ public class UserController {
         //Insert a User Role only if he is assigned with a single role from UI.
         if (insertUser && !userEmailAlreadyExists) {
             model.addAttribute("user", new User());
-            userService.addUserSM(user);
+            userService.addOrUpdateUserSM(user);
             user.setPassword(passwordBeforeHashing);
-            if (user.getSystemRole().equalsIgnoreCase(SystemRoles.FAMILY_USER)) {
+            if (user.getSystemRole() == SystemRole.FAMILY_USER) {
                 if (user.getSendMailFlag().equalsIgnoreCase("true")) {
                     mailService.sendUserCredentials(user);
                 }
             }
 
-            if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+            if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
                 createModelSelectBoxes(model);
             }
         }
@@ -153,7 +156,7 @@ public class UserController {
             result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
         }
 
-        return PageNames.USER;
+        return PageName.USER.toString();
     }
 
     @RequestMapping(value = "displayusergrid.action", method = RequestMethod.GET)
@@ -161,10 +164,10 @@ public class UserController {
     @ResponseBody
     Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
                                                     rows, @RequestParam(value = "page", required = false) Integer page) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<User> allUsers = new ArrayList<>();
 
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             List<Long> massCenterIdsUnderParishAdmin = massCenterService.getAllMassCenterIdsForParish(currentUser.getParishId());
             allUsers.addAll(userService.getAllUsersForMassCenterIds(massCenterIdsUnderParishAdmin));
 
@@ -173,7 +176,7 @@ public class UserController {
 
             List<Long> familyIdsUnderParishAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderParishAdmin);
             allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderParishAdmin));
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             List<Long> massCenterIdAsList = new ArrayList<>();
             massCenterIdAsList.add(currentUser.getMassCenterId());
             List<Long> prayerUnitIdsUnderMassCenterAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdAsList);
@@ -181,7 +184,7 @@ public class UserController {
 
             List<Long> familyIdsUnderMassCenterAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderMassCenterAdmin);
             allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderMassCenterAdmin));
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             List<Long> prayerUnitIdAsList = new ArrayList<>();
             prayerUnitIdAsList.add(currentUser.getPrayerUnitId());
             List<Long> familyIdsUnderPrayerUnitAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdAsList);
@@ -209,14 +212,14 @@ public class UserController {
     @ResponseBody
     Object generateFamilyNamesSelectBox(@RequestParam(value = "selectedPrayerUnitId", required = true) Long
                                                 selectedPrayerUnitId) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Family> familyList = new ArrayList<>();
-        if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PARISH_ADMIN)) {
+        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             familyList.addAll(familyService.getAllFamilyForParishID(currentUser.getParishId()));
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.MASS_CENTER_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
             familyList.addAll(massCenter.getMappedFamilies());
-        } else if (currentUser.getSystemRole().equalsIgnoreCase(SystemRoles.PRAYER_UNIT_ADMIN)) {
+        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             familyList.addAll(prayerUnit.getMappedFamilies());
         } else {

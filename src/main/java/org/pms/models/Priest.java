@@ -3,6 +3,8 @@ package org.pms.models;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.pms.enums.PriestSalutation;
+import org.pms.enums.PriestStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,10 +30,13 @@ public class Priest implements Serializable {
     @Column(name = "priest_auto_id")
     private Long id;
 
+    @Column(name = "priest_salutation")
+    @Enumerated(EnumType.ORDINAL)
+    private PriestSalutation priestSalutation;
+
     @Column(name = "priest_id")
     private Long priestID;
 
-    //@NotEmpty
     @Column(name = "date_of_ordination")
     private String dateOfOrdination;
 
@@ -63,7 +68,8 @@ public class Priest implements Serializable {
     private String motherName;
 
     @Column(name = "priest_status")
-    private String priestStatus;
+    @Enumerated(EnumType.ORDINAL)
+    private PriestStatus priestStatus;
 
     @Column(name = "congregation")
     private String congregation;
@@ -110,6 +116,14 @@ public class Priest implements Serializable {
 
     public void setPriestID(Long priestID) {
         this.priestID = priestID;
+    }
+
+    public PriestSalutation getPriestSalutation() {
+        return priestSalutation;
+    }
+
+    public void setPriestSalutation(PriestSalutation priestSalutation) {
+        this.priestSalutation = priestSalutation;
     }
 
     public String getDateOfOrdination() {
@@ -192,11 +206,11 @@ public class Priest implements Serializable {
         this.motherName = motherName;
     }
 
-    public String getPriestStatus() {
+    public PriestStatus getPriestStatus() {
         return priestStatus;
     }
 
-    public void setPriestStatus(String priestStatus) {
+    public void setPriestStatus(PriestStatus priestStatus) {
         this.priestStatus = priestStatus;
     }
 

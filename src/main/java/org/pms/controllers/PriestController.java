@@ -1,11 +1,12 @@
 package org.pms.controllers;
 
-import org.pms.enums.Gender;
-import org.pms.enums.PageNames;
+import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
 import org.pms.dtos.PriestDto;
+import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 
 @Controller
-public class PriestController {
+public class PriestController extends AbstractErrorHandler {
 
     @Autowired
     private PriestService priestService;
@@ -52,7 +53,7 @@ public class PriestController {
         model.addAttribute("error", "please errorrrrr");
         mailService.sendUserCredentials(new User());*/
 
-        return PageNames.PRIEST;
+        return PageName.PRIEST.toString();
     }
 
 
@@ -61,15 +62,13 @@ public class PriestController {
 
         createPriestFormBackObject(model);
 
-        return PageNames.PRIEST;
+        return PageName.PRIEST.toString();
     }
 
     @RequestMapping(value = "/addpriest.action", method = RequestMethod.POST)
     public
     @ResponseBody
     CustomResponse addPriest(Model model, @ModelAttribute("priest") @Valid Priest priest, BindingResult result) {
-        CustomResponse res = null;
-        List<CustomErrorMessage> customErrorMessages = new ArrayList<CustomErrorMessage>();
 
         if (!result.hasErrors()) {
             Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
@@ -89,17 +88,12 @@ public class PriestController {
             priestService.addPriestSM(priest);
 
             createPriestFormBackObject(model);
-            customErrorMessages.add(new CustomErrorMessage("success", "successfully added"));
-            res = new CustomResponse("SUCCESS", customErrorMessages);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, priest.getPriestAsPerson().getFirstName(), "added in to the system");
         } else {
-            List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);
+            customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
 
-        return res;
+        return customResponse;
     }
 
     @RequestMapping(value = "/displaypriestgrid.action", method = RequestMethod.GET)
@@ -138,17 +132,16 @@ public class PriestController {
         for (Parish parish : addedParishes)
             parishMap.put(parish.getId(), parish.getName());
 
-        Map<String, String> priestDesignationsMap = new HashMap<>();
-        priestDesignationsMap.put("Please Select", "--Please Select--");
-        priestDesignationsMap.put("Supporting Priest", "Supporting Priest");
-        priestDesignationsMap.put("Co-Ordinator", "Co-Ordinator");
-        priestDesignationsMap.put("Chaplain", "Chaplain");
-
         model.addAttribute("parishList", parishMap);
-        model.addAttribute("priestDesignation", priestDesignationsMap);
+        model.addAttribute("priestDesignation", PriestDesignations.values());
 
-        Map referenceData = new HashMap();
+
         model.addAttribute("sex", Gender.values());
+        model.addAttribute("priestSalutation", PriestSalutation.values());
+        model.addAttribute("priestStatus", PriestStatus.values());
+        model.addAttribute("lifeStatus", LifeStatus.values());
+        model.addAttribute("personalStatus", PersonalStatus.values());
+        model.addAttribute("bloodGroup", BloodGroup.values());
     }
 
 }

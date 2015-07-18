@@ -1,12 +1,20 @@
 package org.pms.controllers;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.pms.enums.PageNames;
-import org.pms.enums.SystemRoles;
+import org.pms.enums.PageName;
+import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
+import org.pms.error.AbstractErrorHandler;
+import org.pms.error.CustomErrorMessage;
+import org.pms.error.CustomResponse;
+import org.pms.error.StatusCode;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
+import org.pms.sessionmanager.PMSSessionManager;
 import org.pms.validators.LoginValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +22,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * LoginController description
@@ -29,7 +37,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
-public class LoginController {
+public class LoginController extends AbstractErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -37,16 +45,7 @@ public class LoginController {
     private LoginService loginService;
 
     @Autowired
-    private PriestService priestService;
-
-    @Autowired
-    private MailService mailService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
-
-    @Autowired
-    private ParishService parishService;
 
     @Autowired
     private MassCenterService massCenterService;
@@ -56,6 +55,12 @@ public class LoginController {
 
     @Autowired
     private FactorySelectBox factorySelectBox;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * This method redirects to the login page after creating login user's model object to backup as model attribute object in the UI display.
@@ -67,7 +72,7 @@ public class LoginController {
     public String loginPageDisplay(Model model) {
         logger.debug("application creates the login user form back object and redirects to the login page");
         model.addAttribute("loginUser", new User());
-        return PageNames.LOGIN;
+        return PageName.LOGIN.toString();
     }
 
     /**
@@ -81,58 +86,110 @@ public class LoginController {
     @RequestMapping(value = "loggedin.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
         logger.debug("authenticating and authorizing the user in the system");
-        String redirectPageName = StringUtils.EMPTY;
-        requestResponseHolder.getCurrentSession().setAttribute("showlinks", Boolean.TRUE.booleanValue());
+        PageName redirectPageName = PageName.LOGIN;
+        User loggedInUser;
 
         try {
-            redirectPageName = loginService.verifyUserAndGetRedirectPageSM(user.getEmail(), user.getPassword());
+            loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
+            if (loggedInUser != null) {
+                if (loggedInUser.getIsActive() == SystemRolesStatus.ACTIVE) {
+                    redirectPageName = loginService.getRedirectPageForLoggedInUser(loggedInUser);
+                    createFormBackObjectForRedirectPage(model, redirectPageName, loggedInUser);
+                } else {
+                    result.addError(new ObjectError("loginErrorDisplay", new String[]{"BlockedUserError"}, new String[]{}, "You are blocked to login to the system.Please contact your admin."));
+                }
+
+            } else {
+                result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginCredentialsError"}, new String[]{}, "Username or Password is invalid in our system. Please re-enter correct one."));
+            }
 
         } catch (IllegalArgumentException ex) {
             logger.error("The authentication and authorization of the user is failed in the system");
         }
 
-        if (result.hasErrors()) {
-            //redirectedPage = "login";
-        }
-        createFormBackObjectForRedirectPage(model, redirectPageName);
-
-       /* if (redirectPageName) {
-            model.addAttribute("parish", formBackParish);
-        } else {
-            result.addError(new ObjectError("loginErrorDisplay", new String[]{"LoginError"}, new String[]{}, "default message"));
-            redirectedPage = "login";
-            //model.addAttribute("error", "please errorrrrr");
-            model.addAttribute("loginUser", user);
-        }*/
-
-
-        return redirectPageName;
+        return redirectPageName.toString();
     }
 
-    private void createFormBackObjectForRedirectPage(Model model, String redirectPageName) {
+    /**
+     * This method change the password of the user who login to the system for the first time.
+     *
+     * @param user current user logged in to the system.
+     * @return custom response with the status code of the response.
+     */
+    @RequestMapping(value = "changepassword.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    CustomResponse changePassword(@ModelAttribute("changePasswordUser") @Valid User user) {
+        if (user.getNewPassword() != null && user.getConfirmPassword() != null && user.getNewPassword().equals(user.getConfirmPassword())) {
+            User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
+            currentUserToUpdate.setAlreadyLoggedIn(Boolean.TRUE);
+            currentUserToUpdate.setPassword(DigestUtils.shaHex(user.getNewPassword()));
+            userService.addOrUpdateUserSM(currentUserToUpdate);
+            customResponse = createStatusCodeResponse(StatusCode.SUCCESS);
+        } else {
+            customResponse = createStatusCodeResponse(StatusCode.FAIL);
+        }
+        return customResponse;
+    }
+
+    /**
+     * This method reset the password of the user who clicks on the forgot password menu and enters the registered mail ID in our system.
+     *
+     * @param user the user who has valid mail ID registered in our system.
+     * @return custom response with the status code of the response.
+     */
+    @RequestMapping(value = "forgotpassword.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    CustomResponse forgotPassword(@ModelAttribute("loginUser") @Valid User user) {
+        boolean isEmailIDPresent = loginService.verifyEmailIsPresent(user.getEmail());
+        if (isEmailIDPresent) {
+            String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
+
+            User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
+            currentUserToUpdate.setAlreadyLoggedIn(Boolean.FALSE);
+            currentUserToUpdate.setPassword(DigestUtils.shaHex(generatedPassword));
+            userService.addOrUpdateUserSM(currentUserToUpdate);
+
+            mailService.sendForgotPassword(user.getEmail(), generatedPassword);
+
+            customResponse = createStatusCodeResponse(StatusCode.SUCCESS);
+        } else {
+            customResponse = createStatusCodeResponse(StatusCode.FAIL);
+        }
+        return customResponse;
+    }
+
+    /**
+     * This method creates the form back object for page wrt to the user's role in the system.
+     *
+     * @param model            model object of the redirecting page.
+     * @param redirectPageName the redirect page name in the system.
+     * @param currentUser      current logged in user.
+     */
+    private void createFormBackObjectForRedirectPage(Model model, PageName redirectPageName, User currentUser) {
         switch (redirectPageName) {
-            case PageNames.LOGIN:
+            case CHANGEPASSWORD:
+                model.addAttribute("changePasswordUser", currentUser);
+                break;
+            case LOGIN:
                 model.addAttribute("loginUser", new User());
                 break;
-            case PageNames.PARISH:
+            case PARISH:
                 model.addAttribute("showAddButton", true);
                 model.addAttribute("parish", new Parish());
                 break;
-            case PageNames.MASSCENTER:
+            case MASSCENTER:
                 MassCenter formBackMassCenter = massCenterService.createMassCenterFormBackObject(model);
                 model.addAttribute("massCenter", formBackMassCenter);
                 break;
-            case PageNames.PRAYERUNIT:
+            case PRAYERUNIT:
                 PrayerUnit formBackPrayerUnit = prayerUnitService.createPrayerUnitFormBackObject(model);
                 model.addAttribute("prayerUnit", formBackPrayerUnit);
                 break;
-            case PageNames.FAMILY:
+            case FAMILY:
                 model.addAttribute("family", new Family());
-                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class));
-                break;
-            case PageNames.MEMBER:
-                model.addAttribute("member", new Member());
-                factorySelectBox.createSelectBox(model);
+                factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
                 break;
         }
     }

@@ -1,6 +1,8 @@
 package org.pms.models;
 
 import org.joda.time.DateTime;
+import org.pms.enums.SystemRole;
+import org.pms.enums.SystemRolesStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +27,8 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "system_role")
-    private String systemRole;
+    @Enumerated(EnumType.ORDINAL)
+    private SystemRole systemRole;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -40,13 +43,13 @@ public class User implements Serializable {
     private Long updatedOn = new DateTime().getMillis();
 
     @Column(name = "is_active")
-    private String isActive;
+    private SystemRolesStatus isActive;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "already_loggedIn")
-    private Boolean isLoggedInForFirstTime = Boolean.FALSE;
+    private Boolean alreadyLoggedIn = Boolean.FALSE;
 
     @Column(name = "mapped_parish")
     private Long parishId;
@@ -60,14 +63,23 @@ public class User implements Serializable {
     @Column(name = "family_id")
     private Long familyId;
 
+    @Column(name = "is_validated")
+    private boolean isValidated = Boolean.FALSE;
+
     @Transient
     private String extensionOfEmail;
 
     @Transient
     private String sendMailFlag;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
-    private Parish mappedParish;
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmPassword;
+
+    /*@OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
+    private Parish mappedParish;*/
 
 
     public User() {
@@ -85,11 +97,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getSystemRole() {
+    public SystemRole getSystemRole() {
         return systemRole;
     }
 
-    public void setSystemRole(String systemRole) {
+    public void setSystemRole(SystemRole systemRole) {
         this.systemRole = systemRole;
     }
 
@@ -125,11 +137,11 @@ public class User implements Serializable {
         this.updatedOn = updatedOn;
     }
 
-    public String getIsActive() {
+    public SystemRolesStatus getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(SystemRolesStatus isActive) {
         this.isActive = isActive;
     }
 
@@ -173,12 +185,20 @@ public class User implements Serializable {
         this.familyId = familyId;
     }
 
-    public Boolean getIsLoggedInForFirstTime() {
-        return isLoggedInForFirstTime;
+    public Boolean getAlreadyLoggedIn() {
+        return alreadyLoggedIn;
     }
 
-    public void setIsLoggedInForFirstTime(Boolean isLoggedInForFirstTime) {
-        this.isLoggedInForFirstTime = isLoggedInForFirstTime;
+    public void setAlreadyLoggedIn(Boolean alreadyLoggedIn) {
+        this.alreadyLoggedIn = alreadyLoggedIn;
+    }
+
+    public boolean isValidated() {
+        return isValidated;
+    }
+
+    public void setValidated(boolean isValidated) {
+        this.isValidated = isValidated;
     }
 
     public String getExtensionOfEmail() {
@@ -197,13 +217,22 @@ public class User implements Serializable {
         this.sendMailFlag = sendMailFlag;
     }
 
-    public Parish getMappedParish() {
-        return mappedParish;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setMappedParish(Parish mappedParish) {
-        this.mappedParish = mappedParish;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -213,20 +242,14 @@ public class User implements Serializable {
         User user = (User) o;
 
         if (id != user.id) return false;
-        if (createdBy != null ? !createdBy.equals(user.createdBy) : user.createdBy != null) return false;
-        if (createdOn != null ? !createdOn.equals(user.createdOn) : user.createdOn != null) return false;
+        if (isValidated != user.isValidated) return false;
+        if (!alreadyLoggedIn.equals(user.alreadyLoggedIn)) return false;
+        if (!createdBy.equals(user.createdBy)) return false;
+        if (!createdOn.equals(user.createdOn)) return false;
         if (!email.equals(user.email)) return false;
-        if (familyId != null ? !familyId.equals(user.familyId) : user.familyId != null) return false;
-        if (!isActive.equals(user.isActive)) return false;
-        if (isLoggedInForFirstTime != null ? !isLoggedInForFirstTime.equals(user.isLoggedInForFirstTime) : user.isLoggedInForFirstTime != null)
-            return false;
-        if (massCenterId != null ? !massCenterId.equals(user.massCenterId) : user.massCenterId != null) return false;
-        if (parishId != null ? !parishId.equals(user.parishId) : user.parishId != null) return false;
+        if (isActive != user.isActive) return false;
         if (!password.equals(user.password)) return false;
-        if (prayerUnitId != null ? !prayerUnitId.equals(user.prayerUnitId) : user.prayerUnitId != null) return false;
-        if (!systemRole.equals(user.systemRole)) return false;
-        if (updatedBy != null ? !updatedBy.equals(user.updatedBy) : user.updatedBy != null) return false;
-        if (updatedOn != null ? !updatedOn.equals(user.updatedOn) : user.updatedOn != null) return false;
+        if (systemRole != user.systemRole) return false;
 
         return true;
     }
@@ -236,21 +259,12 @@ public class User implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + password.hashCode();
         result = 31 * result + systemRole.hashCode();
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (updatedBy != null ? updatedBy.hashCode() : 0);
-        result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
-        result = 31 * result + (updatedOn != null ? updatedOn.hashCode() : 0);
+        result = 31 * result + createdBy.hashCode();
+        result = 31 * result + createdOn.hashCode();
         result = 31 * result + isActive.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + (isLoggedInForFirstTime != null ? isLoggedInForFirstTime.hashCode() : 0);
-        result = 31 * result + (parishId != null ? parishId.hashCode() : 0);
-        result = 31 * result + (massCenterId != null ? massCenterId.hashCode() : 0);
-        result = 31 * result + (prayerUnitId != null ? prayerUnitId.hashCode() : 0);
-        result = 31 * result + (familyId != null ? familyId.hashCode() : 0);
+        result = 31 * result + alreadyLoggedIn.hashCode();
+        result = 31 * result + (isValidated ? 1 : 0);
         return result;
     }
-
-
-
-
 }

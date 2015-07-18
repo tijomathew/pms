@@ -1,6 +1,6 @@
 package org.pms.helpers;
 
-import org.pms.enums.SystemRoles;
+import org.pms.enums.SystemRole;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
 import org.pms.services.MassCenterService;
@@ -57,21 +57,21 @@ public final class FactorySelectBox {
     }
 
     public Model generateSelectBoxInModel(Model model, User currentUser) {
-        switch (currentUser.getSystemRole().toString()) {
-            case SystemRoles.ADMIN:
+        switch (currentUser.getSystemRole()) {
+            case ADMIN:
                 //NO OP
                 break;
-            case SystemRoles.PARISH_ADMIN:
+            case PARISH_ADMIN:
                 //NO OP
                 break;
-            case SystemRoles.MASS_CENTER_ADMIN:
+            case MASS_CENTER_ADMIN:
                 //NO OP
                 break;
-            case SystemRoles.PRAYER_UNIT_ADMIN:
+            case PRAYER_UNIT_ADMIN:
                 cleanUpListAndMap();
                 createListEntries(currentUser, model);
                 break;
-            case SystemRoles.FAMILY_USER:
+            case FAMILY_USER:
                 cleanUpListAndMap();
                 createListEntries(currentUser, model);
                 break;
@@ -95,7 +95,7 @@ public final class FactorySelectBox {
     }
 
     public Model createSelectBox(Model model) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRoles.PMS_CURRENT_USER, User.class);
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Family> familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
         Map<Long, String> familyNameMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
         model.addAttribute("familyName", familyNameMap);

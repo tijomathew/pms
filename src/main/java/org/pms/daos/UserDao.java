@@ -10,9 +10,11 @@ import java.util.List;
  */
 public interface UserDao {
 
-    boolean addUserDM(User user);
+    boolean addOrUpdateUserDM(User user);
 
     User getUserByEmail(String email);
+
+    Long verifyEmailIsPresent(String mailID);
 
     List<User> getAllUsers();
 
