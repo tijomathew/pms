@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * This class is the implementation for the Mass Center Service contract.
@@ -119,7 +120,7 @@ public class MassCenterServiceImpl implements MassCenterService {
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> parishList = new ArrayList<>();
-        Parish parishForMassCenter = null;
+        Parish parishForMassCenter;
 
         if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.ADMIN.toString())) {
             parishList = parishService.getAllParish();
@@ -128,8 +129,7 @@ public class MassCenterServiceImpl implements MassCenterService {
             parishList.add(parishForMassCenter);
         }
         if (!parishList.isEmpty()) {
-            for (Parish parish : parishList)
-                parishMap.put(parish.getId(), parish.getName());
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getName));
         }
         model.addAttribute("parishList", parishMap);
         return formBackMassCenter;

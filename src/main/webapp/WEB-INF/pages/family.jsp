@@ -25,6 +25,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            loadDatePicker();
+
             <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
@@ -168,7 +170,7 @@
 
                                                         <div class="col-sm-4">
                                                             <form:input path="dateOfRegistration"
-                                                                        id="dateOfRegistration" class="form-control"/>
+                                                                        id="dateOfRegistration" class="form-control date"/>
                                                         </div>
                                                     </div>
 

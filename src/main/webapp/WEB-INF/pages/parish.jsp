@@ -25,6 +25,8 @@
     <script type="text/javascript">
         jQuery(document).ready(function () {
 
+            loadDatePicker();
+
             loadParishGrid();
 
             globalSubmissionOfForms('parishForm', '${parishActionURL}', 'parishGrid');
@@ -235,7 +237,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="registeredDate"
-                                                                        id="registeredDate" class="form-control"/>
+                                                                        id="registeredDate" class="form-control date"/>
                                                             </div>
 
                                                         </div>

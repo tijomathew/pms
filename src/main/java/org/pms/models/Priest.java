@@ -30,10 +30,6 @@ public class Priest implements Serializable {
     @Column(name = "priest_auto_id")
     private Long id;
 
-    @Column(name = "priest_salutation")
-    @Enumerated(EnumType.ORDINAL)
-    private PriestSalutation priestSalutation;
-
     @Column(name = "priest_id")
     private Long priestID;
 
@@ -116,14 +112,6 @@ public class Priest implements Serializable {
 
     public void setPriestID(Long priestID) {
         this.priestID = priestID;
-    }
-
-    public PriestSalutation getPriestSalutation() {
-        return priestSalutation;
-    }
-
-    public void setPriestSalutation(PriestSalutation priestSalutation) {
-        this.priestSalutation = priestSalutation;
     }
 
     public String getDateOfOrdination() {

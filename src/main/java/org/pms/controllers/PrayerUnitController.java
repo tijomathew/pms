@@ -5,9 +5,8 @@ import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
+import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

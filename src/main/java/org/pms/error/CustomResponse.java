@@ -1,5 +1,7 @@
 package org.pms.error;
 
+import org.pms.enums.StatusCode;
+
 import java.util.List;
 
 /**
