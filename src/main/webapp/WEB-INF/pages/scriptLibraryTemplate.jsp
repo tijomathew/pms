@@ -10,8 +10,8 @@
 <title>PMS</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="Tijo">
+<meta name="description" content="Parish Management System Software">
+<meta name="author" content="Tijo Mathew(tijopower888@gmail.com)">
 
 <spring:url value="/resources/css/bootstrap.min.latest.css" var="bootstrapcsslatestUrl"/>
 <spring:url value="/resources/css/jqgrowl.css" var="jqGrowlCSS"/>
@@ -32,12 +32,10 @@
 
 <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
 <spring:url value="/resources/js/jqueryui-1-11.0.min.js" var="jqueryUIURL"/>
-
 <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapURL"/>
 <spring:url value="/resources/js/enquire.js" var="enquireURL"/>
 <spring:url value="/resources/js/jquery.cookie.js" var="cookieURL"/>
 <spring:url value="/resources/js/jquery.nicescroll.min.js" var="nicescrollURL"/>
-
 
 <script type='text/javascript' src="${jqueryURL}"></script>
 <script type='text/javascript' src="${jqueryUIURL}"></script>
