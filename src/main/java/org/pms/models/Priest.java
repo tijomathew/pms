@@ -1,15 +1,9 @@
 package org.pms.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.pms.enums.PriestSalutation;
 import org.pms.enums.PriestStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class describes the various attributes of the Priest.

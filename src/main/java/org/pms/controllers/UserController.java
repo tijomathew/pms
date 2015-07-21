@@ -3,11 +3,9 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.pms.enums.PageName;
+import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
 import org.pms.dtos.UserDto;
-import org.pms.enums.SystemRole;
-import org.pms.enums.SystemRolesStatus;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -24,10 +22,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * UserController description
@@ -65,8 +62,10 @@ public class UserController {
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             createModelSelectBoxes(model);
         }
-        model.addAttribute("systemRoles", SystemRole.values());
-        model.addAttribute("systemRoleStatus", SystemRolesStatus.values());
+        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
+
+        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludePMSCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
+        model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
         return PageName.USER.toString();
     }
 

@@ -10,7 +10,7 @@
 <html>
 <head>
     <title></title>
-  <script src="<c:url value="/resources/js/jquery-1.10.2.js" />" type="text/javascript"
+  <script src="<c:url value="/resources/js/jquery-1.11.0.min.js" />" type="text/javascript"
   language="javascript"></script>
   <script type="text/javascript">
   $(document).ready(function () {

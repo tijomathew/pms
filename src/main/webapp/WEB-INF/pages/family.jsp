@@ -183,7 +183,6 @@
                                                         <div class="col-sm-4">
                                                             <form:select path="parishId" id="parishSelectBox"
                                                                          class="form-control">
-                                                                <option value="select">--Please select--</option>
                                                             </form:select>
                                                         </div>
                                                         <label for="parishId" class="col-sm-2 control-label">Mass
@@ -192,7 +191,6 @@
                                                         <div class="col-sm-4">
                                                             <form:select path="massCenterId" id="massCenterSelectBox"
                                                                          class="form-control">
-                                                                <option value="select">--Please select--</option>
                                                             </form:select>
                                                         </div>
                                                     </div>
@@ -204,7 +202,6 @@
                                                         <div class="col-sm-4">
                                                             <form:select path="prayerUnitId" id="wardSelectBox"
                                                                          class="form-control">
-                                                                <option value="select">--Please select--</option>
                                                             </form:select>
                                                         </div>
 
