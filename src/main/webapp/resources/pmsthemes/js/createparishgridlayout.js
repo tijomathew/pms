@@ -70,7 +70,10 @@ function loadParishGrid() {
             autowidth: true,
             shrinkToFit: false,
             height: 'auto',
-            width: 'auto'
+            width: 'auto',
+            onSelectRow: function () {
+                $('#parishForm').loadJSON(jQuery("#parishGrid").getRowData(jQuery("#parishGrid").jqGrid('getGridParam', 'selrow')));
+            }
         });
     jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {
         edit: false, add: false, del: true,

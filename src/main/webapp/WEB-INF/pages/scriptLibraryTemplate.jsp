@@ -64,11 +64,15 @@
 <spring:url value="/resources/js/jqgrowl.js" var="jqGrowlURL"/>
 <spring:url value="/resources/js/bootstrap-datepicker.min.js" var="bootStrapminCalendarURL"/>
 <spring:url value="/resources/js/bootstrap.datetimepicker.js" var="bootStrapCalendarURL"/>
+<spring:url value="/resources/js/jquery.loadJSON.js" var="jqueryLoadJson"/>
+
+
 
 <script src="${globalUtilizor}" type="text/javascript"></script>
 <script src="${jqGrowlURL}" type="text/javascript"></script>
 <script src="${bootStrapminCalendarURL}" type="text/javascript"></script>
 <script src="${bootStrapCalendarURL}" type="text/javascript"></script>
+<script src="${jqueryLoadJson}" type="text/javascript"></script>
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>

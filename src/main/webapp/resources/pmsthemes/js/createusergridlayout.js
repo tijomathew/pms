@@ -33,7 +33,10 @@ function loadUserGrid() {
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
-            width: 'auto'
+            width: 'auto',
+            onSelectRow: function () {
+                $('#userForm').loadJSON(jQuery("#userGrid").getRowData(jQuery("#userGrid").jqGrid('getGridParam', 'selrow')));
+            }
         });
     jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {
         edit: false, add: false, del: true,
