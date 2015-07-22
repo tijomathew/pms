@@ -6,7 +6,7 @@ import org.apache.commons.lang3.text.WordUtils;
  * User: Cufa User.
  */
 public enum PriestDesignations {
-    SUPPORTING_PRIEST("Supporting Priest"), CO_ORDINATOR("Co-Ordinator"), CHAPLAIN("Chaplain");
+    SUPPORTING_PRIEST("Supporting Priest"), CO_ORDINATOR("Co-Ordinator"), CHAPLAIN("Chaplain"), IN_CHARGE("In-Charge"), ASSISTANT("Assistant");
 
     private final String fieldDescription;
 

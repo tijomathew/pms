@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.pms.enums.PriestDesignations;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class PriestDesignation {
     private Long id;
 
     @Column(name = "designation")
-    private String designation;
+    private PriestDesignations designation;
 
     @Column(name = "priest_id")
     private Long priestId;
@@ -38,11 +40,11 @@ public class PriestDesignation {
         return id;
     }
 
-    public String getDesignation() {
+    public PriestDesignations getDesignation() {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(PriestDesignations designation) {
         this.designation = designation;
     }
 

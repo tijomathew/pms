@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.pms.enums.PriestDesignations;
 import org.pms.enums.PriestStatus;
 
 import javax.persistence.*;
@@ -91,7 +92,7 @@ public class Priest implements Serializable {
     private Long parishId;
 
     @Transient
-    private String designation;
+    private PriestDesignations designation;
 
     public Priest() {
     }
@@ -252,11 +253,11 @@ public class Priest implements Serializable {
         this.massCenter = massCenter;
     }
 
-    public String getDesignation() {
+    public PriestDesignations getDesignation() {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(PriestDesignations designation) {
         this.designation = designation;
     }
 
