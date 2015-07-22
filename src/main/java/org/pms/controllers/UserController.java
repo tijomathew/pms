@@ -100,7 +100,7 @@ public class UserController {
                     user.setMassCenterId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
@@ -108,7 +108,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -116,7 +116,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setMassCenterId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
@@ -137,10 +137,8 @@ public class UserController {
             model.addAttribute("user", new User());
             userService.addOrUpdateUserSM(user);
             user.setPassword(passwordBeforeHashing);
-            if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                if (user.getSendMailFlag().equalsIgnoreCase("true")) {
-                    mailService.sendUserCredentials(user);
-                }
+            if (user.getSendMailFlag().equalsIgnoreCase("true")) {
+                mailService.sendUserCredentials(user);
             }
 
             if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {

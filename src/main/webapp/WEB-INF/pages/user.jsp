@@ -279,10 +279,6 @@
                                                             <div class="col-sm-4" id="email">
                                                                 <form:input path="email"
                                                                             id="email" class="form-control"/>
-                                                                <div><form:input path="extensionOfEmail"
-                                                                                 readonly="true"
-                                                                                 id="extensionOfMail"
-                                                                                 class="form-control hideClass"/></div>
                                                             </div>
                                                             <label for="password" class="col-sm-2 control-label">Password</label>
 

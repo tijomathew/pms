@@ -67,9 +67,6 @@ public class User implements Serializable {
     private boolean isValidated = Boolean.FALSE;
 
     @Transient
-    private String extensionOfEmail;
-
-    @Transient
     private String sendMailFlag;
 
     @Transient
@@ -199,14 +196,6 @@ public class User implements Serializable {
 
     public void setValidated(boolean isValidated) {
         this.isValidated = isValidated;
-    }
-
-    public String getExtensionOfEmail() {
-        return extensionOfEmail;
-    }
-
-    public void setExtensionOfEmail(String extensionOfEmail) {
-        this.extensionOfEmail = extensionOfEmail;
     }
 
     public String getSendMailFlag() {
