@@ -141,6 +141,7 @@ public class MassCenterController extends AbstractErrorHandler{
             }
 
             massCenterService.createMassCenterFormBackObject(modelMap);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getName(), "added in to the system");
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

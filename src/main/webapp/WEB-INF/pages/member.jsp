@@ -240,7 +240,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select path="relationshipInFamily"
                                                                              id="relationshipInFamily"
-                                                                             class="form-control" items="${relationshipInFamily}">
+                                                                             class="form-control"
+                                                                             items="${relationshipInFamily}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.dateOfBirth"
@@ -254,14 +255,14 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="memberAsPerson.gender"
+                                                            <label for="memberAsPersongender"
                                                                    class="col-sm-2 control-label">Gender</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:radiobuttons
                                                                         path="memberAsPerson.gender"
-                                                                        id="memberAsPersongender"
-                                                                        value="Male" class="form-control" items="${sex}"/>
+                                                                        id="memberAsPersongender" class="form-control"
+                                                                        items="${sex}"/>
                                                             </div>
                                                             <label for="memberAsPerson.placeOfBirth"
                                                                    class="col-sm-2 control-label">Place of Birth</label>
@@ -314,7 +315,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.personalStatus"
-                                                                        id="personalStatus" class="form-control" items="${personalStatus}">
+                                                                        id="personalStatus" class="form-control"
+                                                                        items="${personalStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -327,7 +329,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.bloodGroup"
-                                                                        id="bloodGroup" class="form-control" items="${bloodGroup}">
+                                                                        id="bloodGroup" class="form-control"
+                                                                        items="${bloodGroup}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.carNumber"
@@ -348,7 +351,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="memberAsPerson.lifeStatus"
-                                                                        id="lifeStatus" class="form-control" items="${lifeStatus}">
+                                                                        id="lifeStatus" class="form-control"
+                                                                        items="${lifeStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="memberAsPerson.personalRemarks"
@@ -632,7 +636,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="dateOfConfirmation"
-                                                                        id="dateOfConfirmation" class="form-control date"/>
+                                                                        id="dateOfConfirmation"
+                                                                        class="form-control date"/>
                                                             </div>
                                                             <label for="churchOfConfirmation"
                                                                    class="col-sm-2 control-label">Place/Church
@@ -722,7 +727,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="dateOfFirstCommunion"
-                                                                        id="dateOfFirstCommunion" class="form-control date"/>
+                                                                        id="dateOfFirstCommunion"
+                                                                        class="form-control date"/>
                                                             </div>
                                                             <label for="churchOfHolyCommunion"
                                                                    class="col-sm-2 control-label">Place/Church

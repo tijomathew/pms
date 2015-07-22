@@ -115,22 +115,12 @@ public class MemberController extends AbstractErrorHandler {
             List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getParishId());
             Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
 
-            String attachedStringToID = family.getFamilyID() + "-M";
-            Long memberCountForFamily = 0l;//memberService.getMemberCountForParish(family.getId());
-            if (memberCountForFamily < 10) {
-                attachedStringToID += "0";
-            }
             member.setMemberID(++memberCountForParish);
 
             memberService.addMemberSM(member);
             customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), "added in to the system");
 
         } else {
-            /*List<FieldError> allErrors = result.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                customErrorMessages.add(new CustomErrorMessage(objectError.getField(), objectError.getField() + "  " + objectError.getDefaultMessage()));
-            }
-            res = new CustomResponse("FAIL", customErrorMessages);*/
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
         return customResponse;

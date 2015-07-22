@@ -91,6 +91,8 @@ public class FamilyController extends AbstractErrorHandler {
             currentUser.setFamilyId(family.getId());
             userService.addOrUpdateUserSM(currentUser);
 
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), "added in to the system");
+
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
 

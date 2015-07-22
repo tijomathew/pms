@@ -30,7 +30,7 @@ import java.util.List;
  */
 
 @Controller
-public class PrayerUnitController extends AbstractErrorHandler{
+public class PrayerUnitController extends AbstractErrorHandler {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -80,6 +80,7 @@ public class PrayerUnitController extends AbstractErrorHandler{
             }
 
             prayerUnitService.createPrayerUnitFormBackObject(modelMap);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "added in to the system");
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

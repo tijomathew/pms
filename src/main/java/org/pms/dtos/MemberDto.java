@@ -1,5 +1,10 @@
 package org.pms.dtos;
 
+import org.pms.enums.BloodGroup;
+import org.pms.enums.Gender;
+import org.pms.enums.LifeStatus;
+import org.pms.enums.PersonalStatus;
+
 /**
  * Created by tijo on 2/12/14.
  */
@@ -10,13 +15,13 @@ public class MemberDto {
     private String name;
     private String dob;
     private String placeOfBirth;
-    private String gender;
+    private Gender gender;
     private String nationality;
     private String jobDetails;
-    private String personalStatus;
-    private String bloodGroup;
+    private PersonalStatus personalStatus;
+    private BloodGroup bloodGroup;
     private String carNumber;
-    private String liveStatus;
+    private LifeStatus liveStatus;
     private String personalRemarks;
     private String piousAssociation;
     private String sundayCatechism;
@@ -77,7 +82,7 @@ public class MemberDto {
     private String ministerOfAnointingTheSick;
 
 
-    public MemberDto(Integer id, Long memberID, String name, String dob, String placeOfBirth, String gender, String nationality, String jobDetails, String personalStatus, String bloodGroup, String carNumber, String liveStatus, String personalRemarks, String piousAssociation, String sundayCatechism, String sacramentalLife, String churchRemarks, String email, Long mobNo, Long landLineNo, String no, String memberDateOfBaptism, String baptism, String ofBaptism, String faxNo, String dateOfBaptism, String churchOfBaptism, String countryOfBaptism, String baptismName, String ministerOfBaptism, String baptismGodFather, String baptismGodMother, String patronSaint, String patronSaintFeastDay, String dateOfConfirmation, String churchOfConfirmation, String countryOfConfirmation, String ministerOfConfirmation, String confirmationGodFather, String confirmationGodMother, String dateOfFirstCommunion, String churchOfHolyCommunion, String countryOfHolyCommunion, String ministerOfHolyCommunion, String dateOfBetrothal, String churchOfBetrothal, String countryOfBetrothal, String priestOfBetrothal, String spouseName, String spouseBaptismName, String spouseNativeParish, String spouseNativeDiocese, String spouseFatherName, String spouseMotherName, String spouseNativeAddress, String spouseNationality, String betrothalWitnessOne, String betrothalWitnessTwo, String dateOfMarriage, String churchOfMarriage, String priestOfMarriage, String marriageWitnessOne, String marriageWitnessTwo, String dateOfDeath, String placeOfDeath, String funeralDate, String buriedChurch, String ministerOfDeath, String placeOfCemetery, String tombNo, String confession, String communion, String anointingTheSick, String ministerOfAnointingTheSick) {
+    public MemberDto(Integer id, Long memberID, String name, String dob, String placeOfBirth, Gender gender, String nationality, String jobDetails, PersonalStatus personalStatus, BloodGroup bloodGroup, String carNumber, LifeStatus liveStatus, String personalRemarks, String piousAssociation, String sundayCatechism, String sacramentalLife, String churchRemarks, String email, Long mobNo, Long landLineNo, String no, String memberDateOfBaptism, String baptism, String ofBaptism, String faxNo, String dateOfBaptism, String churchOfBaptism, String countryOfBaptism, String baptismName, String ministerOfBaptism, String baptismGodFather, String baptismGodMother, String patronSaint, String patronSaintFeastDay, String dateOfConfirmation, String churchOfConfirmation, String countryOfConfirmation, String ministerOfConfirmation, String confirmationGodFather, String confirmationGodMother, String dateOfFirstCommunion, String churchOfHolyCommunion, String countryOfHolyCommunion, String ministerOfHolyCommunion, String dateOfBetrothal, String churchOfBetrothal, String countryOfBetrothal, String priestOfBetrothal, String spouseName, String spouseBaptismName, String spouseNativeParish, String spouseNativeDiocese, String spouseFatherName, String spouseMotherName, String spouseNativeAddress, String spouseNationality, String betrothalWitnessOne, String betrothalWitnessTwo, String dateOfMarriage, String churchOfMarriage, String priestOfMarriage, String marriageWitnessOne, String marriageWitnessTwo, String dateOfDeath, String placeOfDeath, String funeralDate, String buriedChurch, String ministerOfDeath, String placeOfCemetery, String tombNo, String confession, String communion, String anointingTheSick, String ministerOfAnointingTheSick) {
         this.id = id;
         this.memberID = memberID;
         this.name = name;
@@ -170,7 +175,7 @@ public class MemberDto {
         return placeOfBirth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
@@ -182,11 +187,11 @@ public class MemberDto {
         return jobDetails;
     }
 
-    public String getPersonalStatus() {
+    public PersonalStatus getPersonalStatus() {
         return personalStatus;
     }
 
-    public String getBloodGroup() {
+    public BloodGroup getBloodGroup() {
         return bloodGroup;
     }
 
@@ -194,7 +199,7 @@ public class MemberDto {
         return carNumber;
     }
 
-    public String getLiveStatus() {
+    public LifeStatus getLiveStatus() {
         return liveStatus;
     }
 

@@ -116,7 +116,6 @@ public class MassCenterServiceImpl implements MassCenterService {
 
         model.addAttribute("massCenter", formBackMassCenter);
         Map<Long, String> parishMap = new HashMap<>();
-        parishMap.put(0l, "--please select--");
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> parishList = new ArrayList<>();
@@ -131,6 +130,7 @@ public class MassCenterServiceImpl implements MassCenterService {
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getName));
         }
+        parishMap.put(0l, "--please select--");
         model.addAttribute("parishList", parishMap);
         return formBackMassCenter;
     }
