@@ -124,6 +124,8 @@ public class PriestController extends AbstractErrorHandler {
 
         Predicate<PersonSalutation> includeOnlyPriestSalutation = includeRev.or(includeRevDr);
 
+        Predicate<PersonalStatus> includePriestStatus = p -> p.name().equalsIgnoreCase(PersonalStatus.PRIEST.toString());
+
 
         List<Parish> addedParishes = parishService.getAllParish();
 
@@ -133,7 +135,7 @@ public class PriestController extends AbstractErrorHandler {
         model.addAttribute("priestSalutation", Arrays.stream(PersonSalutation.values()).filter(includeOnlyPriestSalutation).collect(Collectors.toMap(PersonSalutation::name, PersonSalutation::getUIDisplayValue)));
         model.addAttribute("priestStatus", Arrays.stream(PriestStatus.values()).collect(Collectors.toMap(PriestStatus::name, PriestStatus::getUIDisplayValue)));
         model.addAttribute("lifeStatus", Arrays.stream(LifeStatus.values()).collect(Collectors.toMap(LifeStatus::name, LifeStatus::getUIDisplayValue)));
-        model.addAttribute("personalStatus", Arrays.stream(PersonalStatus.values()).collect(Collectors.toMap(PersonalStatus::name, PersonalStatus::getUIDisplayValue)));
+        model.addAttribute("personalStatus", Arrays.stream(PersonalStatus.values()).filter(includePriestStatus).collect(Collectors.toMap(PersonalStatus::name, PersonalStatus::getUIDisplayValue)));
         model.addAttribute("bloodGroup", Arrays.stream(BloodGroup.values()).collect(Collectors.toMap(BloodGroup::name, BloodGroup::getUIDisplayValue)));
     }
 

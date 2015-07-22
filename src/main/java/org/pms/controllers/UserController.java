@@ -62,9 +62,12 @@ public class UserController {
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             createModelSelectBoxes(model);
         }
-        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
 
-        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludePMSCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
+        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
+        Predicate<SystemRole> excludeAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
+        Predicate<SystemRole> excludeAdminAndCurrentUser = excludePMSCurrentUser.and(excludeAdmin);
+
+        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludeAdminAndCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
         model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
         return PageName.USER.toString();
     }

@@ -9,7 +9,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
 
         $.post(formAction, $form.serializeArray(), function (response) {
 
-            if (response.statusMessage == 'FAIL') {
+            if (response.statusCode == 'FAIL') {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
@@ -32,10 +32,10 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                 return [true, "", ""];
 
             }
-            else if (response.statusMessage == 'SUCCESS') {
+            else if (response.statusCode == 'SUCCESS') {
                 jQuery.jqGrowl.timeout = 500;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
-                jQuery.jqGrowl.msg(response.customErrorMessages[0].message, response.customErrorMessages[0].fieldName);
+                jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName+' '+response.customErrorMessages[0].message,'SUCCESS' );
 
                 /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
                  jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
