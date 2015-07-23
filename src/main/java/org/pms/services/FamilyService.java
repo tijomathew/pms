@@ -17,8 +17,6 @@ public interface FamilyService {
 
     Family getFamilyForID(Long id);
 
-    List<FamilyDto> createFamilyDto(List<Family> familyList) throws IllegalArgumentException;
-
     Long getFamilyTotalCount();
 
     Long getFamilyCountForParish(Long parishId);

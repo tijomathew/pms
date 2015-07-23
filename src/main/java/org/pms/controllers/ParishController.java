@@ -86,17 +86,16 @@ public class ParishController extends AbstractErrorHandler {
             totalParishCount = 1l;
         }
 
-        List<ParishDto> parishDtoList = parishService.createParishDto(allParishes);
-        List<GridRow> parishGridRows = new ArrayList<GridRow>(parishDtoList.size());
+        List<GridRow> parishGridRows = new ArrayList<GridRow>(allParishes.size());
 
 
-        List<ParishDto> allUsersSubList = new ArrayList<ParishDto>();
+        List<Parish> allUsersSubList = new ArrayList<Parish>();
         if (allParishes.size() > 0) {
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), parishDtoList);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), allParishes);
         }
 
-        for (ParishDto parishDto : allUsersSubList) {
-            parishGridRows.add(new ParishWrapper(parishDto));
+        for (Parish parish : allUsersSubList) {
+            parishGridRows.add(new ParishWrapper(parish));
         }
 
 

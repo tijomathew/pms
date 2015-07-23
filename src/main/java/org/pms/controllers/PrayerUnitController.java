@@ -113,17 +113,15 @@ public class PrayerUnitController extends AbstractErrorHandler {
             totalRows = 1;
         }
 
-        List<PrayerUnitDto> prayerUnitDtoList = prayerUnitService.createPrayerUnitDtos(allPrayerUnits);
-
-        List<PrayerUnitDto> allPrayerUnitSubList = new ArrayList<>();
+        List<PrayerUnit> allPrayerUnitSubList = new ArrayList<>();
 
         if (totalRows > 0) {
-            allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, prayerUnitDtoList);
+            allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, allPrayerUnits);
         }
 
-        List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(prayerUnitDtoList.size());
-        for (PrayerUnitDto prayerUnitDto : allPrayerUnitSubList) {
-            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnitDto));
+        List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(allPrayerUnits.size());
+        for (PrayerUnit prayerUnit : allPrayerUnitSubList) {
+            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnit));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

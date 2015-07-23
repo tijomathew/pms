@@ -22,8 +22,6 @@ public interface PrayerUnitService {
 
     Long getPrayerUnitCount();
 
-    List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> wardList) throws IllegalArgumentException;
-
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
     Long getPrayerUnitCountForMassCenter(Long massCenterId);

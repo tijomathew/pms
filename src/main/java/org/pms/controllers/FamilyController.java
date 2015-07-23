@@ -205,17 +205,16 @@ public class FamilyController extends AbstractErrorHandler {
             totalFamilyCount = 1;
         }
 
-        List<FamilyDto> familyDtoList = familyService.createFamilyDto(allFamilies);
-        List<GridRow> familyGridRows = new ArrayList<GridRow>(familyDtoList.size());
+        List<GridRow> familyGridRows = new ArrayList<GridRow>(allFamilies.size());
 
-        List<FamilyDto> allFamilySubList = new ArrayList<>();
+        List<Family> allFamilySubList = new ArrayList<>();
 
         if (totalFamilyCount > 0) {
-            allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
+            allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, allFamilies);
         }
 
-        for (FamilyDto familyDto : allFamilySubList) {
-            familyGridRows.add(new FamilyWrapper(familyDto));
+        for (Family family : allFamilySubList) {
+            familyGridRows.add(new FamilyWrapper(family));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

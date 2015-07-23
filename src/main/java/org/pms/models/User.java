@@ -190,7 +190,7 @@ public class User implements Serializable {
         this.alreadyLoggedIn = alreadyLoggedIn;
     }
 
-    public boolean isValidated() {
+    public boolean getIsValidated() {
         return isValidated;
     }
 

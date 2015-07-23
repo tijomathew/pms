@@ -3,6 +3,7 @@ package org.pms.displaywrappers;
 import org.apache.commons.beanutils.BeanUtils;
 import org.pms.dtos.MassCenterDto;
 import org.pms.helpers.GridRow;
+import org.pms.models.MassCenter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,17 +14,18 @@ import java.util.List;
  */
 public class MassCenterWrapper implements GridRow {
 
-    private MassCenterDto massCenterDto;
+    private MassCenter massCenterBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"massCenterID", "massCenterName","patronName","place","facebookPage","registeredDate","drivingRoute","map","landLineNo","mobileNo","email","faxNo","parishName","localAddress"};
+    private String[] VALID_BEAN_PROPERTIES = {"name", "centerCode", "massCenterID", "patronName", "place", "facebookPage", "registeredDate", "drivingRoute", "map", "landLineNo", "mobileNo", "email", "faxNo",
+            "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
-    public MassCenterWrapper(MassCenterDto massCenterDto) {
-        this.massCenterDto = massCenterDto;
+    public MassCenterWrapper(MassCenter massCenterBean) {
+        this.massCenterBean = massCenterBean;
     }
 
     @Override
-    public Integer getId() {
-        return massCenterDto.getId();
+    public Long getId() {
+        return massCenterBean.getId();
     }
 
     @Override
@@ -31,7 +33,9 @@ public class MassCenterWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                convertedResult.add(BeanUtils.getProperty(this.massCenterDto, VALID_BEAN_PROPERTIES[i]).toString());
+                if (BeanUtils.getProperty(this.massCenterBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    convertedResult.add(BeanUtils.getProperty(this.massCenterBean, VALID_BEAN_PROPERTIES[i]).toString());
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

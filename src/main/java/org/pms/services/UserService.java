@@ -17,8 +17,6 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    List<UserDto> createUserDtos(List<User> userList) throws IllegalArgumentException;
-
     Long getAllUserCount();
 
     List<User> getAllUsersForParishIds(List<Long> parishIds);

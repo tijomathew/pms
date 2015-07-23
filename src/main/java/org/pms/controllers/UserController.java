@@ -194,11 +194,9 @@ public class UserController {
         }
         Integer totalRows = allUsers.size();
 
-        List<UserDto> userDtoList = userService.createUserDtos(allUsers);
-
-        List<GridRow> userGridRows = new ArrayList<GridRow>(userDtoList.size());
-        for (UserDto userDto : userDtoList) {
-            userGridRows.add(new UserWrapper(userDto));
+        List<GridRow> userGridRows = new ArrayList<GridRow>(allUsers.size());
+        for (User user : allUsers) {
+            userGridRows.add(new UserWrapper(user));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

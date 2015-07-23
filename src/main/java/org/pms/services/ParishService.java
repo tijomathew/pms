@@ -19,8 +19,6 @@ public interface ParishService {
 
     Parish getParishForIDSM(Long id);
 
-    List<ParishDto> createParishDto(List<Parish> parishList) throws IllegalArgumentException;
-
     Long getParishCount();
 
     void updateParish(Parish parish);

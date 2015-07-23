@@ -20,8 +20,6 @@ public interface PriestService {
 
     Long getTotalCountOfPriestSM();
 
-    List<PriestDto> createPriestDto(List<Priest> allPriests) throws IllegalArgumentException;
-
     Long getHighestAutoIDSM();
 
     List<Long> getAllPriestsIDsSM();

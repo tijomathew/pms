@@ -3,6 +3,7 @@ package org.pms.displaywrappers;
 import org.apache.commons.beanutils.BeanUtils;
 import org.pms.dtos.PrayerUnitDto;
 import org.pms.helpers.GridRow;
+import org.pms.models.PrayerUnit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,17 +14,17 @@ import java.util.List;
  */
 public class PrayerUnitWrapper implements GridRow {
 
-    private PrayerUnitDto prayerUnitDto;
+    private PrayerUnit prayerUnitBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitID","prayerUnitName","prayerUnitPlace","massCenterName","localAddress"};
+    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitName", "prayerUnitCode", "prayerUnitPlace", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
-    public PrayerUnitWrapper(PrayerUnitDto prayerUnitDto) {
-        this.prayerUnitDto = prayerUnitDto;
+    public PrayerUnitWrapper(PrayerUnit prayerUnitBean) {
+        this.prayerUnitBean = prayerUnitBean;
     }
 
     @Override
-    public Integer getId() {
-        return prayerUnitDto.getId();
+    public Long getId() {
+        return prayerUnitBean.getId();
     }
 
     @Override
@@ -31,7 +32,9 @@ public class PrayerUnitWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                convertedResult.add(BeanUtils.getProperty(this.prayerUnitDto, VALID_BEAN_PROPERTIES[i]).toString());
+                if (BeanUtils.getProperty(this.prayerUnitBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    convertedResult.add(BeanUtils.getProperty(this.prayerUnitBean, VALID_BEAN_PROPERTIES[i]).toString());
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

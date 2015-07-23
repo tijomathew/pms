@@ -170,16 +170,14 @@ public class MassCenterController extends AbstractErrorHandler {
             massCenterCount = 1l;
         }
 
-        List<MassCenterDto> massCenterDtoList = massCenterService.createMassCenterDto(allMassCenters);
-
-        List<MassCenterDto> allUsersSublist = new ArrayList<MassCenterDto>();
+        List<MassCenter> allUsersSubList = new ArrayList<MassCenter>();
         if (massCenterCount > 0) {
-            allUsersSublist = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), massCenterDtoList);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), allMassCenters);
         }
 
-        List<GridRow> massCenterGridRows = new ArrayList<GridRow>(massCenterDtoList.size());
-        for (MassCenterDto massCenterDto : allUsersSublist) {
-            massCenterGridRows.add(new MassCenterWrapper(massCenterDto));
+        List<GridRow> massCenterGridRows = new ArrayList<GridRow>(allMassCenters.size());
+        for (MassCenter massCenter : allUsersSubList) {
+            massCenterGridRows.add(new MassCenterWrapper(massCenter));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

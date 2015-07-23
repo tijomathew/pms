@@ -9,7 +9,7 @@ public interface GridRow {
 
     final Integer LIST_STRING_TYPE = 0;
 
-    Integer getId();
+    Long getId();
 
     List<String> getGridRow(Integer type);
 }

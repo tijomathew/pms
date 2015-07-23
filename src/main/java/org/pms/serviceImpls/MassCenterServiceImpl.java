@@ -80,25 +80,6 @@ public class MassCenterServiceImpl implements MassCenterService {
     }
 
     @Override
-    public List<MassCenterDto> createMassCenterDto(List<MassCenter> massCenterList) throws IllegalArgumentException {
-        List<MassCenterDto> massCenterDtoList = new ArrayList<MassCenterDto>(massCenterList.size());
-        if (!massCenterList.isEmpty()) {
-            Integer uniqueId = 0;
-            for (MassCenter massCenter : massCenterList) {
-                MassCenterDto massCenterDto = new MassCenterDto(uniqueId, massCenter.getMassCenterID(), massCenter.getName(), massCenter.getPatronName(), massCenter.getPlace(), massCenter.getFacebookPage(), massCenter.getRegisteredDate(), massCenter.getDrivingRoute(), massCenter.getMap(), massCenter.getLandLineNo(), massCenter.getMobileNo(), massCenter.getEmail(), massCenter.getFaxNo());
-                massCenterDto.setParishName(massCenter.getMappedParish().getChurchName());
-                massCenterDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(massCenter.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
-                /*massCenterDto.setPriestNames(priestDao.getPriestForIDDM(massCenter.));*/
-                massCenterDtoList.add(massCenterDto);
-                uniqueId += 1;
-            }
-        } else {
-            throw new IllegalArgumentException("Mass Center List cannot be an empty List!!!...");
-        }
-        return massCenterDtoList;
-    }
-
-    @Override
     public Long getMassCenterCountForParish(Long parishId) {
         return massCenterDao.getMassCenterCountForParish(parishId);
     }

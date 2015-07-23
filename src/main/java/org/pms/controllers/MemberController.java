@@ -168,7 +168,7 @@ public class MemberController extends AbstractErrorHandler {
         }
 
         for (MemberDto memberDto : allMemberSubList) {
-            memberGridRows.add(new MemberWrapper(memberDto));
+           // memberGridRows.add(new MemberWrapper(memberDto));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

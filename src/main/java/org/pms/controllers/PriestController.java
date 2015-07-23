@@ -96,17 +96,14 @@ public class PriestController extends AbstractErrorHandler {
         List<Priest> allPriest = priestService.getAllPriestSM();
         Integer totalPriestsCount = priestService.getTotalCountOfPriestSM().intValue();
 
-        List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
-
-
-        List<PriestDto> allUsersSublist = new ArrayList<PriestDto>();
+        List<Priest> allUsersSublist = new ArrayList<Priest>();
         if (totalPriestsCount > 0) {
-            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalPriestsCount.intValue(), allPriestDtoList);
+            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalPriestsCount.intValue(), allPriest);
         }
 
         List<GridRow> priestGridRows = new ArrayList<GridRow>(allPriest.size());
-        for (PriestDto priestDto : allUsersSublist) {
-            priestGridRows.add(new PriestWrapper(priestDto));
+        for (Priest priest : allUsersSublist) {
+            priestGridRows.add(new PriestWrapper(priest));
         }
 
         GridGenerator gridGenerator = new GridGenerator();
