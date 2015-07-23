@@ -35,7 +35,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
             else if (response.statusCode == 'SUCCESS') {
                 jQuery.jqGrowl.timeout = 500;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
-                jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName+' '+response.customErrorMessages[0].message,'SUCCESS' );
+                jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
                 /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
                  jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
@@ -142,5 +142,13 @@ function loadDatePicker() {
         onClose: function () {
             $(this).valid();
         }
+    });
+}
+function backToTop() {
+    $('#back-to-top').click(function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 500);
+        return false;
     });
 }

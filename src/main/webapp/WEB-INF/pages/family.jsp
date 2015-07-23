@@ -25,6 +25,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+            backToTop();
+
             loadDatePicker();
 
             <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
