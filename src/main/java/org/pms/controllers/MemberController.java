@@ -159,16 +159,15 @@ public class MemberController extends AbstractErrorHandler {
             totalMembersCount = allMembers.size();
         }
 
-        List<MemberDto> memberDtoList = memberService.createMemberDto(allMembers);
-        List<GridRow> memberGridRows = new ArrayList<GridRow>(memberDtoList.size());
-        List<MemberDto> allMemberSubList = new ArrayList<>();
+        List<GridRow> memberGridRows = new ArrayList<GridRow>(allMembers.size());
+        List<Member> allMemberSubList = new ArrayList<>();
 
         if (totalMembersCount > 0) {
-            allMemberSubList = JsonBuilder.generateSubList(page, rows, totalMembersCount, memberDtoList);
+            allMemberSubList = JsonBuilder.generateSubList(page, rows, totalMembersCount, allMembers);
         }
 
-        for (MemberDto memberDto : allMemberSubList) {
-           // memberGridRows.add(new MemberWrapper(memberDto));
+        for (Member member : allMemberSubList) {
+            memberGridRows.add(new MemberWrapper(member));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

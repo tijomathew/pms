@@ -247,6 +247,10 @@ public class Person implements Serializable {
         this.personalRemarks = personalRemarks;
     }
 
+    public String getFullName(){
+        return new StringBuilder(String.valueOf(this.getSalutation())).append(" ").append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

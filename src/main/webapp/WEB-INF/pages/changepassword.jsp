@@ -35,7 +35,7 @@
             $form.bind('submit', function (e) {
 
                 $.post('${changePasswordActionURL}', $form.serializeArray(), function (response) {
-                    if (response.statusMessage == 'SUCCESS') {
+                    if (response.statusCode == 'SUCCESS') {
                         $('#changePasswordContainer').hide();
                         $('#successContainer').show();
                         return [true, "", ""];
