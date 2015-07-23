@@ -23,9 +23,6 @@
     <script src="${userGridURL}" type="text/javascript"
             language="javascript"></script>
     <style type="text/css">
-        .hideClass {
-            display: none !important;
-        }
 
         .hideSelectImage {
             -webkit-appearance: none;
@@ -37,8 +34,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             backToTop();
-            $('#extensionOfMail').addClass('hideClass');
-            $('#extensionOfMail').empty();
 
             loadUserGrid();
 
@@ -49,8 +44,6 @@
             globalSubmissionOfForms('userForm', '${userActionURL}', 'userGrid');
 
             $('#systemRole').change(function () {
-                $('#extensionOfMail').addClass('hideClass');
-                $('#extensionOfMail').empty();
 
                 $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#massCenterSelectBox').prop('selectedIndex', 0);
