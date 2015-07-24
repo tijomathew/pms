@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.UserDao;
-import org.pms.dtos.UserDto;
 import org.pms.models.User;
 import org.pms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
