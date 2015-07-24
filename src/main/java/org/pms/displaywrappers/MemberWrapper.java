@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.MemberDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.Member;
 
@@ -16,10 +15,10 @@ public class MemberWrapper implements GridRow {
 
     private Member memberBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"memberAsPerson.fullName", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.dateOfBirth", "memberAsPerson.placeOfBirth",
+    private String[] VALID_BEAN_PROPERTIES = {"familyNo","memberID","memberAsPerson.fullName", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.dateOfBirth", "memberAsPerson.placeOfBirth",
             "memberAsPerson.gender", "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
             "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
-            "memberAsPerson.personalRemarks", "memberID", "relationshipInFamily", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
+            "memberAsPerson.personalRemarks", "relationshipInFamily", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
             "dateOfDeath", "piousAssociation", "sundayCatechism", "sacramentalLife", "churchRemarks", "churchOfBaptism", "countryOfBaptism", "baptismName", "ministerOfBaptism", "baptismGodFather",
             "baptismGodMother", "patronSaint", "patronSaintFeastDay", "churchOfConfirmation", "countryOfConfirmation", "ministerOfConfirmation", "confirmationGodFather", "confirmationGodMother", "churchOfHolyCommunion", "countryOfHolyCommunion",
             "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",

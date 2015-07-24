@@ -18,41 +18,90 @@ function loadMemberGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ["memberAsPerson.fullName","memberAsPerson.salutation","memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.dateOfBirth", "memberAsPerson.placeOfBirth",
-                "memberAsPerson.gender","memberAsPerson.photoPathLocation","memberAsPerson.nationality","memberAsPerson.personalStatus","memberAsPerson.email","memberAsPerson.mobileNo","memberAsPerson.landLine",
-                "memberAsPerson.faxNo","memberAsPerson.educationQualifications","memberAsPerson.jobDetails","memberAsPerson.bloodGroup","memberAsPerson.carNumber","memberAsPerson.lifeStatus",
-                "memberAsPerson.personalRemarks","memberID","relationshipInFamily","dateOfBaptism","dateOfConfirmation","dateOfFirstCommunion","dateOfMarriage",
-                "dateOfDeath","piousAssociation","sundayCatechism","sacramentalLife","churchRemarks","churchOfBaptism","countryOfBaptism","baptismName","ministerOfBaptism","baptismGodFather",
-                "baptismGodMother","patronSaint","patronSaintFeastDay","churchOfConfirmation","countryOfConfirmation",
-                "ministerOfConfirmation","confirmationGodFather","confirmationGodMother","churchOfHolyCommunion","countryOfHolyCommunion",
+            colNames: ["familyNo","memberID", "memberAsPerson.fullName", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.dateOfBirth", "memberAsPerson.placeOfBirth",
+                "memberAsPerson.gender", "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
+                "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
+                "memberAsPerson.personalRemarks", "relationshipInFamily", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
+                "dateOfDeath", "piousAssociation", "sundayCatechism", "sacramentalLife", "churchRemarks", "churchOfBaptism", "countryOfBaptism", "baptismName", "ministerOfBaptism", "baptismGodFather",
+                "baptismGodMother", "patronSaint", "patronSaintFeastDay", "churchOfConfirmation", "countryOfConfirmation",
+                "ministerOfConfirmation", "confirmationGodFather", "confirmationGodMother", "churchOfHolyCommunion", "countryOfHolyCommunion",
 
-                "ministerOfHolyCommunion","dateOfBetrothal","churchOfBetrothal","countryOfBetrothal","priestOfBetrothal","spouseName","spouseBaptismName","spouseNativeParish","spouseNativeDiocese","spouseFatherName",
-                "spouseMotherName","spouseNativeAddress","spouseNationality","betrothalWitnessOne","betrothalWitnessTwo","churchOfMarriage","priestOfMarriage","marriageWitnessOne","marriageWitnessTwo","placeOfDeath",
-                "funeralDate","buriedChurch","ministerOfDeath","placeOfCemetery","tombNo","confession","communion","anointingTheSick","ministerOfAnointingTheSick","familyId"],
+                "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",
+                "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo", "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
+                "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick", "familyId"],
             colModel: [
-
+                {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
+                {name: 'memberID', index: 'memberID', width: 100, sortable: false},
                 {name: 'memberAsPerson.fullName', index: 'memberAsPerson.fullName', width: 90, sortable: false},
-                {name: 'memberAsPerson.salutation', index: 'memberAsPerson.salutation', width: 100, sortable: false,hidden:true},
-                {name: 'memberAsPerson.firstName', index: 'memberAsPerson.firstName', width: 100, sortable: false,hidden:true},
-                {name: 'memberAsPerson.middleName', index: 'memberAsPerson.middleName', width: 100, sortable: false,hidden:true},
-                {name: 'memberAsPerson.lastName', index: 'memberAsPerson.lastName', width: 100, sortable: false,hidden:true},
+                {
+                    name: 'memberAsPerson.salutation',
+                    index: 'memberAsPerson.salutation',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'memberAsPerson.firstName',
+                    index: 'memberAsPerson.firstName',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'memberAsPerson.middleName',
+                    index: 'memberAsPerson.middleName',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'memberAsPerson.lastName',
+                    index: 'memberAsPerson.lastName',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
+                },
                 {name: "memberAsPerson.dateOfBirth", index: "memberAsPerson.dateOfBirth", width: 100, sortable: false},
-                {name: 'memberAsPerson.placeOfBirth"', index: "memberAsPerson.placeOfBirth", width: 100, sortable: false},
+                {
+                    name: 'memberAsPerson.placeOfBirth"',
+                    index: "memberAsPerson.placeOfBirth",
+                    width: 100,
+                    sortable: false
+                },
                 {name: "memberAsPerson.gender", index: "memberAsPerson.gender", width: 100, sortable: false},
-                {name: 'memberAsPerson.photoPathLocation', index: 'memberAsPerson.photoPathLocation', width: 100, sortable: false},
+                {
+                    name: 'memberAsPerson.photoPathLocation',
+                    index: 'memberAsPerson.photoPathLocation',
+                    width: 100,
+                    sortable: false
+                },
                 {name: 'memberAsPerson.nationality', index: 'memberAsPerson.nationality', width: 100, sortable: false},
-                {name: 'memberAsPerson.personalStatus', index: 'memberAsPerson.personalStatus', width: 100, sortable: false},
+                {
+                    name: 'memberAsPerson.personalStatus',
+                    index: 'memberAsPerson.personalStatus',
+                    width: 100,
+                    sortable: false
+                },
                 {name: 'memberAsPerson.email', index: 'memberAsPerson.email', width: 100, sortable: false},
                 {name: 'memberAsPerson.mobileNo', index: 'memberAsPerson.mobileNo', width: 100, sortable: false},
                 {name: 'memberAsPerson.landLine', index: 'memberAsPerson.landLine', width: 100, sortable: false},
                 {name: 'memberAsPerson.faxNo', index: 'memberAsPerson.faxNo', width: 100, sortable: false},
-                {name: 'memberAsPerson.educationQualifications', index: 'memberAsPerson.educationQualifications', width: 100, sortable: false},
+                {
+                    name: 'memberAsPerson.educationQualifications',
+                    index: 'memberAsPerson.educationQualifications',
+                    width: 100,
+                    sortable: false
+                },
                 {name: 'memberAsPerson.jobDetails', index: 'memberAsPerson.jobDetails', width: 100, sortable: false},
                 {name: 'memberAsPerson.bloodGroup', index: 'memberAsPerson.bloodGroup', width: 100, sortable: false},
                 {name: 'memberAsPerson.carNumber', index: 'memberAsPerson.carNumber', width: 100, sortable: false},
                 {name: 'memberAsPerson.lifeStatus', index: 'memberAsPerson.lifeStatus', width: 100, sortable: false},
-                {name: 'memberAsPerson.personalRemarks', index: 'memberAsPerson.personalRemarks', width: 100, sortable: false},
-                {name: 'memberID', index: 'memberID', width: 100, sortable: false},
+                {
+                    name: 'memberAsPerson.personalRemarks',
+                    index: 'memberAsPerson.personalRemarks',
+                    width: 100,
+                    sortable: false
+                },
                 {name: 'relationshipInFamily', index: 'relationshipInFamily', width: 100, sortable: false},
                 {name: 'dateOfBaptism', index: 'dateOfBaptism', width: 100, sortable: false},
                 {name: 'dateOfConfirmation', index: 'dateOfConfirmation', width: 100, sortable: false},
@@ -79,25 +128,25 @@ function loadMemberGrid() {
                     name: 'patronSaintFeastDay',
                     index: 'patronSaintFeastDay',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {
                     name: 'churchOfConfirmation',
                     index: 'churchOfConfirmation',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {
                     name: 'countryOfConfirmation',
                     index: 'countryOfConfirmation',
                     width: 100,
-                   sortable: false
+                    sortable: false
                 },
                 {
                     name: 'ministerOfConfirmation',
                     index: 'ministerOfConfirmation',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {name: 'confirmationGodFather', index: 'confirmationGodFather', width: 100, sortable: false},
                 {
@@ -122,7 +171,7 @@ function loadMemberGrid() {
                     name: 'ministerOfHolyCommunion',
                     index: 'ministerOfHolyCommunion',
                     width: 100,
-                   sortable: false
+                    sortable: false
                 },
                 {
                     name: 'dateOfBetrothal',
@@ -152,38 +201,38 @@ function loadMemberGrid() {
                     name: 'spouseName',
                     index: 'spouseName',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {name: 'spouseBaptismName', index: 'spouseBaptismName', width: 100, sortable: false},
                 {
                     name: 'spouseNativeParish',
                     index: 'spouseNativeParish',
                     width: 100,
-                   sortable: false
+                    sortable: false
                 },
                 {
                     name: 'spouseNativeDiocese',
                     index: 'spouseNativeDiocese',
                     width: 100,
-               sortable: false
+                    sortable: false
                 },
                 {
                     name: 'spouseFatherName',
                     index: 'spouseFatherName',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {
                     name: 'spouseMotherName',
                     index: 'spouseMotherName',
                     width: 100,
-                   sortable: false
+                    sortable: false
                 },
 
                 {name: 'spouseNativeAddress', index: 'spouseNativeAddress', width: 100, sortable: false},
-                {name: 'spouseNationality', index: 'spouseNationality', width: 100,  sortable: false},
-                {name: 'betrothalWitnessOne', index: 'betrothalWitnessOne', width: 100,  sortable: false},
-                {name: 'betrothalWitnessTwo', index: 'betrothalWitnessTwo', width: 100,  sortable: false},
+                {name: 'spouseNationality', index: 'spouseNationality', width: 100, sortable: false},
+                {name: 'betrothalWitnessOne', index: 'betrothalWitnessOne', width: 100, sortable: false},
+                {name: 'betrothalWitnessTwo', index: 'betrothalWitnessTwo', width: 100, sortable: false},
                 {
                     name: 'churchOfMarriage',
                     index: 'churchOfMarriage',
@@ -196,7 +245,7 @@ function loadMemberGrid() {
                     width: 100,
                     sortable: false
                 },
-                {name: 'marriageWitnessOne', index: 'marriageWitnessOne', width: 100,sortable: false},
+                {name: 'marriageWitnessOne', index: 'marriageWitnessOne', width: 100, sortable: false},
                 {
                     name: 'marriageWitnessTwo',
                     index: 'marriageWitnessTwo',
@@ -249,7 +298,7 @@ function loadMemberGrid() {
                     name: 'communion',
                     index: 'communion',
                     width: 100,
-                     sortable: false
+                    sortable: false
                 },
                 {
                     name: 'anointingTheSick',
@@ -286,8 +335,10 @@ function loadMemberGrid() {
 
     replaceDefaultGridCss();
 
-    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {edit: false, add: false, del: true,
-        search: true, refresh: false});
+    jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {
+        edit: false, add: false, del: true,
+        search: true, refresh: false
+    });
 
     addJqgridCustomButtons("memberGrid", "memberForm");
     replaceDefaultGridCss();

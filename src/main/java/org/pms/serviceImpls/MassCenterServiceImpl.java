@@ -2,7 +2,6 @@ package org.pms.serviceImpls;
 
 import org.pms.daos.MassCenterDao;
 import org.pms.daos.PriestDao;
-import org.pms.dtos.MassCenterDto;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
@@ -45,17 +44,7 @@ public class MassCenterServiceImpl implements MassCenterService {
 
     @Override
     public boolean addMassCenterSM(MassCenter massCenter) {
-        /*String parishID = massCenter.getParishs();
-        Parish parish = massCenterDao.getParishDM(parishID);
-        if (!parishID.isEmpty()) {
-            parish = massCenterDao.getParishDM(parishID);
-            massCenter.setParish(parish);
-        }
-        parish.addMassCentersForParish(massCenter);
-        massCenterDao.updateParish(parish);*/
-
         massCenterDao.addMassCenterDM(massCenter);
-
         return true;
     }
 
@@ -120,7 +109,7 @@ public class MassCenterServiceImpl implements MassCenterService {
         Parish parishForMassCenter = null;
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
+        if (currentUser.getSystemRole()==SystemRole.PARISH_ADMIN) {
             parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
         }
 
