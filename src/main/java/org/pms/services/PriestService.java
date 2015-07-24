@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.PriestDto;
 import org.pms.models.Priest;
 import org.pms.models.PriestDesignation;
 
@@ -19,8 +18,6 @@ public interface PriestService {
     Priest getPriestForPriestIDSM(Long id);
 
     Long getTotalCountOfPriestSM();
-
-    List<PriestDto> createPriestDto(List<Priest> allPriests) throws IllegalArgumentException;
 
     Long getHighestAutoIDSM();
 

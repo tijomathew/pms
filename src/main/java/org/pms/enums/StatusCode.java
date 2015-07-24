@@ -1,4 +1,4 @@
-package org.pms.error;
+package org.pms.enums;
 
 /**
  * User: tijo.

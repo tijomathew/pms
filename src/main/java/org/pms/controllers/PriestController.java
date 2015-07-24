@@ -2,11 +2,9 @@ package org.pms.controllers;
 
 import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
-import org.pms.dtos.PriestDto;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
+import org.pms.enums.StatusCode;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -20,14 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the Priest module.
@@ -48,10 +44,6 @@ public class PriestController extends AbstractErrorHandler {
     public String priestPageDisplay(Model model) {
 
         createPriestFormBackObject(model);
-
-        /*model.addAttribute("loginUser", new User());
-        model.addAttribute("error", "please errorrrrr");
-        mailService.sendUserCredentials(new User());*/
 
         return PageName.PRIEST.toString();
     }
@@ -103,17 +95,14 @@ public class PriestController extends AbstractErrorHandler {
         List<Priest> allPriest = priestService.getAllPriestSM();
         Integer totalPriestsCount = priestService.getTotalCountOfPriestSM().intValue();
 
-        List<PriestDto> allPriestDtoList = priestService.createPriestDto(allPriest);
-
-
-        List<PriestDto> allUsersSublist = new ArrayList<PriestDto>();
+        List<Priest> allUsersSublist = new ArrayList<Priest>();
         if (totalPriestsCount > 0) {
-            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalPriestsCount.intValue(), allPriestDtoList);
+            allUsersSublist = JsonBuilder.generateSubList(page, rows, totalPriestsCount.intValue(), allPriest);
         }
 
         List<GridRow> priestGridRows = new ArrayList<GridRow>(allPriest.size());
-        for (PriestDto priestDto : allUsersSublist) {
-            priestGridRows.add(new PriestWrapper(priestDto));
+        for (Priest priest : allUsersSublist) {
+            priestGridRows.add(new PriestWrapper(priest));
         }
 
         GridGenerator gridGenerator = new GridGenerator();
@@ -126,22 +115,31 @@ public class PriestController extends AbstractErrorHandler {
         Priest formDisplayPriest = new Priest();
         model.addAttribute("priest", formDisplayPriest);
 
-        Map<Long, String> parishMap = new HashMap<Long, String>();
+        Predicate<PersonSalutation> includeRev = p -> p.name().equalsIgnoreCase(PersonSalutation.REV.toString());
+        Predicate<PersonSalutation> includeRevDr = p -> p.name().equalsIgnoreCase(PersonSalutation.REV_DR.toString());
+
+        Predicate<PersonSalutation> includeOnlyPriestSalutation = includeRev.or(includeRevDr);
+
+        Predicate<PersonalStatus> includePriestStatus = p -> p.name().equalsIgnoreCase(PersonalStatus.PRIEST.toString());
+
+        Predicate<PriestDesignations> excludeInCharge = p -> !(p.name().equalsIgnoreCase(PriestDesignations.IN_CHARGE.toString()));
+
+        Predicate<PriestDesignations> excludeAssistant = p -> !(p.name().equalsIgnoreCase(PriestDesignations.ASSISTANT.toString()));
+
+        Predicate<PriestDesignations> excludeInChargeAndAssistant = excludeInCharge.and(excludeAssistant);
+
+
         List<Parish> addedParishes = parishService.getAllParish();
-        parishMap.put(0l, "--Please Select--");
-        for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getName());
 
-        model.addAttribute("parishList", parishMap);
-        model.addAttribute("priestDesignation", PriestDesignations.values());
-
-
-        model.addAttribute("sex", Gender.values());
-        model.addAttribute("priestSalutation", PriestSalutation.values());
-        model.addAttribute("priestStatus", PriestStatus.values());
-        model.addAttribute("lifeStatus", LifeStatus.values());
-        model.addAttribute("personalStatus", PersonalStatus.values());
-        model.addAttribute("bloodGroup", BloodGroup.values());
+        model.addAttribute("parishList", addedParishes.stream().collect(Collectors.toMap(Parish::getId, Parish::getName)));
+        model.addAttribute("priestDesignation", Arrays.stream(PriestDesignations.values()).filter(excludeInChargeAndAssistant).collect(Collectors.toMap(PriestDesignations::name, PriestDesignations::getUIDisplayValue)));
+        model.addAttribute("sex", Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::name, Gender::getUIDisplayValue)));
+        model.addAttribute("priestSalutation", Arrays.stream(PersonSalutation.values()).filter(includeOnlyPriestSalutation).collect(Collectors.toMap(PersonSalutation::name, PersonSalutation::getUIDisplayValue)));
+        model.addAttribute("priestStatus", Arrays.stream(PriestStatus.values()).collect(Collectors.toMap(PriestStatus::name, PriestStatus::getUIDisplayValue)));
+        model.addAttribute("lifeStatus", Arrays.stream(LifeStatus.values()).collect(Collectors.toMap(LifeStatus::name, LifeStatus::getUIDisplayValue)));
+        model.addAttribute("personalStatus", Arrays.stream(PersonalStatus.values()).filter(includePriestStatus).collect(Collectors.toMap(PersonalStatus::name, PersonalStatus::getUIDisplayValue)));
+        model.addAttribute("bloodGroup", Arrays.stream(BloodGroup.values()).collect(Collectors.toMap(BloodGroup::name, BloodGroup::getUIDisplayValue)));
     }
+
 
 }

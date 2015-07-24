@@ -2,12 +2,10 @@ package org.pms.controllers;
 
 import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
-import org.pms.dtos.FamilyDto;
 import org.pms.enums.SystemRole;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
+import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.*;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -92,6 +89,8 @@ public class FamilyController extends AbstractErrorHandler {
 
             currentUser.setFamilyId(family.getId());
             userService.addOrUpdateUserSM(currentUser);
+
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), "added in to the system");
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
@@ -205,17 +204,16 @@ public class FamilyController extends AbstractErrorHandler {
             totalFamilyCount = 1;
         }
 
-        List<FamilyDto> familyDtoList = familyService.createFamilyDto(allFamilies);
-        List<GridRow> familyGridRows = new ArrayList<GridRow>(familyDtoList.size());
+        List<GridRow> familyGridRows = new ArrayList<GridRow>(allFamilies.size());
 
-        List<FamilyDto> allFamilySubList = new ArrayList<>();
+        List<Family> allFamilySubList = new ArrayList<>();
 
         if (totalFamilyCount > 0) {
-            allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, familyDtoList);
+            allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, allFamilies);
         }
 
-        for (FamilyDto familyDto : allFamilySubList) {
-            familyGridRows.add(new FamilyWrapper(familyDto));
+        for (Family family : allFamilySubList) {
+            familyGridRows.add(new FamilyWrapper(family));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

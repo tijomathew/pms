@@ -24,6 +24,11 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
+
+            backToTop();
+
+            loadDatePicker();
+
             loadMassCenterGrid();
 
             jQuery('#parishSelectBox').change(function () {
@@ -221,7 +226,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:input path="registeredDate" id="registeredDate"
-                                                                            class="form-control"/>
+                                                                            class="form-control date"/>
                                                             </div>
                                                             <label for="drivingRoute" class="col-sm-2 control-label">Driving
                                                                 Route</label>

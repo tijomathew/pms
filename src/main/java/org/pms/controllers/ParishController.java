@@ -3,28 +3,20 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
-import org.pms.dtos.ParishDto;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
+import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
 import org.pms.services.PriestService;
-import org.pms.validators.ParishValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.MessageCodesResolver;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
@@ -93,17 +85,16 @@ public class ParishController extends AbstractErrorHandler {
             totalParishCount = 1l;
         }
 
-        List<ParishDto> parishDtoList = parishService.createParishDto(allParishes);
-        List<GridRow> parishGridRows = new ArrayList<GridRow>(parishDtoList.size());
+        List<GridRow> parishGridRows = new ArrayList<GridRow>(allParishes.size());
 
 
-        List<ParishDto> allUsersSubList = new ArrayList<ParishDto>();
+        List<Parish> allUsersSubList = new ArrayList<Parish>();
         if (allParishes.size() > 0) {
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), parishDtoList);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), allParishes);
         }
 
-        for (ParishDto parishDto : allUsersSubList) {
-            parishGridRows.add(new ParishWrapper(parishDto));
+        for (Parish parish : allUsersSubList) {
+            parishGridRows.add(new ParishWrapper(parish));
         }
 
 

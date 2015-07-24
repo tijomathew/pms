@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.springframework.ui.Model;
@@ -22,8 +21,6 @@ public interface MassCenterService {
     MassCenter getMassCenterForIDSM(Long id);
 
     List<MassCenter> getMassCenterForParishID(Long parishAutoID);
-
-    List<MassCenterDto> createMassCenterDto(List<MassCenter> massCenterList) throws IllegalArgumentException;
 
     Long getMassCenterCountForParish(Long parishId);
 

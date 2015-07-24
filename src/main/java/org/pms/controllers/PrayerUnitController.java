@@ -3,11 +3,9 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
-import org.pms.dtos.PrayerUnitDto;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
+import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
@@ -19,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 
 @Controller
-public class PrayerUnitController extends AbstractErrorHandler{
+public class PrayerUnitController extends AbstractErrorHandler {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -82,6 +79,7 @@ public class PrayerUnitController extends AbstractErrorHandler{
             }
 
             prayerUnitService.createPrayerUnitFormBackObject(modelMap);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "added in to the system");
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
@@ -114,17 +112,15 @@ public class PrayerUnitController extends AbstractErrorHandler{
             totalRows = 1;
         }
 
-        List<PrayerUnitDto> prayerUnitDtoList = prayerUnitService.createPrayerUnitDtos(allPrayerUnits);
-
-        List<PrayerUnitDto> allPrayerUnitSubList = new ArrayList<>();
+        List<PrayerUnit> allPrayerUnitSubList = new ArrayList<>();
 
         if (totalRows > 0) {
-            allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, prayerUnitDtoList);
+            allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, allPrayerUnits);
         }
 
-        List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(prayerUnitDtoList.size());
-        for (PrayerUnitDto prayerUnitDto : allPrayerUnitSubList) {
-            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnitDto));
+        List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(allPrayerUnits.size());
+        for (PrayerUnit prayerUnit : allPrayerUnitSubList) {
+            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnit));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

@@ -1,14 +1,9 @@
 package org.pms.controllers;
 
-import org.pms.enums.PageName;
-import org.pms.enums.PriestStatus;
-import org.pms.enums.SystemRole;
+import org.pms.enums.*;
 import org.pms.displaywrappers.MassCenterWrapper;
-import org.pms.dtos.MassCenterDto;
 import org.pms.error.AbstractErrorHandler;
-import org.pms.error.CustomErrorMessage;
 import org.pms.error.CustomResponse;
-import org.pms.error.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
@@ -18,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +28,7 @@ import java.util.Map;
  */
 
 @Controller
-public class MassCenterController extends AbstractErrorHandler{
+public class MassCenterController extends AbstractErrorHandler {
 
     @Autowired
     private MassCenterService massCenterService;
@@ -86,12 +80,17 @@ public class MassCenterController extends AbstractErrorHandler{
              */
             List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
 
-            Map<Long, String> mappedPriestDesignations = new HashMap<>();
+            Map<Long, PriestDesignations> mappedPriestDesignations = new HashMap<>();
 
             //get priest designations whose designations got selected from the UI and stored in the map.
             for (Long priestID : allActivePriestsIDs) {
                 if (request.getParameter(priestID.toString()) != null) {
-                    mappedPriestDesignations.put(priestID, request.getParameter(priestID.toString()));
+                    if (request.getParameter(priestID.toString()).equalsIgnoreCase(PriestDesignations.IN_CHARGE.toString())) {
+                        mappedPriestDesignations.put(priestID, PriestDesignations.IN_CHARGE);
+                    } else {
+                        mappedPriestDesignations.put(priestID, PriestDesignations.ASSISTANT);
+                    }
+
                 }
             }
 
@@ -111,7 +110,7 @@ public class MassCenterController extends AbstractErrorHandler{
 
                 //set the designation for each priest which are selected from the UI.
                 if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
-                    String priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
+                    PriestDesignations priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
 
                     PriestDesignation priestDesignation = new PriestDesignation();
                     priestDesignation.setDesignation(priestDesignationFromMap);
@@ -143,6 +142,7 @@ public class MassCenterController extends AbstractErrorHandler{
             }
 
             massCenterService.createMassCenterFormBackObject(modelMap);
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getName(), "added in to the system");
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
@@ -169,16 +169,14 @@ public class MassCenterController extends AbstractErrorHandler{
             massCenterCount = 1l;
         }
 
-        List<MassCenterDto> massCenterDtoList = massCenterService.createMassCenterDto(allMassCenters);
-
-        List<MassCenterDto> allUsersSublist = new ArrayList<MassCenterDto>();
+        List<MassCenter> allUsersSubList = new ArrayList<MassCenter>();
         if (massCenterCount > 0) {
-            allUsersSublist = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), massCenterDtoList);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), allMassCenters);
         }
 
-        List<GridRow> massCenterGridRows = new ArrayList<GridRow>(massCenterDtoList.size());
-        for (MassCenterDto massCenterDto : allUsersSublist) {
-            massCenterGridRows.add(new MassCenterWrapper(massCenterDto));
+        List<GridRow> massCenterGridRows = new ArrayList<GridRow>(allMassCenters.size());
+        for (MassCenter massCenter : allUsersSubList) {
+            massCenterGridRows.add(new MassCenterWrapper(massCenter));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

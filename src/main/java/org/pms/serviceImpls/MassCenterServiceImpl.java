@@ -2,7 +2,6 @@ package org.pms.serviceImpls;
 
 import org.pms.daos.MassCenterDao;
 import org.pms.daos.PriestDao;
-import org.pms.dtos.MassCenterDto;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * This class is the implementation for the Mass Center Service contract.
@@ -44,17 +44,7 @@ public class MassCenterServiceImpl implements MassCenterService {
 
     @Override
     public boolean addMassCenterSM(MassCenter massCenter) {
-        /*String parishID = massCenter.getParishs();
-        Parish parish = massCenterDao.getParishDM(parishID);
-        if (!parishID.isEmpty()) {
-            parish = massCenterDao.getParishDM(parishID);
-            massCenter.setParish(parish);
-        }
-        parish.addMassCentersForParish(massCenter);
-        massCenterDao.updateParish(parish);*/
-
         massCenterDao.addMassCenterDM(massCenter);
-
         return true;
     }
 
@@ -79,25 +69,6 @@ public class MassCenterServiceImpl implements MassCenterService {
     }
 
     @Override
-    public List<MassCenterDto> createMassCenterDto(List<MassCenter> massCenterList) throws IllegalArgumentException {
-        List<MassCenterDto> massCenterDtoList = new ArrayList<MassCenterDto>(massCenterList.size());
-        if (!massCenterList.isEmpty()) {
-            Integer uniqueId = 0;
-            for (MassCenter massCenter : massCenterList) {
-                MassCenterDto massCenterDto = new MassCenterDto(uniqueId, massCenter.getMassCenterID(), massCenter.getName(), massCenter.getPatronName(), massCenter.getPlace(), massCenter.getFacebookPage(), massCenter.getRegisteredDate(), massCenter.getDrivingRoute(), massCenter.getMap(), massCenter.getLandLineNo(), massCenter.getMobileNo(), massCenter.getEmail(), massCenter.getFaxNo());
-                massCenterDto.setParishName(massCenter.getMappedParish().getChurchName());
-                massCenterDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(massCenter.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
-                /*massCenterDto.setPriestNames(priestDao.getPriestForIDDM(massCenter.));*/
-                massCenterDtoList.add(massCenterDto);
-                uniqueId += 1;
-            }
-        } else {
-            throw new IllegalArgumentException("Mass Center List cannot be an empty List!!!...");
-        }
-        return massCenterDtoList;
-    }
-
-    @Override
     public Long getMassCenterCountForParish(Long parishId) {
         return massCenterDao.getMassCenterCountForParish(parishId);
     }
@@ -115,11 +86,10 @@ public class MassCenterServiceImpl implements MassCenterService {
 
         model.addAttribute("massCenter", formBackMassCenter);
         Map<Long, String> parishMap = new HashMap<>();
-        parishMap.put(0l, "--please select--");
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> parishList = new ArrayList<>();
-        Parish parishForMassCenter = null;
+        Parish parishForMassCenter;
 
         if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.ADMIN.toString())) {
             parishList = parishService.getAllParish();
@@ -128,9 +98,9 @@ public class MassCenterServiceImpl implements MassCenterService {
             parishList.add(parishForMassCenter);
         }
         if (!parishList.isEmpty()) {
-            for (Parish parish : parishList)
-                parishMap.put(parish.getId(), parish.getName());
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getName));
         }
+        parishMap.put(0l, "--please select--");
         model.addAttribute("parishList", parishMap);
         return formBackMassCenter;
     }
@@ -139,7 +109,7 @@ public class MassCenterServiceImpl implements MassCenterService {
         Parish parishForMassCenter = null;
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
+        if (currentUser.getSystemRole()==SystemRole.PARISH_ADMIN) {
             parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
         }
 

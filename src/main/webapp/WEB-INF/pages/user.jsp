@@ -23,9 +23,6 @@
     <script src="${userGridURL}" type="text/javascript"
             language="javascript"></script>
     <style type="text/css">
-        .hideClass {
-            display: none !important;
-        }
 
         .hideSelectImage {
             -webkit-appearance: none;
@@ -36,9 +33,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $('#extensionOfMail').addClass('hideClass');
-            $('#extensionOfMail').empty();
+            backToTop();
 
             loadUserGrid();
 
@@ -49,8 +44,6 @@
             globalSubmissionOfForms('userForm', '${userActionURL}', 'userGrid');
 
             $('#systemRole').change(function () {
-                $('#extensionOfMail').addClass('hideClass');
-                $('#extensionOfMail').empty();
 
                 $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#massCenterSelectBox').prop('selectedIndex', 0);
@@ -165,7 +158,8 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="systemRole"
-                                                                             id="systemRole" class="form-control" items="${systemRoles}">
+                                                                             id="systemRole" class="form-control"
+                                                                             items="${systemRoles}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="isActive"
@@ -173,7 +167,8 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="isActive"
-                                                                             id="isActive" class="form-control" items="${systemRoleStatus}">
+                                                                             id="isActive" class="form-control"
+                                                                             items="${systemRoleStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -279,18 +274,14 @@
                                                             <div class="col-sm-4" id="email">
                                                                 <form:input path="email"
                                                                             id="email" class="form-control"/>
-                                                                <div><form:input path="extensionOfEmail"
-                                                                                 readonly="true"
-                                                                                 id="extensionOfMail"
-                                                                                 class="form-control hideClass"/></div>
                                                             </div>
                                                             <label for="password" class="col-sm-2 control-label">Password</label>
 
                                                             <div class="col-sm-4" id="password">
                                                                 <form:password path="password"
                                                                                id="password" class="form-control"/>
-                                                                <form:checkbox path="sendMailFlag" value="true"
-                                                                               checked="true"/>Send an email
+                                                                <form:checkbox path="sendMailFlag" checked="true"/>Send
+                                                                an email
                                                             </div>
                                                         </div>
                                                     </div>

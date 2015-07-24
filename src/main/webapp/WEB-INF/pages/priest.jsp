@@ -21,9 +21,12 @@
     <script type="text/javascript">
         jQuery(document).ready(function () {
 
+            backToTop();
+            loadDatePicker();
+
             loadPriestGrid();
 
-            globalSubmissionOfForms('priestForm', '${priestActionURL}','priestGrid');
+            globalSubmissionOfForms('priestForm', '${priestActionURL}', 'priestGrid');
 
         });
     </script>
@@ -139,7 +142,8 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="priestStatus"
-                                                                             id="priestStatus" class="form-control" items="${priestStatus}">
+                                                                             id="priestStatus" class="form-control"
+                                                                             items="${priestStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestID" class="col-sm-2 control-label">Priest
@@ -154,14 +158,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="priestSalutation"
+                                                            <label for="salutation"
                                                                    class="col-sm-2 control-label">Salutation</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:select
-                                                                        path="priestSalutation"
-                                                                        id="priestSalutation"
-                                                                        class="form-control" items="${priestSalutation}">
+                                                                        path="priestAsPerson.salutation"
+                                                                        id="salutation"
+                                                                        class="form-control"
+                                                                        items="${priestSalutation}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPersonfirstName"
@@ -202,7 +207,7 @@
                                                                 <form:input
                                                                         path="priestAsPerson.dateOfBirth"
                                                                         id="priestAsPersondateOfBirth"
-                                                                        class="form-control"/>
+                                                                        class="form-control date"/>
                                                             </div>
                                                             <label for="familyName" class="col-sm-2 control-label">Family
                                                                 Name</label>
@@ -258,7 +263,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:select path="parishId"
                                                                              items="${parishList}" class="form-control"
-                                                                        ></form:select>
+                                                                        ><form:option value="0l">--Please Select--</form:option></form:select>
                                                             </div>
                                                             <label for="priestAsPerson.educationQualifications"
                                                                    class="col-sm-2 control-label">Education
@@ -288,7 +293,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.personalStatus"
-                                                                        id="personalStatus" class="form-control" items="${personalStatus}">
+                                                                        id="personalStatus" class="form-control"
+                                                                        items="${personalStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -299,7 +305,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.bloodGroup"
-                                                                        id="bloodGroup" class="form-control" items="${bloodGroup}">
+                                                                        id="bloodGroup" class="form-control"
+                                                                        items="${bloodGroup}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPerson.carNumber"
@@ -318,7 +325,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:select
                                                                         path="priestAsPerson.lifeStatus"
-                                                                        id="lifeStatus" class="form-control" items="${lifeStatus}">
+                                                                        id="lifeStatus" class="form-control"
+                                                                        items="${lifeStatus}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="priestAsPerson.personalRemarks"
@@ -339,7 +347,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="dateOfOrdination"
-                                                                        id="dateOfOrdination" class="form-control"/>
+                                                                        id="dateOfOrdination" class="form-control date"/>
                                                             </div>
                                                             <label for="feastDay" class="col-sm-2 control-label">Feast
                                                                 Day</label>
@@ -396,7 +404,7 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="priestCardValidity"
-                                                                        id="priestCardValidity" class="form-control"/>
+                                                                        id="priestCardValidity" class="form-control date"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">

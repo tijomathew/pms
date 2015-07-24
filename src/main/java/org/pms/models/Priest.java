@@ -1,15 +1,10 @@
 package org.pms.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.pms.enums.PriestSalutation;
+import org.pms.enums.PriestDesignations;
 import org.pms.enums.PriestStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class describes the various attributes of the Priest.
@@ -29,10 +24,6 @@ public class Priest implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "priest_auto_id")
     private Long id;
-
-    @Column(name = "priest_salutation")
-    @Enumerated(EnumType.ORDINAL)
-    private PriestSalutation priestSalutation;
 
     @Column(name = "priest_id")
     private Long priestID;
@@ -101,7 +92,7 @@ public class Priest implements Serializable {
     private Long parishId;
 
     @Transient
-    private String designation;
+    private PriestDesignations designation;
 
     public Priest() {
     }
@@ -116,14 +107,6 @@ public class Priest implements Serializable {
 
     public void setPriestID(Long priestID) {
         this.priestID = priestID;
-    }
-
-    public PriestSalutation getPriestSalutation() {
-        return priestSalutation;
-    }
-
-    public void setPriestSalutation(PriestSalutation priestSalutation) {
-        this.priestSalutation = priestSalutation;
     }
 
     public String getDateOfOrdination() {
@@ -270,11 +253,11 @@ public class Priest implements Serializable {
         this.massCenter = massCenter;
     }
 
-    public String getDesignation() {
+    public PriestDesignations getDesignation() {
         return designation;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(PriestDesignations designation) {
         this.designation = designation;
     }
 
@@ -292,5 +275,17 @@ public class Priest implements Serializable {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
+    }
+
+    public String getParishName() {
+        return this.getParish().getName();
+    }
+
+    public String getMassCenterName() {
+        return this.getMassCenter().getName();
+    }
+
+    public String getPriestFullName() {
+        return this.getPriestAsPerson().getFullName() + " " + this.getFamilyName();
     }
 }

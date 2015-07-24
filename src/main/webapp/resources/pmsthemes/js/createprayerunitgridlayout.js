@@ -19,16 +19,67 @@ function loadPrayerUnitGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['PrayerUnit ID', 'PrayerUnit Code', 'PrayerUnit Name', 'PrayerUnit Place', 'MassCenter Name', 'Local address'],
+            colNames: ['PU NO.', 'PU Place', 'PU Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Place', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-
-                {name: 'prayerUnitID', index: 'prayerUnitID', width: 90, sortable: false},
                 {name: 'prayerUnitCode', index: 'prayerUnitCode', width: 90, sortable: false},
-                {name: 'prayerUnitName', index: 'prayerUnitName', width: 100, sortable: false},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false},
-                {name: 'massCenterName', index: 'massCenterName', width: 100, sortable: false},
-                {name: 'localAddress', index: 'localAddress', width: 100, sortable: false},
-
+                {name: 'prayerUnitName', index: 'prayerUnitName', width: 90, sortable: false},
+                {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
+                {name: 'parishName', index: 'parishName', width: 90, sortable: false},
+                {name: 'massCenterNumber', index: 'massCenterNumber', width: 90, sortable: false},
+                {name: 'massCenterPlace', index: 'massCenterPlace', width: 90, sortable: false},
+                {
+                    name: 'localAddress.addressLineOne',
+                    index: 'localAddress.addressLineOne',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'localAddress.addressLineTwo',
+                    index: 'localAddress.addressLineTwo',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'localAddress.addressLineThree',
+                    index: 'localAddress.addressLineThree',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'localAddress.town',
+                    index: 'localAddress.town',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'localAddress.county',
+                    index: 'localAddress.county',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'localAddress.pin',
+                    index: 'localAddress.pin',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'localAddress.country',
+                    index: 'localAddress.country',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                }
             ],
             rowNum: 10,
             pager: '#prayerUnitGridPager',

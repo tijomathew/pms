@@ -1,8 +1,8 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.ParishDto;
 import org.pms.helpers.GridRow;
+import org.pms.models.Parish;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,17 +13,18 @@ import java.util.List;
  */
 public class ParishWrapper implements GridRow {
 
-    private ParishDto parishDto;
+    private Parish parishBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"parishID", "parishName", "riteName", "archDioceseName", "dioceseName", "foraneName","parishFacebookPage","parishWebsite","parishCode","parishPlace","registeredDate","mobileNo","parishEmail","parishLandLineNo","parishFaxNo","localAddress"};
+    private static final String[] VALID_BEAN_PROPERTIES = {"parishID", "name", "place", "patron", "churchName", "riteName", "dioceseName", "foraneName", "code", "webSite", "facebookPage",
+            "drivingRoute", "map", "registeredDate", "mobileNo", "email", "landLineNo", "faxNo", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
-    public ParishWrapper(ParishDto parishDto) {
-        this.parishDto = parishDto;
+    public ParishWrapper(Parish parishBean) {
+        this.parishBean = parishBean;
     }
 
     @Override
-    public Integer getId() {
-        return parishDto.getId();
+    public Long getId() {
+        return parishBean.getId();
     }
 
     @Override
@@ -31,7 +32,9 @@ public class ParishWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                convertedResult.add(BeanUtils.getProperty(this.parishDto, VALID_BEAN_PROPERTIES[i]).toString());
+                if (BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    convertedResult.add(BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]).toString());
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

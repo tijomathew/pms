@@ -68,7 +68,7 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
 
     @Override
     public List<Family> getFamilyForFamilyID(Long familyId) {
-        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.id", familyId)).list();
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.id", familyId)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

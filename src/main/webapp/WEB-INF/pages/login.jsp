@@ -15,7 +15,7 @@
     <link href="${bootstrapcsslatestUrl}" rel="stylesheet">
     <link href="${bootstrapthemeUrl}" rel="stylesheet">
 
-    <spring:url value="/resources/js/jquery-1.10.2.min.js" var="jqueryURL"/>
+    <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
     <spring:url value="/forgotpassword.action" var="forgotPasswordActionURL"/>
 
     <script type='text/javascript' src="${jqueryURL}"></script>
@@ -32,12 +32,12 @@
             $form.bind('submit', function (e) {
                 $.post('${forgotPasswordActionURL}', $form.serializeArray(), function (response) {
 
-                    if (response.statusMessage == 'FAIL') {
+                    if (response.statusCode == 'FAIL') {
                         $('#successforgotpassword').hide();
                         $('#failureforgotpassword').show();
                         return [true, "", ""];
 
-                    } else if (response.statusMessage == 'SUCCESS') {
+                    } else if (response.statusCode == 'SUCCESS') {
                         $('#failureforgotpassword').hide();
                         $('#forgotPasswordContainer').hide();
                         $('#successforgotpassword').show();

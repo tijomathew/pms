@@ -6,10 +6,16 @@ import org.apache.commons.lang3.text.WordUtils;
  * User: Cufa User.
  */
 public enum PersonSalutation {
-    MR, MRS, MISS, MASTER;
+    MR("Mr."), MRS("Mrs."), MISS("Miss."), MASTER("Master."),REV("Rev."),REV_DR("Rev. Dr.");
 
-    @Override
-    public String toString() {
-        return WordUtils.capitalizeFully(super.toString());
+    private final String fieldDescription;
+
+    private PersonSalutation(String fieldDescription) {
+        this.fieldDescription = fieldDescription;
     }
+
+    public String getUIDisplayValue() {
+        return this.fieldDescription;
+    }
+
 }

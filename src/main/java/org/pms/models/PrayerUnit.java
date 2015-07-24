@@ -116,5 +116,21 @@ public class PrayerUnit implements Serializable {
         }
     }
 
+    public Long getParishNumber() {
+        return this.getMappedMassCenter().getMappedParish().getParishID();
+    }
+
+    public Long getMassCenterNumber() {
+        return this.getMappedMassCenter().getMassCenterID();
+    }
+
+    public String getParishName() {
+        return this.getMappedMassCenter().getMappedParish().getName();
+    }
+
+    public String getMassCenterPlace() {
+        return this.getMappedMassCenter().getPlace();
+    }
+
 
 }

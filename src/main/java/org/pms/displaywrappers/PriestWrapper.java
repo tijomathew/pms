@@ -1,8 +1,8 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.PriestDto;
 import org.pms.helpers.GridRow;
+import org.pms.models.Priest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,17 +13,18 @@ import java.util.List;
  */
 public class PriestWrapper implements GridRow {
 
-    private PriestDto priestDto;
+    private Priest priestBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"priestID", "name", "designation","heavenlyPatron","nativeDiocese","nativeParish","nativePlace","priestCardValidity","ordainedToDiocese","fatherName","motherName","priestStatus","congregation","localAddress","nativeAddress","emergencyContact"};
+    private String[] VALID_BEAN_PROPERTIES = {"parishName","priestID", "priestFullName","priestAsPerson.dateOfBirth", "familyName","designation","priestStatus","massCenterName", "dateOfOrdination", "feastDay", "heavenlyPatron", "nativeDiocese", "nativeParish", "nativePlace", "priestCardValidity", "ordainedToDiocese", "fatherName", "motherName", "congregation","priestAsPerson.salutation", "priestAsPerson.firstName", "priestAsPerson.middleName", "priestAsPerson.lastName", "priestAsPerson.placeOfBirth", "priestAsPerson.gender", "priestAsPerson.nationality", "priestAsPerson.personalStatus", "priestAsPerson.email", "priestAsPerson.mobileNo", "priestAsPerson.landLine", "priestAsPerson.faxNo", "priestAsPerson.educationQualifications",
+            "priestAsPerson.jobDetails", "priestAsPerson.bloodGroup", "priestAsPerson.carNumber", "priestAsPerson.lifeStatus", "priestAsPerson.personalRemarks", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country", "emergencyContact.name", "emergencyContact.addressLineOne", "emergencyContact.addressLineTwo", "emergencyContact.addressLineThree", "emergencyContact.mobileNo", "emergencyContact.landLineNo", "emergencyContact.email"};
 
-    public PriestWrapper(PriestDto priestDto) {
-        this.priestDto = priestDto;
+    public PriestWrapper(Priest priestBean) {
+        this.priestBean = priestBean;
     }
 
     @Override
-    public Integer getId() {
-        return priestDto.getId();
+    public Long getId() {
+        return priestBean.getId();
     }
 
     @Override
@@ -31,7 +32,9 @@ public class PriestWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                convertedResult.add(BeanUtils.getProperty(this.priestDto, VALID_BEAN_PROPERTIES[i]).toString());
+                if (BeanUtils.getProperty(this.priestBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    convertedResult.add(BeanUtils.getProperty(this.priestBean, VALID_BEAN_PROPERTIES[i]).toString());
+                }
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

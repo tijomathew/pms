@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-@RequestMapping("/")
 public class LogoutController {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    @RequestMapping(value = "/loggedout.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/loggedout.action", method = RequestMethod.POST)
     public String loginPageDisplay(Model model) {
         model.addAttribute("loginUser", new User());
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);

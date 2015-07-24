@@ -198,7 +198,7 @@ public class Member implements Serializable {
     @Transient
     private Long familyId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_member_id")
     private Family familyMember;
 
@@ -671,5 +671,25 @@ public class Member implements Serializable {
 
     public void setFamilyMember(Family familyMember) {
         this.familyMember = familyMember;
+    }
+
+    public Long getFamilyNo() {
+        return this.familyMember.getFamilyID();
+    }
+
+    public String getFamilyName() {
+        return this.familyMember.getFamilyName();
+    }
+
+    public String getParishName() {
+        return this.familyMember.getFamilyParish().getName();
+    }
+
+    public String getMassCenterNAme() {
+        return this.familyMember.getFamilyMassCenter().getName();
+    }
+
+    public String getPrayerUnitName() {
+        return this.familyMember.getFamilyPrayerUnit().getPrayerUnitName();
     }
 }

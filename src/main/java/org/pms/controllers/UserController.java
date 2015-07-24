@@ -3,11 +3,8 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.pms.enums.PageName;
+import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
-import org.pms.dtos.UserDto;
-import org.pms.enums.SystemRole;
-import org.pms.enums.SystemRolesStatus;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -24,10 +21,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * UserController description
@@ -65,8 +61,13 @@ public class UserController {
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
             createModelSelectBoxes(model);
         }
-        model.addAttribute("systemRoles", SystemRole.values());
-        model.addAttribute("systemRoleStatus", SystemRolesStatus.values());
+
+        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
+        Predicate<SystemRole> excludeAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
+        Predicate<SystemRole> excludeAdminAndCurrentUser = excludePMSCurrentUser.and(excludeAdmin);
+
+        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludeAdminAndCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
+        model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
         return PageName.USER.toString();
     }
 
@@ -98,7 +99,7 @@ public class UserController {
                     user.setMassCenterId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
@@ -106,7 +107,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setPrayerUnitId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -114,7 +115,7 @@ public class UserController {
                     user.setParishId(0l);
                     user.setMassCenterId(0l);
                     user.setFamilyId(0l);
-                    user.setEmail(user.getEmail() + user.getExtensionOfEmail());
+                    user.setEmail(user.getEmail());
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
@@ -135,10 +136,8 @@ public class UserController {
             model.addAttribute("user", new User());
             userService.addOrUpdateUserSM(user);
             user.setPassword(passwordBeforeHashing);
-            if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                if (user.getSendMailFlag().equalsIgnoreCase("true")) {
-                    mailService.sendUserCredentials(user);
-                }
+            if (user.getSendMailFlag()) {
+                mailService.sendUserCredentials(user);
             }
 
             if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -194,11 +193,9 @@ public class UserController {
         }
         Integer totalRows = allUsers.size();
 
-        List<UserDto> userDtoList = userService.createUserDtos(allUsers);
-
-        List<GridRow> userGridRows = new ArrayList<GridRow>(userDtoList.size());
-        for (UserDto userDto : userDtoList) {
-            userGridRows.add(new UserWrapper(userDto));
+        List<GridRow> userGridRows = new ArrayList<GridRow>(allUsers.size());
+        for (User user : allUsers) {
+            userGridRows.add(new UserWrapper(user));
         }
 
         GridGenerator gridGenerator = new GridGenerator();

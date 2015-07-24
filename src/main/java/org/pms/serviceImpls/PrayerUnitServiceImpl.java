@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.PrayerUnitDao;
-import org.pms.dtos.PrayerUnitDto;
 import org.pms.enums.SystemRole;
 import org.pms.models.MassCenter;
 import org.pms.helpers.RequestResponseHolder;
@@ -66,28 +65,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Override
     public PrayerUnit getPrayerUnitForIDSM(Long id) {
         return prayerUnitDao.getPrayerUnitForIDDM(id);
-    }
-
-    @Override
-    public List<PrayerUnitDto> createPrayerUnitDtos(List<PrayerUnit> prayerUnitList) throws IllegalArgumentException {
-        List<PrayerUnitDto> prayerUnitDtoList = new ArrayList<PrayerUnitDto>(prayerUnitList.size());
-        if (!prayerUnitList.isEmpty()) {
-            Integer uniqueId = 0;
-            for (PrayerUnit prayerUnit : prayerUnitList) {
-                PrayerUnitDto prayerUnitDto = new PrayerUnitDto();
-                prayerUnitDto.setId(uniqueId);
-                prayerUnitDto.setPrayerUnitID(prayerUnit.getPrayerUnitCode());
-                prayerUnitDto.setPrayerUnitName(prayerUnit.getPrayerUnitName());
-                prayerUnitDto.setPrayerUnitPlace(prayerUnit.getPrayerUnitPlace());
-                prayerUnitDto.setLocalAddress(DisplayUtils.getEmbeddedObjectPropertyValueAsSingleString(prayerUnit.getLocalAddress(), 7, "addressLineOne", "addressLineTwo", "addressLineThree", "town", "county", "pin", "country"));
-                prayerUnitDto.setMassCenterName(prayerUnit.getMappedMassCenter().getName());
-                prayerUnitDtoList.add(prayerUnitDto);
-                uniqueId += 1;
-            }
-        } else {
-            throw new IllegalArgumentException("PrayerUnit List cannot be an empty List!!!...");
-        }
-        return prayerUnitDtoList;
     }
 
     @Override

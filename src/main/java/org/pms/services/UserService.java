@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.UserDto;
 import org.pms.models.User;
 
 import java.util.List;
@@ -16,8 +15,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     List<User> getAllUsers();
-
-    List<UserDto> createUserDtos(List<User> userList) throws IllegalArgumentException;
 
     Long getAllUserCount();
 

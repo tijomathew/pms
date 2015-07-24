@@ -19,23 +19,23 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 966228303336553974L;
 
-    @Column(name = "salutation", nullable = false)
+    @Column(name = "salutation")
     @Enumerated(EnumType.ORDINAL)
     private PersonSalutation salutation;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "dob", nullable = false)
+    @Column(name = "dob")
     private String dateOfBirth;
 
-    @Column(name = "place_of_birth", nullable = false)
+    @Column(name = "place_of_birth")
     private String placeOfBirth;
 
     @Column(name = "gender")
@@ -45,29 +45,29 @@ public class Person implements Serializable {
     @Column(name = "photo_location")
     private String photoPathLocation;
 
-    @Column(name = "nationality", nullable = false)
+    @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "personal_status", nullable = true)
+    @Column(name = "personal_status")
     @Enumerated(EnumType.ORDINAL)
     private PersonalStatus personalStatus;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "mobile_no", nullable = false)
+    @Column(name = "mobile_no")
     private long mobileNo;
 
-    @Column(name = "land_no", nullable = false)
+    @Column(name = "land_no")
     private long landLine;
 
     @Column(name = "fax")
     private String faxNo;
 
-    @Column(name = "education_qualifications", nullable = false)
+    @Column(name = "education_qualifications")
     private String educationQualifications;
 
-    @Column(name = "job_details", nullable = false)
+    @Column(name = "job_details")
     private String jobDetails;
 
     @Column(name = "blood_group")
@@ -83,8 +83,6 @@ public class Person implements Serializable {
 
     @Column(name = "personal_remarks")
     private String personalRemarks;
-
-    private byte[] imageContent;
 
     public Person() {
     }
@@ -249,12 +247,8 @@ public class Person implements Serializable {
         this.personalRemarks = personalRemarks;
     }
 
-    public byte[] getImageContent() {
-        return imageContent;
-    }
-
-    public void setImageContent(byte[] imageContent) {
-        this.imageContent = imageContent;
+    public String getFullName(){
+        return new StringBuilder(String.valueOf(this.getSalutation())).append(" ").append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
     }
 
     @Override
