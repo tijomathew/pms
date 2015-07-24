@@ -136,7 +136,7 @@ public class UserController {
             model.addAttribute("user", new User());
             userService.addOrUpdateUserSM(user);
             user.setPassword(passwordBeforeHashing);
-            if (user.getSendMailFlag().equalsIgnoreCase("true")) {
+            if (user.getSendMailFlag()) {
                 mailService.sendUserCredentials(user);
             }
 

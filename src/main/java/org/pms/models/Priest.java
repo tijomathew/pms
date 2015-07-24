@@ -276,4 +276,16 @@ public class Priest implements Serializable {
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
     }
+
+    public String getParishName() {
+        return this.getParish().getName();
+    }
+
+    public String getMassCenterName() {
+        return this.getMassCenter().getName();
+    }
+
+    public String getPriestFullName() {
+        return this.getPriestAsPerson().getFullName() + " " + this.getFamilyName();
+    }
 }

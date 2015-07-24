@@ -66,14 +66,27 @@ public class User implements Serializable {
     @Column(name = "is_validated")
     private boolean isValidated = Boolean.FALSE;
 
-    @Transient
-    private String sendMailFlag;
+    @Column(name = "sent_mail")
+    private boolean sendMailFlag = Boolean.TRUE;
 
     @Transient
     private String newPassword;
 
     @Transient
     private String confirmPassword;
+
+    @Transient
+    private String parish;
+
+    @Transient
+    private String massCenter;
+
+    @Transient
+    private String prayerUnit;
+
+    @Transient
+    private String family;
+
 
     /*@OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
     private Parish mappedParish;*/
@@ -198,11 +211,11 @@ public class User implements Serializable {
         this.isValidated = isValidated;
     }
 
-    public String getSendMailFlag() {
+    public boolean getSendMailFlag() {
         return sendMailFlag;
     }
 
-    public void setSendMailFlag(String sendMailFlag) {
+    public void setSendMailFlag(boolean sendMailFlag) {
         this.sendMailFlag = sendMailFlag;
     }
 
@@ -222,6 +235,37 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
+    public String getParish() {
+        return parish;
+    }
+
+    public void setParish(String parish) {
+        this.parish = parish;
+    }
+
+    public String getMassCenter() {
+        return massCenter;
+    }
+
+    public void setMassCenter(String massCenter) {
+        this.massCenter = massCenter;
+    }
+
+    public String getPrayerUnit() {
+        return prayerUnit;
+    }
+
+    public void setPrayerUnit(String prayerUnit) {
+        this.prayerUnit = prayerUnit;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
 
     @Override
     public boolean equals(Object o) {

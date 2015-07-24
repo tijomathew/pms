@@ -158,7 +158,8 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="systemRole"
-                                                                             id="systemRole" class="form-control" items="${systemRoles}">
+                                                                             id="systemRole" class="form-control"
+                                                                             items="${systemRoles}">
                                                                 </form:select>
                                                             </div>
                                                             <label for="isActive"
@@ -166,7 +167,8 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="isActive"
-                                                                             id="isActive" class="form-control" items="${systemRoleStatus}">
+                                                                             id="isActive" class="form-control"
+                                                                             items="${systemRoleStatus}">
                                                                 </form:select>
                                                             </div>
                                                         </div>
@@ -278,8 +280,8 @@
                                                             <div class="col-sm-4" id="password">
                                                                 <form:password path="password"
                                                                                id="password" class="form-control"/>
-                                                                <form:checkbox path="sendMailFlag" value="true"
-                                                                               checked="true"/>Send an email
+                                                                <form:checkbox path="sendMailFlag" checked="true"/>Send
+                                                                an email
                                                             </div>
                                                         </div>
                                                     </div>

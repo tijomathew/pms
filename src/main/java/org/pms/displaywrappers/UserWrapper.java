@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.UserDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.User;
 
@@ -16,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private User userBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"systemRole", "createdBy", "isActive","email","alreadyLoggedIn","parishId","massCenterId","prayerUnitId","familyId","isValidated"};
+    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRole", "isActive", "parish", "massCenter", "prayerUnit", "family", "alreadyLoggedIn", "isValidated", "createdBy","parishId","massCenterId","prayerUnitId","familyId"};
 
     public UserWrapper(User userBean) {
         this.userBean = userBean;
