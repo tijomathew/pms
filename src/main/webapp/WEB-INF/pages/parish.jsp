@@ -239,7 +239,15 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="registeredDate"
-                                                                        id="registeredDate" class="form-control date"/>
+                                                                        id="registeredDate" class="form-control"/>
+                                                            </div>
+                                                            <label for="patron"
+                                                                   class="col-sm-2 control-label">Patron</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="patron"
+                                                                        id="patron" class="form-control"/>
                                                             </div>
 
                                                         </div>
