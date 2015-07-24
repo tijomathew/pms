@@ -1,5 +1,6 @@
 package org.pms.daoImpls;
 
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.MemberDao;
@@ -33,7 +34,7 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
 
     @Override
     public Long getMemberCountForParish(List<Long> familyIdsList) {
-        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.in("member.familyMember.id", familyIdsList)).uniqueResult();
+        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.in("member.familyMember.id", familyIdsList)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).uniqueResult();
     }
 
     @Override

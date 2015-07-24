@@ -111,7 +111,7 @@ public class MemberController extends AbstractErrorHandler {
             family.addMemberForFamily(member);
             member.setFamilyMember(family);
 
-            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getParishId());
+            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishID());
             Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
 
             member.setMemberID(++memberCountForParish);
