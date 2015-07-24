@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.PriestDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.Priest;
 
