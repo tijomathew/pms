@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.MassCenterDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.MassCenter;
 
@@ -16,7 +15,7 @@ public class MassCenterWrapper implements GridRow {
 
     private MassCenter massCenterBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"name", "centerCode", "massCenterID", "patronName", "place", "facebookPage", "registeredDate", "drivingRoute", "map", "landLineNo", "mobileNo", "email", "faxNo",
+    private String[] VALID_BEAN_PROPERTIES = {"massCenterID","place","patronName","parishName","priestInCharge","parishNumber","name", "centerCode" , "facebookPage", "registeredDate", "drivingRoute", "map", "landLineNo", "mobileNo", "email", "faxNo",
             "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
     public MassCenterWrapper(MassCenter massCenterBean) {

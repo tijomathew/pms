@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.PriestDao;
-import org.pms.dtos.PriestDto;
 import org.pms.models.Person;
 import org.pms.models.Priest;
 import org.pms.models.PriestDesignation;

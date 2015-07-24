@@ -5,7 +5,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
-import org.pms.dtos.UserDto;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;

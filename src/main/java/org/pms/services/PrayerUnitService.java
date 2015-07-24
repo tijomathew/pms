@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.PrayerUnitDto;
 import org.pms.models.PrayerUnit;
 import org.springframework.ui.Model;
 

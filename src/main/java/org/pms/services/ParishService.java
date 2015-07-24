@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.ParishDto;
 import org.pms.models.Parish;
 import org.pms.models.Priest;
 import org.springframework.ui.Model;

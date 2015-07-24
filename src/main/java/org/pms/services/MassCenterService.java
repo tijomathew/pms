@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.MassCenterDto;
 import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.springframework.ui.Model;

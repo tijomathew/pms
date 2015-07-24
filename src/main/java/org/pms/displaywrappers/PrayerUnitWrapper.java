@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.PrayerUnitDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.PrayerUnit;
 
@@ -16,7 +15,7 @@ public class PrayerUnitWrapper implements GridRow {
 
     private PrayerUnit prayerUnitBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitName", "prayerUnitCode", "prayerUnitPlace", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
+    private String[] VALID_BEAN_PROPERTIES = {"prayerUnitCode", "prayerUnitPlace", "prayerUnitName", "parishNumber", "parishName", "massCenterNumber", "massCenterPlace", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
     public PrayerUnitWrapper(PrayerUnit prayerUnitBean) {
         this.prayerUnitBean = prayerUnitBean;

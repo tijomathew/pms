@@ -1,7 +1,6 @@
 package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.pms.dtos.FamilyDto;
 import org.pms.helpers.GridRow;
 import org.pms.models.Family;
 
@@ -16,7 +15,7 @@ public class FamilyWrapper implements GridRow {
 
     private Family familyBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyName", "familyID", "parishInNative", "dioceseInNative", "dateOfRegistration", "parishId", "massCenterId", "prayerUnitId", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country"};
+    private String[] VALID_BEAN_PROPERTIES = {"familyID", "familyName", "parishInNative", "dioceseInNative", "parishNumber", "massCenterNumber", "massCenterPlace", "prayerUnitNumber", "prayerUnitPlace", "dateOfRegistration", "parishId", "massCenterId", "prayerUnitId", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country"};
 
     public FamilyWrapper(Family familyBean) {
         this.familyBean = familyBean;

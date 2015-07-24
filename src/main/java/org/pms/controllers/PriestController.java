@@ -2,7 +2,6 @@ package org.pms.controllers;
 
 import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
-import org.pms.dtos.PriestDto;
 import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;

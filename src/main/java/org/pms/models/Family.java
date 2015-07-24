@@ -14,7 +14,7 @@ import java.util.List;
  * It contains various relationship with parish,mass center, ward and famil members.
  * It contains various getters and setters for the different attributes of the ward.
  * It contains methods for adding members to the family.
- * <p/>
+ * <p>
  * User: tijo
  */
 
@@ -204,6 +204,26 @@ public class Family implements Serializable {
         if (!this.memberList.contains(member)) {
             this.memberList.add(member);
         }
+    }
+
+    public Long getParishNumber() {
+        return this.getFamilyParish().getParishID();
+    }
+
+    public Long getMassCenterNumber() {
+        return this.getFamilyMassCenter().getMassCenterID();
+    }
+
+    public Long getPrayerUnitNumber() {
+        return this.getFamilyPrayerUnit().getPrayerUnitCode();
+    }
+
+    public String getMassCenterPlace() {
+        return this.getFamilyMassCenter().getPlace();
+    }
+
+    public String getPrayerUnitPlace() {
+        return this.getFamilyPrayerUnit().getPrayerUnitPlace();
     }
 
 

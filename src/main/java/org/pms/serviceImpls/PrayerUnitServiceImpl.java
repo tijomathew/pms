@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.PrayerUnitDao;
-import org.pms.dtos.PrayerUnitDto;
 import org.pms.enums.SystemRole;
 import org.pms.models.MassCenter;
 import org.pms.helpers.RequestResponseHolder;

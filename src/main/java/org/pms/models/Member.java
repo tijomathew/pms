@@ -676,4 +676,20 @@ public class Member implements Serializable {
     public Long getFamilyNo() {
         return this.familyMember.getFamilyID();
     }
+
+    public String getFamilyName() {
+        return this.familyMember.getFamilyName();
+    }
+
+    public String getParishName() {
+        return this.familyMember.getFamilyParish().getName();
+    }
+
+    public String getMassCenterNAme() {
+        return this.familyMember.getFamilyMassCenter().getName();
+    }
+
+    public String getPrayerUnitName() {
+        return this.familyMember.getFamilyPrayerUnit().getPrayerUnitName();
+    }
 }

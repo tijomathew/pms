@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.MemberDao;
-import org.pms.dtos.MemberDto;
 import org.pms.models.Member;
 import org.pms.models.Person;
 import org.pms.services.MemberService;

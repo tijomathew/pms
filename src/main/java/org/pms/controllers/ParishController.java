@@ -3,7 +3,6 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
-import org.pms.dtos.ParishDto;
 import org.pms.error.AbstractErrorHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;

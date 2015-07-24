@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.FamilyDto;
 import org.pms.models.Family;
 
 import java.util.List;

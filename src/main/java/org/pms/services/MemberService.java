@@ -1,6 +1,5 @@
 package org.pms.services;
 
-import org.pms.dtos.MemberDto;
 import org.pms.models.Member;
 
 import java.util.List;

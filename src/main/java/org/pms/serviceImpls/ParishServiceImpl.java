@@ -2,7 +2,6 @@ package org.pms.serviceImpls;
 
 import org.pms.enums.SystemRole;
 import org.pms.daos.ParishDao;
-import org.pms.dtos.ParishDto;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.Parish;
 import org.pms.models.User;
