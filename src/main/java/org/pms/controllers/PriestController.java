@@ -122,11 +122,17 @@ public class PriestController extends AbstractErrorHandler {
 
         Predicate<PersonalStatus> includePriestStatus = p -> p.name().equalsIgnoreCase(PersonalStatus.PRIEST.toString());
 
+        Predicate<PriestDesignations> excludeInCharge = p -> !(p.name().equalsIgnoreCase(PriestDesignations.IN_CHARGE.toString()));
+
+        Predicate<PriestDesignations> excludeAssistant = p -> !(p.name().equalsIgnoreCase(PriestDesignations.ASSISTANT.toString()));
+
+        Predicate<PriestDesignations> excludeInChargeAndAssistant = excludeInCharge.and(excludeAssistant);
+
 
         List<Parish> addedParishes = parishService.getAllParish();
 
         model.addAttribute("parishList", addedParishes.stream().collect(Collectors.toMap(Parish::getId, Parish::getName)));
-        model.addAttribute("priestDesignation", Arrays.stream(PriestDesignations.values()).collect(Collectors.toMap(PriestDesignations::name, PriestDesignations::getUIDisplayValue)));
+        model.addAttribute("priestDesignation", Arrays.stream(PriestDesignations.values()).filter(excludeInChargeAndAssistant).collect(Collectors.toMap(PriestDesignations::name, PriestDesignations::getUIDisplayValue)));
         model.addAttribute("sex", Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::name, Gender::getUIDisplayValue)));
         model.addAttribute("priestSalutation", Arrays.stream(PersonSalutation.values()).filter(includeOnlyPriestSalutation).collect(Collectors.toMap(PersonSalutation::name, PersonSalutation::getUIDisplayValue)));
         model.addAttribute("priestStatus", Arrays.stream(PriestStatus.values()).collect(Collectors.toMap(PriestStatus::name, PriestStatus::getUIDisplayValue)));
