@@ -39,56 +39,84 @@ function loadParishGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['churchName', 'riteName', 'dioceseName', 'parishID', 'foraneName', 'name', 'place', 'code', 'webSite', 'facebookPage', 'drivingRoute', 'map', 'registeredDate', 'mobileNo', 'email', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
+            colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'churchName', 'riteName', 'dioceseName', 'foraneName', 'code', 'webSite', 'facebookPage', 'drivingRoute', 'map', 'registeredDate', 'mobileNo', 'email', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-
-                {name: 'churchName', index: 'churchName', width: 90, sortable: false},
-                {name: 'riteName', index: 'riteName', width: 100, sortable: false},
-                {name: 'dioceseName', index: 'dioceseName', width: 80, align: "right", sortable: false},
                 {name: 'parishID', index: 'parishID', width: 80, align: "right", sortable: false},
-                {name: 'foraneName', index: 'foraneName', width: 80, align: "right", sortable: false},
                 {name: 'name', index: 'name', width: 80, align: "right", sortable: false},
                 {name: 'place', index: 'place', width: 80, align: "right", sortable: false},
-                {name: 'code', index: 'code', width: 80, align: "right", sortable: false},
-                {name: 'webSite', index: 'webSite', width: 80, align: "right", sortable: false},
-                {name: 'facebookPage', index: 'facebookPage', width: 80, align: "right", sortable: false},
-                {name: 'drivingRoute', index: 'drivingRoute', width: 80, align: "right", sortable: false},
-                {name: 'map', index: 'map', width: 80, align: "right", sortable: false},
-                {name: 'registeredDate', index: 'registeredDate', width: 80, align: "right", sortable: false},
-                {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right", sortable: false},
-                {name: 'email', index: 'email', width: 80, align: "right", sortable: false},
-                {name: 'landLineNo', index: 'landLineNo', width: 80, align: "right", sortable: false},
-                {name: 'faxNo', index: 'faxNo', width: 80, align: "right", sortable: false},
+                {name: 'patron', index: 'patron', width: 80, align: "right", sortable: false},
+                {name: 'churchName', index: 'churchName', width: 90, sortable: false, hidden: true},
+                {name: 'riteName', index: 'riteName', width: 100, sortable: false, hidden: true},
+                {name: 'dioceseName', index: 'dioceseName', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'foraneName', index: 'foraneName', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'code', index: 'code', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'webSite', index: 'webSite', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'facebookPage', index: 'facebookPage', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'drivingRoute', index: 'drivingRoute', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'map', index: 'map', width: 80, align: "right", sortable: false, hidden: true},
+                {
+                    name: 'registeredDate',
+                    index: 'registeredDate',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'email', index: 'email', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'landLineNo', index: 'landLineNo', width: 80, align: "right", sortable: false, hidden: true},
+                {name: 'faxNo', index: 'faxNo', width: 80, align: "right", sortable: false, hidden: true},
                 {
                     name: 'localAddress.addressLineOne',
                     index: 'localAddress.addressLineOne',
                     width: 80,
                     align: "right",
-                    sortable: false
+                    sortable: false, hidden: true
                 },
                 {
                     name: 'localAddress.addressLineTwo',
                     index: 'localAddress.addressLineTwo',
                     width: 80,
                     align: "right",
-                    sortable: false
+                    sortable: false, hidden: true
                 },
                 {
                     name: 'localAddress.addressLineThree',
                     index: 'localAddress.addressLineThree',
                     width: 80,
                     align: "right",
-                    sortable: false
+                    sortable: false, hidden: true
                 },
-                {name: 'localAddress.town', index: 'localAddress.town', width: 80, align: "right", sortable: false},
-                {name: 'localAddress.county', index: 'localAddress.county', width: 80, align: "right", sortable: false},
-                {name: 'localAddress.pin', index: 'localAddress.pin', width: 80, align: "right", sortable: false},
+                {
+                    name: 'localAddress.town',
+                    index: 'localAddress.town',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'localAddress.county',
+                    index: 'localAddress.county',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'localAddress.pin',
+                    index: 'localAddress.pin',
+                    width: 80,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
                 {
                     name: 'localAddress.country',
                     index: 'localAddress.country',
                     width: 80,
                     align: "right",
-                    sortable: false
+                    sortable: false, hidden: true
                 }
             ],
             rowNum: 10,
@@ -98,7 +126,7 @@ function loadParishGrid() {
             sortorder: "desc",
             caption: "Parishes",
             autowidth: true,
-            shrinkToFit: false,
+            shrinkToFit: true,
             height: 'auto',
             width: 'auto',
             onSelectRow: function () {

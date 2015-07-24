@@ -83,6 +83,9 @@ public class Parish implements Serializable {
     @Column(name = "fax_no")
     private String faxNo;
 
+    @Column(name = "patron")
+    private String patron;
+
     @Embedded
     private LocalAddress localAddress;
 
@@ -275,6 +278,14 @@ public class Parish implements Serializable {
 
     public void setMappedFamilies(List<Family> mappedFamilies) {
         this.mappedFamilies = mappedFamilies;
+    }
+
+    public String getPatron() {
+        return patron;
+    }
+
+    public void setPatron(String patron) {
+        this.patron = patron;
     }
 
     /*public User getAdminToParish() {
