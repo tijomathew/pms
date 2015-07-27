@@ -15,7 +15,7 @@ public class MassCenterWrapper implements GridRow {
 
     private MassCenter massCenterBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"massCenterNo","place","patronName","parishName","priestInCharge","parishNumber","name", "centerCode" , "facebookPage", "registeredDate", "drivingRoute", "map", "landLineNo", "mobileNo", "email", "faxNo",
+    private String[] VALID_BEAN_PROPERTIES = {"massCenterNo","place","patronName","parishName","parishNumber","massCenterName", "centerCode" , "facebookPage", "registeredDate", "drivingRoute", "map", "landLineNo", "mobileNo", "email", "faxNo",
             "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
     public MassCenterWrapper(MassCenter massCenterBean) {

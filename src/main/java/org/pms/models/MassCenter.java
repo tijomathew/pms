@@ -28,8 +28,8 @@ public class MassCenter implements Serializable {
     private Long id;
 
     //@NotEmpty
-    @Column(name = "name")
-    private String name;
+    @Column(name = "masscenter_name")
+    private String massCenterName;
 
     @Column(name = "masscenter_no")
     private Long massCenterNo;
@@ -67,9 +67,6 @@ public class MassCenter implements Serializable {
     @Transient
     private Long parish;
 
-    @Transient
-    private String priestInCharge;
-
     @Embedded
     private LocalAddress localAddress;
 
@@ -96,12 +93,12 @@ public class MassCenter implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getMassCenterName() {
+        return massCenterName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMassCenterName(String massCenterName) {
+        this.massCenterName = massCenterName;
     }
 
     public Long getMassCenterNo() {
@@ -240,13 +237,6 @@ public class MassCenter implements Serializable {
         this.mappedPriest = mappedPriest;
     }
 
-    public String getPriestInCharge() {
-        return priestInCharge;
-    }
-
-    public void setPriestInCharge(String priestInCharge) {
-        this.priestInCharge = priestInCharge;
-    }
 
     /**
      * This method for adding ward to the mass center.
