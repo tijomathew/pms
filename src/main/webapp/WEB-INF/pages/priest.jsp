@@ -259,14 +259,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="parishId"
-                                                                   class="col-sm-2 control-label">Parish</label>
+                                                            <label for="fatherName" class="col-sm-2 control-label">Father's
+                                                                Name</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:select path="parishId"
-                                                                             items="${parishList}" class="form-control"
-                                                                        ><form:option
-                                                                        value="0l">--Please Select--</form:option></form:select>
+                                                                <form:input path="fatherName"
+                                                                            id="fatherName" class="form-control"/>
                                                             </div>
                                                             <label for="priestAsPerson.educationQualifications"
                                                                    class="col-sm-2 control-label">Education
@@ -419,13 +417,6 @@
                                                             <div class="col-sm-4">
                                                                 <form:input path="motherName"
                                                                             id="motherName" class="form-control"/>
-                                                            </div>
-                                                            <label for="fatherName" class="col-sm-2 control-label">Father's
-                                                                Name</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input path="fatherName"
-                                                                            id="fatherName" class="form-control"/>
                                                             </div>
                                                         </div>
                                                     </div>

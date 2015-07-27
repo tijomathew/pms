@@ -63,9 +63,6 @@ public class PriestController extends AbstractErrorHandler {
     CustomResponse addPriest(Model model, @ModelAttribute("priest") @Valid Priest priest, BindingResult result) {
 
         if (!result.hasErrors()) {
-            Parish mappedParish = parishService.getParishForIDSM(priest.getParishId());
-            priest.setParish(mappedParish);
-            mappedParish.addPriestsForParish(priest);
 
             Long priestAutoID = priestService.getHighestAutoIDSM();
 
@@ -122,10 +119,6 @@ public class PriestController extends AbstractErrorHandler {
 
         Predicate<PriestDesignations> excludeInChargeAndAssistant = excludeInCharge.and(excludeAssistant);
 
-
-        List<Parish> addedParishes = parishService.getAllParish();
-
-        model.addAttribute("parishList", addedParishes.stream().collect(Collectors.toMap(Parish::getId, Parish::getName)));
         model.addAttribute("priestDesignation", Arrays.stream(PriestDesignations.values()).filter(excludeInChargeAndAssistant).collect(Collectors.toMap(PriestDesignations::name, PriestDesignations::getUIDisplayValue)));
         model.addAttribute("sex", Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::name, Gender::getUIDisplayValue)));
         model.addAttribute("priestSalutation", Arrays.stream(PersonSalutation.values()).filter(includeOnlyPriestSalutation).collect(Collectors.toMap(PersonSalutation::name, PersonSalutation::getUIDisplayValue)));
