@@ -144,4 +144,27 @@ public class MassCenterServiceImpl implements MassCenterService {
         massCenterMap.put(0l, "--Please Select--");
         return massCenterMap;
     }
+
+    @Override
+    public List<MassCenter> getAllMassCentersForUserRole(User currentUser) {
+        List<MassCenter> allMassCenters = new ArrayList<>();
+        switch (currentUser.getSystemRole()) {
+            case ADMIN:
+                allMassCenters = getAllMassCenter();
+                break;
+            case PARISH_ADMIN:
+                allMassCenters.addAll(parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList());
+                break;
+            case MASS_CENTER_ADMIN:
+                allMassCenters.add(getMassCenterForIDSM(currentUser.getMassCenterId()));
+                break;
+            case PRAYER_UNIT_ADMIN:
+                //No Op
+                break;
+            case FAMILY_USER:
+                //No Op
+                break;
+        }
+        return allMassCenters;
+    }
 }

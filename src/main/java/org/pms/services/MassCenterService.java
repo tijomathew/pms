@@ -36,4 +36,6 @@ public interface MassCenterService {
 
     Map<Long, String> getMassCenterMapForUserRole(User currentUser);
 
+    List<MassCenter> getAllMassCentersForUserRole(User currentUser);
+
 }

@@ -37,12 +37,6 @@ public class MassCenterController extends AbstractErrorHandler {
     private ParishService parishService;
 
     @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private PriestService priestService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewmasscenter.action", method = RequestMethod.GET)
@@ -100,19 +94,8 @@ public class MassCenterController extends AbstractErrorHandler {
     @ResponseBody
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<MassCenter> allMassCenters = new ArrayList<>();
-        Long massCenterCount = 0l;
-        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
-            allMassCenters = massCenterService.getAllMassCenter();
-            massCenterCount = massCenterService.getAllMassCenterCount();
-        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
-            allMassCenters.addAll(massCentersUnderParish);
-            massCenterCount = Long.valueOf(massCentersUnderParish.size());
-        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-            allMassCenters.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
-            massCenterCount = 1l;
-        }
+        List<MassCenter> allMassCenters = massCenterService.getAllMassCentersForUserRole(currentUser);
+        Long massCenterCount = Long.valueOf(allMassCenters.size());
 
         List<MassCenter> allUsersSubList = new ArrayList<MassCenter>();
         if (massCenterCount > 0) {
