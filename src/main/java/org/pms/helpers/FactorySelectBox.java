@@ -69,10 +69,15 @@ public final class FactorySelectBox {
                 break;
             case PRAYER_UNIT_ADMIN:
                 cleanUpListAndMap();
+                currentUser.setParishId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getMappedParish().getId());
+                currentUser.setMassCenterId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getId());
                 createListEntries(currentUser, model);
                 break;
             case FAMILY_USER:
                 cleanUpListAndMap();
+                currentUser.setParishId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyMassCenter().getMappedParish().getId());
+                currentUser.setMassCenterId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyMassCenter().getId());
+                currentUser.setPrayerUnitId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyPrayerUnit().getId());
                 createListEntries(currentUser, model);
                 break;
         }
@@ -105,17 +110,23 @@ public final class FactorySelectBox {
     private void cleanUpListAndMap() {
         if (!parishList.isEmpty()) {
             parishList.clear();
-        }if (!massCenterList.isEmpty()) {
+        }
+        if (!massCenterList.isEmpty()) {
             massCenterList.clear();
-        }if (!prayerUnitList.isEmpty()) {
+        }
+        if (!prayerUnitList.isEmpty()) {
             prayerUnitList.clear();
-        }if(!parishMap.isEmpty()){
+        }
+        if (!parishMap.isEmpty()) {
             parishMap.clear();
-        }if(!massCenterMap.isEmpty()){
+        }
+        if (!massCenterMap.isEmpty()) {
             massCenterMap.clear();
-        }if(!prayerUnitMap.isEmpty()){
+        }
+        if (!prayerUnitMap.isEmpty()) {
             prayerUnitMap.clear();
         }
     }
+
 
 }
