@@ -25,18 +25,14 @@ public class MassCenter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auto_id", unique = true, nullable = false)
-    private long id;
+    private Long id;
 
     //@NotEmpty
     @Column(name = "name")
     private String name;
 
-    @Column(name = "code")
-    private String centerCode;
-
-    @Column(name = "massCenterID")
-    private Long massCenterID;
+    @Column(name = "masscenter_no")
+    private Long massCenterNo;
 
     @Column(name = "patron_name")
     private String patronName;
@@ -96,7 +92,7 @@ public class MassCenter implements Serializable {
     public MassCenter() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -108,20 +104,12 @@ public class MassCenter implements Serializable {
         this.name = name;
     }
 
-    public String getCenterCode() {
-        return centerCode;
+    public Long getMassCenterNo() {
+        return massCenterNo;
     }
 
-    public void setCenterCode(String centerCode) {
-        this.centerCode = centerCode;
-    }
-
-    public Long getMassCenterID() {
-        return massCenterID;
-    }
-
-    public void setMassCenterID(Long massCenterID) {
-        this.massCenterID = massCenterID;
+    public void setMassCenterNo(Long massCenterNo) {
+        this.massCenterNo = massCenterNo;
     }
 
     public String getPatronName() {
@@ -283,11 +271,11 @@ public class MassCenter implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getMappedParish().getParishID();
+        return this.getMappedParish().getParishNo();
     }
 
     public String getParishName() {
-        return this.getMappedParish().getName();
+        return this.getMappedParish().getParishName();
     }
 
 }

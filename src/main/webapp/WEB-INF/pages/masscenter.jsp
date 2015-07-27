@@ -139,29 +139,28 @@
                                                             <div class="col-sm-4">
                                                                 <form:input path="name" id="name" class="form-control"/>
                                                             </div>
-                                                            <label for="centerCode" class="col-sm-2 control-label">Mass
-                                                                Center Code</label>
+                                                            <label for="massCenterNo" class="col-sm-2 control-label">Mass
+                                                                Center No.</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="centerCode" id="centerCode"
+                                                                <form:input path="massCenterNo" id="massCenterNo"
                                                                             class="form-control"/>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="massCenterID" class="col-sm-2 control-label">Mass
-                                                                Center ID</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input path="massCenterID" id="massCenterID"
-                                                                            readonly="true" class="form-control"/>
-                                                            </div>
                                                             <label for="place" class="col-sm-2 control-label">Mass
                                                                 Center Place</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input path="place" id="place"
                                                                             class="form-control"/>
+                                                            </div>
+                                                            <label for="drivingRoute" class="col-sm-2 control-label">Parish</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="parish" items="${parishList}"
+                                                                             id="parishSelectBox" class="form-control"/>
                                                             </div>
                                                         </div>
 
@@ -238,12 +237,6 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:input path="map" id="map" class="form-control"/>
-                                                            </div>
-                                                            <label for="drivingRoute" class="col-sm-2 control-label">Parish</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:select path="parish" items="${parishList}"
-                                                                             id="parishSelectBox" class="form-control"/>
                                                             </div>
                                                         </div>
                                                     </div>

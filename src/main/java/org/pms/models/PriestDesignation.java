@@ -15,7 +15,6 @@ public class PriestDesignation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "designation_id")
     private Long id;
 
     @Column(name = "designation")

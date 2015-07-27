@@ -71,7 +71,7 @@ public class MassCenterController extends AbstractErrorHandler {
 
             Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
 
-            massCenter.setMassCenterID(++massCenterCount);
+            massCenter.setMassCenterNo(++massCenterCount);
 
             User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
             boolean permissionDenied = false;

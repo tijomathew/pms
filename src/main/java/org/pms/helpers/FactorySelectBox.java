@@ -89,7 +89,7 @@ public final class FactorySelectBox {
         massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
         prayerUnitList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
 
-        parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getName));
+        parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getName));
         prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
 

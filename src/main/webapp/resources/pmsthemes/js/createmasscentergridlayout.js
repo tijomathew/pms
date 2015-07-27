@@ -19,10 +19,10 @@ function loadMassCenterGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['centerCode', 'place', 'patronName', 'Parish', 'Priest In-charge', 'Parish No.', 'name', 'massCenterID', 'facebookPage', 'registeredDate', 'drivingRoute', 'map', 'landLineNo', 'mobileNo', 'email', 'faxNo',
+            colNames: ['Mass Center No.', 'place', 'patronName', 'Parish', 'Priest In-charge', 'Parish No.', 'name', 'massCenterID', 'facebookPage', 'registeredDate', 'drivingRoute', 'map', 'landLineNo', 'mobileNo', 'email', 'faxNo',
                 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-                {name: 'massCenterID', index: 'massCenterID', width: 90, sortable: false},
+                {name: 'massCenterNo', index: 'massCenterNo', width: 90, sortable: false},
                 {name: 'place', index: 'place', width: 90, sortable: false},
                 {name: 'patronName', index: 'patronName', width: 90, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 90, sortable: false},

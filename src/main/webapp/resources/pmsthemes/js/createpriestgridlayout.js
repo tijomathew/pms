@@ -22,7 +22,7 @@ function loadPriestGrid() {
                 'priestAsPerson.jobDetails', 'priestAsPerson.bloodGroup', 'priestAsPerson.carNumber', 'priestAsPerson.lifeStatus', 'priestAsPerson.personalRemarks', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'emergencyContact.name', 'emergencyContact.addressLineOne', 'emergencyContact.addressLineTwo', 'emergencyContact.addressLineThree', 'emergencyContact.mobileNo', 'emergencyContact.landLineNo', 'emergencyContact.email'],
             colModel: [
                 {name: 'parishName', index: 'parishName', width: 120, sortable: false},
-                {name: 'priestID', index: 'priestID', width: 120, sortable: false},
+                {name: 'priestNo', index: 'priestNo', width: 120, sortable: false},
                 {name: 'priestFullName', index: 'priestFullName', width: 120, sortable: false},
                 {
                     name: 'priestAsPerson.dateOfBirth',

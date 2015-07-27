@@ -26,14 +26,13 @@ public class Family implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "family_auto_id")
     private long id;
 
     @Column(name = "family_name")
     private String familyName;
 
-    @Column(name = "family_id")
-    private Long familyID;
+    @Column(name = "family_no")
+    private Long familyNo;
 
     @NotEmpty
     @Column(name = "parish_in_native")
@@ -79,7 +78,7 @@ public class Family implements Serializable {
     public Family() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -91,12 +90,12 @@ public class Family implements Serializable {
         this.familyName = familyName;
     }
 
-    public Long getFamilyID() {
-        return familyID;
+    public Long getFamilyNo() {
+        return familyNo;
     }
 
-    public void setFamilyID(Long familyID) {
-        this.familyID = familyID;
+    public void setFamilyNo(Long familyNo) {
+        this.familyNo = familyNo;
     }
 
     public String getParishInNative() {
@@ -207,15 +206,15 @@ public class Family implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getFamilyParish().getParishID();
+        return this.getFamilyParish().getParishNo();
     }
 
     public Long getMassCenterNumber() {
-        return this.getFamilyMassCenter().getMassCenterID();
+        return this.getFamilyMassCenter().getMassCenterNo();
     }
 
     public Long getPrayerUnitNumber() {
-        return this.getFamilyPrayerUnit().getPrayerUnitCode();
+        return this.getFamilyPrayerUnit().getPrayerUnitNo();
     }
 
     public String getMassCenterPlace() {

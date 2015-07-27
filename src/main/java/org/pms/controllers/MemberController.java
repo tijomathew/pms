@@ -111,10 +111,10 @@ public class MemberController extends AbstractErrorHandler {
             family.addMemberForFamily(member);
             member.setFamilyMember(family);
 
-            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishID());
+            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishNo());
             Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
 
-            member.setMemberID(++memberCountForParish);
+            member.setMemberNo(++memberCountForParish);
 
             memberService.addMemberSM(member);
             customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), "added in to the system");

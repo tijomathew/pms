@@ -146,12 +146,12 @@
                                                                              items="${priestStatus}">
                                                                 </form:select>
                                                             </div>
-                                                            <label for="priestID" class="col-sm-2 control-label">Priest
-                                                                ID</label>
+                                                            <label for="priestNo" class="col-sm-2 control-label">Priest
+                                                                No.</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="priestID"
-                                                                            id="priestID"
+                                                                <form:input path="priestNo"
+                                                                            id="priestNo"
                                                                             readonly="true"
                                                                             placeholder="auto generated value"
                                                                             class="form-control"/>

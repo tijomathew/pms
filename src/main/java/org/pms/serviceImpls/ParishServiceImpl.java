@@ -68,7 +68,7 @@ public class ParishServiceImpl implements ParishService {
     public Parish createParishFormBackObjectModel(Model model) {
         Long parishCounter = getParishCount();
         Parish formBackParish = new Parish();
-        formBackParish.setParishID(++parishCounter);
+        formBackParish.setParishNo(++parishCounter);
         model.addAttribute("parish", formBackParish);
         return formBackParish;
     }

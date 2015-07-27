@@ -59,10 +59,10 @@ public class ParishController extends AbstractErrorHandler {
 
         if (!result.hasErrors()) {
             Long parishCounter = parishService.getParishCount();
-            parish.setParishID(++parishCounter);
+            parish.setParishNo(++parishCounter);
             parishService.addParishSM(parish);
             model.addAttribute("showAddButton", true);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getName(), "added in to the system");
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), "added in to the system");
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

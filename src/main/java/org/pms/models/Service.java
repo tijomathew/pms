@@ -16,7 +16,6 @@ public class Service implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "service_auto_id")
     private Long id;
 
     @Column(name = "date")

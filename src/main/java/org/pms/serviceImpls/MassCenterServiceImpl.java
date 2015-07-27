@@ -98,7 +98,7 @@ public class MassCenterServiceImpl implements MassCenterService {
             parishList.add(parishForMassCenter);
         }
         if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getName));
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
         parishMap.put(0l, "--please select--");
         model.addAttribute("parishList", parishMap);
@@ -115,7 +115,7 @@ public class MassCenterServiceImpl implements MassCenterService {
 
         if (parishForMassCenter != null) {
             Long massCenterCount = getMassCenterCountForParish(parishForMassCenter.getId());
-            formBackMassCenter.setMassCenterID(++massCenterCount);
+            formBackMassCenter.setMassCenterNo(++massCenterCount);
         }
     }
 

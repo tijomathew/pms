@@ -28,33 +28,17 @@ public class Parish implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auto_id", unique = true, nullable = false)
-    private long id;
+    private Long id;
 
-    @NotEmpty(message = "{NotEmpty.parish.churchName}")
-    @Column(name = "church_name")
-    private String churchName;
+    @Column(name = "parish_no")
+    private Long parishNo;
 
-    @Column(name = "rite_name")
-    private String riteName;
 
-    @Column(name = "diocese_name")
-    private String dioceseName;
-
-    @Column(name = "parish_id")
-    private Long parishID;
-
-    @Column(name = "forane_name")
-    private String foraneName;
-
-    @Column(name = "name")
-    private String name;
+    @Column(name = "parish_name")
+    private String parishName;
 
     @Column(name = "place")
     private String place;
-
-    @Column(name = "code")
-    private String code;
 
     @Column(name = "website")
     private String webSite;
@@ -72,13 +56,13 @@ public class Parish implements Serializable {
     private String registeredDate;
 
     @Column(name = "mobile_no")
-    private long mobileNo;
+    private Long mobileNo;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "landline_no")
-    private long landLineNo;
+    private Long landLineNo;
 
     @Column(name = "fax_no")
     private String faxNo;
@@ -108,56 +92,24 @@ public class Parish implements Serializable {
     public Parish() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public String getChurchName() {
-        return churchName;
+    public Long getParishNo() {
+        return parishNo;
     }
 
-    public void setChurchName(String churchName) {
-        this.churchName = churchName;
+    public void setParishNo(Long parishNo) {
+        this.parishNo = parishNo;
     }
 
-    public String getRiteName() {
-        return riteName;
+    public String getParishName() {
+        return parishName;
     }
 
-    public void setRiteName(String riteName) {
-        this.riteName = riteName;
-    }
-
-    public String getDioceseName() {
-        return dioceseName;
-    }
-
-    public void setDioceseName(String dioceseName) {
-        this.dioceseName = dioceseName;
-    }
-
-    public Long getParishID() {
-        return parishID;
-    }
-
-    public void setParishID(Long parishID) {
-        this.parishID = parishID;
-    }
-
-    public String getForaneName() {
-        return foraneName;
-    }
-
-    public void setForaneName(String foraneName) {
-        this.foraneName = foraneName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setParishName(String parishName) {
+        this.parishName = parishName;
     }
 
     public String getPlace() {
@@ -166,14 +118,6 @@ public class Parish implements Serializable {
 
     public void setPlace(String place) {
         this.place = place;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getWebSite() {
@@ -216,11 +160,11 @@ public class Parish implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public long getMobileNo() {
+    public Long getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(long mobileNo) {
+    public void setMobileNo(Long mobileNo) {
         this.mobileNo = mobileNo;
     }
 
@@ -232,11 +176,11 @@ public class Parish implements Serializable {
         this.email = email;
     }
 
-    public long getLandLineNo() {
+    public Long getLandLineNo() {
         return landLineNo;
     }
 
-    public void setLandLineNo(long landLineNo) {
+    public void setLandLineNo(Long landLineNo) {
         this.landLineNo = landLineNo;
     }
 

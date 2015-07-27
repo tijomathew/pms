@@ -136,60 +136,22 @@
                                                     </div>
                                                     <div class="panel-body padding7">
                                                         <div class="form-group">
-                                                            <label for="churchName"
-                                                                   class="col-sm-2 control-label text-left">Name</label>
+                                                            <label for="parishNo" class="col-sm-2 control-label">Parish
+                                                                No.</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
-                                                                        path="churchName"
-                                                                        id="churchName" class="form-control"/>
-                                                            </div>
-                                                            <label for="riteName" class="col-sm-2 control-label">Rite
-                                                                Name</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="riteName"
-                                                                        id="riteName" class="form-control"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="dioceseName" class="col-sm-2 control-label">Diocese
-                                                                Name</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="dioceseName"
-                                                                        id="dioceseName" class="form-control"/>
-                                                            </div>
-                                                            <label for="foraneName" class="col-sm-2 control-label">Forane
-                                                                Name</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="foraneName"
-                                                                        id="foraneName" class="form-control"/>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-                                                            <label for="parishID" class="col-sm-2 control-label">Parish
-                                                                ID</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="parishID"
-                                                                        id="parishID" class="form-control"
+                                                                        path="parishNo"
+                                                                        id="parishNo" class="form-control"
                                                                         readonly="true"/>
                                                             </div>
-                                                            <label for="name" class="col-sm-2 control-label">Parish
+                                                            <label for="parishName" class="col-sm-2 control-label">Parish
                                                                 Name</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
-                                                                        path="name"
-                                                                        id="name" class="form-control"/>
+                                                                        path="parishName"
+                                                                        id="parishName" class="form-control"/>
                                                             </div>
                                                         </div>
 
@@ -203,13 +165,13 @@
                                                                         path="place"
                                                                         id="place" class="form-control"/>
                                                             </div>
-                                                            <label for="code" class="col-sm-2 control-label">Parish
-                                                                Code</label>
+                                                            <label for="patron"
+                                                                   class="col-sm-2 control-label">Patron</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
-                                                                        path="code"
-                                                                        id="code" class="form-control"/>
+                                                                        path="patron"
+                                                                        id="patron" class="form-control"/>
                                                             </div>
                                                         </div>
 
@@ -240,14 +202,6 @@
                                                                 <form:input
                                                                         path="registeredDate"
                                                                         id="registeredDate" class="form-control"/>
-                                                            </div>
-                                                            <label for="patron"
-                                                                   class="col-sm-2 control-label">Patron</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="patron"
-                                                                        id="patron" class="form-control"/>
                                                             </div>
 
                                                         </div>

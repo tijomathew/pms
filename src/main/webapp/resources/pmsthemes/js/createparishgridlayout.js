@@ -41,7 +41,7 @@ function loadParishGrid() {
             //rowList: [10, 20, 30],
             colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'churchName', 'riteName', 'dioceseName', 'foraneName', 'code', 'webSite', 'facebookPage', 'drivingRoute', 'map', 'registeredDate', 'mobileNo', 'email', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-                {name: 'parishID', index: 'parishID', width: 80, align: "right", sortable: false},
+                {name: 'parishNo', index: 'parishNo', width: 80, align: "right", sortable: false},
                 {name: 'name', index: 'name', width: 80, align: "right", sortable: false},
                 {name: 'place', index: 'place', width: 80, align: "right", sortable: false},
                 {name: 'patron', index: 'patron', width: 80, align: "right", sortable: false},

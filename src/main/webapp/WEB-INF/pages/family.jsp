@@ -149,12 +149,10 @@
                                                                 <form:input path="familyName" id="familyName"
                                                                             class="form-control"/>
                                                             </div>
-
-                                                            <label for="parishInNative" class="col-sm-2 control-label">Native
-                                                                Parish</label>
+                                                            <label for="familyNo" class="col-sm-2 control-label">Family No.</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="parishInNative" id="parishInNative"
+                                                                <form:input path="familyNo" id="familyNo" readonly="true"
                                                                             class="form-control"/>
                                                             </div>
                                                         </div>
@@ -211,6 +209,13 @@
                                                                                  class="form-control">
                                                                     </form:select>
                                                                 </div>
+                                                                <label for="parishInNative" class="col-sm-2 control-label">Native
+                                                                    Parish</label>
+
+                                                                <div class="col-sm-4">
+                                                                    <form:input path="parishInNative" id="parishInNative"
+                                                                                class="form-control"/>
+                                                                </div>
 
                                                             </div>
 
@@ -248,6 +253,13 @@
                                                                     <form:select path="prayerUnitId"
                                                                                  items="${prayerUnitList}"
                                                                                  class="form-control"></form:select>
+                                                                </div>
+                                                                <label for="parishInNative" class="col-sm-2 control-label">Native
+                                                                    Parish</label>
+
+                                                                <div class="col-sm-4">
+                                                                    <form:input path="parishInNative" id="parishInNative"
+                                                                                class="form-control"/>
                                                                 </div>
                                                             </div>
 

@@ -132,12 +132,12 @@
                                                                 <form:input path="prayerUnitName"
                                                                             id="prayerUnitName" class="form-control"/>
                                                             </div>
-                                                            <label for="prayerUnitCode" class="col-sm-2 control-label">Prayer
-                                                                Unit Code</label>
+                                                            <label for="prayerUnitNo" class="col-sm-2 control-label">Prayer
+                                                                Unit No.</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="prayerUnitCode"
-                                                                            id="prayerUnitCode"
+                                                                <form:input path="prayerUnitNo"
+                                                                            id="prayerUnitNo"
                                                                             readonly="true" class="form-control"/>
                                                             </div>
                                                         </div>

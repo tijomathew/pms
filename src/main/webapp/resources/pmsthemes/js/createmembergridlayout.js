@@ -32,7 +32,7 @@ function loadMemberGrid() {
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 100, sortable: false},
-                {name: 'memberID', index: 'memberID', width: 100, sortable: false},
+                {name: 'memberNo', index: 'memberNo', width: 100, sortable: false},
                 {name: 'memberAsPerson.fullName', index: 'memberAsPerson.fullName', width: 90, sortable: false},
                 {name: "memberAsPerson.gender", index: "memberAsPerson.gender", width: 100, sortable: false},
                 {name: "memberAsPerson.dateOfBirth", index: "memberAsPerson.dateOfBirth", width: 100, sortable: false},

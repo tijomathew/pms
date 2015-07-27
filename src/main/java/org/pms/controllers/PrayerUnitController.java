@@ -64,7 +64,7 @@ public class PrayerUnitController extends AbstractErrorHandler {
 
             Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getMappedParish().getId());
 
-            prayerUnit.setPrayerUnitCode(++prayerUnitCounter);
+            prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
 
             User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
             boolean permissionDenied = false;

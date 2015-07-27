@@ -235,7 +235,7 @@ public class UserController {
         Map<Long, String> parishMap = new HashMap<Long, String>();
         List<Parish> addedParishes = parishService.getAllParish();
         for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getName());
+            parishMap.put(parish.getId(), parish.getParishName());
 
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
         List<MassCenter> massCenterList = massCenterService.getAllMassCenter();

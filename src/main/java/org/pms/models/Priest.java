@@ -22,11 +22,10 @@ public class Priest implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "priest_auto_id")
     private Long id;
 
-    @Column(name = "priest_id")
-    private Long priestID;
+    @Column(name = "priest_no")
+    private Long priestNo;
 
     @Column(name = "date_of_ordination")
     private String dateOfOrdination;
@@ -101,12 +100,12 @@ public class Priest implements Serializable {
         return id;
     }
 
-    public Long getPriestID() {
-        return priestID;
+    public Long getPriestNo() {
+        return priestNo;
     }
 
-    public void setPriestID(Long priestID) {
-        this.priestID = priestID;
+    public void setPriestNo(Long priestNo) {
+        this.priestNo = priestNo;
     }
 
     public String getDateOfOrdination() {
@@ -278,7 +277,7 @@ public class Priest implements Serializable {
     }
 
     public String getParishName() {
-        return this.getParish().getName();
+        return this.getParish().getParishName();
     }
 
     public String getMassCenterName() {

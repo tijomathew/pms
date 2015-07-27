@@ -21,7 +21,7 @@ function loadPrayerUnitGrid() {
             //rowList: [2, 4, 6],
             colNames: ['PU NO.', 'PU Place', 'PU Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Place', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-                {name: 'prayerUnitCode', index: 'prayerUnitCode', width: 90, sortable: false},
+                {name: 'prayerUnitNo', index: 'prayerUnitNo', width: 90, sortable: false},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false},
                 {name: 'prayerUnitName', index: 'prayerUnitName', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},

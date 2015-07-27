@@ -22,14 +22,13 @@ public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "member_auto_id")
-    private long id;
+    private Long id;
 
     @Embedded
     private Person memberAsPerson;
 
-    @Column(name = "member_id")
-    private Long memberID;
+    @Column(name = "member_no")
+    private Long memberNo;
 
     @Column(name = "relationship_in_family")
     @Enumerated(EnumType.ORDINAL)
@@ -205,7 +204,7 @@ public class Member implements Serializable {
     public Member() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -217,12 +216,12 @@ public class Member implements Serializable {
         this.memberAsPerson = memberAsPerson;
     }
 
-    public Long getMemberID() {
-        return memberID;
+    public Long getMemberNo() {
+        return memberNo;
     }
 
-    public void setMemberID(Long memberID) {
-        this.memberID = memberID;
+    public void setMemberNo(Long memberNo) {
+        this.memberNo = memberNo;
     }
 
     public RelationShipInFamily getRelationshipInFamily() {
@@ -674,7 +673,7 @@ public class Member implements Serializable {
     }
 
     public Long getFamilyNo() {
-        return this.familyMember.getFamilyID();
+        return this.familyMember.getFamilyNo();
     }
 
     public String getFamilyName() {
@@ -682,7 +681,7 @@ public class Member implements Serializable {
     }
 
     public String getParishName() {
-        return this.familyMember.getFamilyParish().getName();
+        return this.familyMember.getFamilyParish().getParishName();
     }
 
     public String getMassCenterNAme() {

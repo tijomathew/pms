@@ -66,7 +66,7 @@ public class PriestController extends AbstractErrorHandler {
 
             Long priestAutoID = priestService.getHighestAutoIDSM();
 
-            priest.setPriestID(priestAutoID);
+            priest.setPriestNo(priestAutoID);
 
             priestService.addPriestSM(priest);
 

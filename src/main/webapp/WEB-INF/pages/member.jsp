@@ -386,13 +386,13 @@
                                                     <div class="panel-body">
 
                                                         <div class="form-group">
-                                                            <label for="memberID" class="col-sm-2 control-label">Member
-                                                                ID</label>
+                                                            <label for="memberNo" class="col-sm-2 control-label">Member
+                                                                No.</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
-                                                                        path="memberID"
-                                                                        id="memberID" class="form-control"/>
+                                                                        path="memberNo"
+                                                                        id="memberNo" class="form-control" readonly="true"/>
                                                             </div>
                                                             <label for="piousAssociation"
                                                                    class="col-sm-2 control-label">Pious

@@ -76,7 +76,7 @@ public class FamilyController extends AbstractErrorHandler {
 
             Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
 
-            family.setFamilyID(++familyCounterForParish);
+            family.setFamilyNo(++familyCounterForParish);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
@@ -122,7 +122,7 @@ public class FamilyController extends AbstractErrorHandler {
         }
         List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>();
         for (Parish parish : parishList) {
-            SelectBox<String> selectBox = new SelectBox<String>(String.valueOf(parish.getId()), parish.getName());
+            SelectBox<String> selectBox = new SelectBox<String>(String.valueOf(parish.getId()), parish.getParishName());
             selectBoxList.add(selectBox);
         }
         SelectBox<String> selectBox = new SelectBox<String>(null, null);

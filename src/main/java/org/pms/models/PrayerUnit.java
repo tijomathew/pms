@@ -20,15 +20,14 @@ public class PrayerUnit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "auto_id", unique = true, nullable = false)
-    private long id;
+    private Long id;
 
     //@NotEmpty
     @Column(name = "name")
     private String prayerUnitName;
 
-    @Column(name = "code")
-    private Long prayerUnitCode;
+    @Column(name = "prayerunit_no")
+    private Long prayerUnitNo;
 
     @Column(name = "place")
     private String prayerUnitPlace;
@@ -50,7 +49,7 @@ public class PrayerUnit implements Serializable {
     public PrayerUnit() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,12 +61,12 @@ public class PrayerUnit implements Serializable {
         this.prayerUnitName = prayerUnitName;
     }
 
-    public Long getPrayerUnitCode() {
-        return prayerUnitCode;
+    public Long getPrayerUnitNo() {
+        return prayerUnitNo;
     }
 
-    public void setPrayerUnitCode(Long prayerUnitCode) {
-        this.prayerUnitCode = prayerUnitCode;
+    public void setPrayerUnitNo(Long prayerUnitNo) {
+        this.prayerUnitNo = prayerUnitNo;
     }
 
     public String getPrayerUnitPlace() {
@@ -117,15 +116,15 @@ public class PrayerUnit implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getMappedMassCenter().getMappedParish().getParishID();
+        return this.getMappedMassCenter().getMappedParish().getParishNo();
     }
 
     public Long getMassCenterNumber() {
-        return this.getMappedMassCenter().getMassCenterID();
+        return this.getMappedMassCenter().getMassCenterNo();
     }
 
     public String getParishName() {
-        return this.getMappedMassCenter().getMappedParish().getName();
+        return this.getMappedMassCenter().getMappedParish().getParishName();
     }
 
     public String getMassCenterPlace() {

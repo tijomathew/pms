@@ -21,7 +21,7 @@ function loadFamilyGrid() {
             //rowList: [2, 4, 6],
             colNames: ['Family No.', 'Family Name', 'Native Parish', 'Native Diocese', 'Parish No.', 'MC No.', 'MC Place', 'PU No.', 'PU Place', 'dateOfRegistration', 'parishId', 'massCenterId', 'prayerUnitId', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country'],
             colModel: [
-                {name: 'familyID', index: 'familyID', width: 100, sortable: false},
+                {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 90, sortable: false},
                 {name: 'parishInNative', index: 'parishInNative', width: 100, sortable: false},
                 {name: 'dioceseInNative', index: 'dioceseInNative', width: 100, sortable: false},
