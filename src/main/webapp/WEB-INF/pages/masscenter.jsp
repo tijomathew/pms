@@ -31,10 +31,6 @@
 
             loadMassCenterGrid();
 
-            jQuery('#parishSelectBox').change(function () {
-                loadPriestDesignationBoxes('${pageContext.request.contextPath}');
-            });
-
             globalSubmissionOfForms('massCenterForm', '${massCenterActionURL}', 'massCenterGrid');
 
         });
@@ -249,17 +245,6 @@
                                                                 <form:select path="parish" items="${parishList}"
                                                                              id="parishSelectBox" class="form-control"/>
                                                             </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="map"
-                                                                   class="col-sm-2 control-label">Priest</label>
-
-                                                            <div class="col-sm-4">
-                                                                <div id="priestSelectBox">
-                                                                </div>
-                                                            </div>
-
                                                         </div>
                                                     </div>
                                                 </div>

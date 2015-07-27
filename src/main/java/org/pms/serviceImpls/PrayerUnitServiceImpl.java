@@ -10,7 +10,6 @@ import org.pms.models.User;
 import org.pms.services.MassCenterService;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
-import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,8 +77,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
-        return prayerUnitDao.getPrayerUnitCountForMassCenter(massCenterId);
+    public Long getPrayerUnitCountUnderParish(Long parishId) {
+        return prayerUnitDao.getPrayerUnitCountUnderParish(parishId);
     }
 
     @Override
@@ -98,7 +97,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) {
             PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
             massCenterList.add(prayerUnit.getMappedMassCenter());
-            Long prayerUnitCounter = getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+            Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getId());
             //formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
         } else {
             massCenterList = massCenterService.getAllMassCenter();

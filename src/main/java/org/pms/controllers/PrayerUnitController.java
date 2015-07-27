@@ -62,7 +62,7 @@ public class PrayerUnitController extends AbstractErrorHandler {
             prayerUnit.setMappedMassCenter(massCenter);
             massCenter.addPrayerUnitsForMassCenter(prayerUnit);
 
-            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountForMassCenter(prayerUnit.getMappedMassCenter().getId());
+            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getMappedParish().getId());
 
             prayerUnit.setPrayerUnitCode(++prayerUnitCounter);
 

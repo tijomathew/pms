@@ -21,6 +21,7 @@
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
             <li id="family"><a href="${pageContext.request.contextPath}/viewfamily.action"><i class="fa pms-family"></i> <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i class="fa pms-members"></i> <span>Members</span></a></li>
+            <li id="priestdesignation"><a href="#"><i class="fa pms-members"></i> <span>Assign Priest Designation</span></a></li>
             <li><a href="javascript:;"><i class="fa pms-reports"></i> <span>Reports</span> <span
                     class="badge badge-orange">5</span></a>
                 <ul class="acc-menu">

@@ -1,13 +1,10 @@
 package org.pms.daoImpls;
 
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.models.PrayerUnit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -56,8 +53,8 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     }
 
     @Override
-    public Long getPrayerUnitCountForMassCenter(Long massCenterId) {
-        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.rowCount()).add(Restrictions.eq("prayerUnit.mappedMassCenter.id", massCenterId)).uniqueResult();
+    public Long getPrayerUnitCountUnderParish(Long parishId) {
+        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").createAlias("prayerUnit.mappedMassCenter","masscenterInst").createAlias("masscenterInst.mappedParish","parishInst").setProjection(Projections.rowCount()).add(Restrictions.eq("parishInst.id", parishId)).uniqueResult();
     }
 
     @Override

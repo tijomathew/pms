@@ -73,61 +73,6 @@ public class MassCenterController extends AbstractErrorHandler {
 
             massCenter.setMassCenterID(++massCenterCount);
 
-            //get all active priests for the respective parish.
-            /**
-             * TODO
-             * add parish id to get the active priests under particular parish.
-             */
-            List<Long> allActivePriestsIDs = priestService.getAllPriestsIDsSM();
-
-            Map<Long, PriestDesignations> mappedPriestDesignations = new HashMap<>();
-
-            //get priest designations whose designations got selected from the UI and stored in the map.
-            for (Long priestID : allActivePriestsIDs) {
-                if (request.getParameter(priestID.toString()) != null) {
-                    if (request.getParameter(priestID.toString()).equalsIgnoreCase(PriestDesignations.IN_CHARGE.toString())) {
-                        mappedPriestDesignations.put(priestID, PriestDesignations.IN_CHARGE);
-                    } else {
-                        mappedPriestDesignations.put(priestID, PriestDesignations.ASSISTANT);
-                    }
-
-                }
-            }
-
-            //get the priest IDs who got selected from the UI as incharge for the particular mass center.
-            String[] priestsForParish = request.getParameterValues("priest");
-
-            List<PriestDesignation> mappedPriestDesignationList = new ArrayList<>();
-
-            //set the priest designation for priest who got selected from UI using the respective map.
-            for (String priestID : priestsForParish) {
-
-                //get the priest using priest ID.
-                Priest priest = priestService.getPriestForPriestIDSM(Long.valueOf(priestID));
-
-                //set mass center to the priest.
-                priest.setMassCenter(massCenter);
-
-                //set the designation for each priest which are selected from the UI.
-                if (mappedPriestDesignations.containsKey(Long.valueOf(priestID))) {
-                    PriestDesignations priestDesignationFromMap = mappedPriestDesignations.get(Long.valueOf(priestID));
-
-                    PriestDesignation priestDesignation = new PriestDesignation();
-                    priestDesignation.setDesignation(priestDesignationFromMap);
-                    priestDesignation.setPriestId(priest.getPriestID());
-                    priestDesignation.setMassCenterId(massCenter.getMassCenterID());
-
-                    mappedPriestDesignationList.add(priestDesignation);
-                }
-
-            }
-
-            if (!mappedPriestDesignationList.isEmpty()) {
-                for (PriestDesignation priestDesignation : mappedPriestDesignationList) {
-                    priestService.addPriestDesignation(priestDesignation);
-                }
-            }
-
             User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
             boolean permissionDenied = false;
 

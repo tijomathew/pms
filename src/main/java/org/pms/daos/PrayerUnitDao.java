@@ -23,7 +23,7 @@ public interface PrayerUnitDao {
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountForMassCenter(Long massCenterId);
+    Long getPrayerUnitCountUnderParish(Long parishId);
 
     List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds);
 }

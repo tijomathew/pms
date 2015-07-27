@@ -71,12 +71,6 @@ public class PriestController extends AbstractErrorHandler {
 
             priest.setPriestID(priestAutoID);
 
-            PriestDesignation priestDesignation = new PriestDesignation();
-            priestDesignation.setDesignation(priest.getDesignation());
-            priestDesignation.setParishId(mappedParish.getParishID());
-            priestDesignation.setPriestId(priest.getPriestID());
-
-            priestService.addPriestDesignation(priestDesignation);
             priestService.addPriestSM(priest);
 
             createPriestFormBackObject(model);
