@@ -8,6 +8,7 @@ import org.pms.models.MassCenter;
 import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.MassCenterService;
+import org.pms.services.PrayerUnitService;
 import org.pms.utils.DisplayUtils;
 import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,10 @@ public class MassCenterServiceImpl implements MassCenterService {
     private MassCenterDao massCenterDao;
 
     @Autowired
-    private PriestDao priestDao;
+    private ParishService parishService;
 
     @Autowired
-    private ParishService parishService;
+    private PrayerUnitService prayerUnitService;
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
@@ -85,23 +86,10 @@ public class MassCenterServiceImpl implements MassCenterService {
         setMassCenterIDUnderParish(formBackMassCenter);
 
         model.addAttribute("massCenter", formBackMassCenter);
-        Map<Long, String> parishMap = new HashMap<>();
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Parish> parishList = new ArrayList<>();
-        Parish parishForMassCenter;
 
-        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.ADMIN.toString())) {
-            parishList = parishService.getAllParish();
-        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
-            parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
-            parishList.add(parishForMassCenter);
-        }
-        if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
-        parishMap.put(0l, "--please select--");
-        model.addAttribute("parishList", parishMap);
+        model.addAttribute("parishList", parishService.getParishMapForUserRole(currentUser));
         return formBackMassCenter;
     }
 
@@ -109,7 +97,7 @@ public class MassCenterServiceImpl implements MassCenterService {
         Parish parishForMassCenter = null;
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole()==SystemRole.PARISH_ADMIN) {
+        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
             parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
         }
 
@@ -127,5 +115,33 @@ public class MassCenterServiceImpl implements MassCenterService {
     @Override
     public List<Long> getAllMassCenterIdsForParish(Long parishId) {
         return massCenterDao.getAllMassCenterIdsForParish(parishId);
+    }
+
+    @Override
+    public Map<Long, String> getMassCenterMapForUserRole(User currentUser) {
+        Map<Long, String> massCenterMap = new HashMap<>();
+        List<MassCenter> massCenterList = new ArrayList<>();
+        switch (currentUser.getSystemRole()) {
+            case ADMIN:
+                massCenterList.addAll(getAllMassCenter());
+                break;
+            case PARISH_ADMIN:
+                massCenterList.addAll(parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList());
+                break;
+            case MASS_CENTER_ADMIN:
+                massCenterList.add(getMassCenterForIDSM(currentUser.getMassCenterId()));
+                break;
+            case PRAYER_UNIT_ADMIN:
+                massCenterList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter());
+                break;
+            case FAMILY_USER:
+                //No Op
+                break;
+        }
+        if (!massCenterList.isEmpty()) {
+            massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
+        }
+        massCenterMap.put(0l, "--Please Select--");
+        return massCenterMap;
     }
 }

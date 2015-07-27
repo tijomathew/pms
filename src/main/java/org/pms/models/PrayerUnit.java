@@ -35,6 +35,9 @@ public class PrayerUnit implements Serializable {
     @Transient
     private Long massCenterId;
 
+    @Transient
+    private Long parishNo;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "prayer_unit_masscenter_id")
     private MassCenter mappedMassCenter;
@@ -83,6 +86,14 @@ public class PrayerUnit implements Serializable {
 
     public void setMassCenterId(Long massCenterId) {
         this.massCenterId = massCenterId;
+    }
+
+    public Long getParishNo() {
+        return parishNo;
+    }
+
+    public void setParishNo(Long parishNo) {
+        this.parishNo = parishNo;
     }
 
     public MassCenter getMappedMassCenter() {

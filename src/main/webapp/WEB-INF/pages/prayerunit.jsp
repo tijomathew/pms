@@ -15,8 +15,11 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
+    <spring:url value="/resources/js/masscenterselectbox.js" var="massCenterSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
+            language="javascript"></script>
+    <script src="${massCenterSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
@@ -24,7 +27,8 @@
 
             backToTop();
             loadPrayerUnitGrid();
-            globalSubmissionOfForms('prayerUnitForm', '${prayerUnitActionURL}','prayerUnitGrid');
+            loadSelectBox("${pageContext.request.contextPath}");
+            globalSubmissionOfForms('prayerUnitForm', '${prayerUnitActionURL}', 'prayerUnitGrid');
         });
 
     </script>
@@ -150,12 +154,21 @@
                                                                 <form:input path="prayerUnitPlace"
                                                                             id="prayerUnitPlace" class="form-control"/>
                                                             </div>
+                                                            <label for="parishNo"
+                                                                   class="col-sm-2 control-label">Parish</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:select path="parishNo"
+                                                                             items="${parishMap}"
+                                                                             id="parishNo" class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="massCenterId" class="col-sm-2 control-label">Mass
                                                                 Center</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:select path="massCenterId"
-                                                                             items="${massCenterMap}"
                                                                              id="massCenterId" class="form-control"/>
                                                             </div>
                                                         </div>
@@ -266,6 +279,6 @@
 
     </div>
 
-        <%@include file="footerPanelTemplate.jsp" %>
+    <%@include file="footerPanelTemplate.jsp" %>
 </body>
 </html>

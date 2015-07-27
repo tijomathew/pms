@@ -38,15 +38,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Autowired
     private ParishService parishService;
 
-    @Autowired
-    private MassCenterService massCenterService;
-
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
-        /*String massCenterID = prayerUnit.getMassCenterID();
-        MassCenter massCenter = prayerUnitDao.getMassCenter(massCenterID);
-        massCenter.addWard(prayerUnit);
-        prayerUnit.setMassCenter(massCenter);*/
         prayerUnitDao.addPrayerUnitDM(prayerUnit);
         return true;
     }
@@ -85,35 +78,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     public PrayerUnit createPrayerUnitFormBackObject(Model modelMap) {
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
 
-        List<MassCenter> massCenterList = new ArrayList<>();
-
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-
-        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
-            Parish parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
-            massCenterList = parishForMassCenter.getMassCenterList();
-        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) {
-            massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
-        } else if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) {
-            PrayerUnit prayerUnit = getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
-            massCenterList.add(prayerUnit.getMappedMassCenter());
-            Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getId());
-            //formBackPrayerUnit.setPrayerUnitCode("PU" + (++prayerUnitCounter));
-        } else {
-            massCenterList = massCenterService.getAllMassCenter();
-        }
-
-
         modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
 
-        Map<Long, String> massCenterMap = new HashMap<Long, String>();
-
-        massCenterMap.put(0l, "--Please Select--");
-        if (!massCenterList.isEmpty()) {
-            for (MassCenter massCenter : massCenterList)
-                massCenterMap.put(massCenter.getId(), massCenter.getName());
-        }
-        modelMap.addAttribute("massCenterMap", massCenterMap);
+        modelMap.addAttribute("parishMap", parishService.getParishMapForUserRole(currentUser));
         return formBackPrayerUnit;
     }
 

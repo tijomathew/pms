@@ -133,11 +133,11 @@
                                                     <div class="panel-body padding7">
 
                                                         <div class="form-group">
-                                                            <label for="name" class="col-sm-2 control-label">Mass Center
+                                                            <label for="massCenterName" class="col-sm-2 control-label">Mass Center
                                                                 Name</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="name" id="name" class="form-control"/>
+                                                                <form:input path="massCenterName" id="massCenterName" class="form-control"/>
                                                             </div>
                                                             <label for="massCenterNo" class="col-sm-2 control-label">Mass
                                                                 Center No.</label>

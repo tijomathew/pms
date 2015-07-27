@@ -240,7 +240,7 @@ public class UserController {
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
         List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
         for (MassCenter massCenter : massCenterList)
-            massCenterMap.put(massCenter.getId(), massCenter.getName());
+            massCenterMap.put(massCenter.getId(), massCenter.getMassCenterName());
 
         Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
         List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();

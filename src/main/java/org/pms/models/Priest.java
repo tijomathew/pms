@@ -281,7 +281,7 @@ public class Priest implements Serializable {
     }
 
     public String getMassCenterName() {
-        return this.getMassCenter().getName();
+        return this.getMassCenter().getMassCenterName();
     }
 
     public String getPriestFullName() {

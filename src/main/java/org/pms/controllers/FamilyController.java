@@ -149,7 +149,7 @@ public class FamilyController extends AbstractErrorHandler {
             }
             List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>(massCenterListForParishID.size());
             for (MassCenter massCenter : massCenterListForParishID)
-                selectBoxList.add(new SelectBox<String>(String.valueOf(massCenter.getId()), massCenter.getName()));
+                selectBoxList.add(new SelectBox<String>(String.valueOf(massCenter.getId()), massCenter.getMassCenterName()));
             return new SelectBox<String>().getJsonForSelectBoxCreation(selectBoxList);
         }
         return null;

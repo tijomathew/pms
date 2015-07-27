@@ -685,7 +685,7 @@ public class Member implements Serializable {
     }
 
     public String getMassCenterNAme() {
-        return this.familyMember.getFamilyMassCenter().getName();
+        return this.familyMember.getFamilyMassCenter().getMassCenterName();
     }
 
     public String getPrayerUnitName() {
