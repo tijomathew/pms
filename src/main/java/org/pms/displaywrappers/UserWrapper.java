@@ -15,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private User userBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRole", "isActive", "parish", "massCenter", "prayerUnit", "family", "alreadyLoggedIn", "isValidated", "createdBy","parishId","massCenterId","prayerUnitId","familyId"};
+    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRole", "isActive", "parish", "massCenter", "prayerUnit", "family", "alreadyLoggedIn", "isValidated", "createdBy", "parishId", "massCenterId", "prayerUnitId", "familyId"};
 
     public UserWrapper(User userBean) {
         this.userBean = userBean;
@@ -31,9 +31,11 @@ public class UserWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
+                String assignedValue = "N/A";
                 if (BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]) != null) {
-                    convertedResult.add(BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString());
+                    assignedValue = BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString();
                 }
+                convertedResult.add(assignedValue);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();

@@ -32,9 +32,11 @@ public class PriestWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
+                String assignedValue = "N/A";
                 if (BeanUtils.getProperty(this.priestBean, VALID_BEAN_PROPERTIES[i]) != null) {
-                    convertedResult.add(BeanUtils.getProperty(this.priestBean, VALID_BEAN_PROPERTIES[i]).toString());
+                    assignedValue = BeanUtils.getProperty(this.priestBean, VALID_BEAN_PROPERTIES[i]).toString();
                 }
+                convertedResult.add(assignedValue);
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
