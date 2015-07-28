@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the PrayerUnit module.
@@ -40,11 +41,8 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    @Autowired
-    private ParishService parishService;
-
     @RequestMapping(value = "/viewprayerunit.action", method = RequestMethod.GET)
-    public String wardPageDisplay(Model modelMap) {
+    public String prayerUnitPageDisplay(Model modelMap) {
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 
@@ -55,7 +53,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addprayerunit.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addWard(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
+    CustomResponse addPrayerUnit(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
 
         if (!result.hasErrors()) {
             MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterId());
@@ -66,7 +64,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
             prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
 
-            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             boolean permissionDenied = false;
 
             if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -79,7 +77,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             }
 
             prayerUnitService.createPrayerUnitFormBackObject(modelMap);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "added in to the system");
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
@@ -90,27 +88,10 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displayprayerunitgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForWard(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<PrayerUnit> allPrayerUnits = new ArrayList<>();
-        Integer totalRows = 0;
-        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
-            allPrayerUnits = prayerUnitService.getAllPrayerUnits();
-            totalRows = prayerUnitService.getPrayerUnitCount().intValue();
-        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
-            for (MassCenter massCenter : massCentersUnderParish) {
-                allPrayerUnits.addAll(massCenter.getPrayerUnits());
-            }
-            totalRows = allPrayerUnits.size();
-        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-            MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
-            allPrayerUnits.addAll(massCenter.getPrayerUnits());
-            totalRows = allPrayerUnits.size();
-        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-            allPrayerUnits.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
-            totalRows = 1;
-        }
+        List<PrayerUnit> allPrayerUnits = prayerUnitService.getAllPrayerUnitsForUserRole(currentUser);
+        Integer totalRows = allPrayerUnits.size();
 
         List<PrayerUnit> allPrayerUnitSubList = new ArrayList<>();
 
@@ -119,14 +100,11 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
         }
 
         List<GridRow> prayerUnitGridRows = new ArrayList<GridRow>(allPrayerUnits.size());
-        for (PrayerUnit prayerUnit : allPrayerUnitSubList) {
-            prayerUnitGridRows.add(new PrayerUnitWrapper(prayerUnit));
+        if (!allPrayerUnitSubList.isEmpty()) {
+            prayerUnitGridRows = allPrayerUnitSubList.stream().map(prayerUnit -> new PrayerUnitWrapper(prayerUnit)).collect(Collectors.toList());
         }
 
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(totalRows, page, rows, prayerUnitGridRows);
-
-        return JsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, prayerUnitGridRows));
     }
 
 

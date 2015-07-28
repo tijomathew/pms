@@ -1,6 +1,7 @@
 package org.pms.services;
 
 import org.pms.models.PrayerUnit;
+import org.pms.models.User;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface PrayerUnitService {
     PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
 
     List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds);
+
+    List<PrayerUnit> getAllPrayerUnitsForUserRole(User currentUser);
 
 }

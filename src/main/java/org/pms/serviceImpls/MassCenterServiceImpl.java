@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.MassCenterDao;
-import org.pms.daos.PriestDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCenter;
@@ -9,7 +8,6 @@ import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.MassCenterService;
 import org.pms.services.PrayerUnitService;
-import org.pms.utils.DisplayUtils;
 import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,28 +81,18 @@ public class MassCenterServiceImpl implements MassCenterService {
     public MassCenter createMassCenterFormBackObject(Model model) {
         MassCenter formBackMassCenter = new MassCenter();
 
-        setMassCenterIDUnderParish(formBackMassCenter);
-
         model.addAttribute("massCenter", formBackMassCenter);
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-        model.addAttribute("parishList", parishService.getParishMapForUserRole(currentUser));
+        Map<Long, String> parishMap = new HashMap<>();
+        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
+        if (!parishList.isEmpty()) {
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
+        }
+
+        model.addAttribute("parishList", parishMap);
         return formBackMassCenter;
-    }
-
-    private void setMassCenterIDUnderParish(MassCenter formBackMassCenter) {
-        Parish parishForMassCenter = null;
-
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            parishForMassCenter = parishService.getParishForIDSM(currentUser.getParishId());
-        }
-
-        if (parishForMassCenter != null) {
-            Long massCenterCount = getMassCenterCountForParish(parishForMassCenter.getId());
-            formBackMassCenter.setMassCenterNo(++massCenterCount);
-        }
     }
 
     @Override

@@ -88,10 +88,15 @@ public final class FactorySelectBox {
         parishList.add(parishService.getParishForIDSM(currentUser.getParishId()));
         massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
         prayerUnitList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
-
-        parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
-        prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
+        if (!parishList.isEmpty()) {
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
+        }
+        if (!massCenterList.isEmpty()) {
+            massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
+        }
+        if (!prayerUnitList.isEmpty()) {
+            prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
+        }
 
         model.addAttribute("parishList", parishMap);
         model.addAttribute("massCenterList", massCenterMap);

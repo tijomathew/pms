@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the Mass Center module.
@@ -37,6 +38,7 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewmasscenter.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
+
         massCenterService.createMassCenterFormBackObject(modelMap);
         return PageName.MASSCENTER.toString();
     }
@@ -45,8 +47,6 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
     public
     @ResponseBody
     CustomResponse addMassCenter(Model modelMap, @ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
-
-        modelMap.addAttribute("massCenter", new MassCenter());
 
         if (!result.hasErrors()) {
 
@@ -63,7 +63,7 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
 
             massCenter.setMassCenterNo(++massCenterCount);
 
-            User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             boolean permissionDenied = false;
 
             if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
@@ -76,8 +76,7 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
                 // show the error that mass center cannot be add by mass center admin. He can edit only his mass center information.
             }
 
-            massCenterService.createMassCenterFormBackObject(modelMap);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getMassCenterName(), "added in to the system");
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getMassCenterName(), SUCCESS_MESSAGE_DISPLAY);
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
@@ -91,41 +90,19 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
     Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<MassCenter> allMassCenters = massCenterService.getAllMassCentersForUserRole(currentUser);
-        Long massCenterCount = Long.valueOf(allMassCenters.size());
+        Integer massCenterCount = allMassCenters.size();
 
-        List<MassCenter> allUsersSubList = new ArrayList<MassCenter>();
+        List<MassCenter> allUsersSubList = new ArrayList<>();
         if (massCenterCount > 0) {
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCenterCount.intValue(), allMassCenters);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCenterCount, allMassCenters);
         }
 
-        List<GridRow> massCenterGridRows = new ArrayList<GridRow>(allMassCenters.size());
-        for (MassCenter massCenter : allUsersSubList) {
-            massCenterGridRows.add(new MassCenterWrapper(massCenter));
+        List<GridRow> massCenterGridRows = new ArrayList<>(allMassCenters.size());
+        if (!allUsersSubList.isEmpty()) {
+            massCenterGridRows = allUsersSubList.stream().map(masscenter -> new MassCenterWrapper(masscenter)).collect(Collectors.toList());
         }
 
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(massCenterCount.intValue(), page, rows, massCenterGridRows);
-
-        return JsonBuilder.convertToJson(resultContainer);
-    }
-
-    @RequestMapping(value = "/createpriestdesignationboxinmasscenter.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Object createPriestDesignationBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
-        if (selectedParishID != 0l) {
-            Parish selectedParish = parishService.getParishForIDSM(selectedParishID);
-            List<Priest> allPriests = selectedParish.getPriestList();
-            List<PriestDesignationBox<String>> priestDesignationBoxList = new ArrayList<PriestDesignationBox<String>>();
-            for (Priest priest : allPriests) {
-                if (priest.getPriestStatus() == PriestStatus.ACTIVE) {
-                    Person priestAsPerson = priest.getPriestAsPerson();
-                    priestDesignationBoxList.add(new PriestDesignationBox<String>(priestAsPerson.getFirstName() + priestAsPerson.getLastName(), priest.getId().toString(), "Not Selected"));
-                }
-            }
-            return new PriestDesignationBox<String>().getJsonForPriestDesignationBoxCreation(priestDesignationBoxList);
-        }
-        return "";
+        return JsonBuilder.convertToJson(createGridContent(massCenterCount, page, rows, massCenterGridRows));
     }
 
 }

@@ -24,5 +24,5 @@ public interface ParishService {
 
     void updateParish(Parish parish);
 
-    Map<Long, String> getParishMapForUserRole(User currentUser);
+    List<Parish> getAllParishForUserRole(User currentUser);
 }

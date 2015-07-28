@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class is the controller of the Parish module.
@@ -33,22 +34,12 @@ public class ParishController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private PriestService priestService;
-
-    @Autowired
-    HttpServletRequest request;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
-
-    @Autowired
-    MessageSource messageSource;
-
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
+
         model.addAttribute("parish", new Parish());
-        model.addAttribute("showAddButton", true);
         return PageName.PARISH.toString();
     }
 
@@ -61,8 +52,8 @@ public class ParishController extends AbstractErrorAndGridHandler {
             Long parishCounter = parishService.getParishCount();
             parish.setParishNo(++parishCounter);
             parishService.addParishSM(parish);
-            model.addAttribute("showAddButton", true);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), "added in to the system");
+
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
@@ -73,69 +64,23 @@ public class ParishController extends AbstractErrorAndGridHandler {
     public
     @ResponseBody
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
-        List<Parish> allParishes = new ArrayList<>();
-        Long totalParishCount = 0l;
+
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole() == SystemRole.ADMIN) {
-            allParishes = parishService.getAllParish();
-            totalParishCount = parishService.getParishCount();
-        } else if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            allParishes.add(parishService.getParishForIDSM(currentUser.getParishId()));
-            //since user is parish Admin, only one parish will be assigned to the user. So data base access is not required to show the total count in the UI.
-            totalParishCount = 1l;
-        }
+        List<Parish> allParishes = parishService.getAllParishForUserRole(currentUser);
+        Integer totalParishCount = allParishes.size();
 
         List<GridRow> parishGridRows = new ArrayList<GridRow>(allParishes.size());
-
-
         List<Parish> allUsersSubList = new ArrayList<Parish>();
-        if (allParishes.size() > 0) {
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount.intValue(), allParishes);
+
+        if (totalParishCount > 0) {
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount, allParishes);
         }
 
-        for (Parish parish : allUsersSubList) {
-            parishGridRows.add(new ParishWrapper(parish));
+        if (!allUsersSubList.isEmpty()) {
+            parishGridRows = allUsersSubList.stream().map(parish -> new ParishWrapper(parish)).collect(Collectors.toList());
         }
 
-
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(totalParishCount.intValue(), page, rows, parishGridRows);
-
-        return JsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(createGridContent(totalParishCount, page, rows, parishGridRows));
     }
-
-    @RequestMapping(value = "/createpriestdesignationbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Object createPriestDesignationBox() {
-        List<Priest> allPriests = priestService.getAllPriestSM();
-        List<PriestDesignationBox<String>> priestDesignationBoxList = new ArrayList<PriestDesignationBox<String>>();
-        for (Priest priest : allPriests) {
-            Person priestAsPerson = priest.getPriestAsPerson();
-            priestDesignationBoxList.add(new PriestDesignationBox<String>(priestAsPerson.getFirstName() + priestAsPerson.getLastName(), priest.getId().toString(), "Not Selected"));
-        }
-        return new PriestDesignationBox<String>().getJsonForPriestDesignationBoxCreation(priestDesignationBoxList);
-    }
-
-    @RequestMapping(value = "/editparishdetails.action", method = RequestMethod.GET)
-    public String editParishInformation(@RequestParam(value = "parishName", required = true) Long parishName, Model model) {
-        Parish parishToEdit = parishService.getParishForIDSM(parishName);
-        model.addAttribute("parish", parishToEdit);
-        model.addAttribute("showUpdateButton", true);
-        return PageName.PARISH.toString();
-    }
-
-    @RequestMapping(value = "/updateparishinformation.action", method = RequestMethod.POST)
-    public String updateParish(@ModelAttribute("parish") Parish parish, Model model) {
-        parishService.addParishSM(parish);
-        model.addAttribute("showUpdateButton", false);
-        return PageName.PARISH.toString();
-    }
-
-    /*@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(new ParishValidator());
-    }*/
-
 
 }

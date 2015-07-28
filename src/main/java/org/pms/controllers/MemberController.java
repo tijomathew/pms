@@ -82,7 +82,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
             member.setMemberNo(++memberCountForParish);
 
             memberService.addMemberSM(member);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), "added in to the system");
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), SUCCESS_MESSAGE_DISPLAY);
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());

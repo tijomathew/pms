@@ -18,6 +18,8 @@ public abstract class AbstractErrorAndGridHandler {
     protected CustomResponse customResponse;
     protected GridGenerator gridGenerator;
 
+    protected static final String SUCCESS_MESSAGE_DISPLAY="added in to the system";
+
     protected final CustomResponse createErrorMessage(StatusCode statusCode, String fieldName, String message) {
         customResponse = new CustomResponse(statusCode, createCustomErrorMessage(fieldName, message));
         return customResponse;

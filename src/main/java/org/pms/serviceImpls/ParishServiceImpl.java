@@ -5,10 +5,10 @@ import org.pms.daos.ParishDao;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.Parish;
 import org.pms.models.User;
+import org.pms.services.FamilyService;
 import org.pms.services.MassCenterService;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
-import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +37,9 @@ public class ParishServiceImpl implements ParishService {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
+
+    @Autowired
+    private FamilyService familyService;
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
@@ -85,8 +88,7 @@ public class ParishServiceImpl implements ParishService {
     }
 
     @Override
-    public Map<Long, String> getParishMapForUserRole(User currentUser) {
-        Map<Long, String> parishMap = new HashMap<>();
+    public List<Parish> getAllParishForUserRole(User currentUser) {
         List<Parish> parishList = new ArrayList<>();
         switch (currentUser.getSystemRole()) {
             case ADMIN:
@@ -102,13 +104,9 @@ public class ParishServiceImpl implements ParishService {
                 parishList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getMappedParish());
                 break;
             case FAMILY_USER:
-                //No Op
+                parishList.add(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyParish());
                 break;
         }
-        if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
-        parishMap.put(0l, "--please select--");
-        return parishMap;
+        return parishList;
     }
 }
