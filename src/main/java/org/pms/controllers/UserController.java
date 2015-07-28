@@ -222,13 +222,13 @@ public class UserController {
         } else {
             familyList = familyService.getAllFamilySM();
         }
-        List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>();
+        List<SelectBox<String,Long>> selectBoxList = new ArrayList<>();
         for (Family family : familyList) {
-            SelectBox<String> selectBox = new SelectBox<String>(family.getFamilyName(), String.valueOf(family.getId()));
+            SelectBox<String,Long> selectBox = new SelectBox<>(family.getFamilyName(), family.getId());
             selectBoxList.add(selectBox);
         }
-        SelectBox<String> selectBox = new SelectBox<String>(null, null);
-        return selectBox.getJsonForSelectBoxCreation(selectBoxList);
+
+        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
     }
 
     private Model createModelSelectBoxes(Model model) {

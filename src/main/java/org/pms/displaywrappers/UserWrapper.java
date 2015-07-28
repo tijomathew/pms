@@ -34,6 +34,9 @@ public class UserWrapper implements GridRow {
                 String assignedValue = "N/A";
                 if (BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString();
+                    if (assignedValue.isEmpty()) {
+                        assignedValue = "N/A";
+                    }
                 }
                 convertedResult.add(assignedValue);
             }

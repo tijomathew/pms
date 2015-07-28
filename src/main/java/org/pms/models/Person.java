@@ -248,7 +248,7 @@ public class Person implements Serializable {
     }
 
     public String getFullName(){
-        return new StringBuilder(String.valueOf(this.getSalutation())).append(" ").append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
+        return new StringBuilder(String.valueOf(this.getSalutation().getUIDisplayValue())).append(" ").append(this.getFirstName()).append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
     }
 
     @Override

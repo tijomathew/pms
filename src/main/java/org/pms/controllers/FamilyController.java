@@ -120,13 +120,13 @@ public class FamilyController extends AbstractErrorHandler {
         } else {
             parishList = parishService.getAllParish();
         }
-        List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>();
+        List<SelectBox<String, Long>> selectBoxList = new ArrayList<>();
         for (Parish parish : parishList) {
-            SelectBox<String> selectBox = new SelectBox<String>(String.valueOf(parish.getId()), parish.getParishName());
+            SelectBox<String, Long> selectBox = new SelectBox<>(parish.getParishName(), parish.getId());
             selectBoxList.add(selectBox);
         }
-        SelectBox<String> selectBox = new SelectBox<String>(null, null);
-        return selectBox.getJsonForSelectBoxCreation(selectBoxList);
+
+        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
     }
 
     @RequestMapping(value = "/createmasscenterselectbox.action", method = RequestMethod.GET)
@@ -147,10 +147,10 @@ public class FamilyController extends AbstractErrorHandler {
             } else {
                 massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
             }
-            List<SelectBox<String>> selectBoxList = new ArrayList<SelectBox<String>>(massCenterListForParishID.size());
+            List<SelectBox<String, Long>> selectBoxList = new ArrayList<>(massCenterListForParishID.size());
             for (MassCenter massCenter : massCenterListForParishID)
-                selectBoxList.add(new SelectBox<String>(String.valueOf(massCenter.getId()), massCenter.getMassCenterName()));
-            return new SelectBox<String>().getJsonForSelectBoxCreation(selectBoxList);
+                selectBoxList.add(new SelectBox<>(massCenter.getMassCenterName(), massCenter.getId()));
+            return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
         return null;
     }
@@ -170,10 +170,10 @@ public class FamilyController extends AbstractErrorHandler {
         } else {
             prayerUnitList = prayerUnitService.getPrayerUnitForMassCenterIDSM(selectedMassCenterId);
         }
-        List<SelectBox<String>> prayerUnitSelectBoxList = new ArrayList<SelectBox<String>>();
+        List<SelectBox<String, Long>> prayerUnitSelectBoxList = new ArrayList<>();
         for (PrayerUnit prayerUnit : prayerUnitList)
-            prayerUnitSelectBoxList.add(new SelectBox<String>(prayerUnit.getPrayerUnitName(), String.valueOf(prayerUnit.getId())));
-        return new SelectBox<String>().getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
+            prayerUnitSelectBoxList.add(new SelectBox<>(prayerUnit.getPrayerUnitName(), prayerUnit.getId()));
+        return SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
     }
 
     @RequestMapping(value = "/displayfamilygrid.action", method = RequestMethod.GET)

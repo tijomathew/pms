@@ -15,10 +15,10 @@ public class MemberWrapper implements GridRow {
 
     private Member memberBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyNo","familyName","memberNo","memberAsPerson.fullName", "memberAsPerson.gender", "memberAsPerson.dateOfBirth","relationshipInFamily","parishName","massCenterName","prayerUnitName","memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
-             "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
+    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "memberNo", "memberAsPerson.fullName", "memberAsPerson.gender", "memberAsPerson.dateOfBirth", "relationshipInFamily", "parishName", "massCenterName", "prayerUnitName", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
+            "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
             "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
-            "memberAsPerson.personalRemarks",  "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
+            "memberAsPerson.personalRemarks", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
             "dateOfDeath", "piousAssociation", "sundayCatechism", "sacramentalLife", "churchRemarks", "churchOfBaptism", "countryOfBaptism", "baptismName", "ministerOfBaptism", "baptismGodFather",
             "baptismGodMother", "patronSaint", "patronSaintFeastDay", "churchOfConfirmation", "countryOfConfirmation", "ministerOfConfirmation", "confirmationGodFather", "confirmationGodMother", "churchOfHolyCommunion", "countryOfHolyCommunion",
             "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",
@@ -42,6 +42,9 @@ public class MemberWrapper implements GridRow {
                 String assignedValue = "N/A";
                 if (BeanUtils.getProperty(this.memberBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.memberBean, VALID_BEAN_PROPERTIES[i]).toString();
+                    if (assignedValue.isEmpty()) {
+                        assignedValue = "N/A";
+                    }
                 }
                 convertedResult.add(assignedValue);
             }

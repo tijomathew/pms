@@ -1,6 +1,7 @@
 package org.pms.services;
 
 import org.pms.models.Family;
+import org.pms.models.User;
 
 import java.util.List;
 
@@ -31,5 +32,7 @@ public interface FamilyService {
     List<Long> getAllFamiliesIDForParishID(Long parishId);
 
     List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds);
+
+    List<Family> getAllFamiliesForUserRole(User currentUser);
 
 }

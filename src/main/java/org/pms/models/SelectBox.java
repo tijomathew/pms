@@ -10,15 +10,15 @@ import java.util.List;
 /**
  * Created by tijo on 13/11/14.
  */
-public class SelectBox<T> {
+public class SelectBox<T,U> {
 
     private T displayName;
-    private T value;
+    private U value;
 
     public SelectBox() {
     }
 
-    public SelectBox(T displayName, T value) {
+    public SelectBox(T displayName, U value) {
         this.displayName = displayName;
         this.value = value;
     }
@@ -31,18 +31,18 @@ public class SelectBox<T> {
         this.displayName = displayName;
     }
 
-    public T getValue() {
+    public U getValue() {
         return value;
     }
 
-    public void setValue(T value) {
+    public void setValue(U value) {
         this.value = value;
     }
 
-    public String getJsonForSelectBoxCreation(List<SelectBox<T>> selectBoxList) {
+    public static <T,U> String getJsonForSelectBoxCreation(List<SelectBox<T,U>> selectBoxList) {
         JsonArray jsonArray = new JsonArray();
         try {
-            for (SelectBox<T> selectBox : selectBoxList) {
+            for (SelectBox<T,U> selectBox : selectBoxList) {
                 try {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("displayName", BeanUtils.getProperty(selectBox, "displayName"));

@@ -1,7 +1,9 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.FamilyDao;
+import org.pms.enums.SystemRole;
 import org.pms.models.Family;
+import org.pms.models.User;
 import org.pms.services.FamilyService;
 import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +79,29 @@ public class FamilyServiceImpl implements FamilyService {
     @Override
     public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
         return familyDao.getAllFamilyIdsForPrayerUnitId(prayerUnitIds);
+    }
+
+    @Override
+    public List<Family> getAllFamiliesForUserRole(User currentUser) {
+        List<Family> familyList = new ArrayList<>();
+        switch (currentUser.getSystemRole()) {
+            case ADMIN:
+                familyList = getAllFamilySM();
+                break;
+            case PARISH_ADMIN:
+                familyList = getAllFamilyForParishID(currentUser.getParishId());
+                break;
+            case MASS_CENTER_ADMIN:
+                familyList = getAllFamilyForMassCenterID(currentUser.getMassCenterId());
+                break;
+            case PRAYER_UNIT_ADMIN:
+                familyList = getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
+                break;
+            case FAMILY_USER:
+                familyList = getFamilyForFamilyID(currentUser.getFamilyId());
+                break;
+        }
+
+        return familyList;
     }
 }

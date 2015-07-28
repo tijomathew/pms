@@ -9,7 +9,7 @@ function loadSelectBox(contextPath) {
             var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+                html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
             }
             $('#familySelectBox').append(html);
         });

@@ -35,6 +35,9 @@ public class MassCenterWrapper implements GridRow {
                 String assignedValue = "N/A";
                 if (BeanUtils.getProperty(this.massCenterBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.massCenterBean, VALID_BEAN_PROPERTIES[i]).toString();
+                    if (assignedValue.isEmpty()) {
+                        assignedValue = "N/A";
+                    }
                 }
                 convertedResult.add(assignedValue);
             }
