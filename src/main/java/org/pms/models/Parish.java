@@ -33,7 +33,6 @@ public class Parish implements Serializable {
     @Column(name = "parish_no")
     private Long parishNo;
 
-
     @Column(name = "parish_name")
     private String parishName;
 

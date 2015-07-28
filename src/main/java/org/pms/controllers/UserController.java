@@ -5,6 +5,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
@@ -31,13 +32,10 @@ import java.util.stream.Collectors;
  */
 
 @Controller
-public class UserController {
+public class UserController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ParishService parishService;
 
     @Autowired
     private MassCenterService massCenterService;
@@ -56,18 +54,9 @@ public class UserController {
 
     @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
     public String usersPageDisplay(Model model) {
-        model.addAttribute("user", new User());
 
-        if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-            createModelSelectBoxes(model);
-        }
-
-        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
-        Predicate<SystemRole> excludeAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
-        Predicate<SystemRole> excludeAdminAndCurrentUser = excludePMSCurrentUser.and(excludeAdmin);
-
-        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludeAdminAndCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
-        model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        userService.createUserFormBackObject(model, currentUser);
         return PageName.USER.toString();
     }
 
@@ -140,9 +129,6 @@ public class UserController {
                 mailService.sendUserCredentials(user);
             }
 
-            if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-                createModelSelectBoxes(model);
-            }
         }
 
         //Error message when user is having multiple roles in the system.
@@ -163,45 +149,24 @@ public class UserController {
     @ResponseBody
     Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
                                                     rows, @RequestParam(value = "page", required = false) Integer page) {
+
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<User> allUsers = new ArrayList<>();
+        List<User> allUsers = userService.getAllUsersForUserRole(currentUser);
 
-        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            List<Long> massCenterIdsUnderParishAdmin = massCenterService.getAllMassCenterIdsForParish(currentUser.getParishId());
-            allUsers.addAll(userService.getAllUsersForMassCenterIds(massCenterIdsUnderParishAdmin));
-
-            List<Long> prayerUnitIdsUnderParishAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdsUnderParishAdmin);
-            allUsers.addAll(userService.getAllUsersForPrayerUnitIds(prayerUnitIdsUnderParishAdmin));
-
-            List<Long> familyIdsUnderParishAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderParishAdmin);
-            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderParishAdmin));
-        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-            List<Long> massCenterIdAsList = new ArrayList<>();
-            massCenterIdAsList.add(currentUser.getMassCenterId());
-            List<Long> prayerUnitIdsUnderMassCenterAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdAsList);
-            allUsers.addAll(userService.getAllUsersForPrayerUnitIds(prayerUnitIdsUnderMassCenterAdmin));
-
-            List<Long> familyIdsUnderMassCenterAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderMassCenterAdmin);
-            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderMassCenterAdmin));
-        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-            List<Long> prayerUnitIdAsList = new ArrayList<>();
-            prayerUnitIdAsList.add(currentUser.getPrayerUnitId());
-            List<Long> familyIdsUnderPrayerUnitAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdAsList);
-            allUsers.addAll(userService.getAllUsersForFamilyIds(familyIdsUnderPrayerUnitAdmin));
-        } else {
-            allUsers = userService.getAllUsers();
-        }
-        Integer totalRows = allUsers.size();
+        Integer totalUsersRows = allUsers.size();
 
         List<GridRow> userGridRows = new ArrayList<GridRow>(allUsers.size());
-        for (User user : allUsers) {
-            userGridRows.add(new UserWrapper(user));
+        List<User> allUsersSubList = new ArrayList<>();
+
+        if (totalUsersRows > 0) {
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalUsersRows, allUsers);
         }
 
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(totalRows, page, rows, userGridRows);
+        if (!allUsersSubList.isEmpty()) {
+            userGridRows = allUsersSubList.stream().map(user -> new UserWrapper(user)).collect(Collectors.toList());
+        }
 
-        return JsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(createGridContent(totalUsersRows, page, rows, userGridRows));
     }
 
     @RequestMapping(value = "/createfamilyselectboxofusers.action", method = RequestMethod.GET)
@@ -222,37 +187,14 @@ public class UserController {
         } else {
             familyList = familyService.getAllFamilySM();
         }
-        List<SelectBox<String,Long>> selectBoxList = new ArrayList<>();
+        List<SelectBox<String, Long>> selectBoxList = new ArrayList<>();
         for (Family family : familyList) {
-            SelectBox<String,Long> selectBox = new SelectBox<>(family.getFamilyName(), family.getId());
+            SelectBox<String, Long> selectBox = new SelectBox<>(family.getFamilyName(), family.getId());
             selectBoxList.add(selectBox);
         }
 
         return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
     }
 
-    private Model createModelSelectBoxes(Model model) {
-        Map<Long, String> parishMap = new HashMap<Long, String>();
-        List<Parish> addedParishes = parishService.getAllParish();
-        for (Parish parish : addedParishes)
-            parishMap.put(parish.getId(), parish.getParishName());
-
-        Map<Long, String> massCenterMap = new HashMap<Long, String>();
-        List<MassCenter> massCenterList = massCenterService.getAllMassCenter();
-        for (MassCenter massCenter : massCenterList)
-            massCenterMap.put(massCenter.getId(), massCenter.getMassCenterName());
-
-        Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
-        List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnits();
-
-        for (PrayerUnit prayerUnit : prayerUnitList)
-            prayerUnitMap.put(prayerUnit.getId(), prayerUnit.getPrayerUnitName());
-
-        model.addAttribute("parishList", parishMap);
-        model.addAttribute("massCenterList", massCenterMap);
-        model.addAttribute("prayerUnitList", prayerUnitMap);
-
-        return model;
-    }
 
 }

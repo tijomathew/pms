@@ -40,7 +40,7 @@
     <%@include file="headerTemplate.jsp" %>
 </head>
 
-<body>
+<body> <!--oncontextmenu="return false;" -->
 
 <div id="page-container">
 

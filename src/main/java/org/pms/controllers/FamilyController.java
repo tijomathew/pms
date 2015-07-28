@@ -129,7 +129,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/createprayerunitselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    String generateWardSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
+    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
         String returnObject = StringUtils.EMPTY;
         if (selectedMassCenterId != 0l) {
             List<PrayerUnit> prayerUnitList = prayerUnitService.getPrayerUnitForMassCenterIDSM(selectedMassCenterId);

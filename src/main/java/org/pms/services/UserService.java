@@ -1,6 +1,7 @@
 package org.pms.services;
 
 import org.pms.models.User;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -25,4 +26,8 @@ public interface UserService {
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
 
     List<User> getAllUsersForFamilyIds(List<Long> familyIds);
+
+    void createUserFormBackObject(Model model, User currentUser);
+
+    List<User> getAllUsersForUserRole(User currentUser);
 }

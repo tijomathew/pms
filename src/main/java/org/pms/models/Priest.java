@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.StringUtils;
 import org.pms.enums.PriestDesignations;
 import org.pms.enums.PriestStatus;
 
@@ -277,11 +278,17 @@ public class Priest implements Serializable {
     }
 
     public String getParishName() {
-        return this.getParish().getParishName();
+        String returnObject = StringUtils.EMPTY;
+        if (this.getParish() != null)
+            returnObject = this.getParish().getParishName();
+        return returnObject;
     }
 
     public String getMassCenterName() {
-        return this.getMassCenter().getMassCenterName();
+        String returnObject = StringUtils.EMPTY;
+        if (this.getMassCenter() != null)
+            returnObject = this.getMassCenter().getMassCenterName();
+        return returnObject;
     }
 
     public String getPriestFullName() {
