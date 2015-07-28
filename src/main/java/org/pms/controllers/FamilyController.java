@@ -3,7 +3,7 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.enums.SystemRole;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
@@ -24,7 +24,7 @@ import java.util.*;
  */
 
 @Controller
-public class FamilyController extends AbstractErrorHandler {
+public class FamilyController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private FamilyService familyService;

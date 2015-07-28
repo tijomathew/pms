@@ -3,7 +3,7 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 
 @Controller
-public class PrayerUnitController extends AbstractErrorHandler {
+public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private PrayerUnitService prayerUnitService;

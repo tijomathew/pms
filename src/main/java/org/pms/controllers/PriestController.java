@@ -2,16 +2,14 @@ package org.pms.controllers;
 
 import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.GridContainer;
 import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
-import org.pms.models.Parish;
 import org.pms.models.Priest;
-import org.pms.models.PriestDesignation;
 import org.pms.services.ParishService;
 import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,7 @@ import java.util.stream.Collectors;
  */
 
 @Controller
-public class PriestController extends AbstractErrorHandler {
+public class PriestController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private PriestService priestService;

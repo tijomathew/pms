@@ -1,6 +1,9 @@
 package org.pms.error;
 
 import org.pms.enums.StatusCode;
+import org.pms.helpers.GridContainer;
+import org.pms.helpers.GridGenerator;
+import org.pms.helpers.GridRow;
 import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
@@ -10,9 +13,10 @@ import java.util.List;
 /**
  * User: tijo.
  */
-public abstract class AbstractErrorHandler {
+public abstract class AbstractErrorAndGridHandler {
 
     protected CustomResponse customResponse;
+    protected GridGenerator gridGenerator;
 
     protected final CustomResponse createErrorMessage(StatusCode statusCode, String fieldName, String message) {
         customResponse = new CustomResponse(statusCode, createCustomErrorMessage(fieldName, message));
@@ -32,6 +36,11 @@ public abstract class AbstractErrorHandler {
     protected final CustomResponse createStatusCodeResponse(StatusCode statusCode) {
         customResponse = new CustomResponse(statusCode, Collections.EMPTY_LIST);
         return customResponse;
+    }
+
+    protected final GridContainer createGridContent(Integer total, Integer page, Integer record, List<? extends GridRow> rows) {
+        gridGenerator = new GridGenerator();
+        return gridGenerator.createGridContainer(total, page, record, rows);
     }
 
     private List<CustomErrorMessage> createCustomErrorMessage(String fieldName, String message) {

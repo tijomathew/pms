@@ -2,7 +2,7 @@ package org.pms.controllers;
 
 import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
@@ -19,11 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * This class is the controller of the Member Controller module.
@@ -31,7 +28,7 @@ import java.util.stream.IntStream;
  */
 
 @Controller
-public class MemberController extends AbstractErrorHandler {
+public class MemberController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private MemberService memberService;
@@ -108,14 +105,11 @@ public class MemberController extends AbstractErrorHandler {
             allMemberSubList = JsonBuilder.generateSubList(page, rows, totalMembersCount, allMembers);
         }
 
-        for (Member member : allMemberSubList) {
-            memberGridRows.add(new MemberWrapper(member));
+        if (!allMemberSubList.isEmpty()) {
+            memberGridRows = allMemberSubList.stream().map(member -> new MemberWrapper(member)).collect(Collectors.toList());
         }
 
-        GridGenerator gridGenerator = new GridGenerator();
-        GridContainer resultContainer = gridGenerator.createGridContainer(totalMembersCount, page, rows, memberGridRows);
-
-        return JsonBuilder.convertToJson(resultContainer);
+        return JsonBuilder.convertToJson(createGridContent(totalMembersCount, page, rows, memberGridRows));
     }
 
 

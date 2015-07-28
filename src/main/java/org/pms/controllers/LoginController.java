@@ -5,7 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.FactorySelectBox;
@@ -33,7 +33,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
-public class LoginController extends AbstractErrorHandler {
+public class LoginController extends AbstractErrorAndGridHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 

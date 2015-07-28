@@ -19,8 +19,6 @@ public class PMSRequestResponseHolder extends ServletRequestAttributes implement
 
     private HttpServletResponse servletResponse;
 
-    private HttpSession httpSession;
-
     @Autowired
     public PMSRequestResponseHolder(HttpServletRequest httpServletRequest) {
         super(httpServletRequest);

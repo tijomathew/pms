@@ -102,7 +102,10 @@ public final class FactorySelectBox {
     public Model createSelectBox(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Family> familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
-        Map<Long, String> familyNameMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
+        Map<Long, String> familyNameMap = new HashMap<>();
+        if (!familyList.isEmpty()) {
+            familyNameMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
+        }
         model.addAttribute("familyName", familyNameMap);
         return model;
     }

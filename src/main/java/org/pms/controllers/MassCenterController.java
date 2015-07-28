@@ -2,25 +2,21 @@ package org.pms.controllers;
 
 import org.pms.enums.*;
 import org.pms.displaywrappers.MassCenterWrapper;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCenterService;
 import org.pms.services.ParishService;
-import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class is the controller of the Mass Center module.
@@ -28,7 +24,7 @@ import java.util.Map;
  */
 
 @Controller
-public class MassCenterController extends AbstractErrorHandler {
+public class MassCenterController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private MassCenterService massCenterService;

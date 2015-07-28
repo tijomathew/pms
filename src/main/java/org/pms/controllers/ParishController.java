@@ -3,7 +3,7 @@ package org.pms.controllers;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
-import org.pms.error.AbstractErrorHandler;
+import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
@@ -27,7 +27,7 @@ import java.util.*;
  */
 
 @Controller
-public class ParishController extends AbstractErrorHandler {
+public class ParishController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private ParishService parishService;
