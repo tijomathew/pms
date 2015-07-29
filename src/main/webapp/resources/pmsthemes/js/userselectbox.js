@@ -92,7 +92,7 @@ function loadSelectBox(contextPath) {
     );
 
     $('#prayerUnitSelectBox').change(function () {
-            $.getJSON(contextPath + "/createfamilyselectboxofusers.action",
+            $.getJSON(contextPath + "/createfamilyselectbox.action",
                 {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},
                 function (data) {
                     var systemRole = $("#systemRole option:selected").val();

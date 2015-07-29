@@ -83,4 +83,16 @@ public class ParishController extends AbstractErrorAndGridHandler {
         return JsonBuilder.convertToJson(createGridContent(totalParishCount, page, rows, parishGridRows));
     }
 
+    @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String generateParishSelectBox() {
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
+
+        List<SelectBox<String, Long>> selectBoxList = parishList.stream().map(parish -> new SelectBox<>(parish.getParishName(), parish.getId())).collect(Collectors.toList());
+
+        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
+    }
+
 }

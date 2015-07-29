@@ -18,7 +18,7 @@ function loadMemberGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship", "Parish Name", "Mass Center Name", "Prayer Unit Name", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
+            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship", "Parish Name", "MC Name", "PU Name", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
                 "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
                 "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
                 "memberAsPerson.personalRemarks", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",

@@ -101,44 +101,6 @@ public class FamilyController extends AbstractErrorAndGridHandler {
         return customResponse;
     }
 
-    @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generateParishSelectBox() {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
-
-        List<SelectBox<String, Long>> selectBoxList = parishList.stream().map(parish -> new SelectBox<>(parish.getParishName(), parish.getId())).collect(Collectors.toList());
-
-        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
-    }
-
-    @RequestMapping(value = "/createmasscenterselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
-        String returnObject = StringUtils.EMPTY;
-        if (selectedParishID != 0l) {
-            List<MassCenter> massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
-            List<SelectBox<String, Long>> selectBoxList = massCenterListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCenterName(), massCenter.getId())).collect(Collectors.toList());
-            returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
-        }
-        return returnObject;
-    }
-
-    @RequestMapping(value = "/createprayerunitselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
-        String returnObject = StringUtils.EMPTY;
-        if (selectedMassCenterId != 0l) {
-            List<PrayerUnit> prayerUnitList = prayerUnitService.getPrayerUnitForMassCenterIDSM(selectedMassCenterId);
-            List<SelectBox<String, Long>> prayerUnitSelectBoxList = prayerUnitList.stream().map(prayerUnit -> new SelectBox<>(prayerUnit.getPrayerUnitName(), prayerUnit.getId())).collect(Collectors.toList());
-            returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
-        }
-        return returnObject;
-    }
-
     @RequestMapping(value = "/displayfamilygrid.action", method = RequestMethod.GET)
     public
     @ResponseBody

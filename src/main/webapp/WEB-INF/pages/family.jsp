@@ -205,7 +205,7 @@
                                                                     Unit</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="prayerUnitId" id="wardSelectBox"
+                                                                    <form:select path="prayerUnitId" id="prayerUnitSelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
                                                                 </div>

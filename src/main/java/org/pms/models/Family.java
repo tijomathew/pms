@@ -209,6 +209,10 @@ public class Family implements Serializable {
         return this.getFamilyParish().getParishNo();
     }
 
+    public String getParishName() {
+        return this.getFamilyParish().getParishName();
+    }
+
     public Long getMassCenterNumber() {
         return this.getFamilyMassCenter().getMassCenterNo();
     }
@@ -217,12 +221,12 @@ public class Family implements Serializable {
         return this.getFamilyPrayerUnit().getPrayerUnitNo();
     }
 
-    public String getMassCenterPlace() {
-        return this.getFamilyMassCenter().getPlace();
+    public String getMassCenterName() {
+        return this.getFamilyMassCenter().getMassCenterName();
     }
 
-    public String getPrayerUnitPlace() {
-        return this.getFamilyPrayerUnit().getPrayerUnitPlace();
+    public String getPrayerUnitName() {
+        return this.getFamilyPrayerUnit().getPrayerUnitName();
     }
 
 

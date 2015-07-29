@@ -32,8 +32,11 @@ public class PrayerUnit implements Serializable {
     @Column(name = "place")
     private String prayerUnitPlace;
 
+    @Column(name = "patron")
+    private String patron;
+
     @Transient
-    private Long massCenterId;
+    private Long massCenterNo;
 
     @Transient
     private Long parishNo;
@@ -80,12 +83,20 @@ public class PrayerUnit implements Serializable {
         this.prayerUnitPlace = prayerUnitPlace;
     }
 
-    public Long getMassCenterId() {
-        return massCenterId;
+    public String getPatron() {
+        return patron;
     }
 
-    public void setMassCenterId(Long massCenterId) {
-        this.massCenterId = massCenterId;
+    public void setPatron(String patron) {
+        this.patron = patron;
+    }
+
+    public Long getMassCenterNo() {
+        return massCenterNo;
+    }
+
+    public void setMassCenterNo(Long massCenterNo) {
+        this.massCenterNo = massCenterNo;
     }
 
     public Long getParishNo() {
@@ -138,8 +149,8 @@ public class PrayerUnit implements Serializable {
         return this.getMappedMassCenter().getMappedParish().getParishName();
     }
 
-    public String getMassCenterPlace() {
-        return this.getMappedMassCenter().getPlace();
+    public String getMassCenterName() {
+        return this.getMappedMassCenter().getMassCenterName();
     }
 
 

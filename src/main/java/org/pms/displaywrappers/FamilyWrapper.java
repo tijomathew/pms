@@ -15,7 +15,7 @@ public class FamilyWrapper implements GridRow {
 
     private Family familyBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "parishInNative", "dioceseInNative", "parishNumber", "massCenterNumber", "massCenterPlace", "prayerUnitNumber", "prayerUnitPlace", "dateOfRegistration", "parishId", "massCenterId", "prayerUnitId", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country"};
+    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "parishNumber", "parishName","massCenterNumber", "massCenterName", "prayerUnitNumber", "prayerUnitName","parishInNative", "dioceseInNative", "dateOfRegistration", "parishId", "massCenterId", "prayerUnitId", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country"};
 
     public FamilyWrapper(Family familyBean) {
         this.familyBean = familyBean;

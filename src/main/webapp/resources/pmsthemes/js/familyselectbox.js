@@ -6,12 +6,12 @@ function loadSelectBox(contextPath) {
     $.getJSON(contextPath + '/createparishselectbox.action',
         {},
         function (data) {
-            $('#massCenterSelectBox').empty();
-            $('#wardSelectBox').empty();
+            $('#massCenterSelectBox').find('option').remove();
+            $('#prayerUnitSelectBox').find('option').remove();
             var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';
             var len = data.length;
             for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+                html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
             }
             $('#parishSelectBox').append(html);
         });
@@ -19,12 +19,12 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createmasscenterselectbox.action",
                 {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
-                    $('#massCenterSelectBox').empty();
-                    $('#wardSelectBox').empty();
+                    $('#massCenterSelectBox').find('option').remove();
+                    $('#prayerUnitSelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
-                        html += '<option value="' + data[i].displayName + '">' + data[i].value + '</option>';
+                        html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                     }
                     $('#massCenterSelectBox').append(html);
                 });
@@ -35,13 +35,13 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createprayerunitselectbox.action",
                 {selectedMassCenterId: $('#massCenterSelectBox').val()},
                 function (data) {
-                    $('#wardSelectBox').empty();
+                    $('#prayerUnitSelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                     }
-                    $('#wardSelectBox').append(html);
+                    $('#prayerUnitSelectBox').append(html);
                 });
         }
     );

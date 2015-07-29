@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
@@ -103,6 +104,19 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
         }
 
         return JsonBuilder.convertToJson(createGridContent(massCenterCount, page, rows, massCenterGridRows));
+    }
+
+    @RequestMapping(value = "/createmasscenterselectbox.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
+        String returnObject = StringUtils.EMPTY;
+        if (selectedParishID != 0l) {
+            List<MassCenter> massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
+            List<SelectBox<String, Long>> selectBoxList = massCenterListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCenterName(), massCenter.getId())).collect(Collectors.toList());
+            returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
+        }
+        return returnObject;
     }
 
 }

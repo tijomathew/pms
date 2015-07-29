@@ -164,12 +164,18 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="massCenterId" class="col-sm-2 control-label">Mass
+                                                            <label for="massCenterNo" class="col-sm-2 control-label">Mass
                                                                 Center</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:select path="massCenterId"
-                                                                             id="massCenterId" class="form-control"/>
+                                                                <form:select path="massCenterNo"
+                                                                             id="massCenterNo" class="form-control"/>
+                                                            </div>
+                                                            <label for="patron" class="col-sm-2 control-label">Patron</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="patron"
+                                                                             id="patron" class="form-control"/>
                                                             </div>
                                                         </div>
                                                     </div>
