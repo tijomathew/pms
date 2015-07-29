@@ -13,7 +13,7 @@
     <%@ include file="scriptLibraryTemplate.jsp" %>
 
 
-    <spring:url value="/resources/js/memberselectbox.js" var="memberSelectBox"/>
+    <spring:url value="/resources/js/userselectbox.js" var="memberSelectBox"/>
     <spring:url value="/resources/js/createmembergridlayout.js" var="memberGrid"/>
     <spring:url value="/addmember.action" var="memberActionURL"/>
 
@@ -176,7 +176,7 @@
                                                                 <label for="familyId" class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="familyId" id="familySelectBox"
+                                                                    <form:select path="familyId" id="familySelectBoxofMember"
                                                                                  class="form-control"/>
                                                                 </div>
                                                             </div>

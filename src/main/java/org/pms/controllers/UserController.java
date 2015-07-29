@@ -38,15 +38,6 @@ public class UserController extends AbstractErrorAndGridHandler {
     private UserService userService;
 
     @Autowired
-    private MassCenterService massCenterService;
-
-    @Autowired
-    private PrayerUnitService prayerUnitService;
-
-    @Autowired
-    private FamilyService familyService;
-
-    @Autowired
     private MailService mailService;
 
     @Autowired
@@ -168,33 +159,5 @@ public class UserController extends AbstractErrorAndGridHandler {
 
         return JsonBuilder.convertToJson(createGridContent(totalUsersRows, page, rows, userGridRows));
     }
-
-    @RequestMapping(value = "/createfamilyselectboxofusers.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Object generateFamilyNamesSelectBox(@RequestParam(value = "selectedPrayerUnitId", required = true) Long
-                                                selectedPrayerUnitId) {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Family> familyList = new ArrayList<>();
-        if (currentUser.getSystemRole() == SystemRole.PARISH_ADMIN) {
-            familyList.addAll(familyService.getAllFamilyForParishID(currentUser.getParishId()));
-        } else if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-            MassCenter massCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId());
-            familyList.addAll(massCenter.getMappedFamilies());
-        } else if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-            PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId());
-            familyList.addAll(prayerUnit.getMappedFamilies());
-        } else {
-            familyList = familyService.getAllFamilySM();
-        }
-        List<SelectBox<String, Long>> selectBoxList = new ArrayList<>();
-        for (Family family : familyList) {
-            SelectBox<String, Long> selectBox = new SelectBox<>(family.getFamilyName(), family.getId());
-            selectBoxList.add(selectBox);
-        }
-
-        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
-    }
-
 
 }

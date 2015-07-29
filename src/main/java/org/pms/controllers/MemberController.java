@@ -55,16 +55,6 @@ public class MemberController extends AbstractErrorAndGridHandler {
         return PageName.MEMBER.toString();
     }
 
-    @RequestMapping(value = "/createfamilyselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generateFamilySelectBox() {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Family> familyList = familyService.getAllFamiliesForUserRole(currentUser);
-        List<SelectBox<String, Long>> selectBoxList = familyList.stream().map(family -> new SelectBox<>(family.getFamilyName(), family.getId())).collect(Collectors.toList());
-        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
-    }
-
     @RequestMapping(value = "/addmember.action", method = RequestMethod.POST)
     public
     @ResponseBody

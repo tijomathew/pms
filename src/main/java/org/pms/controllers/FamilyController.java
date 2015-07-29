@@ -123,4 +123,21 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
         return JsonBuilder.convertToJson(createGridContent(totalFamilyCount, page, rows, familyGridRows));
     }
+
+    @RequestMapping(value = "/createfamilyselectbox.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Object generateFamilyNamesSelectBox(@RequestParam(value = "selectedPrayerUnitId", required = false) Long
+                                                selectedPrayerUnitId) {
+        List<Family> familyList = new ArrayList<>();
+        if (selectedPrayerUnitId == null || selectedPrayerUnitId == 0) {
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+            familyList = familyService.getAllFamiliesForUserRole(currentUser);
+        } else {
+            familyList.addAll(familyService.getAllFamilyForPrayerUnitID(selectedPrayerUnitId));
+        }
+        List<SelectBox<String, Long>> selectBoxList = familyList.stream().map(family -> new SelectBox<>(family.getFamilyName(), family.getId())).collect(Collectors.toList());
+        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
+    }
+
 }

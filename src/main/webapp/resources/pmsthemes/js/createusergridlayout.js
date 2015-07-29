@@ -27,7 +27,7 @@ function loadUserGrid() {
                 {name: 'massCenter', index: 'massCenter', width: 100, sortable: false},
                 {name: 'prayerUnit', index: 'prayerUnit', width: 100, sortable: false},
                 {name: 'family', index: 'family', width: 100, sortable: false},
-                {name: 'emailSent', index: 'emailSent', width: 100, sortable: false},
+                {name: 'sendMailFlag', index: 'sendMailFlag', width: 100, sortable: false},
                 {name: 'alreadyLoggedIn', index: 'alreadyLoggedIn', width: 100, sortable: false},
                 {name: 'isValidated', index: 'isValidated', width: 100, sortable: false},
                 {name: 'createdBy', index: 'createdBy', width: 100, sortable: false},
