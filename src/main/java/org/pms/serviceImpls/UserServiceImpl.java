@@ -108,19 +108,19 @@ public class UserServiceImpl implements UserService {
                 break;
             case PARISH_ADMIN:
                 List<Long> currentUserParishIdAsList = new ArrayList<>();
-                currentUserParishIdAsList.add(currentUser.getParishId());
+                currentUserParishIdAsList.add(currentUser.getUsersOfParishes().getId());
 
                 allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
                 break;
             case MASS_CENTER_ADMIN:
                 List<Long> currentUserMassCenterIdAsList = new ArrayList<>();
-                currentUserMassCenterIdAsList.add(currentUser.getMassCenterId());
+                currentUserMassCenterIdAsList.add(currentUser.getUsersOfMassCenters().getId());
 
                 allUsers.addAll(getAllUsersForMassCenterIds(currentUserMassCenterIdAsList));
                 break;
             case PRAYER_UNIT_ADMIN:
                 List<Long> currentUserPrayerUnitIdAsList = new ArrayList<>();
-                currentUserPrayerUnitIdAsList.add(currentUser.getPrayerUnitId());
+                currentUserPrayerUnitIdAsList.add(currentUser.getUsersOfPrayerUnits().getId());
 
                 allUsers.addAll(getAllUsersForPrayerUnitIds(currentUserPrayerUnitIdAsList));
                 break;

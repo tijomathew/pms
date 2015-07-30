@@ -75,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
                 allMembers.addAll(getAllMember());
                 break;
             case PARISH_ADMIN:
-                List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMappedFamilies();
+                List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMappedFamilies();
                 if (!allFamiliesUnderParish.isEmpty()) {
                     allFamiliesUnderParish.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -83,7 +83,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedFamilies();
+                List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()).getMappedFamilies();
                 if (!allFamiliesUnderMassCenter.isEmpty()) {
                     allFamiliesUnderMassCenter.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case PRAYER_UNIT_ADMIN:
-                List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedFamilies();
+                List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedFamilies();
                 if (!allFamiliesUnderPrayerUnit.isEmpty()) {
                     allFamiliesUnderPrayerUnit.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -99,7 +99,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case FAMILY_USER:
-                allMembers.addAll(familyService.getFamilyForID(currentUser.getFamilyId()).getMemberList());
+                allMembers.addAll(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getMemberList());
                 break;
         }
         return allMembers;

@@ -69,15 +69,15 @@ public final class FactorySelectBox {
                 break;
             case PRAYER_UNIT_ADMIN:
                 cleanUpListAndMap();
-                currentUser.setParishId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getMappedParish().getId());
-                currentUser.setMassCenterId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getId());
+                currentUser.setParishId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getMappedParish().getId());
+                currentUser.setMassCenterId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getId());
                 createListEntries(currentUser, model);
                 break;
             case FAMILY_USER:
                 cleanUpListAndMap();
-                currentUser.setParishId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyMassCenter().getMappedParish().getId());
-                currentUser.setMassCenterId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyMassCenter().getId());
-                currentUser.setPrayerUnitId(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyPrayerUnit().getId());
+                currentUser.setParishId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyMassCenter().getMappedParish().getId());
+                currentUser.setMassCenterId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyMassCenter().getId());
+                currentUser.setPrayerUnitId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyPrayerUnit().getId());
                 createListEntries(currentUser, model);
                 break;
         }
@@ -106,7 +106,7 @@ public final class FactorySelectBox {
 
     public Model createSelectBox(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Family> familyList = familyService.getFamilyForFamilyID(currentUser.getFamilyId());
+        List<Family> familyList = familyService.getFamilyForFamilyID(currentUser.getUserOfFamily().getId());
         Map<Long, String> familyNameMap = new HashMap<>();
         if (!familyList.isEmpty()) {
             familyNameMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));

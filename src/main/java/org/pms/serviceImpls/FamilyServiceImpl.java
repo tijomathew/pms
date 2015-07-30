@@ -89,16 +89,16 @@ public class FamilyServiceImpl implements FamilyService {
                 familyList = getAllFamilySM();
                 break;
             case PARISH_ADMIN:
-                familyList = getAllFamilyForParishID(currentUser.getParishId());
+                familyList = getAllFamilyForParishID(currentUser.getUsersOfParishes().getId());
                 break;
             case MASS_CENTER_ADMIN:
-                familyList = getAllFamilyForMassCenterID(currentUser.getMassCenterId());
+                familyList = getAllFamilyForMassCenterID(currentUser.getUsersOfMassCenters().getId());
                 break;
             case PRAYER_UNIT_ADMIN:
-                familyList = getAllFamilyForPrayerUnitID(currentUser.getPrayerUnitId());
+                familyList = getAllFamilyForPrayerUnitID(currentUser.getUsersOfPrayerUnits().getId());
                 break;
             case FAMILY_USER:
-                familyList = getFamilyForFamilyID(currentUser.getFamilyId());
+                familyList = getFamilyForFamilyID(currentUser.getUserOfFamily().getId());
                 break;
         }
 

@@ -114,13 +114,13 @@ public class MassCenterServiceImpl implements MassCenterService {
                 massCenterList.addAll(getAllMassCenter());
                 break;
             case PARISH_ADMIN:
-                massCenterList.addAll(parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList());
+                massCenterList.addAll(parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMassCenterList());
                 break;
             case MASS_CENTER_ADMIN:
-                massCenterList.add(getMassCenterForIDSM(currentUser.getMassCenterId()));
+                massCenterList.add(getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
-                massCenterList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter());
+                massCenterList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter());
                 break;
             case FAMILY_USER:
                 //No Op
@@ -141,10 +141,10 @@ public class MassCenterServiceImpl implements MassCenterService {
                 allMassCenters = getAllMassCenter();
                 break;
             case PARISH_ADMIN:
-                allMassCenters.addAll(parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList());
+                allMassCenters.addAll(parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMassCenterList());
                 break;
             case MASS_CENTER_ADMIN:
-                allMassCenters.add(getMassCenterForIDSM(currentUser.getMassCenterId()));
+                allMassCenters.add(getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
                 //No Op

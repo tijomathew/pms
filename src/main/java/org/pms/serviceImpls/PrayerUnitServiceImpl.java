@@ -110,16 +110,16 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.addAll(getAllPrayerUnits());
                 break;
             case PARISH_ADMIN:
-                List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getParishId()).getMassCenterList();
+                List<MassCenter> massCentersUnderParish = parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMassCenterList();
                 if (!massCentersUnderParish.isEmpty()) {
                     massCentersUnderParish.stream().forEach(massCenter -> allPrayerUnits.addAll(massCenter.getPrayerUnits()));
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                allPrayerUnits.addAll(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getPrayerUnits());
+                allPrayerUnits.addAll(massCenterService.getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()).getPrayerUnits());
                 break;
             case PRAYER_UNIT_ADMIN:
-                allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
+                allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()));
                 break;
             case FAMILY_USER:
                 //No Op

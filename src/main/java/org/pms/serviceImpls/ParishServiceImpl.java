@@ -95,16 +95,16 @@ public class ParishServiceImpl implements ParishService {
                 parishList.addAll(getAllParish());
                 break;
             case PARISH_ADMIN:
-                parishList.add(getParishForIDSM(currentUser.getParishId()));
+                parishList.add(getParishForIDSM(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
-                parishList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()).getMappedParish());
+                parishList.add(massCenterService.getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()).getMappedParish());
                 break;
             case PRAYER_UNIT_ADMIN:
-                parishList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()).getMappedMassCenter().getMappedParish());
+                parishList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getMappedParish());
                 break;
             case FAMILY_USER:
-                parishList.add(familyService.getFamilyForID(currentUser.getFamilyId()).getFamilyParish());
+                parishList.add(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyParish());
                 break;
         }
         return parishList;

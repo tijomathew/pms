@@ -48,22 +48,22 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     @Override
     public List<User> getAllUsersForParishIds(List<Long> parishIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.parishId", parishIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfParishes.id", parishIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.massCenterId", massCenterIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfMassCenters.id", massCenterIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.prayerUnitId", prayerUnitIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfPrayerUnits.id", prayerUnitIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.familyId", familyIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.userOfFamily.id", familyIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
