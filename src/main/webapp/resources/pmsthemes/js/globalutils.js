@@ -48,6 +48,22 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                 $('#' + formId)[0].reset();
                 jQuery('#' + gridId).trigger('reloadGrid');
             }
+            else if (response.statusCode == 'FAILURE') {
+                jQuery.jqGrowl.timeout = 500;
+                jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
+                jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'FAILURE');
+
+                /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
+                 jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
+                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "warn"){
+                 jQuery('#jqgrowlContainer > ul').addClass('warnContainer');
+                 }
+                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "success"){
+                 jQuery('#jqgrowlContainer > ul').addClass('successContainer');
+                 }*/
+                $('#' + formId)[0].reset();
+                jQuery('#' + gridId).trigger('reloadGrid');
+            }
             else {
                 var $alert = $('<div class="alert alert-success"></div>');
                 $alert.html(response.customErrorMessages[0].message);

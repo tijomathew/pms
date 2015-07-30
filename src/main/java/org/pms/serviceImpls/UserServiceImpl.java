@@ -107,29 +107,22 @@ public class UserServiceImpl implements UserService {
                 allUsers = getAllUsers();
                 break;
             case PARISH_ADMIN:
-                List<Long> massCenterIdsUnderParishAdmin = massCenterService.getAllMassCenterIdsForParish(currentUser.getParishId());
-                allUsers.addAll(getAllUsersForMassCenterIds(massCenterIdsUnderParishAdmin));
+                List<Long> currentUserParishIdAsList = new ArrayList<>();
+                currentUserParishIdAsList.add(currentUser.getParishId());
 
-                List<Long> prayerUnitIdsUnderParishAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdsUnderParishAdmin);
-                allUsers.addAll(getAllUsersForPrayerUnitIds(prayerUnitIdsUnderParishAdmin));
-
-                List<Long> familyIdsUnderParishAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderParishAdmin);
-                allUsers.addAll(getAllUsersForFamilyIds(familyIdsUnderParishAdmin));
+                allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
                 break;
             case MASS_CENTER_ADMIN:
-                List<Long> massCenterIdAsList = new ArrayList<>();
-                massCenterIdAsList.add(currentUser.getMassCenterId());
-                List<Long> prayerUnitIdsUnderMassCenterAdmin = prayerUnitService.getAllPrayerUnitIdsForMassCenterIds(massCenterIdAsList);
-                allUsers.addAll(getAllUsersForPrayerUnitIds(prayerUnitIdsUnderMassCenterAdmin));
+                List<Long> currentUserMassCenterIdAsList = new ArrayList<>();
+                currentUserMassCenterIdAsList.add(currentUser.getMassCenterId());
 
-                List<Long> familyIdsUnderMassCenterAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdsUnderMassCenterAdmin);
-                allUsers.addAll(getAllUsersForFamilyIds(familyIdsUnderMassCenterAdmin));
+                allUsers.addAll(getAllUsersForMassCenterIds(currentUserMassCenterIdAsList));
                 break;
             case PRAYER_UNIT_ADMIN:
-                List<Long> prayerUnitIdAsList = new ArrayList<>();
-                prayerUnitIdAsList.add(currentUser.getPrayerUnitId());
-                List<Long> familyIdsUnderPrayerUnitAdmin = familyService.getAllFamilyIdsForPrayerUnitId(prayerUnitIdAsList);
-                allUsers.addAll(getAllUsersForFamilyIds(familyIdsUnderPrayerUnitAdmin));
+                List<Long> currentUserPrayerUnitIdAsList = new ArrayList<>();
+                currentUserPrayerUnitIdAsList.add(currentUser.getPrayerUnitId());
+
+                allUsers.addAll(getAllUsersForPrayerUnitIds(currentUserPrayerUnitIdAsList));
                 break;
             case FAMILY_USER:
                 //No Op

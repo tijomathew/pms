@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
@@ -42,6 +43,7 @@ public class User implements Serializable {
     private Long updatedOn = new DateTime().getMillis();
 
     @Column(name = "is_active")
+    @Enumerated(EnumType.ORDINAL)
     private SystemRolesStatus isActive;
 
     @Column(name = "email")
@@ -50,16 +52,16 @@ public class User implements Serializable {
     @Column(name = "already_loggedIn")
     private Boolean alreadyLoggedIn = Boolean.FALSE;
 
-    @Column(name = "mapped_parish")
+    @Transient
     private Long parishId;
 
-    @Column(name = "mapped_masscenter")
+    @Transient
     private Long massCenterId;
 
-    @Column(name = "mapped_prayer_unit")
+    @Transient
     private Long prayerUnitId;
 
-    @Column(name = "family_id")
+    @Transient
     private Long familyId;
 
     @Column(name = "is_validated")
@@ -74,22 +76,21 @@ public class User implements Serializable {
     @Transient
     private String confirmPassword;
 
-    @Transient
-    private String parish;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_of_parish")
+    private Parish usersOfParishes;
 
-    @Transient
-    private String massCenter;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_of_masscenter")
+    private MassCenter usersOfMassCenters;
 
-    @Transient
-    private String prayerUnit;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_prayerunit")
+    private PrayerUnit usersOfPrayerUnits;
 
-    @Transient
-    private String family;
-
-
-    /*@OneToOne(fetch = FetchType.LAZY, mappedBy = "adminToParish", cascade = CascadeType.ALL)
-    private Parish mappedParish;*/
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_of_family")
+    private Family userOfFamily;
 
     public User() {
     }
@@ -108,6 +109,10 @@ public class User implements Serializable {
 
     public SystemRole getSystemRole() {
         return systemRole;
+    }
+
+    public String getSystemRoleAsDisplayValue() {
+        return systemRole.getUIDisplayValue();
     }
 
     public void setSystemRole(SystemRole systemRole) {
@@ -235,35 +240,63 @@ public class User implements Serializable {
     }
 
     public String getParish() {
-        return parish;
-    }
-
-    public void setParish(String parish) {
-        this.parish = parish;
+        String returnedObject = StringUtils.EMPTY;
+        if (this.getUsersOfParishes() != null)
+            returnedObject = this.getUsersOfParishes().getParishName();
+        return returnedObject;
     }
 
     public String getMassCenter() {
-        return massCenter;
-    }
-
-    public void setMassCenter(String massCenter) {
-        this.massCenter = massCenter;
+        String returnedObject = StringUtils.EMPTY;
+        if (this.getUsersOfMassCenters() != null)
+            returnedObject = this.getUsersOfMassCenters().getMassCenterName();
+        return returnedObject;
     }
 
     public String getPrayerUnit() {
-        return prayerUnit;
-    }
-
-    public void setPrayerUnit(String prayerUnit) {
-        this.prayerUnit = prayerUnit;
+        String returnedObject = StringUtils.EMPTY;
+        if (this.getUsersOfPrayerUnits() != null)
+            returnedObject = this.getUsersOfPrayerUnits().getPrayerUnitName();
+        return returnedObject;
     }
 
     public String getFamily() {
-        return family;
+        String returnedObject = StringUtils.EMPTY;
+        if (this.getUserOfFamily() != null)
+            returnedObject = this.getUserOfFamily().getFamilyName();
+        return returnedObject;
     }
 
-    public void setFamily(String family) {
-        this.family = family;
+    public Parish getUsersOfParishes() {
+        return usersOfParishes;
+    }
+
+    public void setUsersOfParishes(Parish usersOfParishes) {
+        this.usersOfParishes = usersOfParishes;
+    }
+
+    public MassCenter getUsersOfMassCenters() {
+        return usersOfMassCenters;
+    }
+
+    public void setUsersOfMassCenters(MassCenter usersOfMassCenters) {
+        this.usersOfMassCenters = usersOfMassCenters;
+    }
+
+    public PrayerUnit getUsersOfPrayerUnits() {
+        return usersOfPrayerUnits;
+    }
+
+    public void setUsersOfPrayerUnits(PrayerUnit usersOfPrayerUnits) {
+        this.usersOfPrayerUnits = usersOfPrayerUnits;
+    }
+
+    public Family getUserOfFamily() {
+        return userOfFamily;
+    }
+
+    public void setUserOfFamily(Family userOfFamily) {
+        this.userOfFamily = userOfFamily;
     }
 
     @Override
