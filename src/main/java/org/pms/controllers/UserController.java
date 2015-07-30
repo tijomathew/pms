@@ -134,7 +134,7 @@ public class UserController extends AbstractErrorAndGridHandler {
             if (user.getSendMailFlag()) {
                 mailService.sendUserCredentials(user);
             }
-
+            customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "loaded to the system");
         }
 
         //Error message when user is having multiple roles in the system.
@@ -149,9 +149,6 @@ public class UserController extends AbstractErrorAndGridHandler {
             //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
         }
 
-        if (insertUser && !userEmailAlreadyExists) {
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "loaded to the system");
-        }
         return customResponse;
     }
 
