@@ -63,7 +63,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     public
     @ResponseBody
     CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
-
+System.out.print("jh");
         if (!result.hasErrors()) {
             model.addAttribute("family", new Family());
 
