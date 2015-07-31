@@ -85,15 +85,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUserFormBackObject(Model model, User currentUser) {
         model.addAttribute("user", new User());
-        if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-            createUserModelSelectBoxes(model, currentUser);
+
+        Predicate<SystemRole> excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString())) && !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
+
+        switch (currentUser.getSystemRole()) {
+            case PARISH_ADMIN:
+                Predicate<SystemRole> excludeParishAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdmin);
+                break;
+            case MASS_CENTER_ADMIN:
+                Predicate<SystemRole> excludeParishAdminAndMassCenterAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCenterAdmin);
+                break;
+            case PRAYER_UNIT_ADMIN:
+                Predicate<SystemRole> excludeParishAdminAndMassCenterAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCenterAdminAndPrayerUnitAdmin);
+                createUserModelSelectBoxes(model, currentUser);
+                break;
         }
-
-        Predicate<SystemRole> excludePMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString()));
-        Predicate<SystemRole> excludeAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
-        Predicate<SystemRole> excludeAdminAndCurrentUser = excludePMSCurrentUser.and(excludeAdmin);
-
-        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludeAdminAndCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
+        Map<String, String> systemRoleMap = Arrays.stream(SystemRole.values()).filter(excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue));
+        systemRoleMap.put("0", "-Please Select--");
+        model.addAttribute("systemRoles", systemRoleMap);
         model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
 
     }

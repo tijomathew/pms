@@ -39,6 +39,7 @@ function loadSelectBox(contextPath) {
 
     $('#massCenterSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();
+
             if (systemRole != 'MASS_CENTER_ADMIN') {
                 $.getJSON(contextPath + "/createprayerunitselectbox.action",
                     {selectedMassCenterId: $('#massCenterSelectBox').val()},
@@ -58,6 +59,7 @@ function loadSelectBox(contextPath) {
 
     $('#prayerUnitSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();
+
             if (systemRole != 'PRAYER_UNIT_ADMIN') {
                 $.getJSON(contextPath + "/createfamilyselectbox.action",
                     {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},

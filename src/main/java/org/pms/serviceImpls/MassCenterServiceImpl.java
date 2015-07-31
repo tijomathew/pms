@@ -90,7 +90,7 @@ public class MassCenterServiceImpl implements MassCenterService {
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
-
+        parishMap.put(0l, "--Please Select--");
         model.addAttribute("parishList", parishMap);
         return formBackMassCenter;
     }

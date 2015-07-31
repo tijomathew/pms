@@ -36,6 +36,8 @@
 
             loadMemberGrid();
             globalSubmissionOfForms('memberForm', '${memberActionURL}', 'memberGrid');
+
+            $("select#personalStatus").val("0");
         });
     </script>
 
@@ -176,7 +178,8 @@
                                                                 <label for="familyId" class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="familyId" id="familySelectBoxofMember"
+                                                                    <form:select path="familyId"
+                                                                                 id="familySelectBoxofMember"
                                                                                  class="form-control"/>
                                                                 </div>
                                                             </div>
@@ -392,7 +395,8 @@
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="memberNo"
-                                                                        id="memberNo" class="form-control" readonly="true"/>
+                                                                        id="memberNo" class="form-control"
+                                                                        readonly="true"/>
                                                             </div>
                                                             <label for="piousAssociation"
                                                                    class="col-sm-2 control-label">Pious
