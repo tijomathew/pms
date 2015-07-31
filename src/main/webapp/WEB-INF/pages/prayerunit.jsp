@@ -164,18 +164,21 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="massCenterNo" class="col-sm-2 control-label">Mass
+                                                            <label for="mappedMassCenter"
+                                                                   class="col-sm-2 control-label">Mass
                                                                 Center</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:select path="massCenterNo"
-                                                                             id="massCenterNo" class="form-control"/>
+                                                                <form:select path="mappedMassCenter"
+                                                                             id="mappedMassCenter"
+                                                                             class="form-control"/>
                                                             </div>
-                                                            <label for="patron" class="col-sm-2 control-label">Patron</label>
+                                                            <label for="patron"
+                                                                   class="col-sm-2 control-label">Patron</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input path="patron"
-                                                                             id="patron" class="form-control"/>
+                                                                            id="patron" class="form-control"/>
                                                             </div>
                                                         </div>
                                                     </div>

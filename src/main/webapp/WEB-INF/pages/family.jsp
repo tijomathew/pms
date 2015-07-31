@@ -180,19 +180,19 @@
                                                         <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
 
                                                             <div class="form-group">
-                                                                <label for="parishId"
+                                                                <label for="familyParish"
                                                                        class="col-sm-2 control-label">Parish</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="parishId" id="parishSelectBox"
+                                                                    <form:select path="familyParish" id="parishSelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
                                                                 </div>
-                                                                <label for="parishId" class="col-sm-2 control-label">Mass
+                                                                <label for="familyMassCenter" class="col-sm-2 control-label">Mass
                                                                     Center</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="massCenterId"
+                                                                    <form:select path="familyMassCenter"
                                                                                  id="massCenterSelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
@@ -200,12 +200,12 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="prayerUnitId"
+                                                                <label for="familyPrayerUnit"
                                                                        class="col-sm-2 control-label">Prayer
                                                                     Unit</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="prayerUnitId" id="prayerUnitSelectBox"
+                                                                    <form:select path="familyPrayerUnit" id="prayerUnitSelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
                                                                 </div>
@@ -226,31 +226,31 @@
 
 
                                                             <div class="form-group">
-                                                                <label for="parishId"
+                                                                <label for="familyParish"
                                                                        class="col-sm-2 control-label">Parish</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="parishId" items="${parishList}"
+                                                                    <form:select path="familyParish" items="${parishList}"
                                                                                  class="form-control"></form:select>
                                                                 </div>
-                                                                <label for="massCenterId"
+                                                                <label for="familyMassCenter"
                                                                        class="col-sm-2 control-label">Mass
                                                                     Center</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="massCenterId"
+                                                                    <form:select path="familyMassCenter"
                                                                                  items="${massCenterList}"
                                                                                  class="form-control"></form:select>
                                                                 </div>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="prayerUnitId"
+                                                                <label for="familyPrayerUnit"
                                                                        class="col-sm-2 control-label">Prayer
                                                                     Unit</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="prayerUnitId"
+                                                                    <form:select path="familyPrayerUnit"
                                                                                  items="${prayerUnitList}"
                                                                                  class="form-control"></form:select>
                                                                 </div>

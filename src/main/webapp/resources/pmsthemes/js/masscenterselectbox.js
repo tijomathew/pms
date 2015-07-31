@@ -12,7 +12,7 @@ function loadSelectBox(contextPath) {
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                     }
-                    $('#massCenterNo').append(html);
+                    $('#mappedMassCenter').append(html);
                 });
         }
     );

@@ -35,9 +35,7 @@ public class PrayerUnit implements Serializable {
     @Column(name = "patron")
     private String patron;
 
-    @Transient
-    private Long massCenterNo;
-
+    //This field is added to resolve the selection issue of mass center if two or more parish has same mass center name. This field has no role in logic of adding a mass center.
     @Transient
     private Long parishNo;
 
@@ -89,14 +87,6 @@ public class PrayerUnit implements Serializable {
 
     public void setPatron(String patron) {
         this.patron = patron;
-    }
-
-    public Long getMassCenterNo() {
-        return massCenterNo;
-    }
-
-    public void setMassCenterNo(Long massCenterNo) {
-        this.massCenterNo = massCenterNo;
     }
 
     public Long getParishNo() {

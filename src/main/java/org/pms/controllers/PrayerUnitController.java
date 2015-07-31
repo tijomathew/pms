@@ -58,9 +58,8 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     CustomResponse addPrayerUnit(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
 
         if (!result.hasErrors()) {
-            MassCenter massCenter = massCenterService.getMassCenterForIDSM(prayerUnit.getMassCenterNo());
-            prayerUnit.setMappedMassCenter(massCenter);
-            massCenter.addPrayerUnitsForMassCenter(prayerUnit);
+
+            prayerUnit.getMappedMassCenter().addPrayerUnitsForMassCenter(prayerUnit);
 
             Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getMappedParish().getId());
 

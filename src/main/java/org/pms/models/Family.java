@@ -14,7 +14,7 @@ import java.util.List;
  * It contains various relationship with parish,mass center, ward and famil members.
  * It contains various getters and setters for the different attributes of the ward.
  * It contains methods for adding members to the family.
- * <p>
+ * <p/>
  * User: tijo
  */
 
@@ -43,15 +43,6 @@ public class Family implements Serializable {
 
     @Column(name = "date_of_registration")
     private String dateOfRegistration;
-
-    @Transient
-    private Long parishId;
-
-    @Transient
-    private Long massCenterId;
-
-    @Transient
-    private Long prayerUnitId;
 
     @Embedded
     private LocalAddress localAddress;
@@ -120,30 +111,6 @@ public class Family implements Serializable {
 
     public void setDateOfRegistration(String dateOfRegistration) {
         this.dateOfRegistration = dateOfRegistration;
-    }
-
-    public Long getParishId() {
-        return parishId;
-    }
-
-    public void setParishId(Long parishId) {
-        this.parishId = parishId;
-    }
-
-    public Long getMassCenterId() {
-        return massCenterId;
-    }
-
-    public void setMassCenterId(Long massCenterId) {
-        this.massCenterId = massCenterId;
-    }
-
-    public Long getPrayerUnitId() {
-        return prayerUnitId;
-    }
-
-    public void setPrayerUnitId(Long prayerUnitId) {
-        this.prayerUnitId = prayerUnitId;
     }
 
     public LocalAddress getLocalAddress() {

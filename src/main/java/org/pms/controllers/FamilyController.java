@@ -1,6 +1,10 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
+import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
+import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
 import org.pms.enums.SystemRole;
@@ -14,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -67,18 +72,12 @@ public class FamilyController extends AbstractErrorAndGridHandler {
         if (!result.hasErrors()) {
             model.addAttribute("family", new Family());
 
-            Parish parishForFamily = parishService.getParishForIDSM(family.getParishId());
-            MassCenter massCenterForFamily = massCenterService.getMassCenterForIDSM(family.getMassCenterId());
-            PrayerUnit prayerUnitForFamily = prayerUnitService.getPrayerUnitForIDSM(family.getPrayerUnitId());
 
-            family.setFamilyParish(parishForFamily);
-            parishForFamily.addFamilyForParish(family);
-            family.setFamilyMassCenter(massCenterForFamily);
-            massCenterForFamily.addFamilyForMassCenter(family);
-            family.setFamilyPrayerUnit(prayerUnitForFamily);
-            prayerUnitForFamily.addFamilyForWard(family);
+            family.getFamilyParish().addFamilyForParish(family);
+            family.getFamilyMassCenter().addFamilyForMassCenter(family);
+            family.getFamilyPrayerUnit().addFamilyForWard(family);
 
-            Long familyCounterForParish = familyService.getFamilyCountForParish(parishForFamily.getId());
+            Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
 
             family.setFamilyNo(++familyCounterForParish);
 
@@ -138,6 +137,14 @@ public class FamilyController extends AbstractErrorAndGridHandler {
         }
         List<SelectBox<String, Long>> selectBoxList = familyList.stream().map(family -> new SelectBox<>(family.getFamilyName(), family.getId())).collect(Collectors.toList());
         return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
+        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+        binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
+        binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }
 
 }
