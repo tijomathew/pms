@@ -101,24 +101,23 @@ public class MemberServiceImpl implements MemberService {
         model.addAttribute("sex", Arrays.stream(Gender.values()).collect(Collectors.toMap(Gender::name, Gender::getUIDisplayValue)));
 
         Map<String, String> salutationMap = Arrays.stream(PersonSalutation.values()).filter(excludeRevAndRevDr).collect(Collectors.toMap(PersonSalutation::name, PersonSalutation::getUIDisplayValue));
-        salutationMap.put("0", "--Please Select--");
+
         model.addAttribute("salutation", salutationMap);
 
         Map<String, String> lifeStatusMap = Arrays.stream(LifeStatus.values()).collect(Collectors.toMap(LifeStatus::name, LifeStatus::getUIDisplayValue));
-        lifeStatusMap.put("0", "--Please Select--");
+
         model.addAttribute("lifeStatus", lifeStatusMap);
 
         Map<String, String> personalStatusMap = Arrays.stream(PersonalStatus.values()).collect(Collectors.toMap(PersonalStatus::name, PersonalStatus::getUIDisplayValue));
-        personalStatusMap.put("0", "--Please Select--");
+
         model.addAttribute("personalStatus", personalStatusMap);
 
         Map<String, String> relationshipInFamilyMap = Arrays.stream(RelationShipInFamily.values()).collect(Collectors.toMap(RelationShipInFamily::name, RelationShipInFamily::getUIDisplayValue));
-        relationshipInFamilyMap.put("0", "--Please Select--");
+
         model.addAttribute("relationshipInFamily", relationshipInFamilyMap);
 
         Map<String, String> bloodGroupMap = Arrays.stream(BloodGroup.values()).collect(Collectors.toMap(BloodGroup::name, BloodGroup::getUIDisplayValue));
-        bloodGroupMap.put("0", "--Please Select--");
-        model.addAttribute("bloodGroup", bloodGroupMap);
+               model.addAttribute("bloodGroup", bloodGroupMap);
 
         return model;
     }

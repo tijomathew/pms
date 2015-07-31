@@ -37,7 +37,7 @@
             loadMemberGrid();
             globalSubmissionOfForms('memberForm', '${memberActionURL}', 'memberGrid');
 
-            $("select#personalStatus").val("0");
+           // $("select#personalStatus").val("0");
         });
     </script>
 

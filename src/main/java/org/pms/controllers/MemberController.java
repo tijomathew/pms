@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -102,5 +104,9 @@ public class MemberController extends AbstractErrorAndGridHandler {
         return JsonBuilder.convertToJson(createGridContent(totalMembersCount, page, rows, memberGridRows));
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+               binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
+    }
 
 }
