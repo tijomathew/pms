@@ -3,31 +3,28 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
+import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
+import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
 import org.pms.sessionmanager.PMSSessionManager;
-import org.pms.validators.LoginValidator;
-import org.pms.validators.SystemRoleStatusConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -93,38 +90,19 @@ public class UserController extends AbstractErrorAndGridHandler {
 
         if (!userEmailAlreadyExists) {
             if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
-                if (user.getParishId() != 0) {
-                    user.setUsersOfParishes(parishService.getParishForIDSM(user.getParishId()));
+                if (user.getUsersOfParishes() != null) {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                if (user.getParishId() != 0 && user.getMassCenterId() != 0) {
-                    MassCenter massCenter = massCenterService.getMassCenterForIDSM(user.getMassCenterId());
-
-                    user.setUsersOfParishes(massCenter.getMappedParish());
-                    user.setUsersOfMassCenters(massCenter);
-
+                if (user.getUsersOfParishes() != null && user.getUsersOfMassCenters() != null) {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-                if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0) {
-                    PrayerUnit prayerUnit = prayerUnitService.getPrayerUnitForIDSM(user.getPrayerUnitId());
-
-                    user.setUsersOfParishes(prayerUnit.getMappedMassCenter().getMappedParish());
-                    user.setUsersOfMassCenters(prayerUnit.getMappedMassCenter());
-                    user.setUsersOfPrayerUnits(prayerUnit);
-
+                if (user.getUsersOfParishes() != null && user.getUsersOfMassCenters() != null && user.getUsersOfPrayerUnits() != null) {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                if (user.getParishId() != 0 && user.getMassCenterId() != 0 && user.getPrayerUnitId() != 0 && user.getFamilyId() != 0) {
-                    Family family = familyService.getFamilyForID(user.getFamilyId());
-
-                    user.setUsersOfParishes(family.getFamilyParish());
-                    user.setUsersOfMassCenters(family.getFamilyMassCenter());
-                    user.setUsersOfPrayerUnits(family.getFamilyPrayerUnit());
-                    user.setUserOfFamily(family);
-
+                if (user.getUsersOfParishes() != null && user.getUsersOfMassCenters() != null && user.getUsersOfPrayerUnits() != null && user.getUserOfFamily() != null) {
                     insertUser = true;
                 }
             }
@@ -180,9 +158,12 @@ public class UserController extends AbstractErrorAndGridHandler {
         return JsonBuilder.convertToJson(createGridContent(totalUsersRows, page, rows, userGridRows));
     }
 
-    /*@InitBinder
+    @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(SystemRolesStatus.class, new SystemRoleStatusConverter());
-    }*/
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
+        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+        binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
+        binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
+    }
 
 }

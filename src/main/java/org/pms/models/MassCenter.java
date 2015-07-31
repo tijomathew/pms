@@ -14,7 +14,7 @@ import java.util.List;
  * It contains various getters and setters of the attributes of the mass center.
  * It contains various relationships with parish, ward and family.
  * It contains methods for adding ward and family to the mass center.
- * <p>
+ * <p/>
  * User: tijo
  */
 @Entity
@@ -63,9 +63,6 @@ public class MassCenter implements Serializable {
 
     @Column(name = "faxno")
     private String faxNo;
-
-    @Transient
-    private Long parish;
 
     @Embedded
     private LocalAddress localAddress;
@@ -187,14 +184,6 @@ public class MassCenter implements Serializable {
 
     public void setFaxNo(String faxNo) {
         this.faxNo = faxNo;
-    }
-
-    public Long getParish() {
-        return parish;
-    }
-
-    public void setParish(Long parish) {
-        this.parish = parish;
     }
 
     public LocalAddress getLocalAddress() {

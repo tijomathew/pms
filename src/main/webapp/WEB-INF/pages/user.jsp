@@ -215,7 +215,7 @@
                                                                        class="col-sm-2 control-label">Parish</label>
 
                                                                 <div class="col-sm-4" id="parishSelectBoxer">
-                                                                    <form:select path="parishId"
+                                                                    <form:select path="usersOfParishes"
                                                                                  id="parishSelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
@@ -226,7 +226,7 @@
 
                                                                 <div class="col-sm-4" id="massCenterSelectBoxer">
                                                                     <form:select
-                                                                            path="massCenterId"
+                                                                            path="usersOfMassCenters"
                                                                             id="massCenterSelectBox"
                                                                             class="form-control">
                                                                     </form:select>
@@ -240,7 +240,7 @@
 
                                                                 <div class="col-sm-4" id="prayerUnitSelectBoxer">
                                                                     <form:select
-                                                                            path="prayerUnitId"
+                                                                            path="usersOfPrayerUnits"
                                                                             id="prayerUnitSelectBox"
                                                                             class="form-control">
                                                                     </form:select>
@@ -248,7 +248,7 @@
                                                                 <label for="familyId" class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4" id="familySelectBoxer">
-                                                                    <form:select path="familyId"
+                                                                    <form:select path="userOfFamily"
                                                                                  id="familySelectBox"
                                                                                  class="form-control">
                                                                     </form:select>
@@ -262,7 +262,7 @@
                                                                        class="col-sm-2 control-label">Parish</label>
 
                                                                 <div class="col-sm-4" id="parishSelectBoxer">
-                                                                    <form:select path="parishId"
+                                                                    <form:select path="usersOfParishes"
                                                                                  items="${parishList}"
                                                                                  id="parishId"
                                                                                  class="form-control"></form:select>
@@ -273,7 +273,7 @@
 
                                                                 <div class="col-sm-4" id="massCenterSelectBoxer">
                                                                     <form:select
-                                                                            path="massCenterId"
+                                                                            path="usersOfMassCenters"
                                                                             items="${massCenterList}"
                                                                             id="massCenterId"
                                                                             class="form-control"></form:select>
@@ -288,15 +288,16 @@
 
                                                                 <div class="col-sm-4" id="prayerUnitSelectBoxer">
                                                                     <form:select
-                                                                            path="prayerUnitId"
+                                                                            path="usersOfPrayerUnits"
                                                                             items="${prayerUnitList}"
                                                                             id="prayerUnitId"
                                                                             class="form-control"></form:select>
                                                                 </div>
-                                                                <label for="familyId" class="col-sm-2 control-label">Family</label>
+                                                                <label for="userOfFamily"
+                                                                       class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4" id="familySelectBoxer">
-                                                                    <form:select path="familyId"
+                                                                    <form:select path="userOfFamily"
                                                                                  id="familySelectBox"
                                                                                  class="form-control">
                                                                     </form:select>

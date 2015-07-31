@@ -69,15 +69,10 @@ public final class FactorySelectBox {
                 break;
             case PRAYER_UNIT_ADMIN:
                 cleanUpListAndMap();
-                currentUser.setParishId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getMappedParish().getId());
-                currentUser.setMassCenterId(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getId());
                 createListEntries(currentUser, model);
                 break;
             case FAMILY_USER:
                 cleanUpListAndMap();
-                currentUser.setParishId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyMassCenter().getMappedParish().getId());
-                currentUser.setMassCenterId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyMassCenter().getId());
-                currentUser.setPrayerUnitId(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyPrayerUnit().getId());
                 createListEntries(currentUser, model);
                 break;
         }
@@ -85,9 +80,9 @@ public final class FactorySelectBox {
     }
 
     private void createListEntries(User currentUser, Model model) {
-        parishList.add(parishService.getParishForIDSM(currentUser.getParishId()));
-        massCenterList.add(massCenterService.getMassCenterForIDSM(currentUser.getMassCenterId()));
-        prayerUnitList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getPrayerUnitId()));
+        parishList.add(currentUser.getUsersOfParishes());
+        massCenterList.add(currentUser.getUsersOfMassCenters());
+        prayerUnitList.add(currentUser.getUsersOfPrayerUnits());
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }

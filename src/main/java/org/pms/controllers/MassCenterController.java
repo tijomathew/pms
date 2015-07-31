@@ -1,6 +1,7 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MassCenterWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -51,18 +53,12 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            //get the parish for mass center to map with mass center and parish.
-            Parish parish = parishService.getParishForIDSM(massCenter.getParish());
-
-            //set the parish to the mass center.
-            massCenter.setMappedParish(parish);
-
             //add mass center to the parish mass center list.
-            parish.addMassCentersForParish(massCenter);
+           massCenter.getMappedParish().addMassCentersForParish(massCenter);
 
-            Long massCenterCount = massCenterService.getMassCenterCountForParish(parish.getId());
+           Long massCenterCount = massCenterService.getMassCenterCountForParish(massCenter.getMappedParish().getId());
 
-            massCenter.setMassCenterNo(++massCenterCount);
+           massCenter.setMassCenterNo(++massCenterCount);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             boolean permissionDenied = false;
@@ -117,6 +113,11 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
             returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
         return returnObject;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
     }
 
 }

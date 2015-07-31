@@ -52,18 +52,6 @@ public class User implements Serializable {
     @Column(name = "already_loggedIn")
     private Boolean alreadyLoggedIn = Boolean.FALSE;
 
-    @Transient
-    private Long parishId;
-
-    @Transient
-    private Long massCenterId;
-
-    @Transient
-    private Long prayerUnitId;
-
-    @Transient
-    private Long familyId;
-
     @Column(name = "is_validated")
     private boolean isValidated = Boolean.FALSE;
 
@@ -167,38 +155,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Long getParishId() {
-        return parishId;
-    }
-
-    public void setParishId(Long parishId) {
-        this.parishId = parishId;
-    }
-
-    public Long getMassCenterId() {
-        return massCenterId;
-    }
-
-    public void setMassCenterId(Long massCenterId) {
-        this.massCenterId = massCenterId;
-    }
-
-    public Long getPrayerUnitId() {
-        return prayerUnitId;
-    }
-
-    public void setPrayerUnitId(Long prayerUnitId) {
-        this.prayerUnitId = prayerUnitId;
-    }
-
-    public Long getFamilyId() {
-        return familyId;
-    }
-
-    public void setFamilyId(Long familyId) {
-        this.familyId = familyId;
-    }
-
     public Boolean getAlreadyLoggedIn() {
         return alreadyLoggedIn;
     }
@@ -265,6 +221,34 @@ public class User implements Serializable {
         if (this.getUserOfFamily() != null)
             returnedObject = this.getUserOfFamily().getFamilyName();
         return returnedObject;
+    }
+
+    public Long getParishId() {
+        Long returnedId = 0l;
+        if (this.getUsersOfPrayerUnits() != null)
+            returnedId = this.getUsersOfPrayerUnits().getId();
+        return returnedId;
+    }
+
+    public Long getMassCenterId() {
+        Long returnedId = 0l;
+        if (this.getUsersOfPrayerUnits() != null)
+            returnedId = this.getUsersOfPrayerUnits().getId();
+        return returnedId;
+    }
+
+    public Long getPrayerUnitId() {
+        Long returnedId = 0l;
+        if (this.getUsersOfPrayerUnits() != null)
+            returnedId = this.getUsersOfPrayerUnits().getId();
+        return returnedId;
+    }
+
+    public Long getFamilyId() {
+        Long returnedId = 0l;
+        if (this.getUsersOfPrayerUnits() != null)
+            returnedId = this.getUsersOfPrayerUnits().getId();
+        return returnedId;
     }
 
     public Parish getUsersOfParishes() {

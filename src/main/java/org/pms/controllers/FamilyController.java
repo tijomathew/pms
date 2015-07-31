@@ -88,7 +88,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
             //TODO check whether the user is already assigned with a family.
 
-            currentUser.setFamilyId(family.getId());
+            currentUser.setUserOfFamily(family);
             userService.addOrUpdateUserSM(currentUser);
 
             customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);

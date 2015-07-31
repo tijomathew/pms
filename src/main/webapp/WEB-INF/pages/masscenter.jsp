@@ -159,7 +159,7 @@
                                                             <label for="drivingRoute" class="col-sm-2 control-label">Parish</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:select path="parish" items="${parishList}"
+                                                                <form:select path="mappedParish" items="${parishList}"
                                                                              id="parishSelectBox" class="form-control"/>
                                                             </div>
                                                         </div>
