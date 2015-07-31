@@ -43,8 +43,7 @@
 
             globalSubmissionOfForms('userForm', '${userActionURL}', 'userGrid');
 
-            $('#systemRole').change(function () {
-
+            function reactiveAdminsComboBox() {
                 $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#massCenterSelectBox').prop('selectedIndex', 0);
                 $('#prayerUnitSelectBox').prop('selectedIndex', 0);
@@ -57,9 +56,48 @@
                 $('#massCenterSelectBox').removeClass('hideSelectImage');
                 $('#prayerUnitSelectBox').removeClass('hideSelectImage');
                 $('#familySelectBox').removeClass('hideSelectImage');
+            }
+
+            $('#systemRole').change(function () {
+                reactiveAdminsComboBox();
+                var selectedSystemRole = $('#systemRole').val();
+                switch (selectedSystemRole) {
+                    case 'PARISH_ADMIN':
+                        $('#massCenterSelectBox').prop('disabled', true);
+                        $('#prayerUnitSelectBox').prop('disabled', true);
+                        $('#familySelectBox').prop('disabled', true);
+
+                        $('#massCenterSelectBox').addClass('hideSelectImage');
+                        $('#prayerUnitSelectBox').addClass('hideSelectImage');
+                        $('#familySelectBox').addClass('hideSelectImage');
+
+                        $('#massCenterSelectBox').find('option').remove();
+                        $('#prayerUnitSelectBox').find('option').remove();
+                        $('#familySelectBox').find('option').remove();
+                        break;
+                    case 'MASS_CENTER_ADMIN':
+                        $('#prayerUnitSelectBox').prop('disabled', true);
+                        $('#familySelectBox').prop('disabled', true);
+
+                        $('#prayerUnitSelectBox').addClass('hideSelectImage');
+                        $('#familySelectBox').addClass('hideSelectImage');
+
+                        $('#prayerUnitSelectBox').find('option').remove();
+                        $('#familySelectBox').find('option').remove();
+                        break;
+                    case 'PRAYER_UNIT_ADMIN':
+                        $('#familySelectBox').prop('disabled', true);
+
+                        $('#familySelectBox').addClass('hideSelectImage');
+
+                        $('#familySelectBox').find('option').remove();
+                        break;
+                }
 
             });
         });
+
+
     </script>
 
 </head>

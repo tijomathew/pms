@@ -15,11 +15,14 @@ import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.*;
 import org.pms.services.*;
 import org.pms.sessionmanager.PMSSessionManager;
+import org.pms.validators.LoginValidator;
+import org.pms.validators.SystemRoleStatusConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
@@ -176,5 +179,10 @@ public class UserController extends AbstractErrorAndGridHandler {
 
         return JsonBuilder.convertToJson(createGridContent(totalUsersRows, page, rows, userGridRows));
     }
+
+    /*@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(SystemRolesStatus.class, new SystemRoleStatusConverter());
+    }*/
 
 }

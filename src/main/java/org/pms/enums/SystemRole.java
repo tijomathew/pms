@@ -18,8 +18,4 @@ public enum SystemRole {
         return this.fieldDescription;
     }
 
-    @Override
-    public String toString() {
-        return WordUtils.capitalizeFully(super.toString().replace(' ', '_'));
-    }
 }
