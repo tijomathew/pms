@@ -33,15 +33,6 @@ public class ParishServiceImpl implements ParishService {
     private ParishDao parishDao;
 
     @Autowired
-    private MassCenterService massCenterService;
-
-    @Autowired
-    private PrayerUnitService prayerUnitService;
-
-    @Autowired
-    private FamilyService familyService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @Override
@@ -79,14 +70,6 @@ public class ParishServiceImpl implements ParishService {
         parishDao.updateParish(parish);
     }
 
-    public Parish createParishFormBackObjectModel(Model model) {
-        Long parishCounter = getParishCount();
-        Parish formBackParish = new Parish();
-        formBackParish.setParishNo(++parishCounter);
-        model.addAttribute("parish", formBackParish);
-        return formBackParish;
-    }
-
     @Override
     public List<Parish> getAllParishForUserRole(User currentUser) {
         List<Parish> parishList = new ArrayList<>();
@@ -95,16 +78,16 @@ public class ParishServiceImpl implements ParishService {
                 parishList.addAll(getAllParish());
                 break;
             case PARISH_ADMIN:
-                parishList.add(getParishForIDSM(currentUser.getUsersOfParishes().getId()));
+                parishList.add(currentUser.getUsersOfParishes());
                 break;
             case MASS_CENTER_ADMIN:
-                parishList.add(massCenterService.getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()).getMappedParish());
+                parishList.add(currentUser.getUsersOfMassCenters().getMappedParish());
                 break;
             case PRAYER_UNIT_ADMIN:
-                parishList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter().getMappedParish());
+                parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCenter().getMappedParish());
                 break;
             case FAMILY_USER:
-                parishList.add(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getFamilyParish());
+                parishList.add(currentUser.getUserOfFamily().getFamilyParish());
                 break;
         }
         return parishList;

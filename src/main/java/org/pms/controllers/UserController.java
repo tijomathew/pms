@@ -70,7 +70,7 @@ public class UserController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/adduser.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addUser(@ModelAttribute("user") User user, BindingResult result) {
+    CustomResponse addUser(@ModelAttribute("user") User user) {
         boolean insertUser = false;
         boolean userEmailAlreadyExists = true;
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);

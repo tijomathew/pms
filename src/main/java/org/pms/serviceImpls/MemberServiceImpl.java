@@ -31,18 +31,6 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDao memberDao;
 
-    @Autowired
-    private ParishService parishService;
-
-    @Autowired
-    private MassCenterService massCenterService;
-
-    @Autowired
-    private PrayerUnitService prayerUnitService;
-
-    @Autowired
-    private FamilyService familyService;
-
     @Override
     public boolean addMemberSM(Member member) {
         memberDao.addMemberDM(member);
@@ -76,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
                 allMembers.addAll(getAllMember());
                 break;
             case PARISH_ADMIN:
-                List<Family> allFamiliesUnderParish = parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMappedFamilies();
+                List<Family> allFamiliesUnderParish = currentUser.getUsersOfParishes().getMappedFamilies();
                 if (!allFamiliesUnderParish.isEmpty()) {
                     allFamiliesUnderParish.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -84,7 +72,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                List<Family> allFamiliesUnderMassCenter = massCenterService.getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()).getMappedFamilies();
+                List<Family> allFamiliesUnderMassCenter = currentUser.getUsersOfMassCenters().getMappedFamilies();
                 if (!allFamiliesUnderMassCenter.isEmpty()) {
                     allFamiliesUnderMassCenter.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -92,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case PRAYER_UNIT_ADMIN:
-                List<Family> allFamiliesUnderPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedFamilies();
+                List<Family> allFamiliesUnderPrayerUnit = currentUser.getUsersOfPrayerUnits().getMappedFamilies();
                 if (!allFamiliesUnderPrayerUnit.isEmpty()) {
                     allFamiliesUnderPrayerUnit.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
@@ -100,7 +88,7 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case FAMILY_USER:
-                allMembers.addAll(familyService.getFamilyForID(currentUser.getUserOfFamily().getId()).getMemberList());
+                allMembers.addAll(currentUser.getUserOfFamily().getMemberList());
                 break;
         }
         return allMembers;

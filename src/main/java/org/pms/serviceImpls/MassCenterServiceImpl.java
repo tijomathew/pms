@@ -106,34 +106,6 @@ public class MassCenterServiceImpl implements MassCenterService {
     }
 
     @Override
-    public Map<Long, String> getMassCenterMapForUserRole(User currentUser) {
-        Map<Long, String> massCenterMap = new HashMap<>();
-        List<MassCenter> massCenterList = new ArrayList<>();
-        switch (currentUser.getSystemRole()) {
-            case ADMIN:
-                massCenterList.addAll(getAllMassCenter());
-                break;
-            case PARISH_ADMIN:
-                massCenterList.addAll(parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMassCenterList());
-                break;
-            case MASS_CENTER_ADMIN:
-                massCenterList.add(getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()));
-                break;
-            case PRAYER_UNIT_ADMIN:
-                massCenterList.add(prayerUnitService.getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()).getMappedMassCenter());
-                break;
-            case FAMILY_USER:
-                //No Op
-                break;
-        }
-        if (!massCenterList.isEmpty()) {
-            massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
-        }
-        massCenterMap.put(0l, "--Please Select--");
-        return massCenterMap;
-    }
-
-    @Override
     public List<MassCenter> getAllMassCentersForUserRole(User currentUser) {
         List<MassCenter> allMassCenters = new ArrayList<>();
         switch (currentUser.getSystemRole()) {
@@ -141,10 +113,10 @@ public class MassCenterServiceImpl implements MassCenterService {
                 allMassCenters = getAllMassCenter();
                 break;
             case PARISH_ADMIN:
-                allMassCenters.addAll(parishService.getParishForIDSM(currentUser.getUsersOfParishes().getId()).getMassCenterList());
+                allMassCenters.addAll(currentUser.getUsersOfParishes().getMassCenterList());
                 break;
             case MASS_CENTER_ADMIN:
-                allMassCenters.add(getMassCenterForIDSM(currentUser.getUsersOfMassCenters().getId()));
+                allMassCenters.add(currentUser.getUsersOfMassCenters());
                 break;
             case PRAYER_UNIT_ADMIN:
                 //No Op

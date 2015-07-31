@@ -34,8 +34,6 @@ public interface MassCenterService {
 
     List<Long> getAllMassCenterIdsForParish(Long parishId);
 
-    Map<Long, String> getMassCenterMapForUserRole(User currentUser);
-
     List<MassCenter> getAllMassCentersForUserRole(User currentUser);
 
 }
