@@ -1,6 +1,8 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -121,5 +124,9 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
         return returnObject;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+    }
 
 }
