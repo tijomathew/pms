@@ -54,11 +54,11 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
         if (!result.hasErrors()) {
 
             //add mass center to the parish mass center list.
-           massCenter.getMappedParish().addMassCentersForParish(massCenter);
+            massCenter.getMappedParish().addMassCentersForParish(massCenter);
 
-           Long massCenterCount = massCenterService.getMassCenterCountForParish(massCenter.getMappedParish().getId());
+            Long massCenterCount = massCenterService.getMassCenterCountForParish(massCenter.getMappedParish().getId());
 
-           massCenter.setMassCenterNo(++massCenterCount);
+            massCenter.setMassCenterNo(++massCenterCount);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             boolean permissionDenied = false;
@@ -109,6 +109,10 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
         String returnObject = StringUtils.EMPTY;
         if (selectedParishID != 0l) {
             List<MassCenter> massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+            if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
+                massCenterListForParishID = massCenterListForParishID.stream().filter(massCenter -> massCenter.getMassCenterName().equalsIgnoreCase(currentUser.getUsersOfMassCenters().getMassCenterName())).collect(Collectors.toList());
+            }
             List<SelectBox<String, Long>> selectBoxList = massCenterListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCenterName(), massCenter.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
