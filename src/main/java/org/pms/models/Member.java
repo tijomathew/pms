@@ -10,7 +10,7 @@ import java.io.Serializable;
  * This class describes the various attributes of the member of the family.
  * It contains various getters and setters of the attributes of the member.
  * It contains relationship with family where member belongs to.
- * <p>
+ * <p/>
  * User: tijo
  */
 
@@ -43,24 +43,11 @@ public class Member implements Serializable {
     @Column(name = "date_of_first_communion")
     private String dateOfFirstCommunion;
 
-    //@NotEmpty
     @Column(name = "date_of_marriage")
     private String dateOfMarriage;
 
     @Column(name = "date_of_death")
     private String dateOfDeath;
-
-    @Column(name = "pious_association")
-    private String piousAssociation;
-
-    @Column(name = "sunday_catechism")
-    private String sundayCatechism;
-
-    @Column(name = "sacramental_life")
-    private String sacramentalLife;
-
-    @Column(name = "church_remarks")
-    private String churchRemarks;
 
     @Column(name = "church_of_baptism")
     private String churchOfBaptism;
@@ -194,8 +181,11 @@ public class Member implements Serializable {
     @Column(name = "minister_of_anointing_the_sick")
     private String ministerOfAnointingTheSick;
 
-    @Transient
-    private Long familyId;
+    @Column(name = "registered_date")
+    private String registeredDate;
+
+    @Column(name = "family_head")
+    private boolean familyHead;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_member_id")
@@ -270,38 +260,6 @@ public class Member implements Serializable {
 
     public void setDateOfDeath(String dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
-    }
-
-    public String getPiousAssociation() {
-        return piousAssociation;
-    }
-
-    public void setPiousAssociation(String piousAssociation) {
-        this.piousAssociation = piousAssociation;
-    }
-
-    public String getSundayCatechism() {
-        return sundayCatechism;
-    }
-
-    public void setSundayCatechism(String sundayCatechism) {
-        this.sundayCatechism = sundayCatechism;
-    }
-
-    public String getSacramentalLife() {
-        return sacramentalLife;
-    }
-
-    public void setSacramentalLife(String sacramentalLife) {
-        this.sacramentalLife = sacramentalLife;
-    }
-
-    public String getChurchRemarks() {
-        return churchRemarks;
-    }
-
-    public void setChurchRemarks(String churchRemarks) {
-        this.churchRemarks = churchRemarks;
     }
 
     public String getChurchOfBaptism() {
@@ -656,12 +614,20 @@ public class Member implements Serializable {
         this.ministerOfAnointingTheSick = ministerOfAnointingTheSick;
     }
 
-    public Long getFamilyId() {
-        return familyId;
+    public String getRegisteredDate() {
+        return registeredDate;
     }
 
-    public void setFamilyId(Long familyId) {
-        this.familyId = familyId;
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public boolean getFamilyHead() {
+        return familyHead;
+    }
+
+    public void setFamilyHead(boolean familyHead) {
+        this.familyHead = familyHead;
     }
 
     public Family getFamilyMember() {

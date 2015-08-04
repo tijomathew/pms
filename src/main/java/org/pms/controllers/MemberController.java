@@ -64,9 +64,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            Family family = familyService.getFamilyForID(member.getFamilyId());
-            family.addMemberForFamily(member);
-            member.setFamilyMember(family);
+            member.getFamilyMember().addMemberForFamily(member);
 
             List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishNo());
             Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);

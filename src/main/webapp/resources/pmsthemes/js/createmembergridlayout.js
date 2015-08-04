@@ -28,7 +28,7 @@ function loadMemberGrid() {
 
                 "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",
                 "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo", "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
-                "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick", "familyId"],
+                "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick"],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 100, sortable: false},
@@ -449,14 +449,7 @@ function loadMemberGrid() {
                     width: 100,
                     sortable: false,
                     hidden: true
-                },
-                {
-                    name: 'familyId',
-                    index: 'familyId',
-                    width: 100,
-                    sortable: false,
-                    hidden: true
-                },
+                }
             ],
             rowNum: 10,
             pager: '#memberGridPager',

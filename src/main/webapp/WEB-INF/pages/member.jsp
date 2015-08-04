@@ -37,7 +37,7 @@
             loadMemberGrid();
             globalSubmissionOfForms('memberForm', '${memberActionURL}', 'memberGrid');
 
-           // $("select#personalStatus").val("0");
+            // $("select#personalStatus").val("0");
         });
     </script>
 
@@ -115,11 +115,6 @@
                                                     class="hidden-xs">Member Details</span></a>
                                         </li>
                                         <li>
-                                            <a href="#member3" data-toggle="tab"><i
-                                                    class="fa fa-comments visible-xs icon-scale"></i><span
-                                                    class="hidden-xs">Member Details</span></a>
-                                        </li>
-                                        <li>
                                             <a href="#member4" data-toggle="tab"><i
                                                     class="fa fa-comments visible-xs icon-scale"></i><span
                                                     class="hidden-xs">Contact Details</span></a>
@@ -158,23 +153,28 @@
                                 </h4>
                             </div>
                             <div class="panel-body padding7">
-
                                 <form:form modelAttribute="member"
                                            action="${memberActionURL}" method="post"
                                            id="memberForm" cssClass="form-horizontal nomargin">
-
                                     <div class="tab-content">
-
                                         <div class="tab-pane active" id="member2">
-
                                             <div class="col-md-12">
                                                 <div class="panel panel-grape marginBottom7">
                                                     <div class="panel-heading">
                                                         <h4>Member Details</h4>
                                                     </div>
                                                     <div class="panel-body padding7">
-                                                        <c:if test="${showForFamilyUser == false}">
-                                                            <div class="form-group">
+                                                        <div class="form-group">
+                                                            <label for="memberNo" class="col-sm-2 control-label">Member
+                                                                Number</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="memberNo"
+                                                                        id="memberNo" class="form-control"
+                                                                        readonly="true"/>
+                                                            </div>
+                                                            <c:if test="${showForFamilyUser == false}">
                                                                 <label for="familyId" class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
@@ -182,11 +182,8 @@
                                                                                  id="familySelectBoxofMember"
                                                                                  class="form-control"/>
                                                                 </div>
-                                                            </div>
-                                                        </c:if>
-                                                        <c:if test="${showForFamilyUser == true}">
-
-                                                            <div class="form-group">
+                                                            </c:if>
+                                                            <c:if test="${showForFamilyUser == true}">
                                                                 <label for="familyId" class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
@@ -194,10 +191,8 @@
                                                                                  items="${familyName}"
                                                                                  class="form-control"/>
                                                                 </div>
-                                                            </div>
-
-                                                        </c:if>
-
+                                                            </c:if>
+                                                        </div>
                                                         <div class="form-group">
                                                             <label for="memberAsPerson.salutation"
                                                                    class="col-sm-2 control-label">Salutation</label>
@@ -217,7 +212,6 @@
                                                                             class="form-control"/>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group">
                                                             <label for="memberAsPerson.middleName"
                                                                    class="col-sm-2 control-label">Middle Name</label>
@@ -236,7 +230,6 @@
                                                                             class="form-control"/>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group">
                                                             <label for="relationshipInFamily"
                                                                    class="col-sm-2 control-label">Relationship In
@@ -249,16 +242,16 @@
                                                                              items="${relationshipInFamily}">
                                                                 </form:select>
                                                             </div>
-                                                            <label for="memberAsPerson.dateOfBirth"
-                                                                   class="col-sm-2 control-label">Date of Birth</label>
+                                                            <label for="familyHead"
+                                                                   class="col-sm-2 control-label">Family Head</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input path="memberAsPerson.dateOfBirth"
-                                                                            id="memberAsPersondateOfBirth"
-                                                                            class="form-control date"/>
+                                                                <form:radiobutton
+                                                                        path="familyHead"
+                                                                        id="familyHead" class="form-control"
+                                                                        value="true"/>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group">
                                                             <label for="memberAsPersongender"
                                                                    class="col-sm-2 control-label">Gender</label>
@@ -269,6 +262,16 @@
                                                                         id="memberAsPersongender" class="form-control"
                                                                         items="${sex}"/>
                                                             </div>
+                                                            <label for="memberAsPerson.dateOfBirth"
+                                                                   class="col-sm-2 control-label">Date of Birth</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="memberAsPerson.dateOfBirth"
+                                                                            id="memberAsPersondateOfBirth"
+                                                                            class="form-control date"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="memberAsPerson.placeOfBirth"
                                                                    class="col-sm-2 control-label">Place of Birth</label>
 
@@ -276,41 +279,6 @@
                                                                 <form:input
                                                                         path="memberAsPerson.placeOfBirth"
                                                                         id="memberAsPersonplaceOfBirth"
-                                                                        class="form-control"/>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="memberAsPerson.educationQualifications"
-                                                                   class="col-sm-2 control-label">Education
-                                                                Qualifications</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:textarea
-                                                                        path="memberAsPerson.educationQualifications"
-                                                                        id="memberAsPersoneducationQualifications"
-                                                                        class="form-control"/>
-                                                            </div>
-                                                            <label for="memberAsPerson.nationality"
-                                                                   class="col-sm-2 control-label">Nationality</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="memberAsPerson.nationality"
-                                                                        id="memberAsPersonnationality"
-                                                                        class="form-control"/>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-
-                                                            <label for="memberAsPerson.jobDetails"
-                                                                   class="col-sm-2 control-label">Job Details</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:textarea
-                                                                        path="memberAsPerson.jobDetails"
-                                                                        id="memberAsPersonjobDetails"
                                                                         class="form-control"/>
                                                             </div>
                                                             <label for="memberAsPerson.personalStatus"
@@ -325,9 +293,37 @@
                                                                 </form:select>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group">
+                                                            <label for="memberAsPerson.nationality"
+                                                                   class="col-sm-2 control-label">Nationality</label>
 
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="memberAsPerson.nationality"
+                                                                        id="memberAsPersonnationality"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                            <label for="memberAsPerson.educationQualifications"
+                                                                   class="col-sm-2 control-label">Education
+                                                                Qualifications</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:textarea
+                                                                        path="memberAsPerson.educationQualifications"
+                                                                        id="memberAsPersoneducationQualifications"
+                                                                        class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="memberAsPerson.jobDetails"
+                                                                   class="col-sm-2 control-label">Job Details</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:textarea
+                                                                        path="memberAsPerson.jobDetails"
+                                                                        id="memberAsPersonjobDetails"
+                                                                        class="form-control"/>
+                                                            </div>
                                                             <label for="memberAsPerson.bloodGroup"
                                                                    class="col-sm-2 control-label">Blood Group</label>
 
@@ -338,6 +334,8 @@
                                                                         items="${bloodGroup}">
                                                                 </form:select>
                                                             </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="memberAsPerson.carNumber"
                                                                    class="col-sm-2 control-label">Car Number</label>
 
@@ -346,10 +344,6 @@
                                                                         path="memberAsPerson.carNumber"
                                                                         id="carNumber" class="form-control"/>
                                                             </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-
                                                             <label for="memberAsPerson.lifeStatus"
                                                                    class="col-sm-2 control-label">Life Status</label>
 
@@ -359,6 +353,16 @@
                                                                         id="lifeStatus" class="form-control"
                                                                         items="${lifeStatus}">
                                                                 </form:select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="sundayCatechism" class="col-sm-2 control-label">Catechism
+                                                                Qualification</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input
+                                                                        path="sundayCatechism"
+                                                                        id="sundayCatechism" class="form-control"/>
                                                             </div>
                                                             <label for="memberAsPerson.personalRemarks"
                                                                    class="col-sm-2 control-label">Personal
@@ -370,81 +374,22 @@
                                                                         id="personalRemarks" class="form-control"/>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="tab-pane" id="member3">
-
-                                            <div class="col-md-12">
-                                                <div class="panel panel-grape marginBottom7">
-                                                    <div class="panel-heading">
-                                                        <h4>
-                                                            Member
-                                                            Details</h4>
-                                                    </div>
-                                                    <div class="panel-body">
-
                                                         <div class="form-group">
-                                                            <label for="memberNo" class="col-sm-2 control-label">Member
-                                                                No.</label>
+                                                            <label for="registeredDate"
+                                                                   class="col-sm-2 control-label">Registered
+                                                                Date</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
-                                                                        path="memberNo"
-                                                                        id="memberNo" class="form-control"
+                                                                        path="registeredDate"
+                                                                        id="registeredDate" class="form-control"
                                                                         readonly="true"/>
                                                             </div>
-                                                            <label for="piousAssociation"
-                                                                   class="col-sm-2 control-label">Pious
-                                                                Association</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="piousAssociation"
-                                                                        id="piousAssociation" class="form-control"/>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="sundayCatechism" class="col-sm-2 control-label">Catechism
-                                                                Qualification</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="sundayCatechism"
-                                                                        id="sundayCatechism" class="form-control"/>
-                                                            </div>
-                                                            <label for="sacramentalLife" class="col-sm-2 control-label">Sacramental
-                                                                Life
-                                                                Remarks</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:textarea
-                                                                        path="sacramentalLife"
-                                                                        id="sacramentalLife" class="form-control"/>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="churchRemarks" class="col-sm-2 control-label">Church
-                                                                Remarks</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:textarea
-                                                                        path="churchRemarks"
-                                                                        id="churchRemarks" class="form-control"/>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
-
 
                                         <div class="tab-pane" id="member4">
 
