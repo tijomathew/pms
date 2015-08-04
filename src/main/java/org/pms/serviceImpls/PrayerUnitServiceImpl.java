@@ -39,6 +39,9 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Autowired
     private ParishService parishService;
 
+    @Autowired
+    private MassCenterService massCenterService;
+
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
         prayerUnitDao.addPrayerUnitDM(prayerUnit);
@@ -51,7 +54,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<PrayerUnit> getPrayerUnitForMassCenterIDSM(Long massCenterID) {
+    public List<PrayerUnit> getAllPrayerUnitsForMassCenterID(Long massCenterID) {
         return prayerUnitDao.getPrayerUnitsForMassCenterIDDM(massCenterID);
     }
 
@@ -107,13 +110,13 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.addAll(getAllPrayerUnits());
                 break;
             case PARISH_ADMIN:
-                List<MassCenter> massCentersUnderParish = currentUser.getUsersOfParishes().getMassCenterList();
+                List<MassCenter> massCentersUnderParish = massCenterService.getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId());
                 if (!massCentersUnderParish.isEmpty()) {
                     massCentersUnderParish.stream().forEach(massCenter -> allPrayerUnits.addAll(massCenter.getPrayerUnits()));
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                allPrayerUnits.addAll(currentUser.getUsersOfMassCenters().getPrayerUnits());
+                allPrayerUnits.addAll(getAllPrayerUnitsForMassCenterID(currentUser.getUsersOfMassCenters().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
                 allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());

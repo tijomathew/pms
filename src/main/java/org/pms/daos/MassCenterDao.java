@@ -19,7 +19,7 @@ public interface MassCenterDao {
 
     MassCenter getMassCenterForID(Long id);
 
-    List<MassCenter> getMassCenterForParishID(Long parishAutoID);
+    List<MassCenter> getAllMassCentersForParishID(Long parishAutoID);
 
     Long getMassCenterCountForParish(Long parishId);
 

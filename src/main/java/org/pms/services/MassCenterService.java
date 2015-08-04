@@ -22,7 +22,7 @@ public interface MassCenterService {
 
     MassCenter getMassCenterForIDSM(Long id);
 
-    List<MassCenter> getMassCenterForParishID(Long parishAutoID);
+    List<MassCenter> getAllMassCentersForParishID(Long parishAutoID);
 
     Long getMassCenterCountForParish(Long parishId);
 

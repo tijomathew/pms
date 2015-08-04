@@ -47,7 +47,7 @@ public class MassCenterDaoImpl extends GenericDaoImpl<MassCenter> implements Mas
     }
 
     @Override
-    public List<MassCenter> getMassCenterForParishID(Long parishAutoID) {
+    public List<MassCenter> getAllMassCentersForParishID(Long parishAutoID) {
         return getDb(false).createCriteria(MassCenter.class, "massCenter").add(Restrictions.eq("massCenter.mappedParish.id", parishAutoID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 

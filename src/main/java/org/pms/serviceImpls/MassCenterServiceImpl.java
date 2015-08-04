@@ -36,9 +36,6 @@ public class MassCenterServiceImpl implements MassCenterService {
     private ParishService parishService;
 
     @Autowired
-    private PrayerUnitService prayerUnitService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @Override
@@ -63,8 +60,8 @@ public class MassCenterServiceImpl implements MassCenterService {
     }
 
     @Override
-    public List<MassCenter> getMassCenterForParishID(Long parishAutoID) {
-        return massCenterDao.getMassCenterForParishID(parishAutoID);
+    public List<MassCenter> getAllMassCentersForParishID(Long parishAutoID) {
+        return massCenterDao.getAllMassCentersForParishID(parishAutoID);
     }
 
     @Override
@@ -113,7 +110,7 @@ public class MassCenterServiceImpl implements MassCenterService {
                 allMassCenters = getAllMassCenter();
                 break;
             case PARISH_ADMIN:
-                allMassCenters.addAll(currentUser.getUsersOfParishes().getMassCenterList());
+                allMassCenters.addAll(getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
                 allMassCenters.add(currentUser.getUsersOfMassCenters());

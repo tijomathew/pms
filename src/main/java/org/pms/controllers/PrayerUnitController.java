@@ -2,7 +2,6 @@ package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
-import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
@@ -15,7 +14,6 @@ import org.pms.models.PrayerUnit;
 import org.pms.models.SelectBox;
 import org.pms.models.User;
 import org.pms.services.MassCenterService;
-import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -113,7 +111,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
         String returnObject = StringUtils.EMPTY;
         if (selectedMassCenterId != 0l) {
-            List<PrayerUnit> prayerUnitList = prayerUnitService.getPrayerUnitForMassCenterIDSM(selectedMassCenterId);
+            List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnitsForMassCenterID(selectedMassCenterId);
             List<SelectBox<String, Long>> prayerUnitSelectBoxList = prayerUnitList.stream().map(prayerUnit -> new SelectBox<>(prayerUnit.getPrayerUnitName(), prayerUnit.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
         }

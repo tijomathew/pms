@@ -32,21 +32,9 @@ public class ParishServiceImpl implements ParishService {
     @Autowired
     private ParishDao parishDao;
 
-    @Autowired
-    private RequestResponseHolder requestResponseHolder;
-
     @Override
     public boolean addParishSM(Parish parish) {
-        User currentUser = (User) requestResponseHolder.getCurrentSession().getAttribute(SystemRole.PMS_CURRENT_USER.toString());
-        boolean permissionDenied = false;
-        if (currentUser.getSystemRole().toString().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString())) {
-            permissionDenied = true;
-        }
-        if (!permissionDenied) {
-            parishDao.addParishDM(parish);
-        } else {
-            //show the error message that parish cannot be add by Parish Admin. He can edit only the Assigned Parish.
-        }
+        parishDao.addParishDM(parish);
         return true;
     }
 

@@ -18,9 +18,9 @@ public interface MemberService {
 
     Long getMemberCountForParish(List<Long> familyIdsList);
 
-    Long getMemberTotalCount();
-
     List<Member> getAllMembersForUserRole(User currentUser);
 
     Model createMemberFormBackObject(Model model);
+
+    List<Member> getAllMembersForFamilyID(Long familyId);
 }

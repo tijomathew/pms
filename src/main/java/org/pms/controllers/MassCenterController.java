@@ -102,7 +102,7 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
     String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
         String returnObject = StringUtils.EMPTY;
         if (selectedParishID != 0l) {
-            List<MassCenter> massCenterListForParishID = massCenterService.getMassCenterForParishID(selectedParishID);
+            List<MassCenter> massCenterListForParishID = massCenterService.getAllMassCentersForParishID(selectedParishID);
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
                 massCenterListForParishID = massCenterListForParishID.stream().filter(massCenter -> massCenter.getMassCenterName().equalsIgnoreCase(currentUser.getUsersOfMassCenters().getMassCenterName())).collect(Collectors.toList());
