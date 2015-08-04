@@ -144,7 +144,7 @@
 
                                                             <div class="col-sm-4">
                                                                 <form:input path="massCenterNo" id="massCenterNo"
-                                                                            class="form-control"/>
+                                                                            class="form-control" readonly="true"/>
                                                             </div>
                                                         </div>
 
