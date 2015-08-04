@@ -58,7 +58,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addprayerunit.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addPrayerUnit(Model modelMap, @ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
+    CustomResponse addPrayerUnit(@ModelAttribute("prayerUnit") @Valid PrayerUnit prayerUnit, BindingResult result) {
 
         if (!result.hasErrors()) {
 
@@ -69,19 +69,15 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-            boolean permissionDenied = false;
 
-            if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-                permissionDenied = true;
-            }
-            if (!permissionDenied) {
+            if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
                 prayerUnitService.addPrayerUnitSM(prayerUnit);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
             } else {
-                // show the error that prayer unit cannot be add by Prayer Unit admin. He can edit only its information.
+                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
             }
 
-            prayerUnitService.createPrayerUnitFormBackObject(modelMap);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
+
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

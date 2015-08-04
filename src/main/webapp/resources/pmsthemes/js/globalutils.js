@@ -33,7 +33,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
 
             }
             else if (response.statusCode == 'SUCCESS') {
-                jQuery.jqGrowl.timeout = 500;
+                jQuery.jqGrowl.timeout = 2000;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
@@ -49,7 +49,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                 jQuery('#' + gridId).trigger('reloadGrid');
             }
             else if (response.statusCode == 'FAILURE') {
-                jQuery.jqGrowl.timeout = 500;
+                jQuery.jqGrowl.timeout = 2000;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'FAILURE');
 

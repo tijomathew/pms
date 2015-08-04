@@ -38,7 +38,6 @@ public class ParishController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
-
         model.addAttribute("parish", new Parish());
         return PageName.PARISH.toString();
     }
@@ -46,14 +45,21 @@ public class ParishController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addparish.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addParish(Model model, @ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
+    CustomResponse addParish(@ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
 
         if (!result.hasErrors()) {
             Long parishCounter = parishService.getParishCount();
             parish.setParishNo(++parishCounter);
-            parishService.addParishSM(parish);
 
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+
+            if (currentUser.getSystemRole() != SystemRole.PARISH_ADMIN) {
+                parishService.addParishSM(parish);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
+            } else {
+                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a parish as a Parish Admin in the system.");
+            }
+
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

@@ -67,30 +67,30 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addfamily.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addFamily(Model model, @ModelAttribute("family") @Valid Family family, BindingResult result) {
+    CustomResponse addFamily(@ModelAttribute("family") @Valid Family family, BindingResult result) {
 
         if (!result.hasErrors()) {
-            model.addAttribute("family", new Family());
-
-
-            family.getFamilyParish().addFamilyForParish(family);
-            family.getFamilyMassCenter().addFamilyForMassCenter(family);
-            family.getFamilyPrayerUnit().addFamilyForWard(family);
-
-            Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
-
-            family.setFamilyNo(++familyCounterForParish);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            familyService.addFamilySM(family);
+            if (currentUser.getUserOfFamily() == null) {
+                family.getFamilyParish().addFamilyForParish(family);
+                family.getFamilyMassCenter().addFamilyForMassCenter(family);
+                family.getFamilyPrayerUnit().addFamilyForWard(family);
 
-            //TODO check whether the user is already assigned with a family.
+                Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
 
-            currentUser.setUserOfFamily(family);
-            userService.addOrUpdateUserSM(currentUser);
+                family.setFamilyNo(++familyCounterForParish);
 
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
+                familyService.addFamilySM(family);
+
+                currentUser.setUserOfFamily(family);
+                userService.addOrUpdateUserSM(currentUser);
+
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
+            } else {
+                customResponse = createErrorMessage(StatusCode.FAILURE, family.getFamilyName(), "cannot add to the system by a family user named " + currentUser.getEmail());
+            }
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());

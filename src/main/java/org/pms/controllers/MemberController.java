@@ -60,10 +60,10 @@ public class MemberController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addmember.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addMember(Model model, @ModelAttribute("member") @Valid Member member, BindingResult result) {
+    CustomResponse addMember(@ModelAttribute("member") @Valid Member member, BindingResult result) {
 
         if (!result.hasErrors()) {
-            model.addAttribute("member", new Member());
+
             Family family = familyService.getFamilyForID(member.getFamilyId());
             family.addMemberForFamily(member);
             member.setFamilyMember(family);

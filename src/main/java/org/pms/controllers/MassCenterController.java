@@ -49,11 +49,10 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addMassCenter(Model modelMap, @ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
+    CustomResponse addMassCenter(@ModelAttribute("massCenter") @Valid MassCenter massCenter, BindingResult result) {
 
         if (!result.hasErrors()) {
 
-            //add mass center to the parish mass center list.
             massCenter.getMappedParish().addMassCentersForParish(massCenter);
 
             Long massCenterCount = massCenterService.getMassCenterCountForParish(massCenter.getMappedParish().getId());
@@ -61,19 +60,14 @@ public class MassCenterController extends AbstractErrorAndGridHandler {
             massCenter.setMassCenterNo(++massCenterCount);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-            boolean permissionDenied = false;
 
-            if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                permissionDenied = true;
-            }
-            //save the mass center with its various relationships.
-            if (!permissionDenied) {
+            if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
                 massCenterService.addMassCenterSM(massCenter);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getMassCenterName(), SUCCESS_MESSAGE_DISPLAY);
             } else {
-                // show the error that mass center cannot be add by mass center admin. He can edit only his mass center information.
+                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
             }
 
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, massCenter.getMassCenterName(), SUCCESS_MESSAGE_DISPLAY);
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
