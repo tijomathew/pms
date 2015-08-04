@@ -63,7 +63,7 @@ public class PMSSessionManager implements HttpSessionListener {
                     .getRequiredWebApplicationContext(se.getSession()
                             .getServletContext());
         } catch (IllegalStateException e) {
-            System.out.println("Spring's web application context(bean factory named as pms-dispatcher-servlet.xml) required for accessing PMS application is not available at this time!");
+            System.out.println("Spring's web application context(bean factory named as applicationContext.xml) required for accessing PMS application is not available at this time!");
         }
         return springContext;
     }
