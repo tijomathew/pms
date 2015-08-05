@@ -23,4 +23,6 @@ public interface MemberService {
     Model createMemberFormBackObject(Model model);
 
     List<Member> getAllMembersForFamilyID(Long familyId);
+
+    Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
 }

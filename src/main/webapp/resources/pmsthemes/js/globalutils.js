@@ -13,9 +13,11 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
-                    var $field = $('#' + item.fieldName);
-                    $('label[for= ' + item.fieldName + ']').addClass('labelErrorAlert');
+                    var itemFieldName= item.fieldName
+                    var $field = $($form).find("[name='"+ itemFieldName + "']");
+                    $("label[for='" + itemFieldName +"']").addClass('labelErrorAlert');
                     $field.addClass('borderRed');
+                    //$field.addClass('borderRed');
                     $field.attr('title', item.message);
                     $field.tooltip({
                         placement: "top",
@@ -23,7 +25,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                         template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner tooltip-error"></div></div>'
                     });
                     $field.change(function () {
-                        $('label[for= ' + $(this).attr('name') + ']').removeClass('labelErrorAlert');
+                        $("label[for='" + itemFieldName +"']").removeClass('labelErrorAlert');
                         $(this).removeClass('borderRed');
                         $(this).removeAttr('title');
                         $(this).tooltip('destroy');
