@@ -35,7 +35,6 @@
             </c:if>
 
             loadFamilyGrid();
-            globalSubmissionOfForms('familyForm', '${familyActionURL}', 'familyGrid');
 
         });
     </script>
@@ -107,7 +106,7 @@
 
                                                         <form:form modelAttribute="family"
                                                                    action="${familyActionURL}" method="post"
-                                                                   id="familyForm" cssClass="form-horizontal">
+                                                                   id="familyForm" cssClass="form-horizontal hidedisplay">
 
                                                             <div class="tab-content">
 
@@ -427,18 +426,6 @@
 
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="row nomargin">
-                                                                    <div class="col-md-12 text-left">
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">SAVE
-                                                                        </button>
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">RESET
-                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

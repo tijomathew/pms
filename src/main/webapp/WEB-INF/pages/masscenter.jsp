@@ -31,8 +31,6 @@
 
             loadMassCenterGrid();
 
-            globalSubmissionOfForms('massCenterForm', '${massCenterActionURL}', 'massCenterGrid');
-
         });
 
     </script>
@@ -99,7 +97,7 @@
 
                                                         <form:form modelAttribute="massCenter"
                                                                    action="${massCenterActionURL}" method="post"
-                                                                   id="massCenterForm" cssClass="form-horizontal">
+                                                                   id="massCenterForm" cssClass="form-horizontal hidedisplay">
 
                                                             <div class="tab-content">
 
@@ -304,16 +302,6 @@
                                                                         </div>
                                                                     </div>
 
-                                                                </div>
-                                                                <div class="row nomargin">
-                                                                    <div class="col-md-12 text-left">
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">SAVE
-                                                                        </button>
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">RESET
-                                                                        </button>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </form:form>

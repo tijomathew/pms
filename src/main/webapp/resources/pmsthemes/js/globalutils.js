@@ -3,21 +3,25 @@
  */
 //get the form name and submit the form value and show the respective validation or success or failure or exception message in UI.
 
-function globalSubmissionOfForms(formId, formAction, gridId) {
+function globalSubmissionOfForms(formId, gridId) {
+
     var $form = $('#' + formId);
-    $form.bind('submit', function (e) {
+    var data = $("#" + formId).serialize();
 
-        $.post(formAction, $form.serializeArray(), function (response) {
-
+    $.ajax({
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        dataType: 'json',
+        data: data,
+        success: function (response) {
             if (response.statusCode == 'FAIL') {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
-                    var itemFieldName= item.fieldName
-                    var $field = $($form).find("[name='"+ itemFieldName + "']");
-                    $("label[for='" + itemFieldName +"']").addClass('labelErrorAlert');
+                    var itemFieldName = item.fieldName
+                    var $field = $($form).find("[name='" + itemFieldName + "']");
+                    $("label[for='" + itemFieldName + "']").addClass('labelErrorAlert');
                     $field.addClass('borderRed');
-                    //$field.addClass('borderRed');
                     $field.attr('title', item.message);
                     $field.tooltip({
                         placement: "top",
@@ -25,7 +29,7 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                         template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner tooltip-error"></div></div>'
                     });
                     $field.change(function () {
-                        $("label[for='" + itemFieldName +"']").removeClass('labelErrorAlert');
+                        $("label[for='" + itemFieldName + "']").removeClass('labelErrorAlert');
                         $(this).removeClass('borderRed');
                         $(this).removeAttr('title');
                         $(this).tooltip('destroy');
@@ -72,10 +76,9 @@ function globalSubmissionOfForms(formId, formAction, gridId) {
                 $alert.prependTo($form);
                 $('#' + formId)[0].reset();
             }
-        }, 'json');
 
-        e.preventDefault();
-        return false;
+            return false;
+        }
     });
 }
 
@@ -91,7 +94,7 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-refrsh",
         onClickButton: function () {
-
+            jQuery('#' + formId).hide(500);
             jQuery('#' + gridId).jqGrid('resetSelection');
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
@@ -117,6 +120,7 @@ function addJqgridCustomButtons(gridId, formId) {
                 $.jgrid.viewModal("#alertmod_" + this.id, {toTop: true, jqm: true});
             }
             else {
+                jQuery('#' + formId).show(500);
                 $('#' + formId + ' input').removeAttr('disabled');
                 $('#' + formId + ' select').removeAttr("disabled");
                 $('#' + formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
@@ -131,10 +135,11 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-add",
         onClickButton: function () {
-
+            jQuery('#' + formId).show(500);
+            $('#' + formId).removeClass('hidedisplay');
             jQuery('#' + gridId).jqGrid('resetSelection'); //to reset the selected row
 
-            $('#'+gridId+'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
+            $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
 
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
@@ -154,15 +159,30 @@ function addJqgridCustomButtons(gridId, formId) {
         position: "first"
     });
 
-    var $parentContinerWidth = $('#' +  gridId).closest('div.tab-content').width() - 24;
+    var $parentContinerWidth = $('#' + gridId).closest('div.tab-content').width() - 24;
     // var $gridWidth = $('#' +  gridId).width();
-    if($parentContinerWidth)
-        $('#' +  gridId).jqGrid('setGridWidth', parseInt($parentContinerWidth));
+    if ($parentContinerWidth)
+        $('#' + gridId).jqGrid('setGridWidth', parseInt($parentContinerWidth));
 
     // var customButtons = $('<td/>', {class:"ui-pg-button ui-corner-all buttontd hidedisplay", width:"100%"}).append($('<div/>',{class:"btn btn-sm btn-success", click:function(){updateFormInfo(formId, gridId)}, style:"float:right;", text :"SAVE"}).append($('<span/>',{class:"fa fa-floppy-o"}))).append($('<div/>',{class:"btn btn-sm btn-danger",click :function(){cancelActions(formId, gridId)}, style:"float:right;margin-right: 5px;",text:"CANCEL"}).append($('<span/>',{class:"fa fa-times"})));
-    var customButtons = $('<td/>', {class:"ui-pg-button ui-corner-all buttontd hidedisplay", width:"100%"}).append($('<div/>',{class:"btn btn-sm btn-danger",click :function(){cancelActions(formId, gridId)}, style:"float:right;font-size: 10px;",text:"CANCEL",title:"CANCEL"})).append($('<div/>',{class:"btn btn-sm btn-success", click:function(){globalSubmissionOfForms(formId, gridId)}, style:"float:right;font-size: 10px;margin-right: 5px;width:55px", text :"SAVE", title:"SAVE"}));
+    var customButtons = $('<td/>', {
+        class: "ui-pg-button ui-corner-all buttontd hidedisplay",
+        width: "100%"
+    }).append($('<div/>', {
+        class: "btn btn-sm btn-danger", click: function () {
+            cancelActions(formId, gridId)
+        }, style: "float:right;font-size: 10px;", text: "CANCEL", title: "CANCEL"
+    })).append($('<div/>', {
+        class: "btn btn-sm btn-success", click: function () {
+            if(formId!='memberForm'){
+            globalSubmissionOfForms(formId, gridId)
+            }else{
+                callImageSubmission();
+            }
+        }, style: "float:right;font-size: 10px;margin-right: 5px;width:55px", text: "SAVE", title: "SAVE"
+    }));
 
-    $('#'+gridId+'Pager').find('.ui-pg-table .navtable').find('tr:first').append(customButtons);
+    $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').append(customButtons);
 }
 
 function loadDatePicker() {
@@ -181,4 +201,20 @@ function backToTop() {
         }, 500);
         return false;
     });
+}
+
+
+function cancelActions(formId, gridId) {
+    //on cancel button click we reset form and grid selection .
+    // jQuery("#cancelUser").click(function () {
+    $(':input', '#' + formId)
+        .not(':button, :submit, :reset')
+        .attr('value', '')
+        .removeAttr('checked')
+        .removeAttr('selected');
+    jQuery('#' + gridId).jqGrid('resetSelection');
+    jQuery('#' + formId).trigger('reset');
+    $('#' + formId).find('textarea').text('');
+
+    //});
 }

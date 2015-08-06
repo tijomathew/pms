@@ -53,9 +53,9 @@ public class Person implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private PersonalStatus personalStatus;
 
-    //@NotNull
-    //@Email
-    //@NotEmpty
+    @NotNull
+    @Email
+    @NotEmpty
     @Column(name = "email")
     private String email;
 

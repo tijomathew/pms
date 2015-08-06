@@ -27,8 +27,8 @@ public class Member implements Serializable {
     private Long id;
 
     @Embedded
-    //@Valid
-    //@NotNull
+    @Valid
+    @NotNull
     private Person memberAsPerson;
 
     @Column(name = "member_no")
