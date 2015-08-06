@@ -21,8 +21,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,6 +65,21 @@ public class MemberController extends AbstractErrorAndGridHandler {
         return PageName.MEMBER.toString();
     }
 
+    @RequestMapping(value = "/viewmember.action", method = RequestMethod.POST)
+    public String memberPageDisplay1(Model model) {
+        Member modelObjectMember = new Member();
+        modelObjectMember.setRegisteredDate(DateTimeFormat.forPattern("dd/MM/yyyy").print(new DateTime()));
+        model.addAttribute("member", modelObjectMember);
+
+        if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.FAMILY_USER) {
+            factorySelectBox.createSelectBox(model);
+        }
+
+        memberService.createMemberFormBackObject(model);
+
+        return PageName.MEMBER.toString();
+    }
+
     @RequestMapping(value = "/addmember.action", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -73,6 +91,11 @@ public class MemberController extends AbstractErrorAndGridHandler {
                 if (!member.getFamilyHead()) {
 
                     member.getFamilyMember().addMemberForFamily(member);
+                    try {
+                        member.setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishNo());
                     Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);

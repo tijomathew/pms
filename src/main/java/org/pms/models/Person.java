@@ -3,11 +3,9 @@ package org.pms.models;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -55,9 +53,9 @@ public class Person implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private PersonalStatus personalStatus;
 
-    @NotNull
-    @Email
-    @NotEmpty
+    //@NotNull
+    //@Email
+    //@NotEmpty
     @Column(name = "email")
     private String email;
 
@@ -90,7 +88,19 @@ public class Person implements Serializable {
     @Column(name = "personal_remarks")
     private String personalRemarks;
 
+    @Transient
+    private MultipartFile file;
+
+
     public Person() {
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     public PersonSalutation getSalutation() {

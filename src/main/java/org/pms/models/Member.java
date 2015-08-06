@@ -27,8 +27,8 @@ public class Member implements Serializable {
     private Long id;
 
     @Embedded
-    @Valid
-    @NotNull
+    //@Valid
+    //@NotNull
     private Person memberAsPerson;
 
     @Column(name = "member_no")
@@ -39,7 +39,7 @@ public class Member implements Serializable {
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
-    @NotEmpty
+    //@NotEmpty
     private String dateOfBaptism;
 
     @Column(name = "date_of_confirmation")
@@ -192,11 +192,23 @@ public class Member implements Serializable {
     @Column(name = "family_head")
     private boolean familyHead;
 
+    @Column(name = "image_content")
+    @Lob
+    private byte[] imageBytes;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_member_id")
     private Family familyMember;
 
     public Member() {
+    }
+
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
     }
 
     public Long getId() {

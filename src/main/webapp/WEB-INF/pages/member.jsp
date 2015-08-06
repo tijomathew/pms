@@ -36,7 +36,6 @@
             </c:if>
 
             loadMemberGrid();
-            globalSubmissionOfForms('memberForm', '${memberActionURL}', 'memberGrid');
 
             // $("select#personalStatus").val("0");
             $('#memberAsPersonnationality').change(function () {
@@ -47,6 +46,24 @@
                     }
             );
         });
+
+        function callImageSubmission() {
+            var formData = new FormData($('#memberForm')[0]);
+            $.ajax({
+                type: 'POST',
+                url: $('#memberForm').attr('action'),
+                data: formData,
+                /*enctype : 'multipart/form-data',*/
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    jQuery.jqGrowl.timeout = 2000;
+                    jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
+                    jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
+                }
+            });
+        }
     </script>
 
 </head>
@@ -162,8 +179,9 @@
                             </div>
                             <div class="panel-body padding7">
                                 <form:form modelAttribute="member"
-                                           action="${memberActionURL}" method="post"
-                                           id="memberForm" cssClass="form-horizontal nomargin">
+                                           action="${memberActionURL}" method="POST"
+                                           id="memberForm" cssClass="form-horizontal nomargin"
+                                           enctype="multipart/form-data">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="member2">
                                             <div class="col-md-12">
@@ -203,6 +221,17 @@
                                                                                  class="form-control"/>
                                                                 </div>
                                                             </c:if>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="memberAsPerson.file"
+                                                                   class="col-sm-2 control-label">Photo</label>
+
+                                                            <div class="col-sm-4">
+                                                                <form:input path="memberAsPerson.file"
+                                                                            id="memberAsPerson.file"
+                                                                            class="form-control" type="file"/>
+
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="memberAsPerson.salutation"
@@ -1114,12 +1143,12 @@
                                         </div>
                                         <div class="row nomargin">
                                             <div class="col-md-12 text-left">
-                                                <button type="submit" value="Save"
+                                                <button onclick="callImageSubmission();return false;" value="Save"
                                                         class="btn btn-primary defaultButtonWidth">SAVE
                                                 </button>
-                                                <button type="submit" value="Save"
-                                                        class="btn btn-primary defaultButtonWidth">RESET
-                                                </button>
+                                                    <%--<button value="Save"
+                                                            class="btn btn-primary defaultButtonWidth">RESET
+                                                    </button>--%>
                                             </div>
                                         </div>
 
