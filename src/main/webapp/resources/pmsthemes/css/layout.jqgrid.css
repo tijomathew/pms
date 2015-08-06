@@ -25,6 +25,7 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 /* search */
 .ui-widget-overlay {
     background-color:rgba(0,0,0,0.5);
+    background: none !important;
 }
 .ui-widget-header {
     font-weight: bold;
@@ -36,7 +37,7 @@ table.table.ui-jqgrid-htable  tr th:last-child {
     font-size:14px;
 }
 .ui-jqdialog-titlebar{
-    background-color: #4d4d4d;
+    background-color: #669999;
     color: #FFFFFF;
 
 }
@@ -69,7 +70,7 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 }
 .fm-button {
     color:#FFFFFF !important;
-    background-color: #858d93;
+    background-color: #669999;
     border-color: #858d93;
     width:40%;
     display: inline-block;
@@ -92,6 +93,11 @@ table.table.ui-jqgrid-htable  tr th:last-child {
     border: 1px solid transparent;
     border-radius: 4px
 }
+
+.fm-button:hover {
+    background-color: #C3D3D6;
+}
+
 .EditTable {
     background-color:#eee;
 }
@@ -140,6 +146,10 @@ table.table.ui-jqgrid-htable  tr th:last-child {
     padding: 1px;
     height: 25px;
     line-height: 25px;
+}
+
+.ui-jqgrid-view{
+    border: 2px solid #E1E1E1;
 }
 
 .ui-jqgrid .ui-jqgrid-view button,.ui-jqgrid .ui-jqgrid-view input,.ui-jqgrid .ui-jqgrid-view select,.ui-jqgrid .ui-jqgrid-view textarea {
@@ -205,12 +215,12 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 
 .ui-jqgrid .ui-jqgrid-htable th div {
     padding-top: 12px;
-    padding-bottom: 12px;
+    padding-bottom: 28px;
 }
 
-.ui-jqgrid-hdiv .ui-jqgrid-htable {
+/*.ui-jqgrid-hdiv .ui-jqgrid-htable {
     border-top: 1px solid #E1E1E1;
-}
+}*/
 
 .ui-jqgrid-titlebar {
     position: relative;
@@ -257,9 +267,10 @@ table.table.ui-jqgrid-htable  tr th:last-child {
     height: 55px;
     padding-top: 3px!important;
     padding-bottom: 5px!important;
-    background-color: #eff3f8!important;
+    background-color: #C3D3D6 !important;
     border-bottom: 1px solid #E1E1E1!important;
-    border-top: 1px solid #E1E1E1!important;
+    border: 1px solid #67c5c2!important;
+    border-radius: 7px;
 }
 
 .ui-jqgrid .ui-pg-input {
@@ -278,8 +289,8 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 .ui-jqgrid .ui-pg-selbox {
     display: block;
     height: 24px;
-    width: 60px;
-    margin: 0;
+    width: 45px;
+    margin: 0 0 0 5px;
     padding: 1px;
     line-height: normal;
 }
@@ -361,7 +372,7 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 }
 
 .ui-jqgrid .ui-jqgrid-labels th {
-    border-right: 1px solid #E1E1E1!important;
+    border-right: 2px solid #E1E1E1!important;
     text-align: left!important;
 }
 

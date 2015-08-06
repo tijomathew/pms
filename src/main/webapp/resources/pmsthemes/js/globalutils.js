@@ -132,6 +132,8 @@ function addJqgridCustomButtons(gridId, formId) {
 
             jQuery('#' + gridId).jqGrid('resetSelection'); //to reset the selected row
 
+            $('#'+gridId+'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
+
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
 
@@ -149,6 +151,16 @@ function addJqgridCustomButtons(gridId, formId) {
         },
         position: "first"
     });
+
+    var $parentContinerWidth = $('#' +  gridId).closest('div.tab-content').width() - 24;
+    // var $gridWidth = $('#' +  gridId).width();
+    if($parentContinerWidth)
+        $('#' +  gridId).jqGrid('setGridWidth', parseInt($parentContinerWidth));
+
+    // var customButtons = $('<td/>', {class:"ui-pg-button ui-corner-all buttontd hidedisplay", width:"100%"}).append($('<div/>',{class:"btn btn-sm btn-success", click:function(){updateFormInfo(formId, gridId)}, style:"float:right;", text :"SAVE"}).append($('<span/>',{class:"fa fa-floppy-o"}))).append($('<div/>',{class:"btn btn-sm btn-danger",click :function(){cancelActions(formId, gridId)}, style:"float:right;margin-right: 5px;",text:"CANCEL"}).append($('<span/>',{class:"fa fa-times"})));
+    var customButtons = $('<td/>', {class:"ui-pg-button ui-corner-all buttontd hidedisplay", width:"100%"}).append($('<div/>',{class:"btn btn-sm btn-danger",click :function(){cancelActions(formId, gridId)}, style:"float:right;font-size: 10px;",text:"CANCEL",title:"CANCEL"})).append($('<div/>',{class:"btn btn-sm btn-success", click:function(){globalSubmissionOfForms(formId, gridId)}, style:"float:right;font-size: 10px;margin-right: 5px;width:55px", text :"SAVE", title:"SAVE"}));
+
+    $('#'+gridId+'Pager').find('.ui-pg-table .navtable').find('tr:first').append(customButtons);
 }
 
 function loadDatePicker() {

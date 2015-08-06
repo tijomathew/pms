@@ -10,8 +10,8 @@
     <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="bottom" title="Toggle Infobar"></a>
 
     <div class="navbar-header pull-left">
-        <a class="navbar-brand" href="#">PMS |
-            <small>Parish Management System</small>
+        <a class="navbar-brand" href="#">PMS<%-- |
+            <small>Parish Management System</small>--%>
         </a>
     </div>
 
