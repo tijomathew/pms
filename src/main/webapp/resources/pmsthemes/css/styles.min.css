@@ -8712,7 +8712,7 @@ body.static-header {
   padding-top: 0;
 }
 #page-container {
-  background: #595F69;
+  background: #1F232E;
   overflow: hidden;
 }
 #page-content {
@@ -9825,7 +9825,7 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
 }
 #page-leftbar {
   float: left;
-  background: #595F69;
+  background: #1F232E;
   white-space: nowrap;
   position: relative;
   box-shadow: inset -1px 0 0 0 rgba(0, 0, 0, 0.1);
@@ -9917,7 +9917,7 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
   color: #3f444c;
 }
 #sidebar > li.active > a {
-  background: #669999;
+  background: #1192A7;
   color: #ffffff;
   box-shadow: inset -1px 0 0 0 rgba(0, 0, 0, 0.1);
 }
@@ -10670,12 +10670,14 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
   color: #333333;
 }
 .navbar-inverse {
-  background-color: #595F69;
-  border-color: #595F69;
+  background-color: #1F232E;
+  border-color: #1F232E;
 }
 .navbar-inverse .navbar-brand {
   color: #888888;
   color: #fff;
+  width: 100%;
+  font-weight: bold;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -10757,7 +10759,7 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 }
 
 .outer-border{
-  border: 2px solid #669999;
+  border: 2px solid #1192A7;
 }
 
 .panel-body {
@@ -11110,8 +11112,8 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 }
 .panel-midnightblue .panel-heading {
   color: #ffffff;
-  background-color: #669999;
-  border-color: #669999;
+  background-color: #1192A7;
+  border-color: #1192A7;
 }
 /*.panel-midnightblue .panel-body {
   border-top: 2px solid #34495e;
@@ -11250,7 +11252,7 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
   color: #fff;
 }
 [class*="panel-"].panel .panel-heading .nav.nav-tabs > li.active a {
-  color: grey;
+  color: #1F232E;
   background: #fff;
   border:none;
 }
@@ -15407,3 +15409,13 @@ legend.custom-border {
 .form-border{
   border: solid 1px #669999 !important;
 }
+
+label.col-sm-2.control-label {
+  font-weight: 600;
+}
+
+ul.nav > li > a > span{
+  top: -3px;
+  position: relative;
+}
+
