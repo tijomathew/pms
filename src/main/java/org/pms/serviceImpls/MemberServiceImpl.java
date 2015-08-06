@@ -115,4 +115,9 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getAllMembersForFamilyID(Long familyId) {
         return memberDao.getAllMembersForFamilyID(familyId);
     }
+
+    @Override
+    public Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId) {
+        return memberDao.verifyIsFamilyHeadMemberAddedForFamily(familyId);
+    }
 }

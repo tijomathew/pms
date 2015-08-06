@@ -1,5 +1,8 @@
 package org.pms.controllers;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
@@ -46,7 +49,9 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
     public String memberPageDisplay(Model model) {
-        model.addAttribute("member", new Member());
+        Member modelObjectMember = new Member();
+        modelObjectMember.setRegisteredDate(DateTimeFormat.forPattern("dd/MM/yyyy").print(new DateTime()));
+        model.addAttribute("member", modelObjectMember);
 
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class).getSystemRole() == SystemRole.FAMILY_USER) {
             factorySelectBox.createSelectBox(model);
@@ -63,16 +68,25 @@ public class MemberController extends AbstractErrorAndGridHandler {
     CustomResponse addMember(@ModelAttribute("member") @Valid Member member, BindingResult result) {
 
         if (!result.hasErrors()) {
+            if (memberService.verifyIsFamilyHeadMemberAddedForFamily(member.getFamilyMember().getId())) {
 
-            member.getFamilyMember().addMemberForFamily(member);
+                if (!member.getFamilyHead()) {
 
-            List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishNo());
-            Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
+                    member.getFamilyMember().addMemberForFamily(member);
 
-            member.setMemberNo(++memberCountForParish);
+                    List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyParish().getParishNo());
+                    Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
 
-            memberService.addMemberSM(member);
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFirstName(), SUCCESS_MESSAGE_DISPLAY);
+                    member.setMemberNo(++memberCountForParish);
+
+                    memberService.addMemberSM(member);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);
+                } else {
+                    customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add to the system since a family head in the family already exist");
+                }
+            } else {
+                customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add to the system before adding a family head for the family");
+            }
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
@@ -104,7 +118,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-               binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
+        binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }
 
 }

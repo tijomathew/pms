@@ -1,11 +1,14 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -52,6 +55,9 @@ public class Person implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private PersonalStatus personalStatus;
 
+    @NotNull
+    @Email
+    @NotEmpty
     @Column(name = "email")
     private String email;
 
@@ -247,7 +253,7 @@ public class Person implements Serializable {
         this.personalRemarks = personalRemarks;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return new StringBuilder(String.valueOf(this.getSalutation().getUIDisplayValue())).append(" ").append(this.getFirstName()).append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
     }
 

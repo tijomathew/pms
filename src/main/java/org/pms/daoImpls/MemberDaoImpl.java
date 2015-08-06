@@ -41,4 +41,10 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     public List<Member> getAllMembersForFamilyID(Long familyId) {
         return getDb(false).createCriteria(Member.class, "member").add(Restrictions.eq("member.familyMember.id", familyId)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
+
+    @Override
+    public Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId) {
+        Long familyHeadMemberCount = (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).add(Restrictions.eq("member.familyHead", Boolean.TRUE)).uniqueResult();
+        return familyHeadMemberCount > 0;
+    }
 }

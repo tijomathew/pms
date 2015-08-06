@@ -26,6 +26,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            $('#memberAsPersonnationalityTextBox').hide();
             backToTop();
 
             loadDatePicker();
@@ -38,6 +39,13 @@
             globalSubmissionOfForms('memberForm', '${memberActionURL}', 'memberGrid');
 
             // $("select#personalStatus").val("0");
+            $('#memberAsPersonnationality').change(function () {
+                        var nationality = $("#memberAsPersonnationality option:selected").val();
+                        if (nationality == 'Other') {
+                            $('#memberAsPersonnationalityTextBox').show();
+                        }
+                    }
+            );
         });
     </script>
 
@@ -175,19 +183,22 @@
                                                                         readonly="true"/>
                                                             </div>
                                                             <c:if test="${showForFamilyUser == false}">
-                                                                <label for="familyId" class="col-sm-2 control-label">Family</label>
+                                                                <label for="familyMember"
+                                                                       class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="familyId"
+                                                                    <form:select path="familyMember"
                                                                                  id="familySelectBoxofMember"
                                                                                  class="form-control"/>
                                                                 </div>
                                                             </c:if>
                                                             <c:if test="${showForFamilyUser == true}">
-                                                                <label for="familyId" class="col-sm-2 control-label">Family</label>
+                                                                <label for="familyMember"
+                                                                       class="col-sm-2 control-label">Family</label>
 
                                                                 <div class="col-sm-4">
-                                                                    <form:select path="familyId" id="familySelectBox"
+                                                                    <form:select path="familyMember"
+                                                                                 id="familySelectBox"
                                                                                  items="${familyName}"
                                                                                  class="form-control"/>
                                                                 </div>
@@ -298,10 +309,16 @@
                                                                    class="col-sm-2 control-label">Nationality</label>
 
                                                             <div class="col-sm-4">
-                                                                <form:input
+                                                                <form:select
                                                                         path="memberAsPerson.nationality"
                                                                         id="memberAsPersonnationality"
-                                                                        class="form-control"/>
+                                                                        class="form-control">
+                                                                    <form:option value="Indian">Indian</form:option>
+                                                                    <form:option value="Ireland">Ireland</form:option>
+                                                                    <form:option value="Other">Other</form:option>
+                                                                </form:select>
+                                                                <form:input path="memberAsPerson.nationality"
+                                                                            id="memberAsPersonnationalityTextBox"/>
                                                             </div>
                                                             <label for="memberAsPerson.educationQualifications"
                                                                    class="col-sm-2 control-label">Education
@@ -356,14 +373,6 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="sundayCatechism" class="col-sm-2 control-label">Catechism
-                                                                Qualification</label>
-
-                                                            <div class="col-sm-4">
-                                                                <form:input
-                                                                        path="sundayCatechism"
-                                                                        id="sundayCatechism" class="form-control"/>
-                                                            </div>
                                                             <label for="memberAsPerson.personalRemarks"
                                                                    class="col-sm-2 control-label">Personal
                                                                 Remarks</label>
@@ -403,13 +412,13 @@
                                                     <div class="panel-body">
 
                                                         <div class="form-group">
-                                                            <label for="memberAsPersonemail"
+                                                            <label for="memberAsPerson.email"
                                                                    class="col-sm-2 control-label">Email</label>
 
                                                             <div class="col-sm-4">
                                                                 <form:input
                                                                         path="memberAsPerson.email"
-                                                                        id="memberAsPersonemail" class="form-control"/>
+                                                                        id="memberAsPerson.email" class="form-control"/>
                                                             </div>
                                                             <label for="memberAsPerson.mobileNo"
                                                                    class="col-sm-2 control-label">Mobile

@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.RelationShipInFamily;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -25,6 +27,8 @@ public class Member implements Serializable {
     private Long id;
 
     @Embedded
+    @Valid
+    @NotNull
     private Person memberAsPerson;
 
     @Column(name = "member_no")
@@ -35,6 +39,7 @@ public class Member implements Serializable {
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
+    @NotEmpty
     private String dateOfBaptism;
 
     @Column(name = "date_of_confirmation")
