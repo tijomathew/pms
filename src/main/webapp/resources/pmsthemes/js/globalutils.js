@@ -144,12 +144,6 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
 
-            $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox')
-                .attr('value', '')
-                .removeAttr('checked')
-                .removeAttr('selected');
-
             $('#' + formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').removeClass('hidedisplay');
 

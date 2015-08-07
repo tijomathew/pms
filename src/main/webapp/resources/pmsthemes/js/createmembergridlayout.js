@@ -2,7 +2,6 @@
  * Created by tijo on 6/7/15.
  */
 function loadMemberGrid() {
-    var subGridData = "";
     $("#memberGrid").jqGrid(
         {
             jsonreader: {
@@ -18,17 +17,24 @@ function loadMemberGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship", "Parish Name", "MC Name", "PU Name", "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
-                "memberAsPerson.photoPathLocation", "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
-                "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
+            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship", "Parish Name", "MC Name", "PU Name",
+                "memberAsPerson.salutation", "memberAsPerson.firstName",
+                "memberAsPerson.middleName", "memberAsPerson.lastName", "Place of Birth", "memberAsPerson.nationality",
+                "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
+                "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup",
+                "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",
                 "memberAsPerson.personalRemarks", "dateOfBaptism", "dateOfConfirmation", "dateOfFirstCommunion", "dateOfMarriage",
-                "dateOfDeath", "piousAssociation", "sundayCatechism", "sacramentalLife", "churchRemarks", "churchOfBaptism", "countryOfBaptism", "baptismName", "ministerOfBaptism", "baptismGodFather",
-                "baptismGodMother", "patronSaint", "patronSaintFeastDay", "churchOfConfirmation", "countryOfConfirmation",
+                "dateOfDeath", "churchOfBaptism", "countryOfBaptism", "baptismName", "ministerOfBaptism", "baptismGodFather",
+                "baptismGodMother", "patronSaint", "patronSaintFeastDay",
+                "churchOfConfirmation", "countryOfConfirmation",
                 "ministerOfConfirmation", "confirmationGodFather", "confirmationGodMother", "churchOfHolyCommunion", "countryOfHolyCommunion",
 
-                "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName", "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",
-                "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo", "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
-                "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion", "anointingTheSick", "ministerOfAnointingTheSick"],
+                "ministerOfHolyCommunion", "dateOfBetrothal", "churchOfBetrothal", "countryOfBetrothal", "priestOfBetrothal", "spouseName",
+                "spouseBaptismName", "spouseNativeParish", "spouseNativeDiocese", "spouseFatherName",
+                "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo",
+                "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
+                "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion",
+                "anointingTheSick", "ministerOfAnointingTheSick", "familyMember"],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 100, sortable: false},
@@ -69,15 +75,8 @@ function loadMemberGrid() {
                     hidden: true
                 },
                 {
-                    name: 'memberAsPerson.placeOfBirth"',
-                    index: "memberAsPerson.placeOfBirth",
-                    width: 100,
-                    sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'memberAsPerson.photoPathLocation',
-                    index: 'memberAsPerson.photoPathLocation',
+                    name: 'memberAsPerson.placeOfBirth',
+                    index: 'memberAsPerson.placeOfBirth',
                     width: 100,
                     sortable: false,
                     hidden: true
@@ -158,33 +157,14 @@ function loadMemberGrid() {
                     name: 'dateOfMarriage', index: 'dateOfMarriage', width: 100, sortable: false,
                     hidden: true
                 },
-
                 {
                     name: 'dateOfDeath', index: 'dateOfDeath', width: 100, sortable: false,
-                    hidden: true
-                },
-
-                {
-                    name: 'piousAssociation', index: 'piousAssociation', width: 100, sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'sundayCatechism', index: 'sundayCatechism', width: 100, sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'sacramentalLife', index: 'sacramentalLife', width: 100, sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'churchRemarks', index: 'churchRemarks', width: 100, sortable: false,
                     hidden: true
                 },
                 {
                     name: 'churchOfBaptism', index: 'churchOfBaptism', width: 100, sortable: false,
                     hidden: true
                 },
-
                 {
                     name: 'countryOfBaptism', index: 'countryOfBaptism', width: 100, sortable: false,
                     hidden: true
@@ -193,12 +173,10 @@ function loadMemberGrid() {
                     name: 'baptismName', index: 'baptismName', width: 100, sortable: false,
                     hidden: true
                 },
-
                 {
                     name: 'ministerOfBaptism', index: 'ministerOfBaptism', width: 90, sortable: false,
                     hidden: true
                 },
-
                 {
                     name: 'baptismGodFather', index: 'baptismGodFather', width: 100, sortable: false,
                     hidden: true
@@ -338,7 +316,6 @@ function loadMemberGrid() {
                     sortable: false,
                     hidden: true
                 },
-
                 {
                     name: 'spouseNativeAddress', index: 'spouseNativeAddress', width: 100, sortable: false,
                     hidden: true
@@ -449,6 +426,13 @@ function loadMemberGrid() {
                     width: 100,
                     sortable: false,
                     hidden: true
+                },
+                {
+                    name: 'familyMember',
+                    index: 'familyMember',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
                 }
             ],
             rowNum: 10,
@@ -460,7 +444,12 @@ function loadMemberGrid() {
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
-            width: 'auto'
+            width: 'auto',
+            onSelectRow: function () {
+                $('#memberGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#memberForm').show(500);
+                $('#memberForm').loadJSON(jQuery("#memberGrid").getRowData(jQuery("#memberGrid").jqGrid('getGridParam', 'selrow')));
+            }
 
         });
 

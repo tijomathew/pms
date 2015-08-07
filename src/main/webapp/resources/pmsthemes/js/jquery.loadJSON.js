@@ -103,9 +103,10 @@
                     if (prop == null)
                         continue;
                     //Find an element with class, id, name, or rel attribute that matches the propertu name
-                    var child = jQuery.makeArray(jQuery("." + prop, element)).length > 0 ? jQuery("." + prop, element) :
+                   /* var child = jQuery.makeArray(jQuery("." + prop, element)).length > 0 ? jQuery("." + prop, element) :
                                                     jQuery("#" + prop, element).length > 0 ? jQuery("#" + prop, element) :
-                                                    jQuery('[name="' + prop + '"]', element).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery('[rel="' + prop + '"]');
+                                                    jQuery('[name="' + prop + '"]', element).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery('[rel="' + prop + '"]');*/
+                    var child = jQuery.makeArray(jQuery('[name="' + prop + '"]', element)).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery("#" + prop, element);
                     if (child.length != 0)
                         browseJSON(obj[prop], jQuery(child, element), prop);
                 }

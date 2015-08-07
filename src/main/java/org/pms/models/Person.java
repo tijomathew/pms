@@ -60,10 +60,10 @@ public class Person implements Serializable {
     private String email;
 
     @Column(name = "mobile_no")
-    private long mobileNo;
+    private Long mobileNo;
 
     @Column(name = "land_no")
-    private long landLine;
+    private Long landLine;
 
     @Column(name = "fax")
     private String faxNo;
@@ -172,7 +172,15 @@ public class Person implements Serializable {
     }
 
     public void setNationality(String nationality) {
-        this.nationality = nationality;
+        String splitedArgs[] = new String[2];
+        if (!nationality.isEmpty()) {
+            splitedArgs = nationality.split(",");
+        }
+        if (!splitedArgs[1].isEmpty()) {
+            this.nationality = splitedArgs[1];
+        } else {
+            this.nationality = splitedArgs[0];
+        }
     }
 
     public PersonalStatus getPersonalStatus() {
@@ -191,19 +199,19 @@ public class Person implements Serializable {
         this.email = email;
     }
 
-    public long getMobileNo() {
+    public Long getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(long mobileNo) {
+    public void setMobileNo(Long mobileNo) {
         this.mobileNo = mobileNo;
     }
 
-    public long getLandLine() {
+    public Long getLandLine() {
         return landLine;
     }
 
-    public void setLandLine(long landLine) {
+    public void setLandLine(Long landLine) {
         this.landLine = landLine;
     }
 
@@ -267,90 +275,5 @@ public class Person implements Serializable {
         return new StringBuilder(String.valueOf(this.getSalutation().getUIDisplayValue())).append(" ").append(this.getFirstName()).append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Person person = (Person) o;
-
-        if (landLine != person.landLine) return false;
-        if (mobileNo != person.mobileNo) return false;
-        if (bloodGroup != null ? !bloodGroup.equals(person.bloodGroup) : person.bloodGroup != null) return false;
-        if (carNumber != null ? !carNumber.equals(person.carNumber) : person.carNumber != null) return false;
-        if (dateOfBirth != null ? !dateOfBirth.equals(person.dateOfBirth) : person.dateOfBirth != null) return false;
-        if (educationQualifications != null ? !educationQualifications.equals(person.educationQualifications) : person.educationQualifications != null)
-            return false;
-        if (email != null ? !email.equals(person.email) : person.email != null) return false;
-        if (faxNo != null ? !faxNo.equals(person.faxNo) : person.faxNo != null) return false;
-        if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
-        if (gender != null ? !gender.equals(person.gender) : person.gender != null) return false;
-        if (jobDetails != null ? !jobDetails.equals(person.jobDetails) : person.jobDetails != null) return false;
-        if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
-        if (lifeStatus != null ? !lifeStatus.equals(person.lifeStatus) : person.lifeStatus != null) return false;
-        if (middleName != null ? !middleName.equals(person.middleName) : person.middleName != null) return false;
-        if (nationality != null ? !nationality.equals(person.nationality) : person.nationality != null) return false;
-        if (personalRemarks != null ? !personalRemarks.equals(person.personalRemarks) : person.personalRemarks != null)
-            return false;
-        if (personalStatus != null ? !personalStatus.equals(person.personalStatus) : person.personalStatus != null)
-            return false;
-        if (photoPathLocation != null ? !photoPathLocation.equals(person.photoPathLocation) : person.photoPathLocation != null)
-            return false;
-        if (placeOfBirth != null ? !placeOfBirth.equals(person.placeOfBirth) : person.placeOfBirth != null)
-            return false;
-        if (salutation != null ? !salutation.equals(person.salutation) : person.salutation != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = salutation != null ? salutation.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (dateOfBirth != null ? dateOfBirth.hashCode() : 0);
-        result = 31 * result + (placeOfBirth != null ? placeOfBirth.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (photoPathLocation != null ? photoPathLocation.hashCode() : 0);
-        result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
-        result = 31 * result + (personalStatus != null ? personalStatus.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (int) (mobileNo ^ (mobileNo >>> 32));
-        result = 31 * result + (int) (landLine ^ (landLine >>> 32));
-        result = 31 * result + (faxNo != null ? faxNo.hashCode() : 0);
-        result = 31 * result + (educationQualifications != null ? educationQualifications.hashCode() : 0);
-        result = 31 * result + (jobDetails != null ? jobDetails.hashCode() : 0);
-        result = 31 * result + (bloodGroup != null ? bloodGroup.hashCode() : 0);
-        result = 31 * result + (carNumber != null ? carNumber.hashCode() : 0);
-        result = 31 * result + (lifeStatus != null ? lifeStatus.hashCode() : 0);
-        result = 31 * result + (personalRemarks != null ? personalRemarks.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "salutation='" + salutation + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", dateOfBirth='" + dateOfBirth + '\'' +
-                ", placeOfBirth='" + placeOfBirth + '\'' +
-                ", gender='" + gender + '\'' +
-                ", photoPathLocation='" + photoPathLocation + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", personalStatus='" + personalStatus + '\'' +
-                ", email='" + email + '\'' +
-                ", mobileNo=" + mobileNo +
-                ", landLine=" + landLine +
-                ", faxNo='" + faxNo + '\'' +
-                ", educationQualifications='" + educationQualifications + '\'' +
-                ", jobDetails='" + jobDetails + '\'' +
-                ", bloodGroup='" + bloodGroup + '\'' +
-                ", carNumber='" + carNumber + '\'' +
-                ", lifeStatus='" + lifeStatus + '\'' +
-                ", personalRemarks='" + personalRemarks + '\'' +
-                '}';
-    }
 }
