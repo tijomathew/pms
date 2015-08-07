@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MemberDao {
 
-    boolean addMemberDM(Member member);
+    boolean addOrUpdateMemberDM(Member member);
 
     List<Member> getAllMembers();
 
@@ -20,5 +20,9 @@ public interface MemberDao {
     List<Member> getAllMembersForFamilyID(Long familyId);
 
     Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
+
+    Member getFamilyHeadMember(Long familyId);
+
+    Member getMemberForMemberNo(Long memberNo);
 
 }

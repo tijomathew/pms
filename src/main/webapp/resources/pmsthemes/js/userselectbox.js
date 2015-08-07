@@ -9,7 +9,7 @@ function loadSelectBox(contextPath) {
             $('#massCenterSelectBox').find('option').remove();
             $('#prayerUnitSelectBox').find('option').remove();
             $('#familySelectBox').find('option').remove();
-            var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+            var html;
             var len = data.length;
             for (var i = 0; i < len; i++) {
                 html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
@@ -26,7 +26,7 @@ function loadSelectBox(contextPath) {
                         $('#massCenterSelectBox').find('option').remove();
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();
-                        var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                        var html;
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
@@ -46,7 +46,7 @@ function loadSelectBox(contextPath) {
                     function (data) {
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();
-                        var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                        var html;
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
@@ -65,7 +65,7 @@ function loadSelectBox(contextPath) {
                     {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},
                     function (data) {
                         $('#familySelectBox').find('option').remove();
-                        var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+                        var html;
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
@@ -81,7 +81,7 @@ function loadSelectBox(contextPath) {
     $.getJSON(contextPath + '/createfamilyselectbox.action',
         {},
         function (data) {
-            var html = '<option value="' + 0 + '">' + "Please select" + '</option>';
+            var html;
             var len = data.length;
             for (var i = 0; i < len; i++) {
                 html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';

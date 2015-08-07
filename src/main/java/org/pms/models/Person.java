@@ -176,7 +176,7 @@ public class Person implements Serializable {
         if (!nationality.isEmpty()) {
             splitedArgs = nationality.split(",");
         }
-        if (!splitedArgs[1].isEmpty()) {
+        if (splitedArgs.length > 1 && !splitedArgs[1].isEmpty()) {
             this.nationality = splitedArgs[1];
         } else {
             this.nationality = splitedArgs[0];

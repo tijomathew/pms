@@ -4,7 +4,6 @@ import org.pms.daos.MemberDao;
 import org.pms.enums.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
-import org.pms.models.Person;
 import org.pms.models.User;
 import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.ui.Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -35,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
     private FamilyService familyService;
 
     @Override
-    public boolean addMemberSM(Member member) {
-        memberDao.addMemberDM(member);
+    public boolean addOrUpdateMemberSM(Member member) {
+        memberDao.addOrUpdateMemberDM(member);
         return true;
     }
 
@@ -119,5 +117,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId) {
         return memberDao.verifyIsFamilyHeadMemberAddedForFamily(familyId);
+    }
+
+    @Override
+    public Member getFamilyHeadMember(Long familyId) {
+        return memberDao.getFamilyHeadMember(familyId);
+    }
+
+    @Override
+    public Member getMemberForMemberNo(Long memberNo) {
+        return memberDao.getMemberForMemberNo(memberNo);
     }
 }

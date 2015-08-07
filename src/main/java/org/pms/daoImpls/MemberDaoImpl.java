@@ -22,8 +22,8 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     }
 
     @Override
-    public boolean addMemberDM(Member member) {
-        createAndSave(member);
+    public boolean addOrUpdateMemberDM(Member member) {
+        updateInstance(member);
         return false;
     }
 
@@ -46,5 +46,15 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     public Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId) {
         Long familyHeadMemberCount = (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.eq("member.familyMember.id", familyId)).add(Restrictions.eq("member.familyHead", Boolean.TRUE)).uniqueResult();
         return familyHeadMemberCount > 0;
+    }
+
+    @Override
+    public Member getFamilyHeadMember(Long familyId) {
+        return (Member) getDb(false).createCriteria(Member.class, "member").add(Restrictions.eq("member.familyMember.id", familyId)).add(Restrictions.eq("member.familyHead", Boolean.TRUE)).uniqueResult();
+    }
+
+    @Override
+    public Member getMemberForMemberNo(Long memberNo) {
+        return (Member) getDb(false).createCriteria(Member.class, "member").add(Restrictions.eq("member.memberNo", memberNo)).uniqueResult();
     }
 }

@@ -2,7 +2,6 @@ package org.pms.controllers;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MemberWrapper;
@@ -12,7 +11,6 @@ import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.Family;
 import org.pms.models.Member;
-import org.pms.models.SelectBox;
 import org.pms.models.User;
 import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,9 +67,12 @@ public class MemberController extends AbstractErrorAndGridHandler {
     CustomResponse addMember(@ModelAttribute("member") @Valid Member member, BindingResult result) {
 
         if (!result.hasErrors()) {
-            if (!memberService.verifyIsFamilyHeadMemberAddedForFamily(member.getFamilyMember().getId())) {
 
-                if (member.getFamilyHead()) {
+            if (member.getMemberNo() == null && member.getId() == null) {
+
+                Boolean isFamilyHeadExistsForFamily = memberService.verifyIsFamilyHeadMemberAddedForFamily(member.getFamilyMember().getId());
+
+                if (!(isFamilyHeadExistsForFamily && member.getFamilyHead())) {
 
                     member.getFamilyMember().addMemberForFamily(member);
                     try {
@@ -87,15 +86,25 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                     member.setMemberNo(++memberCountForParish);
 
-                    memberService.addMemberSM(member);
+                    memberService.addOrUpdateMemberSM(member);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
-                    customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add to the system since a family head in the family already exist");
+                    customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add a member to the system either a family head in the family already exist Or before adding family admin to the system");
                 }
-            } else {
-                customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add to the system before adding a family head for the family");
-            }
 
+            } else {
+                if (member.getFamilyHead()) {
+                    Member familyHead = memberService.getFamilyHeadMember(member.getFamilyMember().getId());
+                    if (familyHead != null) {
+                        if (familyHead.getMemberNo() != member.getMemberNo()) {
+                            familyHead.setFamilyHead(Boolean.FALSE);
+                            memberService.addOrUpdateMemberSM(familyHead);
+                        }
+                    }
+                }
+                memberService.addOrUpdateMemberSM(member);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), "updated successfully");
+            }
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }

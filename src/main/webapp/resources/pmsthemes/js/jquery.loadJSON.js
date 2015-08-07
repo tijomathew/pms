@@ -1,21 +1,21 @@
 ﻿/*
-* File:        jquery.loadJSON.js
-* Version:     1.0.0.
-* Author:      Jovan Popovic 
-* 
-* Copyright 2011 Jovan Popovic, all rights reserved.
-*
-* This source file is free software, under either the GPL v2 license or a
-* BSD style license, as supplied with this software.
-* 
-* This source file is distributed in the hope that it will be useful, but 
-* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-* or FITNESS FOR A PARTICULAR PURPOSE. 
-*
-* This file contains implementation of the JQuery templating engine that load JSON
-* objects into the HTML code. It is based on Alexandre Caprais notemplate plugin 
-* with several enchancements that are added to this plugin.
-*/
+ * File:        jquery.loadJSON.js
+ * Version:     1.0.0.
+ * Author:      Jovan Popovic
+ *
+ * Copyright 2011 Jovan Popovic, all rights reserved.
+ *
+ * This source file is free software, under either the GPL v2 license or a
+ * BSD style license, as supplied with this software.
+ *
+ * This source file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * This file contains implementation of the JQuery templating engine that load JSON
+ * objects into the HTML code. It is based on Alexandre Caprais notemplate plugin
+ * with several enchancements that are added to this plugin.
+ */
 
 (function ($) {
     $.fn.loadJSON = function (obj, options) {
@@ -28,13 +28,17 @@
             switch (type) {
 
                 case 'radio':
-                    if (value.toString().toLowerCase() == element.value.toLowerCase())
-                        $(element).attr("checked", "checked");
+                    $(element).removeAttr('checked');
+                    if (value == $(element).val())
+                        $(element).prop("checked", "true");
                     break;
 
                 case 'checkbox':
-                    if (value == "Yes")
-                        $(element).attr("checked", "checked").attr("disabled", true);
+                    $(element).removeAttr('checked');
+                    if (value == $(element).val()) {
+                        $(element).prop("checked", "true");
+                        $(element).prop("checked", "checked");
+                    }
                     break;
 
                 case 'select-multiple':
@@ -48,7 +52,10 @@
 
                 case 'select':
                 case 'select-one':
-                    $(element).find('option[value='+ value +']').prop('selected',true).end().parent().attr("disabled", true);
+                    if ($(element).hasClass('toCaps')) {
+                        value =value.replace(/\s/g, '').toUpperCase();
+                    }
+                    $(element).find('option[value=' + value + ']').prop('selected', true).end().parent().attr("disabled", true);
                     break;
                 case 'text':
                 case 'hidden':
@@ -73,7 +80,7 @@
                     }
                     else {
                         src = value;
-                        var iPositionStart = value.lastIndexOf('/')+1;
+                        var iPositionStart = value.lastIndexOf('/') + 1;
                         var iPositionEnd = value.indexOf('.');
                         alt = value.substring(iPositionStart, iPositionEnd);
                     }
@@ -87,7 +94,8 @@
                 default:
                     try {
                         $(element).html(value);
-                    } catch (exc) { }
+                    } catch (exc) {
+                    }
             }
 
         }
@@ -103,9 +111,9 @@
                     if (prop == null)
                         continue;
                     //Find an element with class, id, name, or rel attribute that matches the propertu name
-                   /* var child = jQuery.makeArray(jQuery("." + prop, element)).length > 0 ? jQuery("." + prop, element) :
-                                                    jQuery("#" + prop, element).length > 0 ? jQuery("#" + prop, element) :
-                                                    jQuery('[name="' + prop + '"]', element).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery('[rel="' + prop + '"]');*/
+                    /* var child = jQuery.makeArray(jQuery("." + prop, element)).length > 0 ? jQuery("." + prop, element) :
+                     jQuery("#" + prop, element).length > 0 ? jQuery("#" + prop, element) :
+                     jQuery('[name="' + prop + '"]', element).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery('[rel="' + prop + '"]');*/
                     var child = jQuery.makeArray(jQuery('[name="' + prop + '"]', element)).length > 0 ? jQuery('[name="' + prop + '"]', element) : jQuery("#" + prop, element);
                     if (child.length != 0)
                         browseJSON(obj[prop], jQuery(child, element), prop);
@@ -149,8 +157,7 @@
             }
         } //function browseJSON end
 
-        var defaults = {
-        };
+        var defaults = {};
 
         properties = $.extend(defaults, options);
 

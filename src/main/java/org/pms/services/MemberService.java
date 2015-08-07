@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface MemberService {
 
-    boolean addMemberSM(Member member);
+    boolean addOrUpdateMemberSM(Member member);
 
     List<Member> getAllMember();
 
@@ -25,4 +25,8 @@ public interface MemberService {
     List<Member> getAllMembersForFamilyID(Long familyId);
 
     Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
+
+    Member getFamilyHeadMember(Long familyId);
+
+    Member getMemberForMemberNo(Long memberNo);
 }

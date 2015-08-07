@@ -39,7 +39,6 @@ public class Member implements Serializable {
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
-    //@NotEmpty
     private String dateOfBaptism;
 
     @Column(name = "date_of_confirmation")
@@ -213,6 +212,10 @@ public class Member implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Person getMemberAsPerson() {

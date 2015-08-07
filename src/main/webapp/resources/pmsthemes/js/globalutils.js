@@ -102,7 +102,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
@@ -123,10 +123,8 @@ function addJqgridCustomButtons(gridId, formId) {
                 jQuery('#' + formId).show(500);
                 $('#' + formId + ' input').removeAttr('disabled');
                 $('#' + formId + ' select').removeAttr("disabled");
-                $('#' + formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
-                $('#' + formId).find('input[type="reset"]').removeClass('hidedisplay');
 
-                //  jQuery('form').trigger('reset');
+                $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
                 $('.actionSpan').text("Edit");
             }
         },
@@ -144,8 +142,11 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
 
-            $('#' + formId).find('input[type="button"][value="SAVE"]').removeClass('hidedisplay');
-            $('#' + formId).find('input[type="reset"]').removeClass('hidedisplay');
+            $(':input', '#' + formId)
+                .not(':button, :submit, :reset, :checkbox, #registeredDate')
+                .attr('value', '')
+                .removeAttr('checked')
+                .removeAttr('selected');
 
             jQuery('form').trigger('reset');
             $('.actionSpan').text("Add");
@@ -168,9 +169,9 @@ function addJqgridCustomButtons(gridId, formId) {
         }, style: "float:right;font-size: 10px;", text: "CANCEL", title: "CANCEL"
     })).append($('<div/>', {
         class: "btn btn-sm btn-success", click: function () {
-            if(formId!='memberForm'){
-            globalSubmissionOfForms(formId, gridId)
-            }else{
+            if (formId != 'memberForm') {
+                globalSubmissionOfForms(formId, gridId)
+            } else {
                 callImageSubmission();
             }
         }, style: "float:right;font-size: 10px;margin-right: 5px;width:55px", text: "SAVE", title: "SAVE"

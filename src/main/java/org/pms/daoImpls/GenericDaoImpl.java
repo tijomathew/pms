@@ -39,7 +39,7 @@ public abstract class GenericDaoImpl<T> extends HibernateSessionImpl implements 
 
     @Override
     public void updateInstance(T updateInstance) {
-        throw new UnsupportedOperationException("This method should not called!!...");
+        this.getDb(false).saveOrUpdate(updateInstance);
     }
 
     @Override

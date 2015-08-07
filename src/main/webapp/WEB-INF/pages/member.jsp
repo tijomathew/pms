@@ -105,6 +105,11 @@
                          jQuery('#jqgrowlContainer > ul').addClass('successContainer');
                          }*/
                         $('#memberForm')[0].reset();
+                        $(':input', '#memberForm')
+                                .not(':button, :submit, :reset, :checkbox, #registeredDate')
+                                .attr('value', '')
+                                .removeAttr('checked')
+                                .removeAttr('selected');
                         $('#memberAsPersonnationalityTextBox').hide();
                         jQuery('#memberGrid').trigger('reloadGrid');
                     }
@@ -221,6 +226,11 @@
                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
                                                                             class="hidden-xs">Death</span></a>
                                                                 </li>
+                                                                <li>
+                                                                    <a href="#member11" data-toggle="tab"><i
+                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
+                                                                            class="hidden-xs">Photo</span></a>
+                                                                </li>
                                                             </ul>
                                                         </h4>
                                                     </div>
@@ -254,6 +264,8 @@
                                                                                                 class="form-control"
                                                                                                 readonly="true"/>
                                                                                     </div>
+                                                                                    <form:input path="id"
+                                                                                                type="hidden"/>
                                                                                     <c:if test="${showForFamilyUser == false}">
                                                                                         <label for="familyMember"
                                                                                                class="col-sm-2 control-label">Family</label>
@@ -277,19 +289,6 @@
                                                                                                     class="form-control"/>
                                                                                         </div>
                                                                                     </c:if>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="memberAsPerson.file"
-                                                                                           class="col-sm-2 control-label">Photo</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="memberAsPerson.file"
-                                                                                                id="memberAsPerson.file"
-                                                                                                class="form-control"
-                                                                                                type="file"/>
-
-                                                                                    </div>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="memberAsPerson.salutation"
@@ -339,7 +338,7 @@
                                                                                         <form:select
                                                                                                 path="relationshipInFamily"
                                                                                                 id="relationshipInFamily"
-                                                                                                class="form-control"
+                                                                                                class="form-control toCaps"
                                                                                                 items="${relationshipInFamily}">
                                                                                         </form:select>
                                                                                     </div>
@@ -348,11 +347,8 @@
                                                                                         Head</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:radiobutton
-                                                                                                path="familyHead"
-                                                                                                id="familyHead"
-                                                                                                class="form-control"
-                                                                                                value="true"/>
+                                                                                        <form:checkbox path="familyHead"
+                                                                                                       checked="false"/>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
@@ -1276,6 +1272,32 @@
 
                                                                                 </div>
 
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="tab-pane" id="member11">
+                                                                    <div class="col-md-12">
+                                                                        <div class="panel panel-grape marginBottom7">
+                                                                            <div class="panel-heading">
+                                                                                <h4>
+                                                                                    Photo</h4>
+                                                                            </div>
+                                                                            <div class="panel-body">
+                                                                                <div class="form-group">
+                                                                                    <label for="memberAsPerson.file"
+                                                                                           class="col-sm-2 control-label">Photo</label>
+
+                                                                                    <div class="col-sm-4">
+                                                                                        <form:input
+                                                                                                path="memberAsPerson.file"
+                                                                                                id="memberAsPerson.file"
+                                                                                                class="form-control"
+                                                                                                type="file"/>
+
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
