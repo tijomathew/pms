@@ -1,5 +1,6 @@
 package org.pms.controllers;
 
+import org.apache.commons.codec.binary.Base64;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
@@ -76,7 +77,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                     member.getFamilyMember().addMemberForFamily(member);
                     try {
-                        member.setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                        member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -101,6 +102,15 @@ public class MemberController extends AbstractErrorAndGridHandler {
                             memberService.addOrUpdateMemberSM(familyHead);
                         }
                     }
+                }
+                if (member.getMemberAsPerson().getFile() != null && !member.getMemberAsPerson().getFile().isEmpty()) {
+                    try {
+                        member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    member.getMemberAsPerson().setImageBytes(Base64.decodeBase64(member.getMemberAsPerson().getImageBytesAsString()));
                 }
                 memberService.addOrUpdateMemberSM(member);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), "updated successfully");

@@ -98,11 +98,13 @@ function addJqgridCustomButtons(gridId, formId) {
             jQuery('#' + gridId).jqGrid('resetSelection');
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
+            $('#' + formId + ' radio').removeAttr("disabled");
+            $('#' + formId + ' textarea').removeAttr("disabled");
             $('#' + formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
@@ -123,6 +125,8 @@ function addJqgridCustomButtons(gridId, formId) {
                 jQuery('#' + formId).show(500);
                 $('#' + formId + ' input').removeAttr('disabled');
                 $('#' + formId + ' select').removeAttr("disabled");
+                $('#' + formId + ' radio').removeAttr("disabled");
+                $('#' + formId + ' textarea').removeAttr("disabled");
 
                 $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
                 $('.actionSpan').text("Edit");
@@ -141,9 +145,11 @@ function addJqgridCustomButtons(gridId, formId) {
 
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
+            $('#' + formId + ' radio').removeAttr("disabled");
+            $('#' + formId + ' textarea').removeAttr("disabled");
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
@@ -203,7 +209,7 @@ function cancelActions(formId, gridId) {
     //on cancel button click we reset form and grid selection .
     // jQuery("#cancelUser").click(function () {
     $(':input', '#' + formId)
-        .not(':button, :submit, :reset')
+        .not(':button, :submit, :reset, :radio')
         .attr('value', '')
         .removeAttr('checked')
         .removeAttr('selected');

@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.*;
@@ -7,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -22,18 +25,22 @@ public class Person implements Serializable {
 
     @Column(name = "salutation")
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private PersonSalutation salutation;
 
     @Column(name = "first_name")
+    @NotEmpty
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
     @Column(name = "last_name")
+    @NotEmpty
     private String lastName;
 
     @Column(name = "dob")
+    @NotEmpty
     private String dateOfBirth;
 
     @Column(name = "place_of_birth")
@@ -41,34 +48,36 @@ public class Person implements Serializable {
 
     @Column(name = "gender")
     @Enumerated(value = EnumType.ORDINAL)
+    @NotNull
     private Gender gender;
 
-    @Column(name = "photo_location")
-    private String photoPathLocation;
-
     @Column(name = "nationality")
+    @NotEmpty
     private String nationality;
 
     @Column(name = "personal_status")
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private PersonalStatus personalStatus;
 
-    @NotNull
     @Email
     @NotEmpty
     @Column(name = "email")
     private String email;
 
     @Column(name = "mobile_no")
-    private Long mobileNo;
+    @NotEmpty
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
+    private String mobileNo;
 
     @Column(name = "land_no")
-    private Long landLine;
+    private String landLine;
 
     @Column(name = "fax")
     private String faxNo;
 
     @Column(name = "education_qualifications")
+    @NotEmpty
     private String educationQualifications;
 
     @Column(name = "job_details")
@@ -76,6 +85,7 @@ public class Person implements Serializable {
 
     @Column(name = "blood_group")
     @Enumerated(EnumType.STRING)
+    @NotNull
     private BloodGroup bloodGroup;
 
     @Column(name = "car_number")
@@ -83,13 +93,21 @@ public class Person implements Serializable {
 
     @Column(name = "life_status")
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private LifeStatus lifeStatus;
 
     @Column(name = "personal_remarks")
     private String personalRemarks;
 
+    @Column(name = "image_content")
+    @Lob
+    private byte[] imageBytes;
+
     @Transient
     private MultipartFile file;
+
+    @Transient
+    private String imageBytesAsString;
 
 
     public Person() {
@@ -159,27 +177,21 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    public String getPhotoPathLocation() {
-        return photoPathLocation;
-    }
-
-    public void setPhotoPathLocation(String photoPathLocation) {
-        this.photoPathLocation = photoPathLocation;
-    }
-
     public String getNationality() {
         return nationality;
     }
 
     public void setNationality(String nationality) {
-        String splitedArgs[] = new String[2];
-        if (!nationality.isEmpty()) {
-            splitedArgs = nationality.split(",");
-        }
-        if (splitedArgs.length > 1 && !splitedArgs[1].isEmpty()) {
-            this.nationality = splitedArgs[1];
-        } else {
-            this.nationality = splitedArgs[0];
+        if (!nationality.contentEquals(",")) {
+            String splitedArgs[] = new String[2];
+            if (!nationality.isEmpty()) {
+                splitedArgs = nationality.split(",");
+            }
+            if (splitedArgs.length > 1 && !splitedArgs[1].isEmpty()) {
+                this.nationality = splitedArgs[1];
+            } else {
+                this.nationality = splitedArgs[0];
+            }
         }
     }
 
@@ -199,19 +211,19 @@ public class Person implements Serializable {
         this.email = email;
     }
 
-    public Long getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(Long mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
-    public Long getLandLine() {
+    public String getLandLine() {
         return landLine;
     }
 
-    public void setLandLine(Long landLine) {
+    public void setLandLine(String landLine) {
         this.landLine = landLine;
     }
 
@@ -269,6 +281,25 @@ public class Person implements Serializable {
 
     public void setPersonalRemarks(String personalRemarks) {
         this.personalRemarks = personalRemarks;
+    }
+
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
+    }
+
+    public void setImageBytesAsString(String imageBytesAsString) {
+        this.imageBytesAsString = imageBytesAsString;
+    }
+
+    public String getImageBytesAsString() {
+        if (imageBytes != null) {
+            this.imageBytesAsString = new String(Base64.encodeBase64(imageBytes));
+        }
+        return this.imageBytesAsString;
     }
 
     public String getFullName() {

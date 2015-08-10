@@ -34,7 +34,7 @@ function loadMemberGrid() {
                 "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo",
                 "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
                 "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion",
-                "anointingTheSick", "ministerOfAnointingTheSick", "familyMember", "familyHead", "id"],
+                "anointingTheSick", "ministerOfAnointingTheSick", "familyMember", "familyHead", "id", "photo"],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 100, sortable: false},
@@ -447,6 +447,13 @@ function loadMemberGrid() {
                     width: 100,
                     sortable: false,
                     hidden: true
+                },
+                {
+                    name: 'memberAsPerson.imageBytesAsString',
+                    index: 'memberAsPerson.imageBytesAsString',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
                 }
             ],
             rowNum: 10,
@@ -462,7 +469,17 @@ function loadMemberGrid() {
             onSelectRow: function () {
                 $('#memberGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#memberForm').show(500);
-                $('#memberForm').loadJSON(jQuery("#memberGrid").getRowData(jQuery("#memberGrid").jqGrid('getGridParam', 'selrow')));
+                var rowId = jQuery("#memberGrid").jqGrid('getGridParam', 'selrow');
+                $('#memberForm').loadJSON(jQuery("#memberGrid").getRowData(rowId));
+                document.getElementById("ItemPreview").src = "data:image/png;base64," + $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.imageBytesAsString');
+                var nationality = $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.nationality');
+                if (nationality != 'Indian' && nationality != 'Ireland') {
+                    $('#memberAsPersonnationalityTextBox').val(nationality).show();
+                    $("select#memberAsPersonnationality").val('Other');
+                } else {
+                    $('#memberAsPersonnationalityTextBox').val(nationality).hide();
+                }
+
             }
 
         });

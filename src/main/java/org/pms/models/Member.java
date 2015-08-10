@@ -36,6 +36,7 @@ public class Member implements Serializable {
 
     @Column(name = "relationship_in_family")
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
@@ -186,28 +187,19 @@ public class Member implements Serializable {
     private String ministerOfAnointingTheSick;
 
     @Column(name = "registered_date")
+    @NotEmpty
     private String registeredDate;
 
     @Column(name = "family_head")
-    private boolean familyHead;
+    private Boolean familyHead;
 
-    @Column(name = "image_content")
-    @Lob
-    private byte[] imageBytes;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "family_member_id")
+    @JoinColumn(name = "family_no")
+    @NotNull
     private Family familyMember;
 
     public Member() {
-    }
-
-    public byte[] getImageBytes() {
-        return imageBytes;
-    }
-
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
     }
 
     public Long getId() {
@@ -642,11 +634,11 @@ public class Member implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public boolean getFamilyHead() {
+    public Boolean getFamilyHead() {
         return familyHead;
     }
 
-    public void setFamilyHead(boolean familyHead) {
+    public void setFamilyHead(Boolean familyHead) {
         this.familyHead = familyHead;
     }
 

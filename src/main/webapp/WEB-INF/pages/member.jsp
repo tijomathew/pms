@@ -49,6 +49,7 @@
 
             // $("select#personalStatus").val("0");
             $('#memberAsPersonnationality').change(function () {
+                        $('#memberAsPersonnationalityTextBox').hide();
                         var nationality = $("#memberAsPersonnationality option:selected").val();
                         if (nationality == 'Other') {
                             $('#memberAsPersonnationalityTextBox').show();
@@ -106,7 +107,7 @@
                          }*/
                         $('#memberForm')[0].reset();
                         $(':input', '#memberForm')
-                                .not(':button, :submit, :reset, :checkbox, #registeredDate')
+                                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
                                 .attr('value', '')
                                 .removeAttr('checked')
                                 .removeAttr('selected');
@@ -292,7 +293,7 @@
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="memberAsPerson.salutation"
-                                                                                           class="col-sm-3 control-label">Full
+                                                                                           class="col-sm-2 control-label">Full
                                                                                         Name</label>
 
                                                                                     <div class="col-sm-1">
@@ -307,7 +308,7 @@
                                                                                     <div class="col-sm-2">
                                                                                         <form:input
                                                                                                 path="memberAsPerson.firstName"
-                                                                                                id="memberAsPersonfirstName"
+                                                                                                id="memberAsPerson.firstName"
                                                                                                 class="form-control"
                                                                                                 placeholder="First Name"/>
                                                                                     </div>
@@ -315,7 +316,7 @@
                                                                                     <div class="col-sm-2">
                                                                                         <form:input
                                                                                                 path="memberAsPerson.middleName"
-                                                                                                id="memberAsPersonmiddleName"
+                                                                                                id="memberAsPerson.middleName"
                                                                                                 class="form-control"
                                                                                                 placeholder="Middle Name"/>
                                                                                     </div>
@@ -323,7 +324,7 @@
                                                                                     <div class="col-sm-2">
                                                                                         <form:input
                                                                                                 path="memberAsPerson.lastName"
-                                                                                                id="memberAsPersonlastName"
+                                                                                                id="memberAsPerson.lastName"
                                                                                                 class="form-control"
                                                                                                 placeholder="Last Name"/>
                                                                                     </div>
@@ -352,14 +353,14 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="memberAsPersongender"
+                                                                                    <label for="memberAsPerson.gender"
                                                                                            class="col-sm-2 control-label">Gender</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:radiobuttons
                                                                                                 path="memberAsPerson.gender"
-                                                                                                id="memberAsPersongender"
-                                                                                                class="form-control"
+                                                                                                id="memberAsPerson.gender"
+                                                                                                class="form-control toCaps"
                                                                                                 items="${sex}"/>
                                                                                     </div>
                                                                                     <label for="memberAsPerson.dateOfBirth"
@@ -392,7 +393,7 @@
                                                                                         <form:select
                                                                                                 path="memberAsPerson.personalStatus"
                                                                                                 id="personalStatus"
-                                                                                                class="form-control"
+                                                                                                class="form-control toCaps"
                                                                                                 items="${personalStatus}">
                                                                                         </form:select>
                                                                                     </div>
@@ -471,7 +472,7 @@
                                                                                         <form:select
                                                                                                 path="memberAsPerson.lifeStatus"
                                                                                                 id="lifeStatus"
-                                                                                                class="form-control"
+                                                                                                class="form-control toCaps"
                                                                                                 items="${lifeStatus}">
                                                                                         </form:select>
                                                                                     </div>
@@ -1295,6 +1296,13 @@
                                                                                                 id="memberAsPerson.file"
                                                                                                 class="form-control"
                                                                                                 type="file"/>
+                                                                                        <form:input
+                                                                                                path="memberAsPerson.imageBytesAsString"
+                                                                                                id="memberAsPerson.imageBytesAsString"
+                                                                                                class="form-control"
+                                                                                                type="hidden"
+                                                                                                />
+                                                                                        <img id="ItemPreview" src=""/>
 
                                                                                     </div>
                                                                                 </div>

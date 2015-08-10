@@ -28,6 +28,10 @@
             switch (type) {
 
                 case 'radio':
+                    if ($(element).hasClass('toCaps')) {
+                        value = value.replace(/\s/g, '').toUpperCase();
+                    }
+                    $(element).attr("disabled", true);
                     $(element).removeAttr('checked');
                     if (value == $(element).val())
                         $(element).prop("checked", "true");
@@ -53,9 +57,10 @@
                 case 'select':
                 case 'select-one':
                     if ($(element).hasClass('toCaps')) {
-                        value =value.replace(/\s/g, '').toUpperCase();
+                        value = value.replace(/\s/g, '').toUpperCase();
                     }
-                    $(element).find('option[value=' + value + ']').prop('selected', true).end().parent().attr("disabled", true);
+                    var solveDotIssueInValue = value = value.replace(/\./g, '\\.');
+                    $(element).find('option[value=' + solveDotIssueInValue + ']').prop('selected', true).end().parent().attr("disabled", true);
                     break;
                 case 'text':
                 case 'hidden':
@@ -89,6 +94,7 @@
                     break;
 
                 case 'textarea':
+                    $(element).html(value).attr("disabled", true);
                 case 'submit':
                 case 'button':
                 default:
