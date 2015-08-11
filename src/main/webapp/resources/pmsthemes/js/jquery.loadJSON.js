@@ -60,7 +60,7 @@
                         value = value.replace(/\s/g, '').toUpperCase();
                     }
                     var solveDotIssueInValue = value = value.replace(/\./g, '\\.');
-                    $(element).find('option[value=' + solveDotIssueInValue + ']').prop('selected', true).end().parent().attr("disabled", true);
+                    $(element).find('option[value=' + solveDotIssueInValue + ']').prop('selected', true).end().attr("disabled", true);
                     break;
                 case 'text':
                 case 'hidden':

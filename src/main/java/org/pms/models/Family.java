@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,9 @@ public class Family implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
+    @NotEmpty
     @Column(name = "family_name")
     private String familyName;
 
@@ -38,28 +41,42 @@ public class Family implements Serializable {
     @Column(name = "parish_in_native")
     private String parishInNative;
 
+    @NotEmpty
     @Column(name = "diocese_in_native")
     private String dioceseInNative;
 
+    @NotEmpty
     @Column(name = "date_of_registration")
     private String dateOfRegistration;
 
+    @Valid
+    @NotNull
     @Embedded
     private LocalAddress localAddress;
 
+    @Valid
+    @NotNull
     @Embedded
     private NativeAddress nativeAddress;
 
+    @Valid
+    @NotNull
+    @Embedded
+    private EmergencyContact emergencyContact;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "family_parish_id")
+    @JoinColumn(name = "parish_no")
     private Parish familyParish;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "family_masscenter_id")
+    @JoinColumn(name = "masscenter_no")
     private MassCenter familyMassCenter;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "family_prayer_unit_id")
+    @JoinColumn(name = "prayerunit_no")
     private PrayerUnit familyPrayerUnit;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -71,6 +88,10 @@ public class Family implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFamilyName() {
@@ -127,6 +148,14 @@ public class Family implements Serializable {
 
     public void setNativeAddress(NativeAddress nativeAddress) {
         this.nativeAddress = nativeAddress;
+    }
+
+    public EmergencyContact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
+        this.emergencyContact = emergencyContact;
     }
 
     public Parish getFamilyParish() {

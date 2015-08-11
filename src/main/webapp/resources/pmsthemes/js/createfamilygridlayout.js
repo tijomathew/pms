@@ -19,7 +19,7 @@ function loadFamilyGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['Family No.', 'Family Name', 'Parish No.','Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese','dateOfRegistration', 'parishId', 'massCenterId', 'prayerUnitId', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country'],
+            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCenter', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail'],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 90, sortable: false},
@@ -32,9 +32,6 @@ function loadFamilyGrid() {
                 {name: 'parishInNative', index: 'parishInNative', width: 100, sortable: false},
                 {name: 'dioceseInNative', index: 'dioceseInNative', width: 100, sortable: false},
                 {name: 'dateOfRegistration', index: 'dateOfRegistration', width: 100, sortable: false, hidden: true},
-                {name: 'parishId', index: 'parishId', width: 100, sortable: false, hidden: true},
-                {name: 'massCenterId', index: 'massCenterId', width: 100, sortable: false, hidden: true},
-                {name: 'prayerUnitId', index: 'prayerUnitId', width: 100, sortable: false, hidden: true},
                 {
                     name: 'localAddress.addressLineOne',
                     index: 'localAddress.addressLineOne',
@@ -143,6 +140,70 @@ function loadFamilyGrid() {
                     width: 150,
                     align: "right",
                     sortable: false, hidden: true
+                },
+                {
+                    name: 'id',
+                    index: 'id',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'familyParish',
+                    index: 'familyParish',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'familyMassCenter',
+                    index: 'familyMassCenter',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'familyPrayerUnit',
+                    index: 'familyPrayerUnit',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'emergencyContact.nameAddress',
+                    index: 'emergencyContact.nameAddress',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'emergencyContact.phoneNo',
+                    index: 'emergencyContact.phoneNo',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'emergencyContact.alternativePhoneNo',
+                    index: 'emergencyContact.alternativePhoneNo',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'emergencyContact.email',
+                    index: 'emergencyContact.email',
+                    width: 150,
+                    align: "right",
+                    sortable: false,
+                    hidden: true
                 }
             ],
             rowNum: 10,
@@ -154,7 +215,14 @@ function loadFamilyGrid() {
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
-            width: 'auto'
+            width: 'auto',
+            onSelectRow: function () {
+                $('#familyGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#familyForm').show(500);
+                var rowId = jQuery("#familyGrid").jqGrid('getGridParam', 'selrow');
+                $('#familyForm').loadJSON(jQuery("#familyGrid").getRowData(rowId));
+
+            }
         });
     jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {
         edit: false, add: false, del: true,

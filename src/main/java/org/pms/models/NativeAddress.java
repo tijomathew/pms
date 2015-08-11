@@ -1,7 +1,11 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
@@ -15,6 +19,7 @@ public class NativeAddress implements Serializable {
 
     private static final long serialVersionUID = -3708545110602581311L;
 
+    @NotEmpty
     @Column(name = "na_addressline_one")
     private String addressLineOne;
 
@@ -24,20 +29,26 @@ public class NativeAddress implements Serializable {
     @Column(name = "na_addressline_three")
     private String addressLineThree;
 
+    @NotEmpty
     @Column(name = "na_postoffice")
     private String postOffice;
 
+    @NotEmpty
     @Column(name = "na_district")
     private String district;
 
+    @Min(value = 6)
+    @Max(value = 6)
     @Column(name = "na_pin")
     private Long pin;
 
+    @NotEmpty
     @Column(name = "na_state")
     private String state;
 
+    @NotEmpty
     @Column(name = "na_country")
-    private String country;
+    private String country = "India";
 
     public NativeAddress() {
     }

@@ -59,13 +59,16 @@ public final class FactorySelectBox {
     public Model generateSelectBoxInModel(Model model, User currentUser) {
         switch (currentUser.getSystemRole()) {
             case ADMIN:
-                //NO OP
+                cleanUpListAndMap();
+                createListEntries(currentUser, model);
                 break;
             case PARISH_ADMIN:
-                //NO OP
+                cleanUpListAndMap();
+                createListEntries(currentUser, model);
                 break;
             case MASS_CENTER_ADMIN:
-                //NO OP
+                cleanUpListAndMap();
+                createListEntries(currentUser, model);
                 break;
             case PRAYER_UNIT_ADMIN:
                 cleanUpListAndMap();
@@ -80,9 +83,9 @@ public final class FactorySelectBox {
     }
 
     private void createListEntries(User currentUser, Model model) {
-        parishList.add(currentUser.getUsersOfParishes());
-        massCenterList.add(currentUser.getUsersOfMassCenters());
-        prayerUnitList.add(currentUser.getUsersOfPrayerUnits());
+        parishList.addAll(parishService.getAllParishForUserRole(currentUser));
+        massCenterList.addAll(massCenterService.getAllMassCentersForUserRole(currentUser));
+        prayerUnitList.addAll(prayerUnitService.getAllPrayerUnitsForUserRole(currentUser));
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }

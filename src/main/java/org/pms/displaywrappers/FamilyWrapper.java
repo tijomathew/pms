@@ -15,7 +15,7 @@ public class FamilyWrapper implements GridRow {
 
     private Family familyBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "parishNumber", "parishName","massCenterNumber", "massCenterName", "prayerUnitNumber", "prayerUnitName","parishInNative", "dioceseInNative", "dateOfRegistration", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country"};
+    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "parishNumber", "parishName", "massCenterNumber", "massCenterName", "prayerUnitNumber", "prayerUnitName", "parishInNative", "dioceseInNative", "dateOfRegistration", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "nativeAddress.addressLineOne", "nativeAddress.addressLineTwo", "nativeAddress.addressLineThree", "nativeAddress.postOffice", "nativeAddress.district", "nativeAddress.pin", "nativeAddress.state", "nativeAddress.country", "id", "familyParish.id", "familyMassCenter.id", "familyPrayerUnit.id", "emergencyContact.nameAddress", "emergencyContact.phoneNo", "emergencyContact.alternativePhoneNo", "emergencyContact.email"};
 
     public FamilyWrapper(Family familyBean) {
         this.familyBean = familyBean;
@@ -31,11 +31,11 @@ public class FamilyWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                String assignedValue = "N/A";
+                String assignedValue = "";
                 if (BeanUtils.getProperty(this.familyBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.familyBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
-                        assignedValue = "N/A";
+                        assignedValue = "";
                     }
                 }
                 convertedResult.add(assignedValue);

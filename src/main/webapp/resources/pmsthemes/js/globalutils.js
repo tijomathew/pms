@@ -104,7 +104,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #nativeAddresscountry, #localAddresscountry')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
@@ -149,7 +149,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' textarea').removeAttr("disabled");
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio,#nativeAddresscountry, #localAddresscountry')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
@@ -209,7 +209,7 @@ function cancelActions(formId, gridId) {
     //on cancel button click we reset form and grid selection .
     // jQuery("#cancelUser").click(function () {
     $(':input', '#' + formId)
-        .not(':button, :submit, :reset, :radio')
+        .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #nativeAddresscountry, #localAddresscountry')
         .attr('value', '')
         .removeAttr('checked')
         .removeAttr('selected');

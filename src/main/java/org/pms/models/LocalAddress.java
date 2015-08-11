@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.print.DocFlavor;
 import java.io.Serializable;
@@ -15,26 +17,35 @@ public class LocalAddress implements Serializable {
 
     private static final long serialVersionUID = -3368576220015835720L;
 
+    @NotEmpty
     @Column(name = "la_addressline_one")
     private String addressLineOne;
 
+    @NotEmpty
     @Column(name = "la_addressline_two")
     private String addressLineTwo;
 
     @Column(name = "la_addressline_three")
     private String addressLineThree;
 
+    @NotEmpty
     @Column(name = "la_town")
     private String town;
 
+    @NotEmpty
     @Column(name = "la_county")
     private String county;
 
-    @Column(name = "la_pin")
-    private Long pin;
+    @Column(name = "la_postcode")
+    private String postCode;
 
+    @NotEmpty
+    @Column(name = "la_pin")
+    private String pin;
+
+    @NotEmpty
     @Column(name = "la_country")
-    private String country;
+    private String country = "Ireland";
 
     public LocalAddress() {
     }
@@ -79,11 +90,19 @@ public class LocalAddress implements Serializable {
         this.county = county;
     }
 
-    public Long getPin() {
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(Long pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 

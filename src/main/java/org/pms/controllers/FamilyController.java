@@ -1,6 +1,8 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
 import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
@@ -56,11 +58,11 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
-        model.addAttribute("family", new Family());
+        Family modelObjectOfFamily = new Family();
+        modelObjectOfFamily.setDateOfRegistration(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("family", modelObjectOfFamily);
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        if (currentUser.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN || currentUser.getSystemRole() == SystemRole.FAMILY_USER) {
-            factorySelectBox.generateSelectBoxInModel(model, currentUser);
-        }
+        factorySelectBox.generateSelectBoxInModel(model, currentUser);
         return PageName.FAMILY.toString();
     }
 
@@ -94,7 +96,6 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
-
         }
 
         return customResponse;
@@ -144,7 +145,6 @@ public class FamilyController extends AbstractErrorAndGridHandler {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
         binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
-        binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }
 
 }
