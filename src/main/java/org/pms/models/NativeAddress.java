@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -37,8 +38,7 @@ public class NativeAddress implements Serializable {
     @Column(name = "na_district")
     private String district;
 
-    @Min(value = 6)
-    @Max(value = 6)
+    @NotNull
     @Column(name = "na_pin")
     private Long pin;
 
