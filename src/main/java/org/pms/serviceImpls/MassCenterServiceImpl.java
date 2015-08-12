@@ -1,5 +1,7 @@
 package org.pms.serviceImpls;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.daos.MassCenterDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
@@ -77,7 +79,7 @@ public class MassCenterServiceImpl implements MassCenterService {
     @Override
     public MassCenter createMassCenterFormBackObject(Model model) {
         MassCenter formBackMassCenter = new MassCenter();
-
+        formBackMassCenter.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("massCenter", formBackMassCenter);
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);

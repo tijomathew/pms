@@ -22,7 +22,7 @@ public interface ParishService {
 
     Long getParishCount();
 
-    void updateParish(Parish parish);
+    void createFormBackObject(Model model);
 
     List<Parish> getAllParishForUserRole(User currentUser);
 }

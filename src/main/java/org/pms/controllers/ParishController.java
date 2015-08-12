@@ -1,5 +1,7 @@
 package org.pms.controllers;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.ParishWrapper;
@@ -38,7 +40,9 @@ public class ParishController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
     public String parishPageDisplay(Model model) {
-        model.addAttribute("parish", new Parish());
+        Parish modelBackObject = new Parish();
+        modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("parish", modelBackObject);
         return PageName.PARISH.toString();
     }
 

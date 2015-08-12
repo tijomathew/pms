@@ -16,7 +16,7 @@ public class ParishWrapper implements GridRow {
     private Parish parishBean;
 
     private static final String[] VALID_BEAN_PROPERTIES = {"parishNo", "parishName", "place", "patron", "webSite", "facebookPage",
-            "drivingRoute", "map", "registeredDate", "mobileNo", "email", "landLineNo", "faxNo", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
+            "registeredDate", "mobileNo", "landLineNo", "faxNo", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
 
     public ParishWrapper(Parish parishBean) {
         this.parishBean = parishBean;

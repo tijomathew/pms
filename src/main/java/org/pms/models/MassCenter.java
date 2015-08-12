@@ -5,6 +5,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class MassCenter implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "masscenter_name")
     private String massCenterName;
 
@@ -37,38 +40,34 @@ public class MassCenter implements Serializable {
     @Column(name = "patron_name")
     private String patronName;
 
+    @NotEmpty
     @Column(name = "place")
     private String place;
 
-    @Column(name = "facebook_page")
-    private String facebookPage;
-
+    @NotEmpty
     @Column(name = "registered_date")
     private String registeredDate;
 
-    @Column(name = "driving_route")
-    private String drivingRoute;
-
-    @Column(name = "map")
-    private String map;
-
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "landline_no")
-    private long landLineNo;
+    private String landLineNo;
 
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "mobile_no")
-    private long mobileNo;
+    private String mobileNo;
 
-    @Column(name = "email")
-    private String email;
-
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "faxno")
     private String faxNo;
 
+    @Valid
+    @NotNull
     @Embedded
     private LocalAddress localAddress;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parish_masscenter_id")
+    @JoinColumn(name = "parish_no")
     private Parish mappedParish;
 
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -122,14 +121,6 @@ public class MassCenter implements Serializable {
         this.place = place;
     }
 
-    public String getFacebookPage() {
-        return facebookPage;
-    }
-
-    public void setFacebookPage(String facebookPage) {
-        this.facebookPage = facebookPage;
-    }
-
     public String getRegisteredDate() {
         return registeredDate;
     }
@@ -138,44 +129,20 @@ public class MassCenter implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public String getDrivingRoute() {
-        return drivingRoute;
-    }
-
-    public void setDrivingRoute(String drivingRoute) {
-        this.drivingRoute = drivingRoute;
-    }
-
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
-    }
-
-    public long getLandLineNo() {
+    public String getLandLineNo() {
         return landLineNo;
     }
 
-    public void setLandLineNo(long landLineNo) {
+    public void setLandLineNo(String landLineNo) {
         this.landLineNo = landLineNo;
     }
 
-    public long getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(long mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFaxNo() {

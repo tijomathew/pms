@@ -39,7 +39,7 @@ function loadParishGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'webSite', 'facebookPage', 'drivingRoute', 'map', 'registeredDate', 'mobileNo', 'email', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
+            colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'webSite', 'facebookPage', 'registeredDate', 'mobileNo', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
                 {name: 'parishNo', index: 'parishNo', width: 80, align: "right", sortable: false},
                 {name: 'parishName', index: 'parishName', width: 80, align: "right", sortable: false},
@@ -47,8 +47,6 @@ function loadParishGrid() {
                 {name: 'patron', index: 'patron', width: 80, align: "right", sortable: false},
                 {name: 'webSite', index: 'webSite', width: 80, align: "right", sortable: false, hidden: true},
                 {name: 'facebookPage', index: 'facebookPage', width: 80, align: "right", sortable: false, hidden: true},
-                {name: 'drivingRoute', index: 'drivingRoute', width: 80, align: "right", sortable: false, hidden: true},
-                {name: 'map', index: 'map', width: 80, align: "right", sortable: false, hidden: true},
                 {
                     name: 'registeredDate',
                     index: 'registeredDate',
@@ -58,7 +56,6 @@ function loadParishGrid() {
                     hidden: true
                 },
                 {name: 'mobileNo', index: 'mobileNo', width: 80, align: "right", sortable: false, hidden: true},
-                {name: 'email', index: 'email', width: 80, align: "right", sortable: false, hidden: true},
                 {name: 'landLineNo', index: 'landLineNo', width: 80, align: "right", sortable: false, hidden: true},
                 {name: 'faxNo', index: 'faxNo', width: 80, align: "right", sortable: false, hidden: true},
                 {
@@ -125,7 +122,10 @@ function loadParishGrid() {
             height: 'auto',
             width: 'auto',
             onSelectRow: function () {
-                $('#parishForm').loadJSON(jQuery("#parishGrid").getRowData(jQuery("#parishGrid").jqGrid('getGridParam', 'selrow')));
+                $('#parishGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#parishForm').show(500);
+                var rowId = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
+                $('#parishForm').loadJSON(jQuery("#parishGrid").getRowData(rowId));
             }
         });
     jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {

@@ -23,41 +23,41 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 966228303336553974L;
 
+    @NotNull
     @Column(name = "salutation")
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
     private PersonSalutation salutation;
 
-    @Column(name = "first_name")
     @NotEmpty
+    @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "last_name")
     @NotEmpty
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "dob")
     @NotEmpty
+    @Column(name = "dob")
     private String dateOfBirth;
 
     @Column(name = "place_of_birth")
     private String placeOfBirth;
 
+    @NotNull
     @Column(name = "gender")
     @Enumerated(value = EnumType.ORDINAL)
-    @NotNull
     private Gender gender;
 
-    @Column(name = "nationality")
     @NotEmpty
+    @Column(name = "nationality")
     private String nationality;
 
+    @NotNull
     @Column(name = "personal_status")
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
     private PersonalStatus personalStatus;
 
     @Email
@@ -65,9 +65,9 @@ public class Person implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "mobile_no")
     @NotEmpty
     @Pattern(regexp = "(^[0-9]{10,15}$)")
+    @Column(name = "mobile_no")
     private String mobileNo;
 
     @Column(name = "land_no")
@@ -83,24 +83,24 @@ public class Person implements Serializable {
     @Column(name = "job_details")
     private String jobDetails;
 
+    @NotNull
     @Column(name = "blood_group")
     @Enumerated(EnumType.STRING)
-    @NotNull
     private BloodGroup bloodGroup;
 
     @Column(name = "car_number")
     private String carNumber;
 
+    @NotNull
     @Column(name = "life_status")
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
     private LifeStatus lifeStatus;
 
     @Column(name = "personal_remarks")
     private String personalRemarks;
 
-    @Column(name = "image_content")
     @Lob
+    @Column(name = "image_content")
     private byte[] imageBytes;
 
     @Transient

@@ -2,6 +2,7 @@ package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
@@ -9,11 +10,9 @@ import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
-import org.pms.models.MassCenter;
-import org.pms.models.PrayerUnit;
-import org.pms.models.SelectBox;
-import org.pms.models.User;
+import org.pms.models.*;
 import org.pms.services.MassCenterService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +36,9 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
+
+    @Autowired
+    private ParishService parishService;
 
     @Autowired
     private MassCenterService massCenterService;
@@ -120,6 +122,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
         binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
     }
 

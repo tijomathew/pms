@@ -19,7 +19,7 @@ function loadMassCenterGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['MC No.','MC Name', 'place', 'patronName','Parish No.', 'Parish Name',   'facebookPage', 'registeredDate', 'drivingRoute', 'map', 'landLineNo', 'mobileNo', 'email', 'faxNo',
+            colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'Parish No.', 'Parish Name', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
                 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
                 {name: 'massCenterNo', index: 'massCenterNo', width: 90, sortable: false},
@@ -28,13 +28,9 @@ function loadMassCenterGrid() {
                 {name: 'patronName', index: 'patronName', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 90, sortable: false},
-                {name: 'facebookPage', index: 'facebookPage', width: 90, sortable: false, hidden: true},
                 {name: 'registeredDate', index: 'registeredDate', width: 90, sortable: false, hidden: true},
-                {name: 'drivingRoute', index: 'drivingRoute', width: 90, sortable: false, hidden: true},
-                {name: 'map', index: 'map', width: 90, sortable: false, hidden: true},
                 {name: 'landLineNo', index: 'landLineNo', width: 90, sortable: false, hidden: true},
                 {name: 'mobileNo', index: 'mobileNo', width: 90, sortable: false, hidden: true},
-                {name: 'email', index: 'email', width: 90, sortable: false, hidden: true},
                 {name: 'faxNo', index: 'faxNo', width: 90, sortable: false, hidden: true},
                 {
                     name: 'localAddress.addressLineOne',
@@ -99,7 +95,14 @@ function loadMassCenterGrid() {
             shrinkToFit: true,
             height: 'auto',
             width: 'auto',
-            emptyrecords: 'no data available to show!!..Please add data to view'
+            emptyrecords: 'no data available to show!!..Please add data to view',
+            onSelectRow: function () {
+                $('#massCenterGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#massCenterForm').show(500);
+                var rowId = jQuery("#massCenterGrid").jqGrid('getGridParam', 'selrow');
+                $('#massCenterForm').loadJSON(jQuery("#massCenterGrid").getRowData(rowId));
+
+            }
         });
     jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {
         edit: false, add: false, del: true,

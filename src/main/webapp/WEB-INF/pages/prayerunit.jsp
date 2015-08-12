@@ -132,11 +132,11 @@
                                                                                         <form:input path="prayerUnitPlace"
                                                                                                     id="prayerUnitPlace" class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="parishNo"
+                                                                                    <label for="mappedParish"
                                                                                            class="col-sm-2 control-label">Parish</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:select path="parishNo"
+                                                                                        <form:select path="mappedParish"
                                                                                                      items="${parishMap}"
                                                                                                      id="parishNo" class="form-control"/>
                                                                                     </div>

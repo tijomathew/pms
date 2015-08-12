@@ -193,7 +193,8 @@
                                                                                         <form:input
                                                                                                 path="registeredDate"
                                                                                                 id="registeredDate"
-                                                                                                class="form-control"/>
+                                                                                                class="form-control"
+                                                                                                readonly="true"/>
                                                                                     </div>
 
                                                                                 </div>
@@ -223,17 +224,6 @@
                                                                                                 id="mobileNo"
                                                                                                 class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="email"
-                                                                                           class="col-sm-2 control-label">Email</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="email"
-                                                                                                id="email"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
                                                                                     <label for="landLineNo"
                                                                                            class="col-sm-2 control-label">Land
                                                                                         Line No.</label>
@@ -244,6 +234,8 @@
                                                                                                 id="landLineNo"
                                                                                                 class="form-control"/>
                                                                                     </div>
+                                                                                </div>
+                                                                                <div class="form-group">
                                                                                     <label for="faxNo"
                                                                                            class="col-sm-2 control-label">Fax
                                                                                         No.</label>
@@ -344,7 +336,8 @@
                                                                                         <form:input
                                                                                                 path="localAddress.country"
                                                                                                 id="localAddresscountry"
-                                                                                                class="form-control"/>
+                                                                                                class="form-control"
+                                                                                                readonly="true"/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

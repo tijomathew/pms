@@ -1,5 +1,7 @@
 package org.pms.serviceImpls;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.SystemRole;
 import org.pms.daos.ParishDao;
 import org.pms.helpers.RequestResponseHolder;
@@ -54,11 +56,6 @@ public class ParishServiceImpl implements ParishService {
     }
 
     @Override
-    public void updateParish(Parish parish) {
-        parishDao.updateParish(parish);
-    }
-
-    @Override
     public List<Parish> getAllParishForUserRole(User currentUser) {
         List<Parish> parishList = new ArrayList<>();
         switch (currentUser.getSystemRole()) {
@@ -79,5 +76,12 @@ public class ParishServiceImpl implements ParishService {
                 break;
         }
         return parishList;
+    }
+
+    @Override
+    public void createFormBackObject(Model model) {
+        Parish modelBackObject = new Parish();
+        modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("parish", modelBackObject);
     }
 }

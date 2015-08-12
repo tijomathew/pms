@@ -57,6 +57,7 @@ public final class FactorySelectBox {
     }
 
     public Model generateSelectBoxInModel(Model model, User currentUser) {
+        model.addAttribute("family", new Family());
         switch (currentUser.getSystemRole()) {
             case ADMIN:
                 cleanUpListAndMap();

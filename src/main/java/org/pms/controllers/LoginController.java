@@ -2,6 +2,8 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
@@ -42,6 +44,9 @@ public class LoginController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
+
+    @Autowired
+    private ParishService parishService;
 
     @Autowired
     private MassCenterService massCenterService;
@@ -172,19 +177,15 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 model.addAttribute("loginUser", new User());
                 break;
             case PARISH:
-                model.addAttribute("showAddButton", true);
-                model.addAttribute("parish", new Parish());
+                parishService.createFormBackObject(model);
                 break;
             case MASSCENTER:
-                MassCenter formBackMassCenter = massCenterService.createMassCenterFormBackObject(model);
-                model.addAttribute("massCenter", formBackMassCenter);
+                massCenterService.createMassCenterFormBackObject(model);
                 break;
             case PRAYERUNIT:
-                PrayerUnit formBackPrayerUnit = prayerUnitService.createPrayerUnitFormBackObject(model);
-                model.addAttribute("prayerUnit", formBackPrayerUnit);
+                prayerUnitService.createPrayerUnitFormBackObject(model);
                 break;
             case FAMILY:
-                model.addAttribute("family", new Family());
                 factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
                 break;
         }

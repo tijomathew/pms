@@ -26,17 +26,17 @@ public class Member implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Embedded
     @Valid
     @NotNull
+    @Embedded
     private Person memberAsPerson;
 
     @Column(name = "member_no")
     private Long memberNo;
 
+    @NotNull
     @Column(name = "relationship_in_family")
     @Enumerated(EnumType.ORDINAL)
-    @NotNull
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")
@@ -186,17 +186,16 @@ public class Member implements Serializable {
     @Column(name = "minister_of_anointing_the_sick")
     private String ministerOfAnointingTheSick;
 
-    @Column(name = "registered_date")
     @NotEmpty
+    @Column(name = "registered_date")
     private String registeredDate;
 
     @Column(name = "family_head")
     private Boolean familyHead;
 
-
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "family_no")
-    @NotNull
     private Family familyMember;
 
     public Member() {

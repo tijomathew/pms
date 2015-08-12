@@ -5,8 +5,10 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.List;
  * It contains various getters and setters of attributes of the parish.
  * It contains various relationships with priest, mass center and families.
  * It contains various methods for adding priest, mass center and families.
- * <p>
+ * <p/>
  * User: tijo
  */
 @Entity
@@ -33,9 +35,11 @@ public class Parish implements Serializable {
     @Column(name = "parish_no")
     private Long parishNo;
 
+    @NotEmpty
     @Column(name = "parish_name")
     private String parishName;
 
+    @NotEmpty
     @Column(name = "place")
     private String place;
 
@@ -45,30 +49,27 @@ public class Parish implements Serializable {
     @Column(name = "facebook_page")
     private String facebookPage;
 
-    @Column(name = "driving_route")
-    private String drivingRoute;
-
-    @Column(name = "map")
-    private String map;
-
+    @NotEmpty
     @Column(name = "registered_date")
     private String registeredDate;
 
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "mobile_no")
-    private Long mobileNo;
+    private String mobileNo;
 
-    @Column(name = "email")
-    private String email;
-
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "landline_no")
-    private Long landLineNo;
+    private String landLineNo;
 
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "fax_no")
     private String faxNo;
 
     @Column(name = "patron")
     private String patron;
 
+    @Valid
+    @NotNull
     @Embedded
     private LocalAddress localAddress;
 
@@ -83,10 +84,6 @@ public class Parish implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyParish", cascade = CascadeType.ALL)
     private List<Family> mappedFamilies = new ArrayList<Family>();
-
-    /*@OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    private User adminToParish;*/
 
     public Parish() {
     }
@@ -135,22 +132,6 @@ public class Parish implements Serializable {
         this.facebookPage = facebookPage;
     }
 
-    public String getDrivingRoute() {
-        return drivingRoute;
-    }
-
-    public void setDrivingRoute(String drivingRoute) {
-        this.drivingRoute = drivingRoute;
-    }
-
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
-    }
-
     public String getRegisteredDate() {
         return registeredDate;
     }
@@ -159,27 +140,19 @@ public class Parish implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public Long getMobileNo() {
+    public String getMobileNo() {
         return mobileNo;
     }
 
-    public void setMobileNo(Long mobileNo) {
+    public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getLandLineNo() {
+    public String getLandLineNo() {
         return landLineNo;
     }
 
-    public void setLandLineNo(Long landLineNo) {
+    public void setLandLineNo(String landLineNo) {
         this.landLineNo = landLineNo;
     }
 

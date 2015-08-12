@@ -7,6 +7,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -38,9 +39,10 @@ public class NativeAddress implements Serializable {
     @Column(name = "na_district")
     private String district;
 
-    @NotNull
+    @NotEmpty
+    @Pattern(regexp = "(^[0-9]{6,6}$)")
     @Column(name = "na_pin")
-    private Long pin;
+    private String pin;
 
     @NotEmpty
     @Column(name = "na_state")
@@ -93,11 +95,11 @@ public class NativeAddress implements Serializable {
         this.district = district;
     }
 
-    public Long getPin() {
+    public String getPin() {
         return pin;
     }
 
-    public void setPin(Long pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 

@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +24,14 @@ public class PrayerUnit implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@NotEmpty
+    @NotEmpty
     @Column(name = "name")
     private String prayerUnitName;
 
     @Column(name = "prayerunit_no")
     private Long prayerUnitNo;
 
+    @NotEmpty
     @Column(name = "place")
     private String prayerUnitPlace;
 
@@ -37,12 +40,15 @@ public class PrayerUnit implements Serializable {
 
     //This field is added to resolve the selection issue of mass center if two or more parish has same mass center name. This field has no role in logic of adding a mass center.
     @Transient
-    private Long parishNo;
+    private Parish mappedParish;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "prayer_unit_masscenter_id")
+    @JoinColumn(name = "masscenter_no")
     private MassCenter mappedMassCenter;
 
+    @NotNull
+    @Valid
     @Embedded
     private LocalAddress localAddress;
 
@@ -89,12 +95,12 @@ public class PrayerUnit implements Serializable {
         this.patron = patron;
     }
 
-    public Long getParishNo() {
-        return parishNo;
+    public Parish getMappedParish() {
+        return mappedParish;
     }
 
-    public void setParishNo(Long parishNo) {
-        this.parishNo = parishNo;
+    public void setMappedParish(Parish mappedParish) {
+        this.mappedParish = mappedParish;
     }
 
     public MassCenter getMappedMassCenter() {
@@ -141,6 +147,10 @@ public class PrayerUnit implements Serializable {
 
     public String getMassCenterName() {
         return this.getMappedMassCenter().getMassCenterName();
+    }
+
+    public Long getParishId() {
+        return this.getMappedMassCenter().getMappedParish().getId();
     }
 
 
