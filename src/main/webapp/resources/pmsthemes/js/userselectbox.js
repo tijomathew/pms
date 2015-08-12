@@ -20,7 +20,7 @@ function loadSelectBox(contextPath) {
             var systemRole = $("#systemRole option:selected").val();
 
             if (systemRole != 'PARISH_ADMIN') {
-                $.getJSON(contextPath + "/createmasscenterselectbox.action",
+                $.getJSON(contextPath + "/createmasscentreselectbox.action",
                     {selectedParishId: $('#parishSelectBox').val()},
                     function (data) {
                         $('#massCenterSelectBox').find('option').remove();

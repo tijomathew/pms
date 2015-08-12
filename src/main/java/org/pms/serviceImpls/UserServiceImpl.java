@@ -3,7 +3,7 @@ package org.pms.serviceImpls;
 import org.pms.daos.UserDao;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
-import org.pms.models.MassCenter;
+import org.pms.models.MassCentre;
 import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
@@ -33,13 +33,10 @@ public class UserServiceImpl implements UserService {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
-
-    @Autowired
-    private FamilyService familyService;
 
     @Override
     public boolean addOrUpdateUserSM(User user) {
@@ -153,9 +150,9 @@ public class UserServiceImpl implements UserService {
         }
 
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
-        List<MassCenter> massCenterList = massCenterService.getAllMassCentersForUserRole(currentUser);
-        if (!massCenterList.isEmpty()) {
-            massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
+        List<MassCentre> massCentreList = massCentreService.getAllMassCentersForUserRole(currentUser);
+        if (!massCentreList.isEmpty()) {
+            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCenterName));
         }
 
         Map<Long, String> prayerUnitMap = new HashMap<Long, String>();

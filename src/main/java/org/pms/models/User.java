@@ -70,7 +70,7 @@ public class User implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_of_masscenter")
-    private MassCenter usersOfMassCenters;
+    private MassCentre usersOfMassCenters;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_prayerunit")
@@ -259,11 +259,11 @@ public class User implements Serializable {
         this.usersOfParishes = usersOfParishes;
     }
 
-    public MassCenter getUsersOfMassCenters() {
+    public MassCentre getUsersOfMassCenters() {
         return usersOfMassCenters;
     }
 
-    public void setUsersOfMassCenters(MassCenter usersOfMassCenters) {
+    public void setUsersOfMassCenters(MassCentre usersOfMassCenters) {
         this.usersOfMassCenters = usersOfMassCenters;
     }
 

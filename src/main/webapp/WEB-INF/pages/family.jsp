@@ -182,14 +182,14 @@
                                                                                             items="${parishList}"
                                                                                             class="form-control"></form:select>
                                                                                 </div>
-                                                                                <label for="familyMassCenter"
+                                                                                <label for="familyMassCentre"
                                                                                        class="col-sm-2 control-label">Mass
                                                                                     Center</label>
 
                                                                                 <div class="col-sm-4">
                                                                                     <form:select
-                                                                                            path="familyMassCenter"
-                                                                                            items="${massCenterList}"
+                                                                                            path="familyMassCentre"
+                                                                                            items="${massCentreList}"
                                                                                             class="form-control"></form:select>
                                                                                 </div>
                                                                             </div>

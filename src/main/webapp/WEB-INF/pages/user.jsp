@@ -256,7 +256,7 @@
                                                                                         <div class="col-sm-4" id="massCenterSelectBoxer">
                                                                                             <form:select
                                                                                                     path="usersOfMassCenters"
-                                                                                                    items="${massCenterList}"
+                                                                                                    items="${massCentreList}"
                                                                                                     id="massCenterId"
                                                                                                     class="form-control"></form:select>
 

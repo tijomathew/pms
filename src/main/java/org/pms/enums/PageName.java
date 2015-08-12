@@ -8,7 +8,7 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public enum PageName {
 
-    LOGIN, FAMILY, MASSCENTER, MEMBER, PARISH, PRAYERUNIT, PRIEST, USER, CHANGEPASSWORD;
+    LOGIN, FAMILY, MASSCENTRE, MEMBER, PARISH, PRAYERUNIT, PRIEST, USER, CHANGEPASSWORD;
 
     @Override
     public String toString() {

@@ -6,7 +6,6 @@ import org.pms.models.Person;
 import org.pms.models.Priest;
 import org.pms.models.PriestDesignation;
 import org.pms.services.PriestService;
-import org.pms.utils.DisplayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

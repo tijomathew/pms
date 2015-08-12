@@ -3,11 +3,11 @@ package org.pms.serviceImpls;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.MassCenter;
+import org.pms.models.MassCentre;
 import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
-import org.pms.services.MassCenterService;
+import org.pms.services.MassCentreService;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
@@ -110,7 +110,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.addAll(getAllPrayerUnits());
                 break;
             case PARISH_ADMIN:
-                List<MassCenter> massCentersUnderParish = massCenterService.getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId());
+                List<MassCentre> massCentersUnderParish = massCentreService.getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId());
                 if (!massCentersUnderParish.isEmpty()) {
                     massCentersUnderParish.stream().forEach(massCenter -> allPrayerUnits.addAll(massCenter.getPrayerUnits()));
                 }

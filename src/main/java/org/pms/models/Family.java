@@ -72,7 +72,7 @@ public class Family implements Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "masscenter_no")
-    private MassCenter familyMassCenter;
+    private MassCentre familyMassCentre;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -166,12 +166,12 @@ public class Family implements Serializable {
         this.familyParish = familyParish;
     }
 
-    public MassCenter getFamilyMassCenter() {
-        return familyMassCenter;
+    public MassCentre getFamilyMassCentre() {
+        return familyMassCentre;
     }
 
-    public void setFamilyMassCenter(MassCenter familyMassCenter) {
-        this.familyMassCenter = familyMassCenter;
+    public void setFamilyMassCentre(MassCentre familyMassCentre) {
+        this.familyMassCentre = familyMassCentre;
     }
 
     public PrayerUnit getFamilyPrayerUnit() {
@@ -210,7 +210,7 @@ public class Family implements Serializable {
     }
 
     public Long getMassCenterNumber() {
-        return this.getFamilyMassCenter().getMassCenterNo();
+        return this.getFamilyMassCentre().getMassCenterNo();
     }
 
     public Long getPrayerUnitNumber() {
@@ -218,7 +218,7 @@ public class Family implements Serializable {
     }
 
     public String getMassCenterName() {
-        return this.getFamilyMassCenter().getMassCenterName();
+        return this.getFamilyMassCentre().getMassCenterName();
     }
 
     public String getPrayerUnitName() {

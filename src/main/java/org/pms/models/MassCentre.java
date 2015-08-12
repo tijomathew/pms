@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "masscenter_details")
-public class MassCenter implements Serializable {
+public class MassCentre implements Serializable {
 
     private static final long serialVersionUID = 1669408565953568157L;
 
@@ -71,18 +71,18 @@ public class MassCenter implements Serializable {
     private Parish mappedParish;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "mappedMassCenter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mappedMassCentre", cascade = CascadeType.ALL)
     private List<PrayerUnit> prayerUnits = new ArrayList<PrayerUnit>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "familyMassCenter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "familyMassCentre", cascade = CascadeType.ALL)
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "massCenter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "massCentre", cascade = CascadeType.ALL)
     private List<Priest> mappedPriest = new ArrayList<Priest>();
 
-    public MassCenter() {
+    public MassCentre() {
     }
 
     public Long getId() {

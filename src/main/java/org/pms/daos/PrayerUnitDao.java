@@ -1,6 +1,5 @@
 package org.pms.daos;
 
-import org.pms.models.MassCenter;
 import org.pms.models.PrayerUnit;
 
 import java.util.List;

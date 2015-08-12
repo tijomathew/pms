@@ -1,10 +1,8 @@
 package org.pms.controllers;
 
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
-import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.PageName;
@@ -42,7 +40,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -58,9 +56,6 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
-        Family modelObjectOfFamily = new Family();
-        modelObjectOfFamily.setDateOfRegistration(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("family", modelObjectOfFamily);
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         factorySelectBox.generateSelectBoxInModel(model, currentUser);
         return PageName.FAMILY.toString();
@@ -77,7 +72,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
             if (currentUser.getUserOfFamily() == null) {
                 family.getFamilyParish().addFamilyForParish(family);
-                family.getFamilyMassCenter().addFamilyForMassCenter(family);
+                family.getFamilyMassCentre().addFamilyForMassCenter(family);
                 family.getFamilyPrayerUnit().addFamilyForWard(family);
 
                 Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
@@ -143,7 +138,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
     }
 

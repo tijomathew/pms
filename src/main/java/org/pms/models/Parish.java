@@ -6,10 +6,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class Parish implements Serializable {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL)
-    private List<MassCenter> massCenterList = new ArrayList<MassCenter>();
+    private List<MassCentre> massCentreList = new ArrayList<MassCentre>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyParish", cascade = CascadeType.ALL)
@@ -180,12 +178,12 @@ public class Parish implements Serializable {
         this.priestList = priestList;
     }
 
-    public List<MassCenter> getMassCenterList() {
-        return massCenterList;
+    public List<MassCentre> getMassCentreList() {
+        return massCentreList;
     }
 
-    public void setMassCenterList(List<MassCenter> massCenterList) {
-        this.massCenterList = massCenterList;
+    public void setMassCentreList(List<MassCentre> massCentreList) {
+        this.massCentreList = massCentreList;
     }
 
     public List<Family> getMappedFamilies() {
@@ -226,11 +224,11 @@ public class Parish implements Serializable {
     /**
      * This method is for adding mass centers for parish.
      *
-     * @param massCenter The mass center to be added.
+     * @param massCentre The mass center to be added.
      */
-    public void addMassCentersForParish(MassCenter massCenter) {
-        if (!this.massCenterList.contains(massCenter)) {
-            this.massCenterList.add(massCenter);
+    public void addMassCentersForParish(MassCentre massCentre) {
+        if (!this.massCentreList.contains(massCentre)) {
+            this.massCentreList.add(massCentre);
         }
     }
 

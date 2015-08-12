@@ -2,25 +2,17 @@ package org.pms.serviceImpls;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.pms.enums.SystemRole;
 import org.pms.daos.ParishDao;
-import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.Parish;
 import org.pms.models.User;
-import org.pms.services.FamilyService;
-import org.pms.services.MassCenterService;
 import org.pms.services.ParishService;
-import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This class is the implementation for the Parish Service contract.
@@ -69,7 +61,7 @@ public class ParishServiceImpl implements ParishService {
                 parishList.add(currentUser.getUsersOfMassCenters().getMappedParish());
                 break;
             case PRAYER_UNIT_ADMIN:
-                parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCenter().getMappedParish());
+                parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish());
                 break;
             case FAMILY_USER:
                 parishList.add(currentUser.getUserOfFamily().getFamilyParish());

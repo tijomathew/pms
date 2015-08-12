@@ -16,7 +16,7 @@ function loadSelectBox(contextPath) {
             $('#parishSelectBox').append(html);
         });
     $('#parishSelectBox').change(function () {
-            $.getJSON(contextPath + "/createmasscenterselectbox.action",
+            $.getJSON(contextPath + "/createmasscentreselectbox.action",
                 {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
                     $('#massCenterSelectBox').find('option').remove();

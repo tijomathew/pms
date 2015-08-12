@@ -4,7 +4,7 @@
 
 function loadMassCenterGrid() {
 
-    jQuery("#massCenterGrid").jqGrid(
+    jQuery("#massCentreGrid").jqGrid(
         {
             jsonreader: {
                 root: "rows",
@@ -14,7 +14,7 @@ function loadMassCenterGrid() {
 
 
             },
-            url: 'displaymasscentergrid.action',
+            url: 'displaymasscentregrid.action',
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
@@ -86,7 +86,7 @@ function loadMassCenterGrid() {
                 }
             ],
             rowNum: 10,
-            pager: '#massCenterGridPager',
+            pager: '#massCentreGridPager',
             sortname: 'id',
             viewrecords: true,
             sortorder: "desc",
@@ -97,18 +97,18 @@ function loadMassCenterGrid() {
             width: 'auto',
             emptyrecords: 'no data available to show!!..Please add data to view',
             onSelectRow: function () {
-                $('#massCenterGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#massCenterForm').show(500);
-                var rowId = jQuery("#massCenterGrid").jqGrid('getGridParam', 'selrow');
-                $('#massCenterForm').loadJSON(jQuery("#massCenterGrid").getRowData(rowId));
+                $('#massCentreGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#massCentreForm').show(500);
+                var rowId = jQuery("#massCentreGrid").jqGrid('getGridParam', 'selrow');
+                $('#massCentreForm').loadJSON(jQuery("#massCentreGrid").getRowData(rowId));
 
             }
         });
-    jQuery("#massCenterGrid").jqGrid('navGrid', '#massCenterGridPager', {
+    jQuery("#massCentreGrid").jqGrid('navGrid', '#massCentreGridPager', {
         edit: false, add: false, del: true,
         search: true, refresh: false
     });
 
-    addJqgridCustomButtons("massCenterGrid", "massCenterForm");
+    addJqgridCustomButtons("massCentreGrid", "massCentreForm");
     replaceDefaultGridCss();
 }

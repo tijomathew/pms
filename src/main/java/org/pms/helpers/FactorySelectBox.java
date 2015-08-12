@@ -1,9 +1,11 @@
 package org.pms.helpers;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.SystemRole;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
-import org.pms.services.MassCenterService;
+import org.pms.services.MassCentreService;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public final class FactorySelectBox {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -41,7 +43,7 @@ public final class FactorySelectBox {
     private FamilyService familyService;
 
     private List<Parish> parishList;
-    private List<MassCenter> massCenterList;
+    private List<MassCentre> massCentreList;
     private List<PrayerUnit> prayerUnitList;
     private Map<Long, String> parishMap;
     private Map<Long, String> massCenterMap;
@@ -49,7 +51,7 @@ public final class FactorySelectBox {
 
     public FactorySelectBox() {
         this.parishList = new ArrayList<>();
-        this.massCenterList = new ArrayList<>();
+        this.massCentreList = new ArrayList<>();
         this.prayerUnitList = new ArrayList<>();
         this.parishMap = new HashMap<>();
         this.massCenterMap = new HashMap<>();
@@ -57,7 +59,9 @@ public final class FactorySelectBox {
     }
 
     public Model generateSelectBoxInModel(Model model, User currentUser) {
-        model.addAttribute("family", new Family());
+        Family modelObjectOfFamily = new Family();
+        modelObjectOfFamily.setDateOfRegistration(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("family", modelObjectOfFamily);
         switch (currentUser.getSystemRole()) {
             case ADMIN:
                 cleanUpListAndMap();
@@ -85,13 +89,13 @@ public final class FactorySelectBox {
 
     private void createListEntries(User currentUser, Model model) {
         parishList.addAll(parishService.getAllParishForUserRole(currentUser));
-        massCenterList.addAll(massCenterService.getAllMassCentersForUserRole(currentUser));
+        massCentreList.addAll(massCentreService.getAllMassCentersForUserRole(currentUser));
         prayerUnitList.addAll(prayerUnitService.getAllPrayerUnitsForUserRole(currentUser));
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
-        if (!massCenterList.isEmpty()) {
-            massCenterMap = massCenterList.stream().collect(Collectors.toMap(MassCenter::getId, MassCenter::getMassCenterName));
+        if (!massCentreList.isEmpty()) {
+            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCenterName));
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
@@ -101,7 +105,7 @@ public final class FactorySelectBox {
         prayerUnitMap.put(0l, "--Please Select--");
 
         model.addAttribute("parishList", parishMap);
-        model.addAttribute("massCenterList", massCenterMap);
+        model.addAttribute("massCentreList", massCenterMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
 
     }
@@ -122,8 +126,8 @@ public final class FactorySelectBox {
         if (!parishList.isEmpty()) {
             parishList.clear();
         }
-        if (!massCenterList.isEmpty()) {
-            massCenterList.clear();
+        if (!massCentreList.isEmpty()) {
+            massCentreList.clear();
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitList.clear();

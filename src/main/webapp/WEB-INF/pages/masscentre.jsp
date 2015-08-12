@@ -13,10 +13,10 @@
     <%@ include file="scriptLibraryTemplate.jsp" %>
 
     <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
-    <spring:url value="/resources/js/createmasscentergridlayout.js" var="masscenterGridURL"/>
+    <spring:url value="/resources/js/createmasscentregridlayout.js" var="massCentreGridURL"/>
     <spring:url value="/addmasscenter.action" var="massCenterActionURL"/>
 
-    <script src="${masscenterGridURL}" type="text/javascript"
+    <script src="${massCentreGridURL}" type="text/javascript"
             language="javascript"></script>
 
     <script src="${priestdesignationdisplayURL}" type="text/javascript"
@@ -92,12 +92,12 @@
                                                     </div>
 
                                                     <div class="panel-body">
-                                                        <table id="massCenterGrid"></table>
-                                                        <div id="massCenterGridPager"></div>
+                                                        <table id="massCentreGrid"></table>
+                                                        <div id="massCentreGridPager"></div>
 
-                                                        <form:form modelAttribute="massCenter"
+                                                        <form:form modelAttribute="massCentre"
                                                                    action="${massCenterActionURL}" method="post"
-                                                                   id="massCenterForm"
+                                                                   id="massCentreForm"
                                                                    cssClass="form-horizontal hidedisplay">
 
                                                             <div class="tab-content">

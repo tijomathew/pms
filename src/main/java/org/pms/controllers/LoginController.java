@@ -2,8 +2,6 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
@@ -49,7 +47,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -179,8 +177,8 @@ public class LoginController extends AbstractErrorAndGridHandler {
             case PARISH:
                 parishService.createFormBackObject(model);
                 break;
-            case MASSCENTER:
-                massCenterService.createMassCenterFormBackObject(model);
+            case MASSCENTRE:
+                massCentreService.createMassCenterFormBackObject(model);
                 break;
             case PRAYERUNIT:
                 prayerUnitService.createPrayerUnitFormBackObject(model);

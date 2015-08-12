@@ -1,7 +1,7 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
@@ -11,7 +11,7 @@ import org.pms.error.CustomResponse;
 import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
-import org.pms.services.MassCenterService;
+import org.pms.services.MassCentreService;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
@@ -62,9 +62,9 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            prayerUnit.getMappedMassCenter().addPrayerUnitsForMassCenter(prayerUnit);
+            prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCenter(prayerUnit);
 
-            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCenter().getMappedParish().getId());
+            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
 
             prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
 
@@ -123,7 +123,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
     }
 
 }

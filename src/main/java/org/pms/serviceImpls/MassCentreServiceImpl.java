@@ -2,14 +2,13 @@ package org.pms.serviceImpls;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
-import org.pms.daos.MassCenterDao;
+import org.pms.daos.MassCentreDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.MassCenter;
+import org.pms.models.MassCentre;
 import org.pms.models.Parish;
 import org.pms.models.User;
-import org.pms.services.MassCenterService;
-import org.pms.services.PrayerUnitService;
+import org.pms.services.MassCentreService;
 import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +28,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class MassCenterServiceImpl implements MassCenterService {
+public class MassCentreServiceImpl implements MassCentreService {
 
     @Autowired
-    private MassCenterDao massCenterDao;
+    private MassCentreDao massCentreDao;
 
     @Autowired
     private ParishService parishService;
@@ -41,46 +40,46 @@ public class MassCenterServiceImpl implements MassCenterService {
     private RequestResponseHolder requestResponseHolder;
 
     @Override
-    public boolean addMassCenterSM(MassCenter massCenter) {
-        massCenterDao.addMassCenterDM(massCenter);
+    public boolean addMassCenterSM(MassCentre massCentre) {
+        massCentreDao.addMassCenterDM(massCentre);
         return true;
     }
 
     @Override
     public List<Parish> getAllParishSM() {
-        return massCenterDao.getAllParishDM();
+        return massCentreDao.getAllParishDM();
     }
 
     @Override
-    public List<MassCenter> getAllMassCenter() {
-        return massCenterDao.getAllMassCenters();
+    public List<MassCentre> getAllMassCenter() {
+        return massCentreDao.getAllMassCenters();
     }
 
     @Override
-    public MassCenter getMassCenterForIDSM(Long id) {
-        return massCenterDao.getMassCenterForID(id);
+    public MassCentre getMassCenterForIDSM(Long id) {
+        return massCentreDao.getMassCenterForID(id);
     }
 
     @Override
-    public List<MassCenter> getAllMassCentersForParishID(Long parishAutoID) {
-        return massCenterDao.getAllMassCentersForParishID(parishAutoID);
+    public List<MassCentre> getAllMassCentersForParishID(Long parishAutoID) {
+        return massCentreDao.getAllMassCentersForParishID(parishAutoID);
     }
 
     @Override
     public Long getMassCenterCountForParish(Long parishId) {
-        return massCenterDao.getMassCenterCountForParish(parishId);
+        return massCentreDao.getMassCenterCountForParish(parishId);
     }
 
     @Override
-    public void updateMassCenter(MassCenter massCenter) {
-        massCenterDao.updateMassCenter(massCenter);
+    public void updateMassCenter(MassCentre massCentre) {
+        massCentreDao.updateMassCenter(massCentre);
     }
 
     @Override
-    public MassCenter createMassCenterFormBackObject(Model model) {
-        MassCenter formBackMassCenter = new MassCenter();
-        formBackMassCenter.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("massCenter", formBackMassCenter);
+    public MassCentre createMassCenterFormBackObject(Model model) {
+        MassCentre formBackMassCentre = new MassCentre();
+        formBackMassCentre.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("massCentre", formBackMassCentre);
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
@@ -91,31 +90,31 @@ public class MassCenterServiceImpl implements MassCenterService {
         }
         parishMap.put(0l, "--Please Select--");
         model.addAttribute("parishList", parishMap);
-        return formBackMassCenter;
+        return formBackMassCentre;
     }
 
     @Override
     public Long getAllMassCenterCount() {
-        return massCenterDao.getAllMassCenterCount();
+        return massCentreDao.getAllMassCenterCount();
     }
 
     @Override
     public List<Long> getAllMassCenterIdsForParish(Long parishId) {
-        return massCenterDao.getAllMassCenterIdsForParish(parishId);
+        return massCentreDao.getAllMassCenterIdsForParish(parishId);
     }
 
     @Override
-    public List<MassCenter> getAllMassCentersForUserRole(User currentUser) {
-        List<MassCenter> allMassCenters = new ArrayList<>();
+    public List<MassCentre> getAllMassCentersForUserRole(User currentUser) {
+        List<MassCentre> allMassCentres = new ArrayList<>();
         switch (currentUser.getSystemRole()) {
             case ADMIN:
-                allMassCenters = getAllMassCenter();
+                allMassCentres = getAllMassCenter();
                 break;
             case PARISH_ADMIN:
-                allMassCenters.addAll(getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId()));
+                allMassCentres.addAll(getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
-                allMassCenters.add(currentUser.getUsersOfMassCenters());
+                allMassCentres.add(currentUser.getUsersOfMassCenters());
                 break;
             case PRAYER_UNIT_ADMIN:
                 //No Op
@@ -124,6 +123,6 @@ public class MassCenterServiceImpl implements MassCenterService {
                 //No Op
                 break;
         }
-        return allMassCenters;
+        return allMassCentres;
     }
 }

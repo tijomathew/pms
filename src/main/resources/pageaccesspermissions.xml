@@ -19,7 +19,7 @@
 
         <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displaymasscentergrid.action</value>
+        <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>
@@ -29,7 +29,7 @@
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
-        <value>createmasscenterselectbox.action</value>
+        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -54,7 +54,7 @@
 
         <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displaymasscentergrid.action</value>
+        <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>
@@ -64,7 +64,7 @@
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
-        <value>createmasscenterselectbox.action</value>
+        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -82,7 +82,7 @@
     <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewmasscenter.action</value>
         <value>addmasscenter.action</value>
-        <value>displaymasscentergrid.action</value>
+        <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
 
         <value>viewprayerunit.action</value>
@@ -92,7 +92,7 @@
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
-        <value>createmasscenterselectbox.action</value>
+        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -115,7 +115,7 @@
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
-        <value>createmasscenterselectbox.action</value>
+        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -134,7 +134,7 @@
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
         <value>createparishselectbox.action</value>
-        <value>createmasscenterselectbox.action</value>
+        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 

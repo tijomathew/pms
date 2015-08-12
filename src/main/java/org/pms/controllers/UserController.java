@@ -4,7 +4,7 @@ package org.pms.controllers;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
-import org.pms.custompropertyeditors.MassCenterCustomPropertyEditor;
+import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.*;
@@ -45,7 +45,7 @@ public class UserController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCenterService massCenterService;
+    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -161,7 +161,7 @@ public class UserController extends AbstractErrorAndGridHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCenter.class, new MassCenterCustomPropertyEditor(massCenterService));
+        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
         binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }

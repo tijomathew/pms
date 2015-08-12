@@ -15,7 +15,7 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/masscenterselectbox.js" var="massCenterSelectBoxURL"/>
+    <spring:url value="/resources/js/masscentreselectbox.js" var="massCenterSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
@@ -142,13 +142,13 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="mappedMassCenter"
+                                                                                    <label for="mappedMassCentre"
                                                                                            class="col-sm-2 control-label">Mass
                                                                                         Center</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:select path="mappedMassCenter"
-                                                                                                     id="mappedMassCenter"
+                                                                                        <form:select path="mappedMassCentre"
+                                                                                                     id="mappedMassCentre"
                                                                                                      class="form-control"/>
                                                                                     </div>
                                                                                     <label for="patron"

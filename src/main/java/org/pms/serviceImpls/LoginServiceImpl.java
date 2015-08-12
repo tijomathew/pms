@@ -84,7 +84,7 @@ public class LoginServiceImpl implements LoginService {
                 redirectPageName = PageName.PARISH;
                 break;
             case MASS_CENTER_ADMIN:
-                redirectPageName = PageName.MASSCENTER;
+                redirectPageName = PageName.MASSCENTRE;
                 break;
             case PRAYER_UNIT_ADMIN:
                 redirectPageName = PageName.PRAYERUNIT;

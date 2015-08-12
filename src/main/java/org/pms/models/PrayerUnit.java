@@ -45,7 +45,7 @@ public class PrayerUnit implements Serializable {
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "masscenter_no")
-    private MassCenter mappedMassCenter;
+    private MassCentre mappedMassCentre;
 
     @NotNull
     @Valid
@@ -103,12 +103,12 @@ public class PrayerUnit implements Serializable {
         this.mappedParish = mappedParish;
     }
 
-    public MassCenter getMappedMassCenter() {
-        return mappedMassCenter;
+    public MassCentre getMappedMassCentre() {
+        return mappedMassCentre;
     }
 
-    public void setMappedMassCenter(MassCenter mappedMassCenter) {
-        this.mappedMassCenter = mappedMassCenter;
+    public void setMappedMassCentre(MassCentre mappedMassCentre) {
+        this.mappedMassCentre = mappedMassCentre;
     }
 
     public LocalAddress getLocalAddress() {
@@ -134,23 +134,23 @@ public class PrayerUnit implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getMappedMassCenter().getMappedParish().getParishNo();
+        return this.getMappedMassCentre().getMappedParish().getParishNo();
     }
 
     public Long getMassCenterNumber() {
-        return this.getMappedMassCenter().getMassCenterNo();
+        return this.getMappedMassCentre().getMassCenterNo();
     }
 
     public String getParishName() {
-        return this.getMappedMassCenter().getMappedParish().getParishName();
+        return this.getMappedMassCentre().getMappedParish().getParishName();
     }
 
     public String getMassCenterName() {
-        return this.getMappedMassCenter().getMassCenterName();
+        return this.getMappedMassCentre().getMassCenterName();
     }
 
     public Long getParishId() {
-        return this.getMappedMassCenter().getMappedParish().getId();
+        return this.getMappedMassCentre().getMappedParish().getId();
     }
 
 
