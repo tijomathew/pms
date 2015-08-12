@@ -210,7 +210,7 @@ public class Family implements Serializable {
     }
 
     public Long getMassCenterNumber() {
-        return this.getFamilyMassCentre().getMassCenterNo();
+        return this.getFamilyMassCentre().getMassCentreNo();
     }
 
     public Long getPrayerUnitNumber() {
@@ -218,7 +218,7 @@ public class Family implements Serializable {
     }
 
     public String getMassCenterName() {
-        return this.getFamilyMassCentre().getMassCenterName();
+        return this.getFamilyMassCentre().getMassCentreName();
     }
 
     public String getPrayerUnitName() {

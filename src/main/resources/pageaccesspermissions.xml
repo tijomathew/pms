@@ -17,7 +17,7 @@
         <value>addpriest.action</value>
         <value>displaypriestgrid.action</value>
 
-        <value>viewmasscenter.action</value>
+        <value>viewmasscentre.action</value>
         <value>addmasscenter.action</value>
         <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
@@ -52,7 +52,7 @@
         <value>editparishdetails.action</value>
         <value>updateparishinformation.action</value>
 
-        <value>viewmasscenter.action</value>
+        <value>viewmasscentre.action</value>
         <value>addmasscenter.action</value>
         <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>
@@ -80,7 +80,7 @@
     </util:list>
 
     <util:list id="massCenterAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
-        <value>viewmasscenter.action</value>
+        <value>viewmasscentre.action</value>
         <value>addmasscenter.action</value>
         <value>displaymasscentregrid.action</value>
         <value>createpriestdesignationboxinmasscenter.action</value>

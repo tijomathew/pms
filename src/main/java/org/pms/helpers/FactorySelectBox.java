@@ -95,7 +95,7 @@ public final class FactorySelectBox {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
         if (!massCentreList.isEmpty()) {
-            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCenterName));
+            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));

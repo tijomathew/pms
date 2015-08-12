@@ -39,7 +39,7 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
-    @RequestMapping(value = "/viewmasscenter.action", method = RequestMethod.GET)
+    @RequestMapping(value = "/viewmasscentre.action", method = RequestMethod.GET)
     public String massCenterDisplay(Model modelMap) {
 
         massCentreService.createMassCenterFormBackObject(modelMap);
@@ -57,13 +57,13 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
 
             Long massCenterCount = massCentreService.getMassCenterCountForParish(massCentre.getMappedParish().getId());
 
-            massCentre.setMassCenterNo(++massCenterCount);
+            massCentre.setMassCentreNo(++massCenterCount);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
             if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
                 massCentreService.addMassCenterSM(massCentre);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCenterName(), SUCCESS_MESSAGE_DISPLAY);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), SUCCESS_MESSAGE_DISPLAY);
             } else {
                 customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
             }
@@ -105,9 +105,9 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
             List<MassCentre> massCentreListForParishID = massCentreService.getAllMassCentersForParishID(selectedParishID);
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                massCentreListForParishID = massCentreListForParishID.stream().filter(massCenter -> massCenter.getMassCenterName().equalsIgnoreCase(currentUser.getUsersOfMassCenters().getMassCenterName())).collect(Collectors.toList());
+                massCentreListForParishID = massCentreListForParishID.stream().filter(massCenter -> massCenter.getMassCentreName().equalsIgnoreCase(currentUser.getUsersOfMassCenters().getMassCentreName())).collect(Collectors.toList());
             }
-            List<SelectBox<String, Long>> selectBoxList = massCentreListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCenterName(), massCenter.getId())).collect(Collectors.toList());
+            List<SelectBox<String, Long>> selectBoxList = massCentreListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCentreName(), massCenter.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
         return returnObject;

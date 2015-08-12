@@ -205,7 +205,7 @@ public class User implements Serializable {
     public String getMassCenter() {
         String returnedObject = StringUtils.EMPTY;
         if (this.getUsersOfMassCenters() != null)
-            returnedObject = this.getUsersOfMassCenters().getMassCenterName();
+            returnedObject = this.getUsersOfMassCenters().getMassCentreName();
         return returnedObject;
     }
 

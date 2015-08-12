@@ -287,7 +287,7 @@ public class Priest implements Serializable {
     public String getMassCenterName() {
         String returnObject = StringUtils.EMPTY;
         if (this.getMassCentre() != null)
-            returnObject = this.getMassCentre().getMassCenterName();
+            returnObject = this.getMassCentre().getMassCentreName();
         return returnObject;
     }
 

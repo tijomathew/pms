@@ -31,11 +31,11 @@ public class MassCentre implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "masscenter_name")
-    private String massCenterName;
+    @Column(name = "masscentre_name")
+    private String massCentreName;
 
-    @Column(name = "masscenter_no")
-    private Long massCenterNo;
+    @Column(name = "masscentre_no")
+    private Long massCentreNo;
 
     @Column(name = "patron_name")
     private String patronName;
@@ -89,20 +89,20 @@ public class MassCentre implements Serializable {
         return id;
     }
 
-    public String getMassCenterName() {
-        return massCenterName;
+    public String getMassCentreName() {
+        return massCentreName;
     }
 
-    public void setMassCenterName(String massCenterName) {
-        this.massCenterName = massCenterName;
+    public void setMassCentreName(String massCenterName) {
+        this.massCentreName = massCenterName;
     }
 
-    public Long getMassCenterNo() {
-        return massCenterNo;
+    public Long getMassCentreNo() {
+        return massCentreNo;
     }
 
-    public void setMassCenterNo(Long massCenterNo) {
-        this.massCenterNo = massCenterNo;
+    public void setMassCentreNo(Long massCenterNo) {
+        this.massCentreNo = massCenterNo;
     }
 
     public String getPatronName() {

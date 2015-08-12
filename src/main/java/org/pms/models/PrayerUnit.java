@@ -138,7 +138,7 @@ public class PrayerUnit implements Serializable {
     }
 
     public Long getMassCenterNumber() {
-        return this.getMappedMassCentre().getMassCenterNo();
+        return this.getMappedMassCentre().getMassCentreNo();
     }
 
     public String getParishName() {
@@ -146,7 +146,7 @@ public class PrayerUnit implements Serializable {
     }
 
     public String getMassCenterName() {
-        return this.getMappedMassCentre().getMassCenterName();
+        return this.getMappedMassCentre().getMassCentreName();
     }
 
     public Long getParishId() {

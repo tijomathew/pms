@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
         Map<Long, String> massCenterMap = new HashMap<Long, String>();
         List<MassCentre> massCentreList = massCentreService.getAllMassCentersForUserRole(currentUser);
         if (!massCentreList.isEmpty()) {
-            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCenterName));
+            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
         }
 
         Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
