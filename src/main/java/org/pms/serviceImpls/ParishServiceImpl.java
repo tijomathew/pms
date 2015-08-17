@@ -27,8 +27,8 @@ public class ParishServiceImpl implements ParishService {
     private ParishDao parishDao;
 
     @Override
-    public boolean addParishSM(Parish parish) {
-        parishDao.addParishDM(parish);
+    public Boolean addOrUpdateParish(Parish parish) {
+        parishDao.addOrUpdateParish(parish);
         return true;
     }
 

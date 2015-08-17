@@ -114,6 +114,10 @@
                                                                                 <h4>Parish Details</h4>
                                                                             </div>
                                                                             <div class="panel-body padding7">
+                                                                                <form:hidden
+                                                                                        path="id"
+                                                                                        id="id"
+                                                                                        class="form-control"/>
                                                                                 <div class="form-group">
                                                                                     <label for="parishNo"
                                                                                            class="col-sm-2 control-label">Parish

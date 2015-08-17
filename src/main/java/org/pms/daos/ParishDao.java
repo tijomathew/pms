@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface ParishDao {
 
-    boolean addParishDM(Parish parish);
+    Boolean addOrUpdateParish(Parish parish);
 
     Priest getPriestDM(String priestID);
 

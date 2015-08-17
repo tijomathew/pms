@@ -52,6 +52,11 @@ function globalSubmissionOfForms(formId, gridId) {
                  jQuery('#jqgrowlContainer > ul').addClass('successContainer');
                  }*/
                 $('#' + formId)[0].reset();
+                $(':input', '#' + formId)
+                    .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #localAddresscountry')
+                    .attr('value', '')
+                    .removeAttr('checked')
+                    .removeAttr('selected');
                 jQuery('#' + gridId).trigger('reloadGrid');
             }
             else if (response.statusCode == 'FAILURE') {

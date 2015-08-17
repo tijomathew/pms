@@ -11,15 +11,12 @@ import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
-import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,16 +49,22 @@ public class ParishController extends AbstractErrorAndGridHandler {
     CustomResponse addParish(@ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
 
         if (!result.hasErrors()) {
-            Long parishCounter = parishService.getParishCount();
-            parish.setParishNo(++parishCounter);
 
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+            if (parish.getId() == null && parish.getParishNo() == null) {
+                Long parishCounter = parishService.getParishCount();
+                parish.setParishNo(++parishCounter);
 
-            if (currentUser.getSystemRole() != SystemRole.PARISH_ADMIN) {
-                parishService.addParishSM(parish);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
+                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+
+                if (currentUser.getSystemRole() != SystemRole.PARISH_ADMIN) {
+                    parishService.addOrUpdateParish(parish);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
+                } else {
+                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a parish by a Parish Admin in the system.");
+                }
             } else {
-                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a parish as a Parish Admin in the system.");
+                parishService.addOrUpdateParish(parish);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), "updated successfully");
             }
 
         } else {

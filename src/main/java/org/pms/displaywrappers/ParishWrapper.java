@@ -16,7 +16,7 @@ public class ParishWrapper implements GridRow {
     private Parish parishBean;
 
     private static final String[] VALID_BEAN_PROPERTIES = {"parishNo", "parishName", "place", "patron", "webSite", "facebookPage",
-            "registeredDate", "mobileNo", "landLineNo", "faxNo", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
+            "registeredDate", "mobileNo", "landLineNo", "faxNo", "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "id"};
 
     public ParishWrapper(Parish parishBean) {
         this.parishBean = parishBean;
@@ -32,11 +32,11 @@ public class ParishWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                String assignedValue = "N/A";
+                String assignedValue = "";
                 if (BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
-                        assignedValue = "N/A";
+                        assignedValue = "";
                     }
                 }
                 convertedResult.add(assignedValue);

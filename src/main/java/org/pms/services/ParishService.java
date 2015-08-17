@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface ParishService {
 
-    boolean addParishSM(Parish parish);
+    Boolean addOrUpdateParish(Parish parish);
 
     List<Parish> getAllParish();
 

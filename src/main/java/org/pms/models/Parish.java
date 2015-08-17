@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -15,13 +16,14 @@ import java.util.List;
 /**
  * This class describes the various attributes of the Parish.
  * It contains various getters and setters of attributes of the parish.
- * It contains various relationships with priest, mass center and families.
- * It contains various methods for adding priest, mass center and families.
+ * It contains various relationships with mass centre and families.
+ * It contains various methods for adding mass centre and families.
  * <p/>
  * User: tijo
  */
+
 @Entity
-@Table(name = "parish_details")
+@Table(name = "parishes")
 public class Parish implements Serializable {
 
     private static final long serialVersionUID = 4089680743003228381L;
@@ -72,10 +74,6 @@ public class Parish implements Serializable {
     private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "parish", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Priest> priestList = new ArrayList<Priest>();
-
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL)
     private List<MassCentre> massCentreList = new ArrayList<MassCentre>();
 
@@ -88,6 +86,10 @@ public class Parish implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getParishNo() {
@@ -170,14 +172,6 @@ public class Parish implements Serializable {
         this.localAddress = localAddress;
     }
 
-    public List<Priest> getPriestList() {
-        return priestList;
-    }
-
-    public void setPriestList(List<Priest> priestList) {
-        this.priestList = priestList;
-    }
-
     public List<MassCentre> getMassCentreList() {
         return massCentreList;
     }
@@ -202,29 +196,11 @@ public class Parish implements Serializable {
         this.patron = patron;
     }
 
-    /*public User getAdminToParish() {
-        return adminToParish;
-    }
-
-    public void setAdminToParish(User adminToParish) {
-        this.adminToParish = adminToParish;
-    }*/
 
     /**
-     * This method is for adding priests for the parish.
+     * This method is for adding mass centres for parish.
      *
-     * @param priest The priest to be added.
-     */
-    public void addPriestsForParish(Priest priest) {
-        if (!this.priestList.contains(priest)) {
-            this.priestList.add(priest);
-        }
-    }
-
-    /**
-     * This method is for adding mass centers for parish.
-     *
-     * @param massCentre The mass center to be added.
+     * @param massCentre The mass centre to be added.
      */
     public void addMassCentresForParish(MassCentre massCentre) {
         if (!this.massCentreList.contains(massCentre)) {
@@ -243,4 +219,49 @@ public class Parish implements Serializable {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Parish parish = (Parish) o;
+
+        if (id != null ? !id.equals(parish.id) : parish.id != null) return false;
+        if (!localAddress.equals(parish.localAddress)) return false;
+        if (!parishName.equals(parish.parishName)) return false;
+        if (parishNo != null ? !parishNo.equals(parish.parishNo) : parish.parishNo != null) return false;
+        if (!place.equals(parish.place)) return false;
+        if (!registeredDate.equals(parish.registeredDate)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = parishName.hashCode();
+        result = 31 * result + place.hashCode();
+        result = 31 * result + registeredDate.hashCode();
+        result = 31 * result + localAddress.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("parishNo", parishNo)
+                .append("parishName", parishName)
+                .append("place", place)
+                .append("webSite", webSite)
+                .append("facebookPage", facebookPage)
+                .append("registeredDate", registeredDate)
+                .append("mobileNo", mobileNo)
+                .append("landLineNo", landLineNo)
+                .append("faxNo", faxNo)
+                .append("patron", patron)
+                .append("localAddress", localAddress)
+                .append("massCentreList", massCentreList)
+                .append("mappedFamilies", mappedFamilies)
+                .toString();
+    }
 }
