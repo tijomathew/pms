@@ -44,7 +44,7 @@ function loadMemberGrid() {
                 {name: "memberAsPerson.dateOfBirth", index: "memberAsPerson.dateOfBirth", width: 100, sortable: false},
                 {name: 'relationshipInFamily', index: 'relationshipInFamily', width: 100, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 100, sortable: false},
-                {name: 'massCenterName', index: 'massCenterName', width: 100, sortable: false},
+                {name: 'massCentreName', index: 'massCentreName', width: 100, sortable: false},
                 {name: 'prayerUnitName', index: 'prayerUnitName', width: 100, sortable: false},
                 {
                     name: 'memberAsPerson.salutation',

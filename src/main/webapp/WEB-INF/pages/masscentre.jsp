@@ -14,7 +14,7 @@
 
     <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
     <spring:url value="/resources/js/createmasscentregridlayout.js" var="massCentreGridURL"/>
-    <spring:url value="/addmasscenter.action" var="massCenterActionURL"/>
+    <spring:url value="/addmasscentre.action" var="massCentreActionURL"/>
 
     <script src="${massCentreGridURL}" type="text/javascript"
             language="javascript"></script>
@@ -29,7 +29,7 @@
 
             loadDatePicker();
 
-            loadMassCenterGrid();
+            loadMassCentreGrid();
 
         });
 
@@ -78,12 +78,12 @@
                                                         <h4>
                                                             <ul class="nav nav-tabs">
                                                                 <li class="active">
-                                                                    <a href="#masscenter1" data-toggle="tab"><i
+                                                                    <a href="#masscentre1" data-toggle="tab"><i
                                                                             class="fa fa-list visible-xs icon-scale"></i><span
                                                                             class="hidden-xs">Mass Center Details</span></a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="#masscenter2" data-toggle="tab"><i
+                                                                    <a href="#masscentre2" data-toggle="tab"><i
                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
                                                                             class="hidden-xs">Local Address</span></a>
                                                                 </li>
@@ -96,13 +96,13 @@
                                                         <div id="massCentreGridPager"></div>
 
                                                         <form:form modelAttribute="massCentre"
-                                                                   action="${massCenterActionURL}" method="post"
+                                                                   action="${massCentreActionURL}" method="post"
                                                                    id="massCentreForm"
                                                                    cssClass="form-horizontal hidedisplay">
 
                                                             <div class="tab-content">
 
-                                                                <div class="tab-pane active" id="masscenter1">
+                                                                <div class="tab-pane active" id="masscentre1">
 
                                                                     <div class="col-md-12">
                                                                         <div class="panel">
@@ -112,24 +112,24 @@
                                                                             <div class="panel-body">
 
                                                                                 <div class="form-group">
-                                                                                    <label for="massCenterName"
+                                                                                    <label for="massCentreName"
                                                                                            class="col-sm-2 control-label">Mass
                                                                                         Center
                                                                                         Name</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:input
-                                                                                                path="massCenterName"
-                                                                                                id="massCenterName"
+                                                                                                path="massCentreName"
+                                                                                                id="massCentreName"
                                                                                                 class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="massCenterNo"
+                                                                                    <label for="massCentreNo"
                                                                                            class="col-sm-2 control-label">Mass
                                                                                         Center No.</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="massCenterNo"
-                                                                                                    id="massCenterNo"
+                                                                                        <form:input path="massCentreNo"
+                                                                                                    id="massCentreNo"
                                                                                                     class="form-control"
                                                                                                     readonly="true"/>
                                                                                     </div>
@@ -216,7 +216,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="tab-pane" id="masscenter2">
+                                                                <div class="tab-pane" id="masscentre2">
 
                                                                     <div class="col-md-12">
                                                                         <div class="panel">

@@ -69,8 +69,8 @@ public class User implements Serializable {
     private Parish usersOfParishes;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_of_masscenter")
-    private MassCentre usersOfMassCenters;
+    @JoinColumn(name = "user_of_masscentre")
+    private MassCentre usersOfMassCentres;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_prayerunit")
@@ -202,10 +202,10 @@ public class User implements Serializable {
         return returnedObject;
     }
 
-    public String getMassCenter() {
+    public String getMassCentre() {
         String returnedObject = StringUtils.EMPTY;
-        if (this.getUsersOfMassCenters() != null)
-            returnedObject = this.getUsersOfMassCenters().getMassCentreName();
+        if (this.getUsersOfMassCentres() != null)
+            returnedObject = this.getUsersOfMassCentres().getMassCentreName();
         return returnedObject;
     }
 
@@ -230,7 +230,7 @@ public class User implements Serializable {
         return returnedId;
     }
 
-    public Long getMassCenterId() {
+    public Long getMassCentreId() {
         Long returnedId = 0l;
         if (this.getUsersOfPrayerUnits() != null)
             returnedId = this.getUsersOfPrayerUnits().getId();
@@ -259,12 +259,12 @@ public class User implements Serializable {
         this.usersOfParishes = usersOfParishes;
     }
 
-    public MassCentre getUsersOfMassCenters() {
-        return usersOfMassCenters;
+    public MassCentre getUsersOfMassCentres() {
+        return usersOfMassCentres;
     }
 
-    public void setUsersOfMassCenters(MassCentre usersOfMassCenters) {
-        this.usersOfMassCenters = usersOfMassCenters;
+    public void setUsersOfMassCentres(MassCentre usersOfMassCentres) {
+        this.usersOfMassCentres = usersOfMassCentres;
     }
 
     public PrayerUnit getUsersOfPrayerUnits() {

@@ -21,7 +21,7 @@ public interface UserService {
 
     List<User> getAllUsersForParishIds(List<Long> parishIds);
 
-    List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds);
+    List<User> getAllUsersForMassCentreIds(List<Long> massCentreIds);
 
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
 

@@ -178,7 +178,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 parishService.createFormBackObject(model);
                 break;
             case MASSCENTRE:
-                massCentreService.createMassCenterFormBackObject(model);
+                massCentreService.createMassCentreFormBackObject(model);
                 break;
             case PRAYERUNIT:
                 prayerUnitService.createPrayerUnitFormBackObject(model);

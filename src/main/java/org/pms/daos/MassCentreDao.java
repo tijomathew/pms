@@ -11,23 +11,23 @@ import java.util.List;
  */
 public interface MassCentreDao {
 
-    boolean addMassCenterDM(MassCentre massCentre);
+    boolean addMassCentreDM(MassCentre massCentre);
 
     List<Parish> getAllParishDM();
 
-    List<MassCentre> getAllMassCenters();
+    List<MassCentre> getAllMassCentres();
 
-    MassCentre getMassCenterForID(Long id);
+    MassCentre getMassCentreForID(Long id);
 
-    List<MassCentre> getAllMassCentersForParishID(Long parishAutoID);
+    List<MassCentre> getAllMassCentresForParishID(Long parishAutoID);
 
-    Long getMassCenterCountForParish(Long parishId);
+    Long getMassCentreCountForParish(Long parishId);
 
-    void updateMassCenter(MassCentre massCentre);
+    void updateMassCentre(MassCentre massCentre);
 
-    MassCentre getMassCenterByMassCenterID(String massCenterID);
+    MassCentre getMassCentreByMassCentreID(String massCentreID);
 
-    Long getAllMassCenterCount();
+    Long getAllMassCentreCount();
 
-    List<Long> getAllMassCenterIdsForParish(Long parishId);
+    List<Long> getAllMassCentreIdsForParish(Long parishId);
 }

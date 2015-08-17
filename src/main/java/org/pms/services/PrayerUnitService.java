@@ -16,7 +16,7 @@ public interface PrayerUnitService {
 
     List<PrayerUnit> getAllPrayerUnits();
 
-    List<PrayerUnit> getAllPrayerUnitsForMassCenterID(Long massCenterID);
+    List<PrayerUnit> getAllPrayerUnitsForMassCentreID(Long massCentreID);
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
 
@@ -28,7 +28,7 @@ public interface PrayerUnitService {
 
     PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
 
-    List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds);
+    List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds);
 
     List<PrayerUnit> getAllPrayerUnitsForUserRole(User currentUser);
 

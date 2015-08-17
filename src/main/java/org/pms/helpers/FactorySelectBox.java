@@ -46,7 +46,7 @@ public final class FactorySelectBox {
     private List<MassCentre> massCentreList;
     private List<PrayerUnit> prayerUnitList;
     private Map<Long, String> parishMap;
-    private Map<Long, String> massCenterMap;
+    private Map<Long, String> massCentreMap;
     private Map<Long, String> prayerUnitMap;
 
     public FactorySelectBox() {
@@ -54,7 +54,7 @@ public final class FactorySelectBox {
         this.massCentreList = new ArrayList<>();
         this.prayerUnitList = new ArrayList<>();
         this.parishMap = new HashMap<>();
-        this.massCenterMap = new HashMap<>();
+        this.massCentreMap = new HashMap<>();
         this.prayerUnitMap = new HashMap<>();
     }
 
@@ -89,23 +89,23 @@ public final class FactorySelectBox {
 
     private void createListEntries(User currentUser, Model model) {
         parishList.addAll(parishService.getAllParishForUserRole(currentUser));
-        massCentreList.addAll(massCentreService.getAllMassCentersForUserRole(currentUser));
+        massCentreList.addAll(massCentreService.getAllMassCentresForUserRole(currentUser));
         prayerUnitList.addAll(prayerUnitService.getAllPrayerUnitsForUserRole(currentUser));
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
         if (!massCentreList.isEmpty()) {
-            massCenterMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
+            massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
         }
         parishMap.put(0l, "--Please Select--");
-        massCenterMap.put(0l, "--Please Select--");
+        massCentreMap.put(0l, "--Please Select--");
         prayerUnitMap.put(0l, "--Please Select--");
 
         model.addAttribute("parishList", parishMap);
-        model.addAttribute("massCentreList", massCenterMap);
+        model.addAttribute("massCentreList", massCentreMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
 
     }
@@ -135,8 +135,8 @@ public final class FactorySelectBox {
         if (!parishMap.isEmpty()) {
             parishMap.clear();
         }
-        if (!massCenterMap.isEmpty()) {
-            massCenterMap.clear();
+        if (!massCentreMap.isEmpty()) {
+            massCentreMap.clear();
         }
         if (!prayerUnitMap.isEmpty()) {
             prayerUnitMap.clear();

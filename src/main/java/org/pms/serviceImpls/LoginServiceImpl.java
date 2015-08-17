@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired(required = true)
     private PMSApplicationBuilder pmsApplicationBuilder;
 
-    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCenterAdminRole", "prayerUnitAdminRole", "familyUserRole"};
+    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCentreAdminRole", "prayerUnitAdminRole", "familyUserRole"};
 
     @Override
     public User verifyLoggedInUser(String loginUserEmail, String loginUserPassword) {
@@ -105,7 +105,7 @@ public class LoginServiceImpl implements LoginService {
                 createUserAndRolesInSessionScope("parishAdminRole", loggedInUser);
                 break;
             case MASS_CENTER_ADMIN:
-                createUserAndRolesInSessionScope("massCenterAdminRole", loggedInUser);
+                createUserAndRolesInSessionScope("massCentreAdminRole", loggedInUser);
                 break;
             case PRAYER_UNIT_ADMIN:
                 createUserAndRolesInSessionScope("prayerUnitAdminRole", loggedInUser);

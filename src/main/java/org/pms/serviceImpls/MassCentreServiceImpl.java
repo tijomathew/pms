@@ -40,8 +40,8 @@ public class MassCentreServiceImpl implements MassCentreService {
     private RequestResponseHolder requestResponseHolder;
 
     @Override
-    public boolean addMassCenterSM(MassCentre massCentre) {
-        massCentreDao.addMassCenterDM(massCentre);
+    public boolean addMassCentreSM(MassCentre massCentre) {
+        massCentreDao.addMassCentreDM(massCentre);
         return true;
     }
 
@@ -51,32 +51,32 @@ public class MassCentreServiceImpl implements MassCentreService {
     }
 
     @Override
-    public List<MassCentre> getAllMassCenter() {
-        return massCentreDao.getAllMassCenters();
+    public List<MassCentre> getAllMassCentre() {
+        return massCentreDao.getAllMassCentres();
     }
 
     @Override
-    public MassCentre getMassCenterForIDSM(Long id) {
-        return massCentreDao.getMassCenterForID(id);
+    public MassCentre getMassCentreForIDSM(Long id) {
+        return massCentreDao.getMassCentreForID(id);
     }
 
     @Override
-    public List<MassCentre> getAllMassCentersForParishID(Long parishAutoID) {
-        return massCentreDao.getAllMassCentersForParishID(parishAutoID);
+    public List<MassCentre> getAllMassCentresForParishID(Long parishAutoID) {
+        return massCentreDao.getAllMassCentresForParishID(parishAutoID);
     }
 
     @Override
-    public Long getMassCenterCountForParish(Long parishId) {
-        return massCentreDao.getMassCenterCountForParish(parishId);
+    public Long getMassCentreCountForParish(Long parishId) {
+        return massCentreDao.getMassCentreCountForParish(parishId);
     }
 
     @Override
-    public void updateMassCenter(MassCentre massCentre) {
-        massCentreDao.updateMassCenter(massCentre);
+    public void updateMassCentre(MassCentre massCentre) {
+        massCentreDao.updateMassCentre(massCentre);
     }
 
     @Override
-    public MassCentre createMassCenterFormBackObject(Model model) {
+    public MassCentre createMassCentreFormBackObject(Model model) {
         MassCentre formBackMassCentre = new MassCentre();
         formBackMassCentre.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("massCentre", formBackMassCentre);
@@ -94,27 +94,27 @@ public class MassCentreServiceImpl implements MassCentreService {
     }
 
     @Override
-    public Long getAllMassCenterCount() {
-        return massCentreDao.getAllMassCenterCount();
+    public Long getAllMassCentreCount() {
+        return massCentreDao.getAllMassCentreCount();
     }
 
     @Override
-    public List<Long> getAllMassCenterIdsForParish(Long parishId) {
-        return massCentreDao.getAllMassCenterIdsForParish(parishId);
+    public List<Long> getAllMassCentreIdsForParish(Long parishId) {
+        return massCentreDao.getAllMassCentreIdsForParish(parishId);
     }
 
     @Override
-    public List<MassCentre> getAllMassCentersForUserRole(User currentUser) {
+    public List<MassCentre> getAllMassCentresForUserRole(User currentUser) {
         List<MassCentre> allMassCentres = new ArrayList<>();
         switch (currentUser.getSystemRole()) {
             case ADMIN:
-                allMassCentres = getAllMassCenter();
+                allMassCentres = getAllMassCentre();
                 break;
             case PARISH_ADMIN:
-                allMassCentres.addAll(getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId()));
+                allMassCentres.addAll(getAllMassCentresForParishID(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
-                allMassCentres.add(currentUser.getUsersOfMassCenters());
+                allMassCentres.add(currentUser.getUsersOfMassCentres());
                 break;
             case PRAYER_UNIT_ADMIN:
                 //No Op

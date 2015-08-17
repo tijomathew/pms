@@ -34,7 +34,7 @@ function loadPriestGrid() {
                 {name: 'familyName', index: 'familyName', width: 150, align: "right", sortable: false},
                 {name: 'designation', index: 'designation', width: 150, align: "right", sortable: false},
                 {name: 'priestStatus', index: 'priestStatus', width: 150, align: "right", sortable: false},
-                {name: 'massCenterName', index: 'massCenterName', width: 150, align: "right", sortable: false},
+                {name: 'massCentreName', index: 'massCentreName', width: 150, align: "right", sortable: false},
                 {name: 'dateOfOrdination', index: 'dateOfOrdination', width: 150, sortable: false,hidden:true},
                 {name: 'feastDay', index: 'feastDay', width: 150, align: "right", sortable: false,hidden:true},
                 {name: 'heavenlyPatron', index: 'heavenlyPatron', width: 150, align: "right", sortable: false,hidden:true},

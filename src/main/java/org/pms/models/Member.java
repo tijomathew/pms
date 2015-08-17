@@ -661,7 +661,7 @@ public class Member implements Serializable {
         return this.familyMember.getFamilyParish().getParishName();
     }
 
-    public String getMassCenterName() {
+    public String getMassCentreName() {
         return this.familyMember.getFamilyMassCentre().getMassCentreName();
     }
 

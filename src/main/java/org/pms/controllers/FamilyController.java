@@ -1,7 +1,5 @@
 package org.pms.controllers;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
@@ -72,7 +70,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
             if (currentUser.getUserOfFamily() == null) {
                 family.getFamilyParish().addFamilyForParish(family);
-                family.getFamilyMassCentre().addFamilyForMassCenter(family);
+                family.getFamilyMassCentre().addFamilyForMassCentre(family);
                 family.getFamilyPrayerUnit().addFamilyForWard(family);
 
                 Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());

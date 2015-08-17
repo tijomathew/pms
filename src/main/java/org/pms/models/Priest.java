@@ -85,7 +85,7 @@ public class Priest implements Serializable {
     private Parish parish;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "massCenterPriestId")
+    @JoinColumn(name = "massCentrePriestId")
     private MassCentre massCentre;
 
     @Transient
@@ -284,7 +284,7 @@ public class Priest implements Serializable {
         return returnObject;
     }
 
-    public String getMassCenterName() {
+    public String getMassCentreName() {
         String returnObject = StringUtils.EMPTY;
         if (this.getMassCentre() != null)
             returnObject = this.getMassCentre().getMassCentreName();

@@ -226,7 +226,7 @@ public class Parish implements Serializable {
      *
      * @param massCentre The mass center to be added.
      */
-    public void addMassCentersForParish(MassCentre massCentre) {
+    public void addMassCentresForParish(MassCentre massCentre) {
         if (!this.massCentreList.contains(massCentre)) {
             this.massCentreList.add(massCentre);
         }

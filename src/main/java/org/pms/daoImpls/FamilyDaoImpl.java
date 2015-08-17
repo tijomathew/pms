@@ -1,14 +1,10 @@
 package org.pms.daoImpls;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.FamilyDao;
 import org.pms.models.Family;
-import org.pms.models.PrayerUnit;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -57,8 +53,8 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public List<Family> getAllFamilyForMassCenterID(Long massCenterId) {
-        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCenter.id", massCenterId)).list();
+    public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
+        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCentre.id", massCentreId)).list();
     }
 
     @Override

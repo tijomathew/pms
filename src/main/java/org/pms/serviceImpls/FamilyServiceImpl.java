@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.pms.daos.FamilyDao;
-import org.pms.enums.SystemRole;
 import org.pms.models.Family;
 import org.pms.models.User;
 import org.pms.services.FamilyService;
@@ -56,8 +55,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Family> getAllFamilyForMassCenterID(Long massCenterId) {
-        return familyDao.getAllFamilyForMassCenterID(massCenterId);
+    public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
+        return familyDao.getAllFamilyForMassCentreID(massCentreId);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class FamilyServiceImpl implements FamilyService {
                 familyList = getAllFamilyForParishID(currentUser.getUsersOfParishes().getId());
                 break;
             case MASS_CENTER_ADMIN:
-                familyList = getAllFamilyForMassCenterID(currentUser.getUsersOfMassCenters().getId());
+                familyList = getAllFamilyForMassCentreID(currentUser.getUsersOfMassCentres().getId());
                 break;
             case PRAYER_UNIT_ADMIN:
                 familyList = getAllFamilyForPrayerUnitID(currentUser.getUsersOfPrayerUnits().getId());

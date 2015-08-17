@@ -23,7 +23,7 @@ public interface FamilyDao {
 
     List<Family> getAllFamilyForParishID(Long parishId);
 
-    List<Family> getAllFamilyForMassCenterID(Long massCenterId);
+    List<Family> getAllFamilyForMassCentreID(Long massCentreId);
 
     List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId);
 

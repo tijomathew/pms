@@ -62,7 +62,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCenter(prayerUnit);
+            prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
 
             Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
 
@@ -110,10 +110,10 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/createprayerunitselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCenterId", required = true) Long selectedMassCenterId) {
+    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCentreId", required = true) Long selectedMassCentreId) {
         String returnObject = StringUtils.EMPTY;
-        if (selectedMassCenterId != 0l) {
-            List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnitsForMassCenterID(selectedMassCenterId);
+        if (selectedMassCentreId != 0l) {
+            List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnitsForMassCentreID(selectedMassCentreId);
             List<SelectBox<String, Long>> prayerUnitSelectBoxList = prayerUnitList.stream().map(prayerUnit -> new SelectBox<>(prayerUnit.getPrayerUnitName(), prayerUnit.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
         }

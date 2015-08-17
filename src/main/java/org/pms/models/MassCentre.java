@@ -21,7 +21,7 @@ import java.util.List;
  * User: tijo
  */
 @Entity
-@Table(name = "masscenter_details")
+@Table(name = "masscentre_details")
 public class MassCentre implements Serializable {
 
     private static final long serialVersionUID = 1669408565953568157L;
@@ -93,16 +93,16 @@ public class MassCentre implements Serializable {
         return massCentreName;
     }
 
-    public void setMassCentreName(String massCenterName) {
-        this.massCentreName = massCenterName;
+    public void setMassCentreName(String massCentreName) {
+        this.massCentreName = massCentreName;
     }
 
     public Long getMassCentreNo() {
         return massCentreNo;
     }
 
-    public void setMassCentreNo(Long massCenterNo) {
-        this.massCentreNo = massCenterNo;
+    public void setMassCentreNo(Long massCentreNo) {
+        this.massCentreNo = massCentreNo;
     }
 
     public String getPatronName() {
@@ -199,7 +199,7 @@ public class MassCentre implements Serializable {
      *
      * @param ward ward to be added to the mass center.
      */
-    public void addPrayerUnitsForMassCenter(PrayerUnit ward) {
+    public void addPrayerUnitsForMassCentre(PrayerUnit ward) {
         if (!this.prayerUnits.contains(ward)) {
             this.prayerUnits.add(ward);
         }
@@ -210,7 +210,7 @@ public class MassCentre implements Serializable {
      *
      * @param family family to be added to the mass center.
      */
-    public void addFamilyForMassCenter(Family family) {
+    public void addFamilyForMassCentre(Family family) {
         if (!this.mappedFamilies.contains(family)) {
             this.mappedFamilies.add(family);
         }

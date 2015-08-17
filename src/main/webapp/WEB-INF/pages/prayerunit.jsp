@@ -15,11 +15,11 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/masscentreselectbox.js" var="massCenterSelectBoxURL"/>
+    <spring:url value="/resources/js/masscentreselectbox.js" var="massCentreSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
-    <script src="${massCenterSelectBoxURL}" type="text/javascript"
+    <script src="${massCentreSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
@@ -93,7 +93,8 @@
 
                                                         <form:form modelAttribute="prayerUnit"
                                                                    action="${prayerUnitActionURL}" method="post"
-                                                                   id="prayerUnitForm" cssClass="form-horizontal hidedisplay">
+                                                                   id="prayerUnitForm"
+                                                                   cssClass="form-horizontal hidedisplay">
 
                                                             <div class="tab-content">
 
@@ -107,30 +108,38 @@
                                                                             <div class="panel-body padding7">
                                                                                 <div class="form-group">
                                                                                     <label for="prayerUnitName"
-                                                                                           class="col-sm-2 control-label">Prayer Unit
+                                                                                           class="col-sm-2 control-label">Prayer
+                                                                                        Unit
                                                                                         Name</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="prayerUnitName"
-                                                                                                    id="prayerUnitName" class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="prayerUnitName"
+                                                                                                id="prayerUnitName"
+                                                                                                class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="prayerUnitNo" class="col-sm-2 control-label">Prayer
+                                                                                    <label for="prayerUnitNo"
+                                                                                           class="col-sm-2 control-label">Prayer
                                                                                         Unit No.</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:input path="prayerUnitNo"
                                                                                                     id="prayerUnitNo"
-                                                                                                    readonly="true" class="form-control"/>
+                                                                                                    readonly="true"
+                                                                                                    class="form-control"/>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="prayerUnitPlace"
-                                                                                           class="col-sm-2 control-label">Prayer Unit
+                                                                                           class="col-sm-2 control-label">Prayer
+                                                                                        Unit
                                                                                         Place</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="prayerUnitPlace"
-                                                                                                    id="prayerUnitPlace" class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="prayerUnitPlace"
+                                                                                                id="prayerUnitPlace"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                     <label for="mappedParish"
                                                                                            class="col-sm-2 control-label">Parish</label>
@@ -138,7 +147,8 @@
                                                                                     <div class="col-sm-4">
                                                                                         <form:select path="mappedParish"
                                                                                                      items="${parishMap}"
-                                                                                                     id="parishNo" class="form-control"/>
+                                                                                                     id="parishNo"
+                                                                                                     class="form-control"/>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
@@ -147,16 +157,18 @@
                                                                                         Center</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:select path="mappedMassCentre"
-                                                                                                     id="mappedMassCentre"
-                                                                                                     class="form-control"/>
+                                                                                        <form:select
+                                                                                                path="mappedMassCentre"
+                                                                                                id="mappedMassCentre"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                     <label for="patron"
                                                                                            class="col-sm-2 control-label">Patron</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:input path="patron"
-                                                                                                    id="patron" class="form-control"/>
+                                                                                                    id="patron"
+                                                                                                    class="form-control"/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -175,38 +187,46 @@
                                                                             <div class="panel-body">
                                                                                 <div class="form-group">
                                                                                     <label for="localAddress.addressLineOne"
-                                                                                           class="col-sm-2 control-label">Address Line 1</label>
+                                                                                           class="col-sm-2 control-label">Address
+                                                                                        Line 1</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.addressLineOne"
-                                                                                                    id="localAddressaddressLineOne"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.addressLineOne"
+                                                                                                id="localAddressaddressLineOne"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                     <label for="localAddress.addressLineTwo"
-                                                                                           class="col-sm-2 control-label">Address Line 2</label>
+                                                                                           class="col-sm-2 control-label">Address
+                                                                                        Line 2</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.addressLineTwo"
-                                                                                                    id="localAddressaddressLineTwo"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.addressLineTwo"
+                                                                                                id="localAddressaddressLineTwo"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="form-group">
                                                                                     <label for="localAddress.addressLineThree"
-                                                                                           class="col-sm-2 control-label">Address Line 3</label>
+                                                                                           class="col-sm-2 control-label">Address
+                                                                                        Line 3</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.addressLineThree"
-                                                                                                    id="localAddressaddressLineThree"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.addressLineThree"
+                                                                                                id="localAddressaddressLineThree"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                     <label for="localAddress.town"
                                                                                            class="col-sm-2 control-label">Town</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.town"
-                                                                                                    id="localAddresstown" class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.town"
+                                                                                                id="localAddresstown"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                 </div>
 
@@ -215,16 +235,20 @@
                                                                                            class="col-sm-2 control-label">County</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.county"
-                                                                                                    id="localAddresscounty"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.county"
+                                                                                                id="localAddresscounty"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                     <label for="localAddress.pin"
-                                                                                           class="col-sm-2 control-label">Pin code</label>
+                                                                                           class="col-sm-2 control-label">Pin
+                                                                                        code</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.pin" id="localAddresspin"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.pin"
+                                                                                                id="localAddresspin"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                 </div>
 
@@ -233,9 +257,10 @@
                                                                                            class="col-sm-2 control-label">Country</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input path="localAddress.country"
-                                                                                                    id="localAddresscountry"
-                                                                                                    class="form-control"/>
+                                                                                        <form:input
+                                                                                                path="localAddress.country"
+                                                                                                id="localAddresscountry"
+                                                                                                class="form-control"/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

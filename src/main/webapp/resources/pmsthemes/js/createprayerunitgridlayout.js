@@ -27,8 +27,8 @@ function loadPrayerUnitGrid() {
                 {name: 'patron', index: 'patron', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 90, sortable: false},
-                {name: 'massCenterNumber', index: 'massCenterNumber', width: 90, sortable: false},
-                {name: 'massCenterName', index: 'massCenterName', width: 90, sortable: false},
+                {name: 'massCentreNumber', index: 'massCentreNumber', width: 90, sortable: false},
+                {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
                 {
                     name: 'localAddress.addressLineOne',
                     index: 'localAddress.addressLineOne',

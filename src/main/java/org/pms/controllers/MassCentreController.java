@@ -40,29 +40,29 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewmasscentre.action", method = RequestMethod.GET)
-    public String massCenterDisplay(Model modelMap) {
+    public String massCentreDisplay(Model modelMap) {
 
-        massCentreService.createMassCenterFormBackObject(modelMap);
+        massCentreService.createMassCentreFormBackObject(modelMap);
         return PageName.MASSCENTRE.toString();
     }
 
-    @RequestMapping(value = "/addmasscenter.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addmasscentre.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addMassCenter(@ModelAttribute("massCenter") @Valid MassCentre massCentre, BindingResult result) {
+    CustomResponse addMassCentre(@ModelAttribute("massCentre") @Valid MassCentre massCentre, BindingResult result) {
 
         if (!result.hasErrors()) {
 
-            massCentre.getMappedParish().addMassCentersForParish(massCentre);
+            massCentre.getMappedParish().addMassCentresForParish(massCentre);
 
-            Long massCenterCount = massCentreService.getMassCenterCountForParish(massCentre.getMappedParish().getId());
+            Long massCentreCount = massCentreService.getMassCentreCountForParish(massCentre.getMappedParish().getId());
 
-            massCentre.setMassCentreNo(++massCenterCount);
+            massCentre.setMassCentreNo(++massCentreCount);
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
             if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
-                massCentreService.addMassCenterSM(massCentre);
+                massCentreService.addMassCentreSM(massCentre);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), SUCCESS_MESSAGE_DISPLAY);
             } else {
                 customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
@@ -78,36 +78,36 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displaymasscentregrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMassCenter(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForMassCentre(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<MassCentre> allMassCentres = massCentreService.getAllMassCentersForUserRole(currentUser);
-        Integer massCenterCount = allMassCentres.size();
+        List<MassCentre> allMassCentres = massCentreService.getAllMassCentresForUserRole(currentUser);
+        Integer massCentreCount = allMassCentres.size();
 
         List<MassCentre> allUsersSubList = new ArrayList<>();
-        if (massCenterCount > 0) {
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCenterCount, allMassCentres);
+        if (massCentreCount > 0) {
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCentreCount, allMassCentres);
         }
 
-        List<GridRow> massCenterGridRows = new ArrayList<>(allMassCentres.size());
+        List<GridRow> massCentreGridRows = new ArrayList<>(allMassCentres.size());
         if (!allUsersSubList.isEmpty()) {
-            massCenterGridRows = allUsersSubList.stream().map(masscenter -> new MassCentreWrapper(masscenter)).collect(Collectors.toList());
+            massCentreGridRows = allUsersSubList.stream().map(masscentre -> new MassCentreWrapper(masscentre)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(massCenterCount, page, rows, massCenterGridRows));
+        return JsonBuilder.convertToJson(createGridContent(massCentreCount, page, rows, massCentreGridRows));
     }
 
     @RequestMapping(value = "/createmasscentreselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    String generateMassCenterSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
+    String generateMassCentreSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
         String returnObject = StringUtils.EMPTY;
         if (selectedParishID != 0l) {
-            List<MassCentre> massCentreListForParishID = massCentreService.getAllMassCentersForParishID(selectedParishID);
+            List<MassCentre> massCentreListForParishID = massCentreService.getAllMassCentresForParishID(selectedParishID);
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
             if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                massCentreListForParishID = massCentreListForParishID.stream().filter(massCenter -> massCenter.getMassCentreName().equalsIgnoreCase(currentUser.getUsersOfMassCenters().getMassCentreName())).collect(Collectors.toList());
+                massCentreListForParishID = massCentreListForParishID.stream().filter(massCentre -> massCentre.getMassCentreName().equalsIgnoreCase(currentUser.getUsersOfMassCentres().getMassCentreName())).collect(Collectors.toList());
             }
-            List<SelectBox<String, Long>> selectBoxList = massCentreListForParishID.stream().map(massCenter -> new SelectBox<>(massCenter.getMassCentreName(), massCenter.getId())).collect(Collectors.toList());
+            List<SelectBox<String, Long>> selectBoxList = massCentreListForParishID.stream().map(massCentre -> new SelectBox<>(massCentre.getMassCentreName(), massCentre.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
         return returnObject;

@@ -68,9 +68,9 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                List<Family> allFamiliesUnderMassCenter = familyService.getAllFamilyForMassCenterID(currentUser.getUsersOfMassCenters().getId());
-                if (!allFamiliesUnderMassCenter.isEmpty()) {
-                    allFamiliesUnderMassCenter.stream().forEach((family) -> {
+                List<Family> allFamiliesUnderMassCentre = familyService.getAllFamilyForMassCentreID(currentUser.getUsersOfMassCentres().getId());
+                if (!allFamiliesUnderMassCentre.isEmpty()) {
+                    allFamiliesUnderMassCentre.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
                     });
                 }

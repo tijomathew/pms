@@ -58,7 +58,7 @@ public class ParishServiceImpl implements ParishService {
                 parishList.add(currentUser.getUsersOfParishes());
                 break;
             case MASS_CENTER_ADMIN:
-                parishList.add(currentUser.getUsersOfMassCenters().getMappedParish());
+                parishList.add(currentUser.getUsersOfMassCentres().getMappedParish());
                 break;
             case PRAYER_UNIT_ADMIN:
                 parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish());

@@ -15,7 +15,7 @@ public class MemberWrapper implements GridRow {
 
     private Member memberBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "memberNo", "memberAsPerson.fullName", "memberAsPerson.gender", "memberAsPerson.dateOfBirth", "relationshipInFamily", "parishName", "massCenterName", "prayerUnitName",
+    private String[] VALID_BEAN_PROPERTIES = {"familyNo", "familyName", "memberNo", "memberAsPerson.fullName", "memberAsPerson.gender", "memberAsPerson.dateOfBirth", "relationshipInFamily", "parishName", "massCentreName", "prayerUnitName",
             "memberAsPerson.salutation", "memberAsPerson.firstName", "memberAsPerson.middleName", "memberAsPerson.lastName", "memberAsPerson.placeOfBirth",
             "memberAsPerson.nationality", "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
             "memberAsPerson.faxNo", "memberAsPerson.educationQualifications", "memberAsPerson.jobDetails", "memberAsPerson.bloodGroup", "memberAsPerson.carNumber", "memberAsPerson.lifeStatus",

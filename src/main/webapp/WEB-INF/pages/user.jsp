@@ -45,15 +45,15 @@
 
             function reactiveAdminsComboBox() {
                 $('#parishSelectBox').prop('selectedIndex', 0);
-                $('#massCenterSelectBox').prop('selectedIndex', 0);
+                $('#massCentreSelectBox').prop('selectedIndex', 0);
                 $('#prayerUnitSelectBox').prop('selectedIndex', 0);
                 $('#familySelectBox').prop('selectedIndex', 0);
 
-                $('#massCenterSelectBox').prop('disabled', false);
+                $('#massCentreSelectBox').prop('disabled', false);
                 $('#prayerUnitSelectBox').prop('disabled', false);
                 $('#familySelectBox').prop('disabled', false);
 
-                $('#massCenterSelectBox').removeClass('hideSelectImage');
+                $('#massCentreSelectBox').removeClass('hideSelectImage');
                 $('#prayerUnitSelectBox').removeClass('hideSelectImage');
                 $('#familySelectBox').removeClass('hideSelectImage');
             }
@@ -63,15 +63,15 @@
                 var selectedSystemRole = $('#systemRole').val();
                 switch (selectedSystemRole) {
                     case 'PARISH_ADMIN':
-                        $('#massCenterSelectBox').prop('disabled', true);
+                        $('#massCentreSelectBox').prop('disabled', true);
                         $('#prayerUnitSelectBox').prop('disabled', true);
                         $('#familySelectBox').prop('disabled', true);
 
-                        $('#massCenterSelectBox').addClass('hideSelectImage');
+                        $('#massCentreSelectBox').addClass('hideSelectImage');
                         $('#prayerUnitSelectBox').addClass('hideSelectImage');
                         $('#familySelectBox').addClass('hideSelectImage');
 
-                        $('#massCenterSelectBox').find('option').remove();
+                        $('#massCentreSelectBox').find('option').remove();
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();
                         break;
@@ -202,14 +202,14 @@
                                                                                                          class="form-control">
                                                                                             </form:select>
                                                                                         </div>
-                                                                                        <label for="massCenterId"
+                                                                                        <label for="massCentreId"
                                                                                                class="col-sm-2 control-label">Mass
                                                                                             Center</label>
 
-                                                                                        <div class="col-sm-4" id="massCenterSelectBoxer">
+                                                                                        <div class="col-sm-4" id="massCentreSelectBoxer">
                                                                                             <form:select
-                                                                                                    path="usersOfMassCenters"
-                                                                                                    id="massCenterSelectBox"
+                                                                                                    path="usersOfMassCentres"
+                                                                                                    id="massCentreSelectBox"
                                                                                                     class="form-control">
                                                                                             </form:select>
                                                                                         </div>
@@ -249,15 +249,15 @@
                                                                                                          id="parishId"
                                                                                                          class="form-control"></form:select>
                                                                                         </div>
-                                                                                        <label for="massCenterId"
+                                                                                        <label for="usersOfMassCentres"
                                                                                                class="col-sm-2 control-label">Mass
                                                                                             Center</label>
 
-                                                                                        <div class="col-sm-4" id="massCenterSelectBoxer">
+                                                                                        <div class="col-sm-4" id="massCentreSelectBoxer">
                                                                                             <form:select
-                                                                                                    path="usersOfMassCenters"
+                                                                                                    path="usersOfMassCentres"
                                                                                                     items="${massCentreList}"
-                                                                                                    id="massCenterId"
+                                                                                                    id="massCentreId"
                                                                                                     class="form-control"></form:select>
 
                                                                                         </div>

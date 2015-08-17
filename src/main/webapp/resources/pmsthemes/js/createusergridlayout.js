@@ -18,13 +18,13 @@ function loadUserGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'parishId', 'massCenterId', 'prayerUnitId', 'familyId'],
+            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'parishId', 'massCentreId', 'prayerUnitId', 'familyId'],
             colModel: [
                 {name: 'email', index: 'email', width: 100, sortable: false},
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
                 {name: 'isActive', index: 'isActive', width: 100, sortable: false},
                 {name: 'parish', index: 'parish', width: 100, sortable: false},
-                {name: 'massCenter', index: 'massCenter', width: 100, sortable: false},
+                {name: 'massCentre', index: 'massCentre', width: 100, sortable: false},
                 {name: 'prayerUnit', index: 'prayerUnit', width: 100, sortable: false},
                 {name: 'family', index: 'family', width: 100, sortable: false},
                 {name: 'sendMailFlag', index: 'sendMailFlag', width: 100, sortable: false},
@@ -33,7 +33,7 @@ function loadUserGrid() {
                 {name: 'createdBy', index: 'createdBy', width: 100, sortable: false},
 
                 {name: 'parishId', index: 'parishId', width: 100, sortable: false, hidden: true},
-                {name: 'massCenterId', index: 'massCenterId', width: 100, sortable: false, hidden: true},
+                {name: 'massCentreId', index: 'massCentreId', width: 100, sortable: false, hidden: true},
                 {name: 'prayerUnitId', index: 'prayerUnitId', width: 100, sortable: false, hidden: true},
                 {name: 'familyId', index: 'familyId', width: 100, sortable: false, hidden: true}
 

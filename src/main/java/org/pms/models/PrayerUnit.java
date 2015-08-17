@@ -44,7 +44,7 @@ public class PrayerUnit implements Serializable {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "masscenter_no")
+    @JoinColumn(name = "masscentre_no")
     private MassCentre mappedMassCentre;
 
     @NotNull
@@ -137,7 +137,7 @@ public class PrayerUnit implements Serializable {
         return this.getMappedMassCentre().getMappedParish().getParishNo();
     }
 
-    public Long getMassCenterNumber() {
+    public Long getMassCentreNumber() {
         return this.getMappedMassCentre().getMassCentreNo();
     }
 
@@ -145,7 +145,7 @@ public class PrayerUnit implements Serializable {
         return this.getMappedMassCentre().getMappedParish().getParishName();
     }
 
-    public String getMassCenterName() {
+    public String getMassCentreName() {
         return this.getMappedMassCentre().getMassCentreName();
     }
 

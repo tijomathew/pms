@@ -54,8 +54,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<PrayerUnit> getAllPrayerUnitsForMassCenterID(Long massCenterID) {
-        return prayerUnitDao.getPrayerUnitsForMassCenterIDDM(massCenterID);
+    public List<PrayerUnit> getAllPrayerUnitsForMassCentreID(Long massCentreID) {
+        return prayerUnitDao.getPrayerUnitsForMassCentreIDDM(massCentreID);
     }
 
     @Override
@@ -98,8 +98,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds) {
-        return prayerUnitDao.getAllPrayerUnitIdsForMassCenterIds(massCenterIds);
+    public List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds) {
+        return prayerUnitDao.getAllPrayerUnitIdsForMassCentreIds(massCentreIds);
     }
 
     @Override
@@ -110,13 +110,13 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.addAll(getAllPrayerUnits());
                 break;
             case PARISH_ADMIN:
-                List<MassCentre> massCentersUnderParish = massCentreService.getAllMassCentersForParishID(currentUser.getUsersOfParishes().getId());
-                if (!massCentersUnderParish.isEmpty()) {
-                    massCentersUnderParish.stream().forEach(massCenter -> allPrayerUnits.addAll(massCenter.getPrayerUnits()));
+                List<MassCentre> massCentresUnderParish = massCentreService.getAllMassCentresForParishID(currentUser.getUsersOfParishes().getId());
+                if (!massCentresUnderParish.isEmpty()) {
+                    massCentresUnderParish.stream().forEach(massCentre -> allPrayerUnits.addAll(massCentre.getPrayerUnits()));
                 }
                 break;
             case MASS_CENTER_ADMIN:
-                allPrayerUnits.addAll(getAllPrayerUnitsForMassCenterID(currentUser.getUsersOfMassCenters().getId()));
+                allPrayerUnits.addAll(getAllPrayerUnitsForMassCentreID(currentUser.getUsersOfMassCentres().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
                 allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());

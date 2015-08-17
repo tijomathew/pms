@@ -2,7 +2,7 @@
  * Created by tijo on 6/7/15.
  */
 
-function loadMassCenterGrid() {
+function loadMassCentreGrid() {
 
     jQuery("#massCentreGrid").jqGrid(
         {
@@ -22,8 +22,8 @@ function loadMassCenterGrid() {
             colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'Parish No.', 'Parish Name', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
                 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
             colModel: [
-                {name: 'massCenterNo', index: 'massCenterNo', width: 90, sortable: false},
-                {name: 'massCenterName', index: 'massCenterName', width: 90, sortable: false},
+                {name: 'massCentreNo', index: 'massCentreNo', width: 90, sortable: false},
+                {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
                 {name: 'place', index: 'place', width: 90, sortable: false, hidden: true},
                 {name: 'patronName', index: 'patronName', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},

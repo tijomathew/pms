@@ -6,7 +6,7 @@ function loadSelectBox(contextPath) {
     $.getJSON(contextPath + '/createparishselectbox.action',
         {},
         function (data) {
-            $('#massCenterSelectBox').find('option').remove();
+            $('#massCentreSelectBox').find('option').remove();
             $('#prayerUnitSelectBox').find('option').remove();
             $('#familySelectBox').find('option').remove();
             var html;
@@ -23,7 +23,7 @@ function loadSelectBox(contextPath) {
                 $.getJSON(contextPath + "/createmasscentreselectbox.action",
                     {selectedParishId: $('#parishSelectBox').val()},
                     function (data) {
-                        $('#massCenterSelectBox').find('option').remove();
+                        $('#massCentreSelectBox').find('option').remove();
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();
                         var html;
@@ -31,18 +31,18 @@ function loadSelectBox(contextPath) {
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                         }
-                        $('#massCenterSelectBox').append(html);
+                        $('#massCentreSelectBox').append(html);
                     });
             }
         }
     );
 
-    $('#massCenterSelectBox').change(function () {
+    $('#massCentreSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();
 
             if (systemRole != 'MASS_CENTER_ADMIN') {
                 $.getJSON(contextPath + "/createprayerunitselectbox.action",
-                    {selectedMassCenterId: $('#massCenterSelectBox').val()},
+                    {selectedMassCentreId: $('#massCentreSelectBox').val()},
                     function (data) {
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();

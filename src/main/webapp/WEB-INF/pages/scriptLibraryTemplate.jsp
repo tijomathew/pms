@@ -67,7 +67,6 @@
 <spring:url value="/resources/js/jquery.loadJSON.js" var="jqueryLoadJson"/>
 
 
-
 <script src="${globalUtilizor}" type="text/javascript"></script>
 <script src="${jqGrowlURL}" type="text/javascript"></script>
 <script src="${bootStrapminCalendarURL}" type="text/javascript"></script>
@@ -76,7 +75,7 @@
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
-<c:set var="showForMassCenterAdmin" value="${sessionScope.massCenterAdminRole}"/>
+<c:set var="showForMassCentreAdmin" value="${sessionScope.massCentreAdminRole}"/>
 <c:set var="showForPrayerUnitAdmin" value="${sessionScope.prayerUnitAdminRole}"/>
 <c:set var="showForFamilyUser" value="${sessionScope.familyUserRole}"/>
 <c:set var="loggedInUserEmail" value="${sessionScope.currentUserEmail}"/>

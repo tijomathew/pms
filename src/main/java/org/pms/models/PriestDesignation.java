@@ -3,8 +3,6 @@ package org.pms.models;
 import org.pms.enums.PriestDesignations;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: tijo.
@@ -26,8 +24,8 @@ public class PriestDesignation {
     @Column(name = "parish_id")
     private Long parishId;
 
-    @Column(name = "masscenter_id")
-    private Long massCenterId;
+    @Column(name = "masscentre_id")
+    private Long massCentreId;
 
     @Column(name = "prayerunit_id")
     private Long prayerUnitId;
@@ -63,12 +61,12 @@ public class PriestDesignation {
         this.parishId = parishId;
     }
 
-    public Long getMassCenterId() {
-        return massCenterId;
+    public Long getMassCentreId() {
+        return massCentreId;
     }
 
-    public void setMassCenterId(Long massCenterId) {
-        this.massCenterId = massCenterId;
+    public void setMassCentreId(Long massCentreId) {
+        this.massCentreId = massCentreId;
     }
 
     public Long getPrayerUnitId() {

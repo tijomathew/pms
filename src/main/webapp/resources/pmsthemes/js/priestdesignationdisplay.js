@@ -4,7 +4,7 @@
 
 function loadPriestDesignationBoxes(contextPath) {
     $('#priestSelectBox').empty();
-    $.getJSON(contextPath + "/createpriestdesignationboxinmasscenter.action",
+    $.getJSON(contextPath + "/createpriestdesignationboxinmasscentre.action",
         {selectedParishId: $('#parishSelectBox').val()},
         function (data) {
             $('#priestSelectBox').empty();

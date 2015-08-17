@@ -17,10 +17,10 @@ public class MassCentreCustomPropertyEditor extends PropertyEditorSupport {
         this.massCentreService = massCentreService;
     }
 
-    public void setAsText(String massCenterID) {
-        if (massCenterID != null && !massCenterID.isEmpty()) {
-            Long massCenterId = Long.valueOf(massCenterID);
-            MassCentre selectedMassCentre = massCentreService.getMassCenterForIDSM(massCenterId);
+    public void setAsText(String massCentreID) {
+        if (massCentreID != null && !massCentreID.isEmpty()) {
+            Long massCentreId = Long.valueOf(massCentreID);
+            MassCentre selectedMassCentre = massCentreService.getMassCentreForIDSM(massCentreId);
             setValue(selectedMassCentre);
         }
     }

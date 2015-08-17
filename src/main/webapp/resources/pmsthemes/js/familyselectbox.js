@@ -6,7 +6,7 @@ function loadSelectBox(contextPath) {
     $.getJSON(contextPath + '/createparishselectbox.action',
         {},
         function (data) {
-            $('#massCenterSelectBox').find('option').remove();
+            $('#massCentreSelectBox').find('option').remove();
             $('#prayerUnitSelectBox').find('option').remove();
             var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';
             var len = data.length;
@@ -19,21 +19,21 @@ function loadSelectBox(contextPath) {
             $.getJSON(contextPath + "/createmasscentreselectbox.action",
                 {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
-                    $('#massCenterSelectBox').find('option').remove();
+                    $('#massCentreSelectBox').find('option').remove();
                     $('#prayerUnitSelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';
                     var len = data.length;
                     for (var i = 0; i < len; i++) {
                         html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
                     }
-                    $('#massCenterSelectBox').append(html);
+                    $('#massCentreSelectBox').append(html);
                 });
         }
     );
 
-    $('#massCenterSelectBox').change(function () {
+    $('#massCentreSelectBox').change(function () {
             $.getJSON(contextPath + "/createprayerunitselectbox.action",
-                {selectedMassCenterId: $('#massCenterSelectBox').val()},
+                {selectedMassCentreId: $('#massCentreSelectBox').val()},
                 function (data) {
                     $('#prayerUnitSelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "--Please select--" + '</option>';

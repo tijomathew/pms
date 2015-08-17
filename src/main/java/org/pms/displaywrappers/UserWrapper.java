@@ -15,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private User userBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRoleAsDisplayValue", "isActive", "parish", "massCenter", "prayerUnit", "family", "sendMailFlag", "alreadyLoggedIn", "isValidated", "createdBy", "parishId", "massCenterId", "prayerUnitId", "familyId"};
+    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRoleAsDisplayValue", "isActive", "parish", "massCentre", "prayerUnit", "family", "sendMailFlag", "alreadyLoggedIn", "isValidated", "createdBy", "parishId", "massCentreId", "prayerUnitId", "familyId"};
 
     public UserWrapper(User userBean) {
         this.userBean = userBean;

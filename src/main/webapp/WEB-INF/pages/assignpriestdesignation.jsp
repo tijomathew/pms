@@ -145,13 +145,13 @@
                                 <form:input path="prayerUnitPlace"
                                             id="prayerUnitPlace" class="form-control"/>
                               </div>
-                              <label for="massCenterId" class="col-sm-2 control-label">Mass
+                              <label for="massCentreId" class="col-sm-2 control-label">Mass
                                 Center</label>
 
                               <div class="col-sm-4">
-                                <form:select path="massCenterId"
-                                             items="${massCenterMap}"
-                                             id="massCenterId" class="form-control"/>
+                                <form:select path="massCentreId"
+                                             items="${massCentreMap}"
+                                             id="massCentreId" class="form-control"/>
                               </div>
                             </div>
                           </div>

@@ -13,26 +13,26 @@ import java.util.List;
  */
 public interface MassCentreService {
 
-    boolean addMassCenterSM(MassCentre massCentre);
+    boolean addMassCentreSM(MassCentre massCentre);
 
     List<Parish> getAllParishSM();
 
-    List<MassCentre> getAllMassCenter();
+    List<MassCentre> getAllMassCentre();
 
-    MassCentre getMassCenterForIDSM(Long id);
+    MassCentre getMassCentreForIDSM(Long id);
 
-    List<MassCentre> getAllMassCentersForParishID(Long parishAutoID);
+    List<MassCentre> getAllMassCentresForParishID(Long parishAutoID);
 
-    Long getMassCenterCountForParish(Long parishId);
+    Long getMassCentreCountForParish(Long parishId);
 
-    void updateMassCenter(MassCentre massCentre);
+    void updateMassCentre(MassCentre massCentre);
 
-    Long getAllMassCenterCount();
+    Long getAllMassCentreCount();
 
-    MassCentre createMassCenterFormBackObject(Model model);
+    MassCentre createMassCentreFormBackObject(Model model);
 
-    List<Long> getAllMassCenterIdsForParish(Long parishId);
+    List<Long> getAllMassCentreIdsForParish(Long parishId);
 
-    List<MassCentre> getAllMassCentersForUserRole(User currentUser);
+    List<MassCentre> getAllMassCentresForUserRole(User currentUser);
 
 }

@@ -33,8 +33,8 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     }
 
     @Override
-    public List<PrayerUnit> getPrayerUnitsForMassCenterIDDM(Long massCenterID) {
-        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedMassCentre.id", massCenterID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    public List<PrayerUnit> getPrayerUnitsForMassCentreIDDM(Long massCentreID) {
+        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedMassCentre.id", massCentreID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     }
 
     @Override
-    public List<Long> getAllPrayerUnitIdsForMassCenterIds(List<Long> massCenterIds) {
-        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.property("id")).add(Restrictions.in("prayerUnit.mappedMassCentre.id", massCenterIds)).list();
+    public List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds) {
+        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.property("id")).add(Restrictions.in("prayerUnit.mappedMassCentre.id", massCentreIds)).list();
     }
 }

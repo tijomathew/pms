@@ -1,14 +1,10 @@
 package org.pms.daoImpls;
 
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.UserDao;
 import org.pms.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -52,8 +48,8 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsersForMassCenterIds(List<Long> massCenterIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfMassCenters.id", massCenterIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    public List<User> getAllUsersForMassCentreIds(List<Long> massCentreIds) {
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfMassCentres.id", massCentreIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

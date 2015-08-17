@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ public class EmergencyContact implements Serializable {
     @Column(name = "ec_alternative_phoneno")
     private String alternativePhoneNo;
 
+    @Email
     @Column(name = "ec_email")
     private String email;
 
