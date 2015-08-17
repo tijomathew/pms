@@ -493,49 +493,38 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="emergencyContact.name"
-                                                                                           class="col-sm-2 control-label">Name</label>
+                                                                                    <label for="emergencyContact.nameAddress"
+                                                                                           class="col-sm-2 control-label">Name
+                                                                                        & Address</label>
 
                                                                                     <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="emergencyContact.name"
-                                                                                                id="emergencyContactname"
+                                                                                        <form:textarea
+                                                                                                path="emergencyContact.nameAddress"
+                                                                                                id="emergencyContact.nameAddress"
                                                                                                 class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="emergencyContact.addressLineOne"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 1</label>
+                                                                                    <label for="emergencyContact.phoneNo"
+                                                                                           class="col-sm-2 control-label">Phone
+                                                                                        No</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:input
-                                                                                                path="emergencyContact.addressLineOne"
-                                                                                                id="emergencyContactaddressLineOne"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="emergencyContact.addressLineTwo"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 2</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="emergencyContact.addressLineTwo"
-                                                                                                id="emergencyContactaddressLineTwo"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="emergencyContact.addressLineThree"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 3</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="emergencyContact.addressLineThree"
-                                                                                                id="emergencyContactaddressLineThree"
+                                                                                                path="emergencyContact.phoneNo"
+                                                                                                id="emergencyContact.phoneNo"
                                                                                                 class="form-control"/>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
+                                                                                    <label for="emergencyContact.alternativePhoneNo"
+                                                                                           class="col-sm-2 control-label">Alternative
+                                                                                        Phone No</label>
+
+                                                                                    <div class="col-sm-4">
+                                                                                        <form:input
+                                                                                                path="emergencyContact.alternativePhoneNo"
+                                                                                                id="emergencyContact.alternativePhoneNo"
+                                                                                                class="form-control"/>
+                                                                                    </div>
                                                                                     <label for="emergencyContact.email"
                                                                                            class="col-sm-2 control-label">Email</label>
 
@@ -545,29 +534,8 @@
                                                                                                 id="emergencyContactemail"
                                                                                                 class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="emergencyContact.mobileNo"
-                                                                                           class="col-sm-2 control-label">Mobile
-                                                                                        No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="emergencyContact.mobileNo"
-                                                                                                id="emergencyContactmobileNo"
-                                                                                                class="form-control"/>
-                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="emergencyContact.landLineNo"
-                                                                                           class="col-sm-2 control-label">Land
-                                                                                        Line No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="emergencyContact.landLineNo"
-                                                                                                id="emergencyContactlandLineNo"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
+                                                                            </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
