@@ -20,7 +20,7 @@ function loadMassCentreGrid() {
             datatype: 'json',
             //rowList: [2, 4, 6],
             colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'Parish No.', 'Parish Name', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
-                'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country'],
+                'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'mappedParish'],
             colModel: [
                 {name: 'massCentreNo', index: 'massCentreNo', width: 90, sortable: false},
                 {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
@@ -83,6 +83,20 @@ function loadMassCentreGrid() {
                     width: 80,
                     align: "right",
                     sortable: false, hidden: true
+                },
+                {
+                    name: 'id',
+                    index: 'id',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'mappedParish',
+                    index: 'mappedParish',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
                 }
             ],
             rowNum: 10,
@@ -90,7 +104,7 @@ function loadMassCentreGrid() {
             sortname: 'id',
             viewrecords: true,
             sortorder: "desc",
-            caption: "Mass Centers",
+            caption: "Mass Centres",
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',

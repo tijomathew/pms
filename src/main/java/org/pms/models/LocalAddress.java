@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -121,42 +122,38 @@ public class LocalAddress implements Serializable {
 
         LocalAddress that = (LocalAddress) o;
 
-        if (addressLineOne != null ? !addressLineOne.equals(that.addressLineOne) : that.addressLineOne != null)
-            return false;
-        if (addressLineThree != null ? !addressLineThree.equals(that.addressLineThree) : that.addressLineThree != null)
-            return false;
-        if (addressLineTwo != null ? !addressLineTwo.equals(that.addressLineTwo) : that.addressLineTwo != null)
-            return false;
-        if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (county != null ? !county.equals(that.county) : that.county != null) return false;
-        if (pin != null ? !pin.equals(that.pin) : that.pin != null) return false;
-        if (town != null ? !town.equals(that.town) : that.town != null) return false;
+        if (!addressLineOne.equals(that.addressLineOne)) return false;
+        if (!addressLineTwo.equals(that.addressLineTwo)) return false;
+        if (!country.equals(that.country)) return false;
+        if (!county.equals(that.county)) return false;
+        if (!pin.equals(that.pin)) return false;
+        if (!town.equals(that.town)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = addressLineOne != null ? addressLineOne.hashCode() : 0;
-        result = 31 * result + (addressLineTwo != null ? addressLineTwo.hashCode() : 0);
-        result = 31 * result + (addressLineThree != null ? addressLineThree.hashCode() : 0);
-        result = 31 * result + (town != null ? town.hashCode() : 0);
-        result = 31 * result + (county != null ? county.hashCode() : 0);
-        result = 31 * result + (pin != null ? pin.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
+        int result = addressLineOne.hashCode();
+        result = 31 * result + addressLineTwo.hashCode();
+        result = 31 * result + town.hashCode();
+        result = 31 * result + county.hashCode();
+        result = 31 * result + pin.hashCode();
+        result = 31 * result + country.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "LocalAddress{" +
-                "addressLineOne='" + addressLineOne + '\'' +
-                ", addressLineTwo='" + addressLineTwo + '\'' +
-                ", addressLineThree='" + addressLineThree + '\'' +
-                ", town='" + town + '\'' +
-                ", county='" + county + '\'' +
-                ", pin=" + pin +
-                ", country='" + country + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("addressLineOne", addressLineOne)
+                .append("addressLineTwo", addressLineTwo)
+                .append("addressLineThree", addressLineThree)
+                .append("town", town)
+                .append("county", county)
+                .append("postCode", postCode)
+                .append("pin", pin)
+                .append("country", country)
+                .toString();
     }
 }

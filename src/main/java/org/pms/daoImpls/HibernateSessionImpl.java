@@ -24,6 +24,8 @@ public abstract class HibernateSessionImpl {
         } else {
             session.setCacheMode(CacheMode.NORMAL);
             session.setFlushMode(FlushMode.AUTO);
+            session.clear();
+            session.flush();
         }
     }
 

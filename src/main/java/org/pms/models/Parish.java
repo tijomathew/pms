@@ -219,31 +219,7 @@ public class Parish implements Serializable {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Parish parish = (Parish) o;
-
-        if (id != null ? !id.equals(parish.id) : parish.id != null) return false;
-        if (!localAddress.equals(parish.localAddress)) return false;
-        if (!parishName.equals(parish.parishName)) return false;
-        if (parishNo != null ? !parishNo.equals(parish.parishNo) : parish.parishNo != null) return false;
-        if (!place.equals(parish.place)) return false;
-        if (!registeredDate.equals(parish.registeredDate)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = parishName.hashCode();
-        result = 31 * result + place.hashCode();
-        result = 31 * result + registeredDate.hashCode();
-        result = 31 * result + localAddress.hashCode();
-        return result;
-    }
 
     @Override
     public String toString() {

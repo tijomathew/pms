@@ -4,13 +4,16 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <context:component-scan base-package="org.pms"/>
 
@@ -19,7 +22,8 @@
           p:basename="classpath:messages" p:defaultEncoding="UTF-8"/>
 
 
-    <bean name="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" p:validationMessageSource-ref="messageSource" />
+    <bean name="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
+          p:validationMessageSource-ref="messageSource"/>
 
 
     <bean id="propertyConfigurer"
@@ -64,5 +68,20 @@
     <mvc:interceptors>
         <bean class="org.pms.interceptor.PMSInterceptor"/>
     </mvc:interceptors>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <tx:advice id="pmsTransactionAdvices" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="addOrUpdate*" read-only="false" isolation="READ_COMMITTED" propagation="REQUIRES_NEW"
+                       rollback-for="org.hibernate.HibernateException"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="pmsTransactionalOperation"
+                      expression="target(org.springframework.transaction.annotation.Transactional)"/>
+        <aop:advisor advice-ref="pmsTransactionAdvices" pointcut-ref="pmsTransactionalOperation"/>
+    </aop:config>
 
 </beans>

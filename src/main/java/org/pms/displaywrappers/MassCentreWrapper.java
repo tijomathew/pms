@@ -16,7 +16,7 @@ public class MassCentreWrapper implements GridRow {
     private MassCentre massCentreBean;
 
     private String[] VALID_BEAN_PROPERTIES = {"massCentreNo", "massCentreName", "place", "patronName", "parishNumber", "parishName", "registeredDate", "landLineNo", "mobileNo", "faxNo",
-            "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country"};
+            "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "id", "mappedParish.id"};
 
     public MassCentreWrapper(MassCentre massCentreBean) {
         this.massCentreBean = massCentreBean;
@@ -32,11 +32,11 @@ public class MassCentreWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                String assignedValue = "N/A";
+                String assignedValue = "";
                 if (BeanUtils.getProperty(this.massCentreBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.massCentreBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
-                        assignedValue = "N/A";
+                        assignedValue = "";
                     }
                 }
                 convertedResult.add(assignedValue);

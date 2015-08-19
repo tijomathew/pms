@@ -53,19 +53,25 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            massCentre.getMappedParish().addMassCentresForParish(massCentre);
+            if (massCentre.getId() == null && massCentre.getMassCentreNo() == null) {
 
-            Long massCentreCount = massCentreService.getMassCentreCountForParish(massCentre.getMappedParish().getId());
+                massCentre.getMappedParish().addMassCentresForParish(massCentre);
 
-            massCentre.setMassCentreNo(++massCentreCount);
+                Long massCentreCount = massCentreService.getMassCentreCountForParish(massCentre.getMappedParish().getId());
 
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+                massCentre.setMassCentreNo(++massCentreCount);
 
-            if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
-                massCentreService.addMassCentreSM(massCentre);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), SUCCESS_MESSAGE_DISPLAY);
+                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+
+                if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
+                    massCentreService.addOrUpdateMassCentre(massCentre);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), SUCCESS_MESSAGE_DISPLAY);
+                } else {
+                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
+                }
             } else {
-                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
+                massCentreService.updateMassCentre(massCentre);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), "updated successfully!");
             }
 
         } else {

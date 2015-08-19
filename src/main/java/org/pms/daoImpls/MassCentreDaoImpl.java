@@ -23,7 +23,7 @@ public class MassCentreDaoImpl extends GenericDaoImpl<MassCentre> implements Mas
     }
 
     @Override
-    public boolean addMassCentreDM(MassCentre massCentre) {
+    public Boolean addOrUpdateMassCentre(MassCentre massCentre) {
         createAndSave(massCentre);
         return true;
     }
@@ -55,8 +55,9 @@ public class MassCentreDaoImpl extends GenericDaoImpl<MassCentre> implements Mas
     }
 
     @Override
-    public void updateMassCentre(MassCentre massCentre) {
+    public Boolean updateMassCentre(MassCentre massCentre) {
         updateInstance(massCentre);
+        return true;
     }
 
     @Override

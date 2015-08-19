@@ -112,6 +112,9 @@
                                                                             <div class="panel-body">
 
                                                                                 <div class="form-group">
+                                                                                    <form:hidden
+                                                                                            path="id"
+                                                                                            id="id"/>
                                                                                     <label for="massCentreName"
                                                                                            class="col-sm-2 control-label">Mass
                                                                                         Center
@@ -145,7 +148,7 @@
                                                                                                     id="place"
                                                                                                     class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="drivingRoute"
+                                                                                    <label for="mappedParish"
                                                                                            class="col-sm-2 control-label">Parish</label>
 
                                                                                     <div class="col-sm-4">

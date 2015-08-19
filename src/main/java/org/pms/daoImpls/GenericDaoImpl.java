@@ -23,7 +23,7 @@ public abstract class GenericDaoImpl<T> extends HibernateSessionImpl implements 
 
     @Override
     public void createAndSave(T newInstanceToSave) {
-        this.getDb(false).saveOrUpdate(newInstanceToSave);
+        this.getDb(false).save(newInstanceToSave);
     }
 
     @Override
@@ -39,7 +39,7 @@ public abstract class GenericDaoImpl<T> extends HibernateSessionImpl implements 
 
     @Override
     public void updateInstance(T updateInstance) {
-        this.getDb(false).saveOrUpdate(updateInstance);
+        this.getDb(false).update(updateInstance);
     }
 
     @Override

@@ -12,6 +12,7 @@ import org.pms.services.MassCentreService;
 import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
@@ -40,8 +41,9 @@ public class MassCentreServiceImpl implements MassCentreService {
     private RequestResponseHolder requestResponseHolder;
 
     @Override
-    public boolean addMassCentreSM(MassCentre massCentre) {
-        massCentreDao.addMassCentreDM(massCentre);
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public Boolean addOrUpdateMassCentre(MassCentre massCentre) {
+        massCentreDao.addOrUpdateMassCentre(massCentre);
         return true;
     }
 
@@ -71,8 +73,9 @@ public class MassCentreServiceImpl implements MassCentreService {
     }
 
     @Override
-    public void updateMassCentre(MassCentre massCentre) {
+    public Boolean updateMassCentre(MassCentre massCentre) {
         massCentreDao.updateMassCentre(massCentre);
+        return true;
     }
 
     @Override
