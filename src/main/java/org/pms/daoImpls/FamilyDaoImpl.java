@@ -76,4 +76,10 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
         return getDb(false).createCriteria(Family.class, "family").setProjection(Projections.property("id")).add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitIds)).list();
     }
+
+    @Override
+    public Boolean updateFamily(Family family) {
+        updateInstance(family);
+        return true;
+    }
 }

@@ -57,13 +57,13 @@ public class ParishController extends AbstractErrorAndGridHandler {
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.PARISH_ADMIN) {
-                    parishService.addOrUpdateParish(parish);
+                    parishService.addParish(parish);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a parish by a Parish Admin in the system.");
                 }
             } else {
-                parishService.addOrUpdateParish(parish);
+                parishService.updateParish(parish);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), "updated successfully");
             }
 

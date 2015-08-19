@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "prayer_unit_details")
+@Table(name = "prayerunits")
 public class PrayerUnit implements Serializable {
 
     @Id
@@ -38,12 +38,15 @@ public class PrayerUnit implements Serializable {
     @Column(name = "patron")
     private String patron;
 
+    @Column(name = "registered_date")
+    private String registeredDate;
+
     //This field is added to resolve the selection issue of mass center if two or more parish has same mass center name. This field has no role in logic of adding a mass center.
     @Transient
     private Parish mappedParish;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "masscentre_no")
     private MassCentre mappedMassCentre;
 
@@ -53,7 +56,7 @@ public class PrayerUnit implements Serializable {
     private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyPrayerUnit", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyPrayerUnit")
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
     public PrayerUnit() {
@@ -61,6 +64,10 @@ public class PrayerUnit implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPrayerUnitName() {
@@ -125,6 +132,14 @@ public class PrayerUnit implements Serializable {
 
     public void setMappedFamilies(List<Family> mappedFamilies) {
         this.mappedFamilies = mappedFamilies;
+    }
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
     }
 
     public void addFamilyForWard(Family family) {

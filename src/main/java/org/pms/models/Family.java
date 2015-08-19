@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "family_details")
+@Table(name = "family")
 public class Family implements Serializable {
 
     private static final long serialVersionUID = 79358401630884627L;
@@ -65,22 +65,22 @@ public class Family implements Serializable {
     private EmergencyContact emergencyContact;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "parish_no")
     private Parish familyParish;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "masscentre_no")
     private MassCentre familyMassCentre;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "prayerunit_no")
     private PrayerUnit familyPrayerUnit;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "familyMember")
     private List<Member> memberList = new ArrayList<Member>();
 
     public Family() {

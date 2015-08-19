@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface ParishService {
 
-    Boolean addOrUpdateParish(Parish parish);
+    Boolean addParish(Parish parish);
 
     List<Parish> getAllParish();
 
@@ -25,4 +25,6 @@ public interface ParishService {
     void createFormBackObject(Model model);
 
     List<Parish> getAllParishForUserRole(User currentUser);
+
+    Boolean updateParish(Parish parish);
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "priest_details")
+@Table(name = "priests")
 public class Priest implements Serializable {
 
     private static final long serialVersionUID = -146489604805667795L;

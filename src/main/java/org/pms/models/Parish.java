@@ -74,11 +74,11 @@ public class Parish implements Serializable {
     private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mappedParish")
     private List<MassCentre> massCentreList = new ArrayList<MassCentre>();
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "familyParish", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "familyParish")
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
     public Parish() {

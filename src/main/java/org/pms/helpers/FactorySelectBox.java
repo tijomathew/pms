@@ -100,9 +100,6 @@ public final class FactorySelectBox {
         if (!prayerUnitList.isEmpty()) {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
         }
-        parishMap.put(0l, "--Please Select--");
-        massCentreMap.put(0l, "--Please Select--");
-        prayerUnitMap.put(0l, "--Please Select--");
 
         model.addAttribute("parishList", parishMap);
         model.addAttribute("massCentreList", massCentreMap);
@@ -117,7 +114,6 @@ public final class FactorySelectBox {
         if (!familyList.isEmpty()) {
             familyNameMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
         }
-        familyNameMap.put(0l, "--Please Select--");
         model.addAttribute("familyName", familyNameMap);
         return model;
     }

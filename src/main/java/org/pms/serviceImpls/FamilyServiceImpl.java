@@ -102,4 +102,10 @@ public class FamilyServiceImpl implements FamilyService {
 
         return familyList;
     }
+
+    @Override
+    public Boolean updateFamily(Family family) {
+        familyDao.updateFamily(family);
+        return true;
+    }
 }

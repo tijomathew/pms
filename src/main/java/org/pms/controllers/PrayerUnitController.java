@@ -62,21 +62,26 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
+            if (prayerUnit.getId() == null && prayerUnit.getPrayerUnitNo() == null) {
 
-            Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
+                prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
 
-            prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
+                Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
 
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+                prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
 
-            if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
-                prayerUnitService.addPrayerUnitSM(prayerUnit);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
+                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+
+                if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
+                    prayerUnitService.addPrayerUnitSM(prayerUnit);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
+                } else {
+                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
+                }
             } else {
-                customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
+                prayerUnitService.updatePrayerUnit(prayerUnit);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "updated successfully.");
             }
-
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());

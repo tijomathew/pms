@@ -66,25 +66,30 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+            if (family.getId() == null && family.getFamilyNo() == null) {
+                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            if (currentUser.getUserOfFamily() == null) {
-                family.getFamilyParish().addFamilyForParish(family);
-                family.getFamilyMassCentre().addFamilyForMassCentre(family);
-                family.getFamilyPrayerUnit().addFamilyForWard(family);
+                if (currentUser.getUserOfFamily() == null) {
+                    family.getFamilyParish().addFamilyForParish(family);
+                    family.getFamilyMassCentre().addFamilyForMassCentre(family);
+                    family.getFamilyPrayerUnit().addFamilyForWard(family);
 
-                Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
+                    Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
 
-                family.setFamilyNo(++familyCounterForParish);
+                    family.setFamilyNo(++familyCounterForParish);
 
-                familyService.addFamilySM(family);
+                    familyService.addFamilySM(family);
 
-                currentUser.setUserOfFamily(family);
-                userService.addOrUpdateUserSM(currentUser);
+                    currentUser.setUserOfFamily(family);
+                    userService.addOrUpdateUserSM(currentUser);
 
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
+                } else {
+                    customResponse = createErrorMessage(StatusCode.FAILURE, family.getFamilyName(), "cannot add to the system by a family user named " + currentUser.getEmail());
+                }
             } else {
-                customResponse = createErrorMessage(StatusCode.FAILURE, family.getFamilyName(), "cannot add to the system by a family user named " + currentUser.getEmail());
+                familyService.updateFamily(family);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), "updated successfully");
             }
 
         } else {

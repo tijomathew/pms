@@ -22,7 +22,7 @@ public class LoginDaoImpl extends GenericDaoImpl<User> implements LoginDao {
 
     @Override
     public User getUserByUserEmail(String loginUserEmail) {
-        return (User) getDb(false).createCriteria(User.class, "user").add(Restrictions.eq("email", loginUserEmail)).uniqueResult();
+        return (User) getDb(false).createCriteria(User.class, "user").add(Restrictions.eq("user.email", loginUserEmail)).uniqueResult();
     }
 
 }

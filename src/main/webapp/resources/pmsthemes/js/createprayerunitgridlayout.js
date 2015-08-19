@@ -19,7 +19,7 @@ function loadPrayerUnitGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'parishNo'],
+            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'parishNo', 'id', 'mappedMassCentre', 'registeredDate'],
             colModel: [
                 {name: 'prayerUnitNo', index: 'prayerUnitNo', width: 90, sortable: false},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false, hidden: true},
@@ -84,6 +84,27 @@ function loadPrayerUnitGrid() {
                 {
                     name: 'mappedParish',
                     index: 'mappedParish',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'id',
+                    index: 'id',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'mappedMassCentre',
+                    index: 'mappedMassCentre',
+                    width: 80,
+                    align: "right",
+                    sortable: false, hidden: true
+                },
+                {
+                    name: 'registeredDate',
+                    index: 'registeredDate',
                     width: 80,
                     align: "right",
                     sortable: false, hidden: true

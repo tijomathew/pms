@@ -117,6 +117,7 @@
                                                                                                 path="prayerUnitName"
                                                                                                 id="prayerUnitName"
                                                                                                 class="form-control"/>
+                                                                                        <form:hidden path="id"/>
                                                                                     </div>
                                                                                     <label for="prayerUnitNo"
                                                                                            class="col-sm-2 control-label">Prayer
@@ -160,6 +161,7 @@
                                                                                         <form:select
                                                                                                 path="mappedMassCentre"
                                                                                                 id="mappedMassCentre"
+                                                                                                items="${massCentreMap}"
                                                                                                 class="form-control"/>
                                                                                     </div>
                                                                                     <label for="patron"
@@ -169,6 +171,19 @@
                                                                                         <form:input path="patron"
                                                                                                     id="patron"
                                                                                                     class="form-control"/>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="registeredDate"
+                                                                                           class="col-sm-2 control-label">Registered
+                                                                                        Date</label>
+
+                                                                                    <div class="col-sm-4">
+                                                                                        <form:input
+                                                                                                path="registeredDate"
+                                                                                                id="registeredDate"
+                                                                                                class="form-control"
+                                                                                                readonly="true"/>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

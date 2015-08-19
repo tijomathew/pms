@@ -26,7 +26,7 @@ public interface PrayerUnitService {
 
     Long getPrayerUnitCountUnderParish(Long parishId);
 
-    PrayerUnit createPrayerUnitFormBackObject(Model modelMap);
+    void createPrayerUnitFormBackObject(Model modelMap);
 
     List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds);
 

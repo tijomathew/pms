@@ -25,7 +25,7 @@ public class ParishDaoImpl extends GenericDaoImpl<Parish> implements ParishDao {
     }
 
     @Override
-    public Boolean addOrUpdateParish(Parish parish) {
+    public Boolean addParish(Parish parish) {
         createAndSave(parish);
         return true;
     }
@@ -58,8 +58,9 @@ public class ParishDaoImpl extends GenericDaoImpl<Parish> implements ParishDao {
     }
 
     @Override
-    public void updateParish(Parish parish) {
-        getDb(false).saveOrUpdate(parish);
+    public Boolean updateParish(Parish parish) {
+        updateInstance(parish);
+        return true;
     }
 
     @Override

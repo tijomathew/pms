@@ -1,5 +1,7 @@
 package org.pms.serviceImpls;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
@@ -79,9 +81,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public PrayerUnit createPrayerUnitFormBackObject(Model modelMap) {
+    public void createPrayerUnitFormBackObject(Model modelMap) {
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
         Map<Long, String> parishMap = new HashMap<>();
+        Map<Long, String> massCentreMap = new HashMap<>();
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
@@ -91,10 +94,17 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
         }
-        parishMap.put(0l, "--please select--");
+
+        List<MassCentre> massCentreList = massCentreService.getAllMassCentresForUserRole(currentUser);
+
+        if (!massCentreList.isEmpty()) {
+            massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
+        }
+
+        formBackPrayerUnit.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
 
         modelMap.addAttribute("parishMap", parishMap);
-        return formBackPrayerUnit;
+        modelMap.addAttribute("massCentreMap", massCentreMap);
     }
 
     @Override

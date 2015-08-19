@@ -309,8 +309,7 @@
                                                                                     <form:input
                                                                                             path="localAddress.postCode"
                                                                                             id="localAddresspostCode"
-                                                                                            class="form-control"
-                                                                                            readonly="true"/>
+                                                                                            class="form-control"/>
                                                                                 </div>
                                                                                 <label for="localAddress.country"
                                                                                        class="col-sm-2 control-label">Country</label>

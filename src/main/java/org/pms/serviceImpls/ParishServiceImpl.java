@@ -27,8 +27,8 @@ public class ParishServiceImpl implements ParishService {
     private ParishDao parishDao;
 
     @Override
-    public Boolean addOrUpdateParish(Parish parish) {
-        parishDao.addOrUpdateParish(parish);
+    public Boolean addParish(Parish parish) {
+        parishDao.addParish(parish);
         return true;
     }
 
@@ -75,5 +75,11 @@ public class ParishServiceImpl implements ParishService {
         Parish modelBackObject = new Parish();
         modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("parish", modelBackObject);
+    }
+
+    @Override
+    public Boolean updateParish(Parish parish) {
+        parishDao.updateParish(parish);
+        return true;
     }
 }

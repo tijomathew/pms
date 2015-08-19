@@ -35,4 +35,6 @@ public interface FamilyService {
 
     List<Family> getAllFamiliesForUserRole(User currentUser);
 
+    Boolean updateFamily(Family family);
+
 }
