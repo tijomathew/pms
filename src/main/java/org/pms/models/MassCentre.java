@@ -79,10 +79,6 @@ public class MassCentre implements Serializable {
     @OneToMany(mappedBy = "familyMassCentre")
     private List<Family> mappedFamilies = new ArrayList<Family>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "massCentre")
-    private List<Priest> mappedPriest = new ArrayList<Priest>();
-
     public MassCentre() {
     }
 
@@ -190,15 +186,6 @@ public class MassCentre implements Serializable {
         this.mappedFamilies = mappedFamilies;
     }
 
-    public List<Priest> getMappedPriest() {
-        return mappedPriest;
-    }
-
-    public void setMappedPriest(List<Priest> mappedPriest) {
-        this.mappedPriest = mappedPriest;
-    }
-
-
     /**
      * This method for adding ward to the mass center.
      *
@@ -243,7 +230,6 @@ public class MassCentre implements Serializable {
         if (mappedFamilies != null ? !mappedFamilies.equals(that.mappedFamilies) : that.mappedFamilies != null)
             return false;
         if (mappedParish != null ? !mappedParish.equals(that.mappedParish) : that.mappedParish != null) return false;
-        if (mappedPriest != null ? !mappedPriest.equals(that.mappedPriest) : that.mappedPriest != null) return false;
         if (!massCentreName.equals(that.massCentreName)) return false;
         if (massCentreNo != null ? !massCentreNo.equals(that.massCentreNo) : that.massCentreNo != null) return false;
         if (mobileNo != null ? !mobileNo.equals(that.mobileNo) : that.mobileNo != null) return false;
@@ -280,7 +266,6 @@ public class MassCentre implements Serializable {
                 .append("mappedParish", mappedParish)
                 .append("prayerUnits", prayerUnits)
                 .append("mappedFamilies", mappedFamilies)
-                .append("mappedPriest", mappedPriest)
                 .toString();
     }
 }

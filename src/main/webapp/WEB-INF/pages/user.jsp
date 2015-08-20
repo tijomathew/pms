@@ -41,8 +41,6 @@
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
 
-            globalSubmissionOfForms('userForm', '${userActionURL}', 'userGrid');
-
             function reactiveAdminsComboBox() {
                 $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#massCentreSelectBox').prop('selectedIndex', 0);
@@ -158,7 +156,7 @@
 
                                                         <form:form modelAttribute="user"
                                                                    action="${userActionURL}" method="post" id="userForm"
-                                                                   class="form-horizontal nomargin">
+                                                                   class="form-horizontal nomargin hidedisplay">
 
                                                             <div class="tab-content">
 
@@ -227,7 +225,7 @@
                                                                                                     class="form-control">
                                                                                             </form:select>
                                                                                         </div>
-                                                                                        <label for="familyId" class="col-sm-2 control-label">Family</label>
+                                                                                        <label for="userOfFamily" class="col-sm-2 control-label">Family</label>
 
                                                                                         <div class="col-sm-4" id="familySelectBoxer">
                                                                                             <form:select path="userOfFamily"
@@ -308,16 +306,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row nomargin">
-                                                                    <div class="col-md-12 text-left">
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">SAVE
-                                                                        </button>
-                                                                        <button type="submit" value="Save"
-                                                                                class="btn btn-primary defaultButtonWidth">RESET
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </form:form>
                                                     </div>
@@ -332,31 +320,10 @@
                 </div>
             </div>
 
-
-          <%--  <div class="container padding7 paddingTop0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-midnightblue nomargin">
-
-                          &lt;%&ndash;  <div class="panel-heading">
-                                <h4>User Information</h4>
-                            </div>
-&ndash;%&gt;
-
-                            <div class="panel-body padding7">
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- container -->
-            </div>--%>
-            <!-- container -->
         </div>
-        <!--wrap -->
+
     </div>
-    <!-- page-content -->
+
 
     <%@include file="footerPanelTemplate.jsp" %>
 

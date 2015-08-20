@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
     private FamilyService familyService;
 
     @Override
-    public boolean addOrUpdateMemberSM(Member member) {
-        memberDao.addOrUpdateMemberDM(member);
+    public boolean addMember(Member member) {
+        memberDao.addMember(member);
         return true;
     }
 

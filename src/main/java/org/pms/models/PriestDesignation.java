@@ -7,8 +7,8 @@ import javax.persistence.*;
 /**
  * User: tijo.
  */
-@Entity
-@Table(name = "priest_designations")
+/*@Entity
+@Table(name = "priest_designations")*/
 public class PriestDesignation {
 
     @Id

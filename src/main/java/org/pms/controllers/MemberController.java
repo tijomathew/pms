@@ -87,7 +87,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                     member.setMemberNo(++memberCountForParish);
 
-                    memberService.addOrUpdateMemberSM(member);
+                    memberService.addMember(member);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add a member to the system either a family head in the family already exist Or before adding family admin to the system");
@@ -99,7 +99,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
                     if (familyHead != null) {
                         if (familyHead.getMemberNo() != member.getMemberNo()) {
                             familyHead.setFamilyHead(Boolean.FALSE);
-                            memberService.addOrUpdateMemberSM(familyHead);
+                            memberService.addMember(familyHead);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
                 } else {
                     member.getMemberAsPerson().setImageBytes(Base64.decodeBase64(member.getMemberAsPerson().getImageBytesAsString()));
                 }
-                memberService.addOrUpdateMemberSM(member);
+                memberService.addMember(member);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), "updated successfully");
             }
         } else {

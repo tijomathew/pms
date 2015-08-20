@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface MemberService {
 
-    boolean addOrUpdateMemberSM(Member member);
+    boolean addMember(Member member);
 
     List<Member> getAllMember();
 

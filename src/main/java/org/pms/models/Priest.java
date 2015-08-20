@@ -15,8 +15,8 @@ import java.io.Serializable;
  * User: tijo
  */
 
-@Entity
-@Table(name = "priests")
+/*@Entity
+@Table(name = "priests")*/
 public class Priest implements Serializable {
 
     private static final long serialVersionUID = -146489604805667795L;

@@ -180,7 +180,8 @@
                                                                                     <form:select
                                                                                             path="familyParish"
                                                                                             items="${parishList}"
-                                                                                            class="form-control"></form:select>
+                                                                                            class="form-control"
+                                                                                            id="parishSelectBox"></form:select>
                                                                                 </div>
                                                                                 <label for="familyMassCentre"
                                                                                        class="col-sm-2 control-label">Mass
@@ -190,7 +191,8 @@
                                                                                     <form:select
                                                                                             path="familyMassCentre"
                                                                                             items="${massCentreList}"
-                                                                                            class="form-control"></form:select>
+                                                                                            class="form-control"
+                                                                                            id="massCentreSelectBox"></form:select>
                                                                                 </div>
                                                                             </div>
 
@@ -203,7 +205,8 @@
                                                                                     <form:select
                                                                                             path="familyPrayerUnit"
                                                                                             items="${prayerUnitList}"
-                                                                                            class="form-control"></form:select>
+                                                                                            class="form-control"
+                                                                                            id="prayerUnitSelectBox"></form:select>
                                                                                 </div>
                                                                                 <label for="parishInNative"
                                                                                        class="col-sm-2 control-label">Native

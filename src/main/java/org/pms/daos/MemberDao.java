@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MemberDao {
 
-    boolean addOrUpdateMemberDM(Member member);
+    boolean addMember(Member member);
 
     List<Member> getAllMembers();
 

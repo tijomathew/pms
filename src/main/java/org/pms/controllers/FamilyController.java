@@ -66,10 +66,11 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
         if (!result.hasErrors()) {
 
-            if (family.getId() == null && family.getFamilyNo() == null) {
-                User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-                if (currentUser.getUserOfFamily() == null) {
+            if (family.getId() == null && family.getFamilyNo() == null) {
+
+                if (currentUser.getSystemRole() != SystemRole.FAMILY_USER) {
                     family.getFamilyParish().addFamilyForParish(family);
                     family.getFamilyMassCentre().addFamilyForMassCentre(family);
                     family.getFamilyPrayerUnit().addFamilyForWard(family);
@@ -80,8 +81,8 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
                     familyService.addFamilySM(family);
 
-                    currentUser.setUserOfFamily(family);
-                    userService.addOrUpdateUserSM(currentUser);
+                   /* currentUser.setUserOfFamily(family);
+                    userService.addOrUpdateUserSM(currentUser);*/
 
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
