@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -225,5 +226,47 @@ public class Family implements Serializable {
         return this.getFamilyPrayerUnit().getPrayerUnitName();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Family family = (Family) o;
+
+        if (!dateOfRegistration.equals(family.dateOfRegistration)) return false;
+        if (!dioceseInNative.equals(family.dioceseInNative)) return false;
+        if (!familyName.equals(family.familyName)) return false;
+        if (familyNo != null ? !familyNo.equals(family.familyNo) : family.familyNo != null) return false;
+        if (!parishInNative.equals(family.parishInNative)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = familyName.hashCode();
+        result = 31 * result + parishInNative.hashCode();
+        result = 31 * result + dioceseInNative.hashCode();
+        result = 31 * result + dateOfRegistration.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("familyName", familyName)
+                .append("familyNo", familyNo)
+                .append("parishInNative", parishInNative)
+                .append("dioceseInNative", dioceseInNative)
+                .append("dateOfRegistration", dateOfRegistration)
+                .append("localAddress", localAddress)
+                .append("nativeAddress", nativeAddress)
+                .append("emergencyContact", emergencyContact)
+                .append("familyParish", familyParish)
+                .append("familyMassCentre", familyMassCentre)
+                .append("familyPrayerUnit", familyPrayerUnit)
+                .append("memberList", memberList)
+                .toString();
+    }
 }

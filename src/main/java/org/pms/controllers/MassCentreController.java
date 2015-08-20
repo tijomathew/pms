@@ -57,19 +57,22 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
 
                 massCentre.getMappedParish().addMassCentresForParish(massCentre);
 
-                Long massCentreCount = massCentreService.getMassCentreCountForParish(massCentre.getMappedParish().getId());
-
-                massCentre.setMassCentreNo(++massCentreCount);
+                massCentreService.setMassCentreNumber(massCentre);
 
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
-                    massCentreService.addOrUpdateMassCentre(massCentre);
+                    massCentreService.addMassCentre(massCentre);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
                 }
             } else {
+                MassCentre retrievedMassCentre = massCentreService.getMassCentreForIDSM(massCentre.getId());
+
+                if (!retrievedMassCentre.getMappedParish().equals(massCentre.getMappedParish())) {
+                    massCentreService.setMassCentreNumber(massCentre);
+                }
                 massCentreService.updateMassCentre(massCentre);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), "updated successfully!");
             }

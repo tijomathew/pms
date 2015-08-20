@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface MassCentreService {
 
-    Boolean addOrUpdateMassCentre(MassCentre massCentre);
+    Boolean addMassCentre(MassCentre massCentre);
 
     List<Parish> getAllParishSM();
 
@@ -34,5 +34,7 @@ public interface MassCentreService {
     List<Long> getAllMassCentreIdsForParish(Long parishId);
 
     List<MassCentre> getAllMassCentresForUserRole(User currentUser);
+
+    void setMassCentreNumber(MassCentre massCentre);
 
 }

@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.RelationShipInFamily;
 
@@ -667,5 +668,90 @@ public class Member implements Serializable {
 
     public String getPrayerUnitName() {
         return this.familyMember.getFamilyPrayerUnit().getPrayerUnitName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Member member = (Member) o;
+
+        if (!memberAsPerson.equals(member.memberAsPerson)) return false;
+        if (memberNo != null ? !memberNo.equals(member.memberNo) : member.memberNo != null) return false;
+        if (!registeredDate.equals(member.registeredDate)) return false;
+        if (relationshipInFamily != member.relationshipInFamily) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = memberAsPerson.hashCode();
+        result = 31 * result + relationshipInFamily.hashCode();
+        result = 31 * result + registeredDate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("memberAsPerson", memberAsPerson)
+                .append("memberNo", memberNo)
+                .append("relationshipInFamily", relationshipInFamily)
+                .append("dateOfBaptism", dateOfBaptism)
+                .append("dateOfConfirmation", dateOfConfirmation)
+                .append("dateOfFirstCommunion", dateOfFirstCommunion)
+                .append("dateOfMarriage", dateOfMarriage)
+                .append("dateOfDeath", dateOfDeath)
+                .append("churchOfBaptism", churchOfBaptism)
+                .append("countryOfBaptism", countryOfBaptism)
+                .append("baptismName", baptismName)
+                .append("ministerOfBaptism", ministerOfBaptism)
+                .append("baptismGodFather", baptismGodFather)
+                .append("baptismGodMother", baptismGodMother)
+                .append("patronSaint", patronSaint)
+                .append("patronSaintFeastDay", patronSaintFeastDay)
+                .append("churchOfConfirmation", churchOfConfirmation)
+                .append("countryOfConfirmation", countryOfConfirmation)
+                .append("ministerOfConfirmation", ministerOfConfirmation)
+                .append("confirmationGodFather", confirmationGodFather)
+                .append("confirmationGodMother", confirmationGodMother)
+                .append("churchOfHolyCommunion", churchOfHolyCommunion)
+                .append("countryOfHolyCommunion", countryOfHolyCommunion)
+                .append("ministerOfHolyCommunion", ministerOfHolyCommunion)
+                .append("dateOfBetrothal", dateOfBetrothal)
+                .append("churchOfBetrothal", churchOfBetrothal)
+                .append("countryOfBetrothal", countryOfBetrothal)
+                .append("priestOfBetrothal", priestOfBetrothal)
+                .append("spouseName", spouseName)
+                .append("spouseBaptismName", spouseBaptismName)
+                .append("spouseNativeParish", spouseNativeParish)
+                .append("spouseNativeDiocese", spouseNativeDiocese)
+                .append("spouseFatherName", spouseFatherName)
+                .append("spouseMotherName", spouseMotherName)
+                .append("spouseNativeAddress", spouseNativeAddress)
+                .append("spouseNationality", spouseNationality)
+                .append("betrothalWitnessOne", betrothalWitnessOne)
+                .append("betrothalWitnessTwo", betrothalWitnessTwo)
+                .append("churchOfMarriage", churchOfMarriage)
+                .append("priestOfMarriage", priestOfMarriage)
+                .append("marriageWitnessOne", marriageWitnessOne)
+                .append("marriageWitnessTwo", marriageWitnessTwo)
+                .append("placeOfDeath", placeOfDeath)
+                .append("funeralDate", funeralDate)
+                .append("buriedChurch", buriedChurch)
+                .append("ministerOfDeath", ministerOfDeath)
+                .append("placeOfCemetery", placeOfCemetery)
+                .append("tombNo", tombNo)
+                .append("confession", confession)
+                .append("communion", communion)
+                .append("anointingTheSick", anointingTheSick)
+                .append("ministerOfAnointingTheSick", ministerOfAnointingTheSick)
+                .append("registeredDate", registeredDate)
+                .append("familyHead", familyHead)
+                .append("familyMember", familyMember)
+                .toString();
     }
 }

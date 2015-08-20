@@ -223,19 +223,9 @@ public class MassCentre implements Serializable {
 
         MassCentre that = (MassCentre) o;
 
-        if (faxNo != null ? !faxNo.equals(that.faxNo) : that.faxNo != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (landLineNo != null ? !landLineNo.equals(that.landLineNo) : that.landLineNo != null) return false;
-        if (localAddress != null ? !localAddress.equals(that.localAddress) : that.localAddress != null) return false;
-        if (mappedFamilies != null ? !mappedFamilies.equals(that.mappedFamilies) : that.mappedFamilies != null)
-            return false;
-        if (mappedParish != null ? !mappedParish.equals(that.mappedParish) : that.mappedParish != null) return false;
         if (!massCentreName.equals(that.massCentreName)) return false;
         if (massCentreNo != null ? !massCentreNo.equals(that.massCentreNo) : that.massCentreNo != null) return false;
-        if (mobileNo != null ? !mobileNo.equals(that.mobileNo) : that.mobileNo != null) return false;
-        if (patronName != null ? !patronName.equals(that.patronName) : that.patronName != null) return false;
         if (!place.equals(that.place)) return false;
-        if (prayerUnits != null ? !prayerUnits.equals(that.prayerUnits) : that.prayerUnits != null) return false;
         if (!registeredDate.equals(that.registeredDate)) return false;
 
         return true;
@@ -244,7 +234,6 @@ public class MassCentre implements Serializable {
     @Override
     public int hashCode() {
         int result = massCentreName.hashCode();
-        result = 31 * result + (patronName != null ? patronName.hashCode() : 0);
         result = 31 * result + place.hashCode();
         result = 31 * result + registeredDate.hashCode();
         return result;

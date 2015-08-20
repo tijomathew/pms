@@ -2,6 +2,7 @@ package org.pms.models;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.pms.enums.*;
@@ -306,5 +307,67 @@ public class Person implements Serializable {
         return new StringBuilder(String.valueOf(this.getSalutation().getUIDisplayValue())).append(" ").append(this.getFirstName()).append(" ").append(this.getMiddleName()).append(" ").append(this.getLastName()).toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Person person = (Person) o;
+
+        if (!dateOfBirth.equals(person.dateOfBirth)) return false;
+        if (!educationQualifications.equals(person.educationQualifications)) return false;
+        if (!firstName.equals(person.firstName)) return false;
+        if (gender != person.gender) return false;
+        if (!lastName.equals(person.lastName)) return false;
+        if (lifeStatus != person.lifeStatus) return false;
+        if (!nationality.equals(person.nationality)) return false;
+        if (personalStatus != person.personalStatus) return false;
+        if (!placeOfBirth.equals(person.placeOfBirth)) return false;
+        if (salutation != person.salutation) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = salutation.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + dateOfBirth.hashCode();
+        result = 31 * result + placeOfBirth.hashCode();
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + nationality.hashCode();
+        result = 31 * result + personalStatus.hashCode();
+        result = 31 * result + educationQualifications.hashCode();
+        result = 31 * result + lifeStatus.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("salutation", salutation)
+                .append("firstName", firstName)
+                .append("middleName", middleName)
+                .append("lastName", lastName)
+                .append("dateOfBirth", dateOfBirth)
+                .append("placeOfBirth", placeOfBirth)
+                .append("gender", gender)
+                .append("nationality", nationality)
+                .append("personalStatus", personalStatus)
+                .append("email", email)
+                .append("mobileNo", mobileNo)
+                .append("landLine", landLine)
+                .append("faxNo", faxNo)
+                .append("educationQualifications", educationQualifications)
+                .append("jobDetails", jobDetails)
+                .append("bloodGroup", bloodGroup)
+                .append("carNumber", carNumber)
+                .append("lifeStatus", lifeStatus)
+                .append("personalRemarks", personalRemarks)
+                .append("imageBytes", imageBytes)
+                .append("file", file)
+                .append("imageBytesAsString", imageBytesAsString)
+                .toString();
+    }
 }

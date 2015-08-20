@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MassCentreDao {
 
-    Boolean addOrUpdateMassCentre(MassCentre massCentre);
+    Boolean addMassCentre(MassCentre massCentre);
 
     List<Parish> getAllParishDM();
 

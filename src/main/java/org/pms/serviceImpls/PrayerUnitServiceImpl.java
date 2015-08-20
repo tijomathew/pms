@@ -138,4 +138,10 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
         return allPrayerUnits;
     }
+
+    @Override
+    public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
+        Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
+        prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
+    }
 }

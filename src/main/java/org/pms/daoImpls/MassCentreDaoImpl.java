@@ -23,7 +23,7 @@ public class MassCentreDaoImpl extends GenericDaoImpl<MassCentre> implements Mas
     }
 
     @Override
-    public Boolean addOrUpdateMassCentre(MassCentre massCentre) {
+    public Boolean addMassCentre(MassCentre massCentre) {
         createAndSave(massCentre);
         return true;
     }
@@ -51,7 +51,7 @@ public class MassCentreDaoImpl extends GenericDaoImpl<MassCentre> implements Mas
 
     @Override
     public Long getMassCentreCountForParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(MassCentre.class, "massCentre").setProjection(Projections.rowCount()).add(Restrictions.eq("massCentre.mappedParish.id", parishId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(MassCentre.class, "massCentre").setProjection(Projections.max("massCentre.massCentreNo")).add(Restrictions.eq("massCentre.mappedParish.id", parishId)).uniqueResult();
     }
 
     @Override

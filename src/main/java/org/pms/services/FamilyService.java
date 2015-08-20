@@ -37,4 +37,6 @@ public interface FamilyService {
 
     Boolean updateFamily(Family family);
 
+    void setFamilyNumber(Family family);
+
 }

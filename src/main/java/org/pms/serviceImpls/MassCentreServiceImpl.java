@@ -41,9 +41,8 @@ public class MassCentreServiceImpl implements MassCentreService {
     private RequestResponseHolder requestResponseHolder;
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Boolean addOrUpdateMassCentre(MassCentre massCentre) {
-        massCentreDao.addOrUpdateMassCentre(massCentre);
+    public Boolean addMassCentre(MassCentre massCentre) {
+        massCentreDao.addMassCentre(massCentre);
         return true;
     }
 
@@ -127,5 +126,11 @@ public class MassCentreServiceImpl implements MassCentreService {
                 break;
         }
         return allMassCentres;
+    }
+
+    @Override
+    public void setMassCentreNumber(MassCentre massCentre) {
+        Long massCentreCount = getMassCentreCountForParish(massCentre.getMappedParish().getId());
+        massCentre.setMassCentreNo(++massCentreCount);
     }
 }

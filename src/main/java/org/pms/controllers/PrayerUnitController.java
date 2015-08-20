@@ -66,9 +66,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
                 prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
 
-                Long prayerUnitCounter = prayerUnitService.getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
-
-                prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
+                prayerUnitService.setPrayerUnitNumber(prayerUnit);
 
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
@@ -79,6 +77,10 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
                 }
             } else {
+                PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
+                if (!prayerUnit.getMappedMassCentre().getMappedParish().equals(retrievedPrayerUnit.getMappedMassCentre().getMappedParish())) {
+                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                }
                 prayerUnitService.updatePrayerUnit(prayerUnit);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "updated successfully.");
             }

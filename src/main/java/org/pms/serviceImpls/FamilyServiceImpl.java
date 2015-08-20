@@ -46,7 +46,11 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public Long getFamilyCountForParish(Long parishId) {
-        return familyDao.getFamilyCountForParish(parishId);
+        Long familyNumber = familyDao.getFamilyCountForParish(parishId);
+        if (familyNumber == null) {
+            familyNumber = 0l;
+        }
+        return familyNumber;
     }
 
     @Override
@@ -107,5 +111,11 @@ public class FamilyServiceImpl implements FamilyService {
     public Boolean updateFamily(Family family) {
         familyDao.updateFamily(family);
         return true;
+    }
+
+    @Override
+    public void setFamilyNumber(Family family) {
+        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyParish().getId());
+        family.setFamilyNo(++familyCounterForParish);
     }
 }

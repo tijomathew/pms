@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -168,5 +169,42 @@ public class PrayerUnit implements Serializable {
         return this.getMappedMassCentre().getMappedParish().getId();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        PrayerUnit that = (PrayerUnit) o;
+
+        if (!prayerUnitName.equals(that.prayerUnitName)) return false;
+        if (prayerUnitNo != null ? !prayerUnitNo.equals(that.prayerUnitNo) : that.prayerUnitNo != null) return false;
+        if (!prayerUnitPlace.equals(that.prayerUnitPlace)) return false;
+        if (!registeredDate.equals(that.registeredDate)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = prayerUnitName.hashCode();
+        result = 31 * result + prayerUnitPlace.hashCode();
+        result = 31 * result + registeredDate.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("prayerUnitName", prayerUnitName)
+                .append("prayerUnitNo", prayerUnitNo)
+                .append("prayerUnitPlace", prayerUnitPlace)
+                .append("patron", patron)
+                .append("registeredDate", registeredDate)
+                .append("mappedParish", mappedParish)
+                .append("mappedMassCentre", mappedMassCentre)
+                .append("localAddress", localAddress)
+                .append("mappedFamilies", mappedFamilies)
+                .toString();
+    }
 }

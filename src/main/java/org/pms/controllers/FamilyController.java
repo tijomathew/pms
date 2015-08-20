@@ -75,9 +75,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                     family.getFamilyMassCentre().addFamilyForMassCentre(family);
                     family.getFamilyPrayerUnit().addFamilyForWard(family);
 
-                    Long familyCounterForParish = familyService.getFamilyCountForParish(family.getFamilyParish().getId());
-
-                    family.setFamilyNo(++familyCounterForParish);
+                    familyService.setFamilyNumber(family);
 
                     familyService.addFamilySM(family);
 
@@ -89,6 +87,11 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                     customResponse = createErrorMessage(StatusCode.FAILURE, family.getFamilyName(), "cannot add to the system by a family user named " + currentUser.getEmail());
                 }
             } else {
+                Family retrievedFamily = familyService.getFamilyForID(family.getId());
+                if (!family.getFamilyParish().equals(retrievedFamily.getFamilyParish())) {
+                    familyService.setFamilyNumber(family);
+                }
+
                 familyService.updateFamily(family);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), "updated successfully");
             }

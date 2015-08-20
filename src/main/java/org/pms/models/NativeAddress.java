@@ -1,5 +1,6 @@
 package org.pms.models;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
@@ -126,45 +127,38 @@ public class NativeAddress implements Serializable {
 
         NativeAddress that = (NativeAddress) o;
 
-        if (addressLineOne != null ? !addressLineOne.equals(that.addressLineOne) : that.addressLineOne != null)
-            return false;
-        if (addressLineThree != null ? !addressLineThree.equals(that.addressLineThree) : that.addressLineThree != null)
-            return false;
-        if (addressLineTwo != null ? !addressLineTwo.equals(that.addressLineTwo) : that.addressLineTwo != null)
-            return false;
-        if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (district != null ? !district.equals(that.district) : that.district != null) return false;
-        if (pin != null ? !pin.equals(that.pin) : that.pin != null) return false;
-        if (postOffice != null ? !postOffice.equals(that.postOffice) : that.postOffice != null) return false;
-        if (state != null ? !state.equals(that.state) : that.state != null) return false;
+        if (!addressLineOne.equals(that.addressLineOne)) return false;
+        if (!country.equals(that.country)) return false;
+        if (!district.equals(that.district)) return false;
+        if (!pin.equals(that.pin)) return false;
+        if (!postOffice.equals(that.postOffice)) return false;
+        if (!state.equals(that.state)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = addressLineOne != null ? addressLineOne.hashCode() : 0;
-        result = 31 * result + (addressLineTwo != null ? addressLineTwo.hashCode() : 0);
-        result = 31 * result + (addressLineThree != null ? addressLineThree.hashCode() : 0);
-        result = 31 * result + (postOffice != null ? postOffice.hashCode() : 0);
-        result = 31 * result + (district != null ? district.hashCode() : 0);
-        result = 31 * result + (pin != null ? pin.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
+        int result = addressLineOne.hashCode();
+        result = 31 * result + postOffice.hashCode();
+        result = 31 * result + district.hashCode();
+        result = 31 * result + pin.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + country.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "NativeAddress{" +
-                "addressLineOne='" + addressLineOne + '\'' +
-                ", addressLineTwo='" + addressLineTwo + '\'' +
-                ", addressLineThree='" + addressLineThree + '\'' +
-                ", postOffice='" + postOffice + '\'' +
-                ", district='" + district + '\'' +
-                ", pin=" + pin +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("addressLineOne", addressLineOne)
+                .append("addressLineTwo", addressLineTwo)
+                .append("addressLineThree", addressLineThree)
+                .append("postOffice", postOffice)
+                .append("district", district)
+                .append("pin", pin)
+                .append("state", state)
+                .append("country", country)
+                .toString();
     }
 }

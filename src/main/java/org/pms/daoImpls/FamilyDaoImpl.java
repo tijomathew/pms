@@ -44,7 +44,7 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
 
     @Override
     public Long getFamilyCountForParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.rowCount()).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("family.familyParish.id", parishId)).uniqueResult();
     }
 
     @Override
