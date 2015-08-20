@@ -99,7 +99,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
                     if (familyHead != null) {
                         if (familyHead.getMemberNo() != member.getMemberNo()) {
                             familyHead.setFamilyHead(Boolean.FALSE);
-                            memberService.addMember(familyHead);
+                            memberService.updateMember(familyHead);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
                 } else {
                     member.getMemberAsPerson().setImageBytes(Base64.decodeBase64(member.getMemberAsPerson().getImageBytesAsString()));
                 }
-                memberService.addMember(member);
+                memberService.updateMember(member);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), "updated successfully");
             }
         } else {

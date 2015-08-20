@@ -22,8 +22,14 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     }
 
     @Override
-    public boolean addMember(Member member) {
+    public Boolean addMember(Member member) {
         createAndSave(member);
+        return true;
+    }
+
+    @Override
+    public Boolean updateMember(Member member) {
+        updateInstance(member);
         return true;
     }
 

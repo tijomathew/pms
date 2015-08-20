@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface MemberDao {
 
-    boolean addMember(Member member);
+    Boolean addMember(Member member);
+
+    Boolean updateMember(Member member);
 
     List<Member> getAllMembers();
 
