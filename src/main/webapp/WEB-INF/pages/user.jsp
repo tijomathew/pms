@@ -37,9 +37,9 @@
 
             loadUserGrid();
 
-            <c:if test = "${showForPrayerUnitAdmin == false}" >
+          /*  <c:if test = "${showForPrayerUnitAdmin == false}" >
             loadSelectBox("${pageContext.request.contextPath}");
-            </c:if>
+            </c:if>*/
 
             function reactiveAdminsComboBox() {
                 $('#parishSelectBox').prop('selectedIndex', 0);
@@ -171,11 +171,13 @@
 
                                                                                 <div class="form-group">
                                                                                     <label for="systemRole"
-                                                                                           class="col-sm-2 control-label">System Role</label>
+                                                                                           class="col-sm-2 control-label">System
+                                                                                        Role</label>
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:select path="systemRole"
-                                                                                                     id="systemRole" class="form-control"
+                                                                                                     id="systemRole"
+                                                                                                     class="form-control toaddUnderScore"
                                                                                                      items="${systemRoles}">
                                                                                         </form:select>
                                                                                     </div>
@@ -184,121 +186,82 @@
 
                                                                                     <div class="col-sm-4">
                                                                                         <form:select path="isActive"
-                                                                                                     id="isActive" class="form-control"
+                                                                                                     id="isActive"
+                                                                                                     class="form-control"
                                                                                                      items="${systemRoleStatus}">
                                                                                         </form:select>
                                                                                     </div>
                                                                                 </div>
-                                                                                <c:if test="${showForPrayerUnitAdmin == false}">
-                                                                                    <div class="form-group">
-                                                                                        <label for="parishId"
-                                                                                               class="col-sm-2 control-label">Parish</label>
+                                                                                <div class="form-group">
+                                                                                    <label for="usersOfParishes"
+                                                                                           class="col-sm-2 control-label">Parish</label>
 
-                                                                                        <div class="col-sm-4" id="parishSelectBoxer">
-                                                                                            <form:select path="usersOfParishes"
-                                                                                                         id="parishSelectBox"
-                                                                                                         class="form-control">
-                                                                                            </form:select>
-                                                                                        </div>
-                                                                                        <label for="massCentreId"
-                                                                                               class="col-sm-2 control-label">Mass
-                                                                                            Center</label>
-
-                                                                                        <div class="col-sm-4" id="massCentreSelectBoxer">
-                                                                                            <form:select
-                                                                                                    path="usersOfMassCentres"
-                                                                                                    id="massCentreSelectBox"
-                                                                                                    class="form-control">
-                                                                                            </form:select>
-                                                                                        </div>
+                                                                                    <div class="col-sm-4"
+                                                                                         id="parishSelectBoxer">
+                                                                                        <form:select
+                                                                                                path="usersOfParishes"
+                                                                                                id="parishSelectBox"
+                                                                                                class="form-control" items="${parishList}">
+                                                                                        </form:select>
                                                                                     </div>
+                                                                                    <label for="usersOfMassCentres"
+                                                                                           class="col-sm-2 control-label">Mass
+                                                                                        Center</label>
 
-                                                                                    <div class="form-group">
-                                                                                        <label for="prayerUnitId"
-                                                                                               class="col-sm-2 control-label">Prayer
-                                                                                            Unit</label>
-
-                                                                                        <div class="col-sm-4" id="prayerUnitSelectBoxer">
-                                                                                            <form:select
-                                                                                                    path="usersOfPrayerUnits"
-                                                                                                    id="prayerUnitSelectBox"
-                                                                                                    class="form-control">
-                                                                                            </form:select>
-                                                                                        </div>
-                                                                                        <label for="userOfFamily" class="col-sm-2 control-label">Family</label>
-
-                                                                                        <div class="col-sm-4" id="familySelectBoxer">
-                                                                                            <form:select path="userOfFamily"
-                                                                                                         id="familySelectBox"
-                                                                                                         class="form-control">
-                                                                                            </form:select>
-                                                                                        </div>
+                                                                                    <div class="col-sm-4"
+                                                                                         id="massCentreSelectBoxer">
+                                                                                        <form:select
+                                                                                                path="usersOfMassCentres"
+                                                                                                id="massCentreSelectBox"
+                                                                                                class="form-control" items="${massCentreList}">
+                                                                                        </form:select>
                                                                                     </div>
-                                                                                </c:if>
-                                                                                <c:if test="${showForPrayerUnitAdmin == true}">
+                                                                                </div>
 
-                                                                                    <div class="form-group">
-                                                                                        <label for="parishId"
-                                                                                               class="col-sm-2 control-label">Parish</label>
+                                                                                <div class="form-group">
+                                                                                    <label for="usersOfPrayerUnits"
+                                                                                           class="col-sm-2 control-label">Prayer
+                                                                                        Unit</label>
 
-                                                                                        <div class="col-sm-4" id="parishSelectBoxer">
-                                                                                            <form:select path="usersOfParishes"
-                                                                                                         items="${parishList}"
-                                                                                                         id="parishId"
-                                                                                                         class="form-control"></form:select>
-                                                                                        </div>
-                                                                                        <label for="usersOfMassCentres"
-                                                                                               class="col-sm-2 control-label">Mass
-                                                                                            Center</label>
-
-                                                                                        <div class="col-sm-4" id="massCentreSelectBoxer">
-                                                                                            <form:select
-                                                                                                    path="usersOfMassCentres"
-                                                                                                    items="${massCentreList}"
-                                                                                                    id="massCentreId"
-                                                                                                    class="form-control"></form:select>
-
-                                                                                        </div>
+                                                                                    <div class="col-sm-4"
+                                                                                         id="prayerUnitSelectBoxer">
+                                                                                        <form:select
+                                                                                                path="usersOfPrayerUnits"
+                                                                                                id="prayerUnitSelectBox"
+                                                                                                class="form-control" items="${prayerUnitList}">
+                                                                                        </form:select>
                                                                                     </div>
+                                                                                    <label for="userOfFamily"
+                                                                                           class="col-sm-2 control-label">Family</label>
 
-                                                                                    <div class="form-group">
-                                                                                        <label for="prayerUnitId"
-                                                                                               class="col-sm-2 control-label">Prayer
-                                                                                            Unit</label>
-
-                                                                                        <div class="col-sm-4" id="prayerUnitSelectBoxer">
-                                                                                            <form:select
-                                                                                                    path="usersOfPrayerUnits"
-                                                                                                    items="${prayerUnitList}"
-                                                                                                    id="prayerUnitId"
-                                                                                                    class="form-control"></form:select>
-                                                                                        </div>
-                                                                                        <label for="userOfFamily"
-                                                                                               class="col-sm-2 control-label">Family</label>
-
-                                                                                        <div class="col-sm-4" id="familySelectBoxer">
-                                                                                            <form:select path="userOfFamily"
-                                                                                                         id="familySelectBox"
-                                                                                                         class="form-control">
-                                                                                            </form:select>
-                                                                                        </div>
+                                                                                    <div class="col-sm-4"
+                                                                                         id="familySelectBoxer">
+                                                                                        <form:select
+                                                                                                path="userOfFamily"
+                                                                                                id="familySelectBox"
+                                                                                                class="form-control">
+                                                                                        </form:select>
                                                                                     </div>
-                                                                                </c:if>
-
+                                                                                </div>
                                                                                 <div class="form-group">
                                                                                     <label for="email"
                                                                                            class="col-sm-2 control-label">Email</label>
 
                                                                                     <div class="col-sm-4" id="email">
                                                                                         <form:input path="email"
-                                                                                                    id="email" class="form-control"/>
+                                                                                                    id="email"
+                                                                                                    class="form-control"/>
                                                                                     </div>
-                                                                                    <label for="password" class="col-sm-2 control-label">Password</label>
+                                                                                    <label for="password"
+                                                                                           class="col-sm-2 control-label">Password</label>
 
                                                                                     <div class="col-sm-4" id="password">
                                                                                         <form:password path="password"
-                                                                                                       id="password" class="form-control"/>
-                                                                                        <form:checkbox path="sendMailFlag" checked="true"/>Send
+                                                                                                       id="password"
+                                                                                                       class="form-control"/>
+                                                                                        <form:checkbox
+                                                                                                path="sendMailFlag"
+                                                                                                checked="true"/>Send
                                                                                         an email
                                                                                     </div>
                                                                                 </div>

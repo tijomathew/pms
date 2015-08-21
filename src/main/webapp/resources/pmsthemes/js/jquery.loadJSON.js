@@ -59,7 +59,12 @@
                     if ($(element).hasClass('toCaps')) {
                         value = value.replace(/\s/g, '').toUpperCase();
                     }
-                    var solveDotIssueInValue = value = value.replace(/\./g, '\\.');
+                    var solveDotIssueInValue = value.replace(/\./g, '\\.');
+                    if ($(element).hasClass('toaddUnderScore')) {
+                        value = value.replace(' ', '_').toUpperCase();
+                        value = value.replace(' ', '_').toUpperCase();
+                        solveDotIssueInValue = value.replace(/\_/g, '\\_');
+                    }
                     $(element).find('option[value=' + solveDotIssueInValue + ']').prop('selected', true).end().attr("disabled", true);
                     break;
                 case 'text':

@@ -86,13 +86,18 @@ public class UserServiceImpl implements UserService {
         Predicate<SystemRole> excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = p -> !(p.name().equalsIgnoreCase(SystemRole.PMS_CURRENT_USER.toString())) && !(p.name().equalsIgnoreCase(SystemRole.ADMIN.toString()));
 
         switch (currentUser.getSystemRole()) {
+            case ADMIN:
+                createUserModelSelectBoxes(model, currentUser);
+                break;
             case PARISH_ADMIN:
                 Predicate<SystemRole> excludeParishAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
                 excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdmin);
+                createUserModelSelectBoxes(model, currentUser);
                 break;
             case MASS_CENTER_ADMIN:
                 Predicate<SystemRole> excludeParishAdminAndMassCentreAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
                 excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCentreAdmin);
+                createUserModelSelectBoxes(model, currentUser);
                 break;
             case PRAYER_UNIT_ADMIN:
                 Predicate<SystemRole> excludeParishAdminAndMassCentreAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
@@ -100,9 +105,8 @@ public class UserServiceImpl implements UserService {
                 createUserModelSelectBoxes(model, currentUser);
                 break;
         }
-        Map<String, String> systemRoleMap = Arrays.stream(SystemRole.values()).filter(excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue));
-        systemRoleMap.put("0", "-Please Select--");
-        model.addAttribute("systemRoles", systemRoleMap);
+
+        model.addAttribute("systemRoles", Arrays.stream(SystemRole.values()).filter(excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser).collect(Collectors.toMap(SystemRole::name, SystemRole::getUIDisplayValue)));
         model.addAttribute("systemRoleStatus", Arrays.stream(SystemRolesStatus.values()).collect(Collectors.toMap(SystemRolesStatus::name, SystemRolesStatus::getUIDisplayValue)));
 
     }

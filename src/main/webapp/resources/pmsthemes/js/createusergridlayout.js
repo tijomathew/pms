@@ -18,7 +18,7 @@ function loadUserGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'parishId', 'massCentreId', 'prayerUnitId', 'familyId'],
+            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'usersOfParishes', 'usersOfMassCentres', 'usersOfPrayerUnits', 'userOfFamily'],
             colModel: [
                 {name: 'email', index: 'email', width: 100, sortable: false},
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
@@ -31,11 +31,10 @@ function loadUserGrid() {
                 {name: 'alreadyLoggedIn', index: 'alreadyLoggedIn', width: 100, sortable: false},
                 {name: 'isValidated', index: 'isValidated', width: 100, sortable: false},
                 {name: 'createdBy', index: 'createdBy', width: 100, sortable: false},
-
-                {name: 'parishId', index: 'parishId', width: 100, sortable: false, hidden: true},
-                {name: 'massCentreId', index: 'massCentreId', width: 100, sortable: false, hidden: true},
-                {name: 'prayerUnitId', index: 'prayerUnitId', width: 100, sortable: false, hidden: true},
-                {name: 'familyId', index: 'familyId', width: 100, sortable: false, hidden: true}
+                {name: 'usersOfParishes', index: 'usersOfParishes', width: 100, sortable: false, hidden: true},
+                {name: 'usersOfMassCentres', index: 'usersOfMassCentres', width: 100, sortable: false, hidden: true},
+                {name: 'usersOfPrayerUnits', index: 'usersOfPrayerUnits', width: 100, sortable: false, hidden: true},
+                {name: 'userOfFamily', index: 'userOfFamily', width: 100, sortable: false, hidden: true},
 
             ],
             rowNum: 10,
@@ -49,7 +48,10 @@ function loadUserGrid() {
             height: 'auto',
             width: 'auto',
             onSelectRow: function () {
-                $('#userForm').loadJSON(jQuery("#userGrid").getRowData(jQuery("#userGrid").jqGrid('getGridParam', 'selrow')));
+                $('#userGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                jQuery('#userForm').show(500);
+                var rowId = jQuery("#userGrid").jqGrid('getGridParam', 'selrow');
+                $('#userForm').loadJSON(jQuery("#userGrid").getRowData(rowId));
             }
         });
     jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {

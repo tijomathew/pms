@@ -15,7 +15,7 @@ public class UserWrapper implements GridRow {
 
     private User userBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRoleAsDisplayValue", "isActive", "parish", "massCentre", "prayerUnit", "family", "sendMailFlag", "alreadyLoggedIn", "isValidated", "createdBy", "parishId", "massCentreId", "prayerUnitId", "familyId"};
+    private String[] VALID_BEAN_PROPERTIES = {"email", "systemRoleAsDisplayValue", "isActive", "parish", "massCentre", "prayerUnit", "family", "sendMailFlag", "alreadyLoggedIn", "isValidated", "createdBy", "usersOfParishes.id", "usersOfMassCentres.id", "usersOfPrayerUnits.id", "userOfFamily.id"};
 
     public UserWrapper(User userBean) {
         this.userBean = userBean;
@@ -31,11 +31,26 @@ public class UserWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                String assignedValue = "N/A";
-                if (BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]) != null) {
-                    assignedValue = BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString();
-                    if (assignedValue.isEmpty()) {
-                        assignedValue = "N/A";
+                String assignedValue = "";
+                String splited[] = new String[2];
+                boolean propertyWithDotOperator = false;
+                if (VALID_BEAN_PROPERTIES[i].contains(".")) {
+                    splited = VALID_BEAN_PROPERTIES[i].split("\\.");
+                    propertyWithDotOperator = true;
+                }
+                if (!propertyWithDotOperator) {
+                    if (BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                        assignedValue = BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString();
+                        if (assignedValue.isEmpty()) {
+                            assignedValue = "";
+                        }
+                    }
+                } else {
+                    if (BeanUtils.getProperty(this.userBean, splited[0]) != null) {
+                        assignedValue = BeanUtils.getProperty(this.userBean, VALID_BEAN_PROPERTIES[i]).toString();
+                        if (assignedValue.isEmpty()) {
+                            assignedValue = "";
+                        }
                     }
                 }
                 convertedResult.add(assignedValue);
