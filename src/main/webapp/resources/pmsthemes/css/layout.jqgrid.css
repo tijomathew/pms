@@ -25,7 +25,7 @@ table.table.ui-jqgrid-htable  tr th:last-child {
 /* search */
 .ui-widget-overlay {
     background-color:rgba(0,0,0,0.5);
-    background: none !important;
+    background: none;
 }
 .ui-widget-header {
     font-weight: bold;

@@ -35,6 +35,7 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
+               // $("div.container").errorFieldsDialog({responseData: response.customErrorMessages, parentFormId: formId, parentGridId: gridId});
                 return [true, "", ""];
 
             }
