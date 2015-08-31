@@ -110,7 +110,7 @@ public class UserController extends AbstractErrorAndGridHandler {
 
         //Insert a User Role only if he is assigned with a single role from UI.
         if (insertUser && !userEmailAlreadyExists) {
-            userService.addOrUpdateUserSM(user);
+            userService.addUserSM(user);
             user.setPassword(passwordBeforeHashing);
             if (user.getSendMailFlag()) {
                 mailService.sendUserCredentials(user);

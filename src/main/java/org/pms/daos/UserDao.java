@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserDao {
 
-    boolean addOrUpdateUserDM(User user);
+    Boolean addUserDM(User user);
 
     User getUserByEmail(String email);
 
@@ -27,4 +27,6 @@ public interface UserDao {
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
 
     List<User> getAllUsersForFamilyIds(List<Long> familyIds);
+
+    Boolean updateUser(User user);
 }

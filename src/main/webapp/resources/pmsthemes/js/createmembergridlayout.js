@@ -34,7 +34,7 @@ function loadMemberGrid() {
                 "spouseMotherName", "spouseNativeAddress", "spouseNationality", "betrothalWitnessOne", "betrothalWitnessTwo",
                 "churchOfMarriage", "priestOfMarriage", "marriageWitnessOne", "marriageWitnessTwo", "placeOfDeath",
                 "funeralDate", "buriedChurch", "ministerOfDeath", "placeOfCemetery", "tombNo", "confession", "communion",
-                "anointingTheSick", "ministerOfAnointingTheSick", "familyMember", "familyHead", "id", "photo"],
+                "anointingTheSick", "ministerOfAnointingTheSick", "familyMember", "familyHead", "id", "photo","registeredDate"],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 100, sortable: false},
@@ -451,6 +451,13 @@ function loadMemberGrid() {
                 {
                     name: 'memberAsPerson.imageBytesAsString',
                     index: 'memberAsPerson.imageBytesAsString',
+                    width: 100,
+                    sortable: false,
+                    hidden: true
+                },
+                {
+                    name: 'registeredDate',
+                    index: 'registeredDate',
                     width: 100,
                     sortable: false,
                     hidden: true

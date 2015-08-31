@@ -3,6 +3,11 @@
  */
 //get the form name and submit the form value and show the respective validation or success or failure or exception message in UI.
 
+var registeredDate;
+$(document).ready(function () {
+    registeredDate = $('#registeredDate').val();
+});
+
 function globalSubmissionOfForms(formId, gridId) {
 
     var $form = $('#' + formId);
@@ -35,7 +40,7 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-               // $("div.container").errorFieldsDialog({responseData: response.customErrorMessages, parentFormId: formId, parentGridId: gridId});
+                // $("div.container").errorFieldsDialog({responseData: response.customErrorMessages, parentFormId: formId, parentGridId: gridId});
                 return [true, "", ""];
 
             }
@@ -89,7 +94,6 @@ function globalSubmissionOfForms(formId, gridId) {
 }
 
 function addJqgridCustomButtons(gridId, formId) {
-
     jQuery('#' + gridId).jqGrid('navGrid', '#' + gridId + 'Pager', {
         edit: false,
         add: false,
@@ -110,12 +114,12 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #nativeAddresscountry, #localAddresscountry')
+                .not(':button, :submit, :reset, :checkbox, #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
-
-            jQuery('form').trigger('reset');
+           // $('#registeredDate').val(registeredDate);
+            //jQuery('form').trigger('reset');
             $('.actionSpan').text("View");
         },
         position: "first"
@@ -155,12 +159,11 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' textarea').removeAttr("disabled");
 
             $(':input', '#' + formId)
-                .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #nativeAddresscountry, #localAddresscountry')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
-
-            jQuery('form').trigger('reset');
+            $('#registeredDate').prop('value',registeredDate);
             $('.actionSpan').text("Add");
         },
         position: "first"
@@ -220,7 +223,8 @@ function cancelActions(formId, gridId) {
         .removeAttr('checked')
         .removeAttr('selected');
     jQuery('#' + gridId).jqGrid('resetSelection');
-    jQuery('#' + formId).trigger('reset');
+    //jQuery('#' + formId).trigger('reset');
+   // $('#registeredDate').val(registeredDate);
     $('#' + formId).find('textarea').text('');
 
     //});

@@ -317,7 +317,6 @@ public class Person implements Serializable {
         if (!dateOfBirth.equals(person.dateOfBirth)) return false;
         if (!educationQualifications.equals(person.educationQualifications)) return false;
         if (!firstName.equals(person.firstName)) return false;
-        if (gender != person.gender) return false;
         if (!lastName.equals(person.lastName)) return false;
         if (lifeStatus != person.lifeStatus) return false;
         if (!nationality.equals(person.nationality)) return false;
@@ -335,7 +334,6 @@ public class Person implements Serializable {
         result = 31 * result + lastName.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
         result = 31 * result + placeOfBirth.hashCode();
-        result = 31 * result + gender.hashCode();
         result = 31 * result + nationality.hashCode();
         result = 31 * result + personalStatus.hashCode();
         result = 31 * result + educationQualifications.hashCode();

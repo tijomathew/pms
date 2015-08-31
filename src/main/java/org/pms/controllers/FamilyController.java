@@ -80,7 +80,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                     familyService.addFamilySM(family);
 
                    /* currentUser.setUserOfFamily(family);
-                    userService.addOrUpdateUserSM(currentUser);*/
+                    userService.addUserSM(currentUser);*/
 
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {

@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     private PrayerUnitService prayerUnitService;
 
     @Override
-    public boolean addOrUpdateUserSM(User user) {
-        userDao.addOrUpdateUserDM(user);
+    public Boolean addUserSM(User user) {
+        userDao.addUserDM(user);
         return true;
     }
 
@@ -77,6 +77,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
         return userDao.getAllUsersForFamilyIds(familyIds);
+    }
+
+    @Override
+    public Boolean updateUser(User user) {
+        userDao.updateUser(user);
+        return true;
     }
 
     @Override

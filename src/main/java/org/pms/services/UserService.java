@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    boolean addOrUpdateUserSM(User user);
+    Boolean addUserSM(User user);
 
     User getUserByEmail(String email);
 
@@ -30,4 +30,6 @@ public interface UserService {
     void createUserFormBackObject(Model model, User currentUser);
 
     List<User> getAllUsersForUserRole(User currentUser);
+
+    Boolean updateUser(User user);
 }

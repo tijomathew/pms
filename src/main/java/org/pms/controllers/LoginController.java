@@ -123,7 +123,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
             User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
             currentUserToUpdate.setAlreadyLoggedIn(Boolean.TRUE);
             currentUserToUpdate.setPassword(DigestUtils.shaHex(user.getNewPassword()));
-            userService.addOrUpdateUserSM(currentUserToUpdate);
+            userService.updateUser(currentUserToUpdate);
             customResponse = createStatusCodeResponse(StatusCode.SUCCESS);
         } else {
             customResponse = createStatusCodeResponse(StatusCode.FAIL);
@@ -148,7 +148,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
             User currentUserToUpdate = loginService.getUserByEmail(user.getEmail());
             currentUserToUpdate.setAlreadyLoggedIn(Boolean.FALSE);
             currentUserToUpdate.setPassword(DigestUtils.shaHex(generatedPassword));
-            userService.addOrUpdateUserSM(currentUserToUpdate);
+            userService.updateUser(currentUserToUpdate);
 
             mailService.sendForgotPassword(user.getEmail(), generatedPassword);
 
