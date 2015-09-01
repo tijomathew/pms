@@ -6,36 +6,10 @@
 var registeredDate;
 $(document).ready(function () {
     registeredDate = $('#registeredDate').val();
-    (function($)
-    {
-        $.fn.blink = function(options)
-        {
-            var defaults = { delay:500 };
-            var options = $.extend(defaults, options);
-
-            return this.each(function()
-            {
-                var obj = $(this);
-                setInterval(function()
-                {
-                    if($(obj).css("visibility") == "visible")
-                    {
-                        $(obj).css('visibility','hidden');
-                    }
-                    else
-                    {
-                        $(obj).css('visibility','visible');
-                    }
-                }, options.delay);
-            });
-        }
-    }(jQuery))
 });
 
 function blinker(blinkerElt) {
-    /*blinkerElt.fadeOut(500);
-    blinkerElt.fadeIn(500);*/
-    blinkerElt.find('span').css('color', 'red').blink();
+    blinkerElt.find('span').css('color', 'red').effect("pulsate", {times: 10}, 5000);
 }
 
 function globalSubmissionOfForms(formId, gridId) {
@@ -56,8 +30,8 @@ function globalSubmissionOfForms(formId, gridId) {
                     var itemFieldName = item.fieldName
                     var $field = $($form).find("[name='" + itemFieldName + "']");
                     $("label[for='" + itemFieldName + "']").addClass('labelErrorAlert');
-                    var tabHeaderId=$field.closest('div.tab-pane').attr("id");
-                    blinker($("a[href=#"+tabHeaderId+"]"));
+                    var tabHeaderId = $field.closest('div.tab-pane').attr("id");
+                    blinker($("a[href=#" + tabHeaderId + "]"));
                     $field.addClass('borderRed');
                     $field.attr('title', item.message);
                     $field.tooltip({
@@ -72,11 +46,11 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-               /* $("div.container").errorFieldsDialog({
-                    responseData: response.customErrorMessages,
-                    parentFormId: formId,
-                    parentGridId: gridId
-                });*/
+                /* $("div.container").errorFieldsDialog({
+                 responseData: response.customErrorMessages,
+                 parentFormId: formId,
+                 parentGridId: gridId
+                 });*/
                 return [true, "", ""];
 
             }
