@@ -74,6 +74,7 @@ function globalSubmissionOfForms(formId, gridId) {
                     .removeAttr('checked')
                     .removeAttr('selected');
                 jQuery('#' + gridId).trigger('reloadGrid');
+                $('ul.nav-tabs').find('span').css('color','#1F232E');
             }
             else if (response.statusCode == 'FAILURE') {
                 jQuery.jqGrowl.timeout = 2000;
