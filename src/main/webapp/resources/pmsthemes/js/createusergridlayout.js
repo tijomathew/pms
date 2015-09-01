@@ -49,7 +49,7 @@ function loadUserGrid() {
             width: 'auto',
             onSelectRow: function () {
                 $('#userGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#userForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#userGrid").jqGrid('getGridParam', 'selrow');
                 $('#userForm').loadJSON(jQuery("#userGrid").getRowData(rowId));
             }

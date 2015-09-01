@@ -112,7 +112,7 @@ function loadMassCentreGrid() {
             emptyrecords: 'no data available to show!!..Please add data to view',
             onSelectRow: function () {
                 $('#massCentreGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#massCentreForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#massCentreGrid").jqGrid('getGridParam', 'selrow');
                 $('#massCentreForm').loadJSON(jQuery("#massCentreGrid").getRowData(rowId));
 

@@ -218,7 +218,7 @@ function loadFamilyGrid() {
             width: 'auto',
             onSelectRow: function () {
                 $('#familyGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#familyForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#familyGrid").jqGrid('getGridParam', 'selrow');
                 $('#familyForm').loadJSON(jQuery("#familyGrid").getRowData(rowId));
 

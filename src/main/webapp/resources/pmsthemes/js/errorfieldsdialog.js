@@ -15,18 +15,20 @@
             errorFieldClass: "borderRed",
             errorLabelClass: "labelErrorAlert",
             parentElementType: "div",
-            parentElementClass: "col-sm-3",
-            parentElementClassReplace: "col-sm-4",
+            parentElementClass: "col-sm-1 col-sm-2 col-sm-3 col-sm-4",
+            parentElementClassReplace: "col-sm-6",
+            parentLabelClass: "col-sm-1 col-sm-2",
+            parentLabelClassReplace: "col-sm-3",
             radioButtonGroupClass: "btn-group",
             responseData: {},
             propKey: "fieldName",
             dialog:"",
-            colSpan: 2
+            colSpan: 1
         }, options),
          customDialog =  function() {
 
              $('<div/>', {id: "errorFieldsDialog"}).dialog({
-                width: 700,
+                width: 350,
                 //height: 300,
 
                // position: ['center', 50] ,
@@ -76,7 +78,7 @@
                     $label =  $form.find("label[for=" + item[$defaults.propKey].replace(/\./g, "\\.") + "]");
                     if(!$label.length && $elt.attr("id"))
                         $label =  $form.find("label[for=" + $elt.attr("id").replace(/\./g, "\\.") + "]");
-                    $parentBlock.append($label.clone()).append( $elt.closest( "div" ).clone().removeClass().addClass($defaults.parentElementClassReplace));
+                    $parentBlock.append($label.clone().removeClass($defaults.parentLabelClass).addClass($defaults.parentLabelClassReplace)).append( $elt.closest( "div" ).clone().removeClass($defaults.parentElementClass).addClass($defaults.parentElementClassReplace));
                     //$parentBlock.append($label.clone()).append( $elt.closest( "div" ).clone().switchClass($defaults.parentElementClass, $defaults.parentElementClassReplace));
                     //$parentBlock.append($label).append( $elt.parents( "div." + $defaults.parentElementClass).clone());
 
@@ -99,7 +101,7 @@
 
             $($elts).each(function(index, element) {
 
-                var $type = $(this).attr("type"), $value = $(this).val(), $id = $(this).attr("id"), $elt = $form.find(":input[id=" + $id.replace(/\./g, "\\.")  +"]"),
+                var $type = $(this).attr("type"), $value = $(this).val(), $id = $(this).attr("id"), $elt = $form.find("input[id=" + $id.replace(/\./g, "\\.")  +"]"),
                     $isValid = (($type === 'radio' || $type === 'checkbox') && !$(this).is(':checked')) ?  false : ($value ? true : false);
                 if (!$type)
                     $type = element.tagName.toLowerCase();
@@ -125,9 +127,9 @@
 
                        case 'select-multiple':
                            var values = $value.constructor == Array ? $value : [$value];
-                           for (var i = 0; i < $elt.find(":option").length; i++) {
+                           for (var i = 0; i < $elt.find("option").length; i++) {
                                for (var j = 0; j < values.length; j++) {
-                                   $elt.find(":option[value=" + values[i] +"]").attr("selected", true);
+                                   $elt.find("option[value='" + values[i] +"']").attr("selected", true);
                                }
                            }
                            break;
@@ -143,7 +145,7 @@
                                $value = $value.replace(' ', '_').toUpperCase();
                                solveDotIssueInValue = $value.replace(/\_/g, '\\_');
                            }
-                           $elt.find('option[value=' + solveDotIssueInValue + ']').prop('selected', true).end().attr("disabled", true);
+                           $elt.find('option[value="' + solveDotIssueInValue + '"]').prop('selected', true);//.end().attr("disabled", true);
                            break;
                        case 'text':
                        case 'hidden':

@@ -122,7 +122,7 @@ function loadPrayerUnitGrid() {
             width: 'auto',
             onSelectRow: function () {
                 $('#prayerUnitGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#prayerUnitForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#prayerUnitGrid").jqGrid('getGridParam', 'selrow');
                 $('#prayerUnitForm').loadJSON(jQuery("#prayerUnitGrid").getRowData(rowId));
 

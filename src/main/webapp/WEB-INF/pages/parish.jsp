@@ -83,7 +83,7 @@
                                                         <div class="tab-content" style="padding: 10px;">
 
                                                             <div class="tab-pane active">
-                                                                <div class="panel">
+                                                                <div class="panel hidedisplay" id="panelDiv">
                                                                     <div class="panel-heading">
                                                                         <h4>
                                                                             <ul class="nav nav-tabs">
@@ -108,7 +108,7 @@
                                                                     <div class="panel-body">
                                                                         <form:form modelAttribute="parish"
                                                                                    action="${parishActionURL}" method="post"
-                                                                                   id="parishForm" class="form-horizontal hidedisplay">
+                                                                                   id="parishForm" class="form-horizontal">
                                                                                 <div class="tab-content">
 
                                                                                     <div class="tab-pane active" id="parish1">
@@ -340,7 +340,7 @@
                                                                                 </div>
                                                                         </form:form>
 </div>
-                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

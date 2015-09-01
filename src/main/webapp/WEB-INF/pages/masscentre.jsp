@@ -73,252 +73,258 @@
                                     <div class="tab-pane active" id="tabs-1">
                                         <div class="row">
                                             <div class="col-md-12">
+
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>
-                                                            <ul class="nav nav-tabs">
-                                                                <li class="active">
-                                                                    <a href="#masscentre1" data-toggle="tab"><i
-                                                                            class="fa fa-list visible-xs icon-scale"></i><span
-                                                                            class="hidden-xs">Mass Center Details</span></a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#masscentre2" data-toggle="tab"><i
-                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
-                                                                            class="hidden-xs">Local Address</span></a>
-                                                                </li>
-                                                            </ul>
-                                                        </h4>
+                                                        <h4>Mass Center</h4>
                                                     </div>
 
+
                                                     <div class="panel-body">
+
                                                         <table id="massCentreGrid"></table>
                                                         <div id="massCentreGridPager"></div>
 
-                                                        <form:form modelAttribute="massCentre"
-                                                                   action="${massCentreActionURL}" method="post"
-                                                                   id="massCentreForm"
-                                                                   cssClass="form-horizontal hidedisplay">
+                                                        <div class="tab-content" style="padding: 10px;">
 
-                                                            <div class="tab-content">
+                                                            <div class="tab-pane active">
 
-                                                                <div class="tab-pane active" id="masscentre1">
 
-                                                                    <div class="col-md-12">
-                                                                        <div class="panel">
-                                                                            <div class="panel-heading">
-                                                                                <h4>Mass Center Details</h4>
-                                                                            </div>
-                                                                            <div class="panel-body">
+                                                                <div class="panel hidedisplay" id="panelDiv">
 
-                                                                                <div class="form-group">
-                                                                                    <form:hidden
-                                                                                            path="id"
-                                                                                            id="id"/>
-                                                                                    <label for="massCentreName"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center
-                                                                                        Name</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="massCentreName"
-                                                                                                id="massCentreName"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="massCentreNo"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="massCentreNo"
-                                                                                                    id="massCentreNo"
-                                                                                                    class="form-control"
-                                                                                                    readonly="true"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="place"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center Place</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="place"
-                                                                                                    id="place"
-                                                                                                    class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="mappedParish"
-                                                                                           class="col-sm-2 control-label">Parish</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:select path="mappedParish"
-                                                                                                     items="${parishList}"
-                                                                                                     id="parishSelectBox"
-                                                                                                     class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="patronName"
-                                                                                           class="col-sm-2 control-label">Patron
-                                                                                        Name</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="patronName"
-                                                                                                    id="patronName"
-                                                                                                    class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="landLineNo"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center Land Line No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="landLineNo"
-                                                                                                    id="landLineNo"
-                                                                                                    class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="mobileNo"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center Mobile No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="mobileNo"
-                                                                                                    id="mobileNo"
-                                                                                                    class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="faxNo"
-                                                                                           class="col-sm-2 control-label">Mass
-                                                                                        Center Fax No.</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input path="faxNo"
-                                                                                                    id="faxNo"
-                                                                                                    class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="registeredDate"
-                                                                                           class="col-sm-2 control-label">Registered
-                                                                                        Date</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="registeredDate"
-                                                                                                id="registeredDate"
-                                                                                                class="form-control"
-                                                                                                readonly="true"/>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="tab-pane" id="masscentre2">
-
-                                                                    <div class="col-md-12">
-                                                                        <div class="panel">
-                                                                            <div class="panel-heading">
-                                                                                <h4>
-                                                                                    Local Address</h4>
-                                                                            </div>
-                                                                            <div class="panel-body">
-
-                                                                                <div class="form-group">
-                                                                                    <label for="localAddress.addressLineOne"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 1</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.addressLineOne"
-                                                                                                id="localAddressaddressLineOne"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="localAddress.addressLineTwo"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 2</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.addressLineTwo"
-                                                                                                id="localAddressaddressLineTwo"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="localAddress.addressLineThree"
-                                                                                           class="col-sm-2 control-label">Address
-                                                                                        Line 3</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.addressLineThree"
-                                                                                                id="localAddressaddressLineThree"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="localAddress.addressLineTwo"
-                                                                                           class="col-sm-2 control-label">Town</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.town"
-                                                                                                id="localAddresstown"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="localAddress.addressLineThree"
-                                                                                           class="col-sm-2 control-label">County</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.county"
-                                                                                                id="localAddresscounty"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                    <label for="localAddress.pin"
-                                                                                           class="col-sm-2 control-label">Pin
-                                                                                        code</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.pin"
-                                                                                                id="localAddresspin"
-                                                                                                class="form-control"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="localAddress.addressLineThree"
-                                                                                           class="col-sm-2 control-label">Country</label>
-
-                                                                                    <div class="col-sm-4">
-                                                                                        <form:input
-                                                                                                path="localAddress.country"
-                                                                                                id="localAddresscountry"
-                                                                                                class="form-control"
-                                                                                                readonly="true"/>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
+                                                                    <div class="panel-heading">
+                                                                        <h4>
+                                                                            <ul class="nav nav-tabs">
+                                                                                <li class="active">
+                                                                                    <a href="#masscentre1" data-toggle="tab"><i
+                                                                                            class="fa fa-list visible-xs icon-scale"></i><span
+                                                                                            class="hidden-xs">Mass Center Details</span></a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#masscentre2" data-toggle="tab"><i
+                                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
+                                                                                            class="hidden-xs">Local Address</span></a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </h4>
                                                                     </div>
 
+                                                                    <div class="panel-body">
+                                                                        <form:form modelAttribute="massCentre"
+                                                                                   action="${massCentreActionURL}" method="post"
+                                                                                   id="massCentreForm"
+                                                                                   cssClass="form-horizontal">
+                                                                            <div class="tab-content">
+
+                                                                                <div class="tab-pane active" id="masscentre1">
+
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="panel">
+                                                                                            <div class="form-group">
+                                                                                                <form:hidden
+                                                                                                        path="id"
+                                                                                                        id="id"/>
+                                                                                                <label for="massCentreName"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center
+                                                                                                    Name</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="massCentreName"
+                                                                                                            id="massCentreName"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="massCentreNo"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center No.</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="massCentreNo"
+                                                                                                                id="massCentreNo"
+                                                                                                                class="form-control"
+                                                                                                                readonly="true"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="place"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center Place</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="place"
+                                                                                                                id="place"
+                                                                                                                class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="mappedParish"
+                                                                                                       class="col-sm-2 control-label">Parish</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:select path="mappedParish"
+                                                                                                                 items="${parishList}"
+                                                                                                                 id="parishSelectBox"
+                                                                                                                 class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="patronName"
+                                                                                                       class="col-sm-2 control-label">Patron
+                                                                                                    Name</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="patronName"
+                                                                                                                id="patronName"
+                                                                                                                class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="landLineNo"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center Land Line No.</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="landLineNo"
+                                                                                                                id="landLineNo"
+                                                                                                                class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="mobileNo"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center Mobile No.</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="mobileNo"
+                                                                                                                id="mobileNo"
+                                                                                                                class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="faxNo"
+                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                    Center Fax No.</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input path="faxNo"
+                                                                                                                id="faxNo"
+                                                                                                                class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="registeredDate"
+                                                                                                       class="col-sm-2 control-label">Registered
+                                                                                                    Date</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="registeredDate"
+                                                                                                            id="registeredDate"
+                                                                                                            class="form-control"
+                                                                                                            readonly="true"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="tab-pane active" id="masscentre2">
+
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="panel">
+                                                                                            <div class="form-group">
+                                                                                                <label for="localAddress.addressLineOne"
+                                                                                                       class="col-sm-2 control-label">Address
+                                                                                                    Line 1</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.addressLineOne"
+                                                                                                            id="localAddressaddressLineOne"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="localAddress.addressLineTwo"
+                                                                                                       class="col-sm-2 control-label">Address
+                                                                                                    Line 2</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.addressLineTwo"
+                                                                                                            id="localAddressaddressLineTwo"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="localAddress.addressLineThree"
+                                                                                                       class="col-sm-2 control-label">Address
+                                                                                                    Line 3</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.addressLineThree"
+                                                                                                            id="localAddressaddressLineThree"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="localAddress.addressLineTwo"
+                                                                                                       class="col-sm-2 control-label">Town</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.town"
+                                                                                                            id="localAddresstown"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="localAddress.addressLineThree"
+                                                                                                       class="col-sm-2 control-label">County</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.county"
+                                                                                                            id="localAddresscounty"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="localAddress.pin"
+                                                                                                       class="col-sm-2 control-label">Pin
+                                                                                                    code</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.pin"
+                                                                                                            id="localAddresspin"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="localAddress.addressLineThree"
+                                                                                                       class="col-sm-2 control-label">Country</label>
+
+                                                                                                <div class="col-sm-4">
+                                                                                                    <form:input
+                                                                                                            path="localAddress.country"
+                                                                                                            id="localAddresscountry"
+                                                                                                            class="form-control"
+                                                                                                            readonly="true"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form:form>
+                                                                    </div>
+
                                                                 </div>
+
+
                                                             </div>
-                                                        </form:form>
 
-
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>

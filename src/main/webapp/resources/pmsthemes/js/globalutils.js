@@ -26,6 +26,7 @@ function globalSubmissionOfForms(formId, gridId) {
                     var itemFieldName = item.fieldName
                     var $field = $($form).find("[name='" + itemFieldName + "']");
                     $("label[for='" + itemFieldName + "']").addClass('labelErrorAlert');
+                    $('#' + itemFieldName).closest('div.tab-pane').addClass('borderRed');
                     $field.addClass('borderRed');
                     $field.attr('title', item.message);
                     $field.tooltip({
@@ -40,7 +41,11 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-                // $("div.container").errorFieldsDialog({responseData: response.customErrorMessages, parentFormId: formId, parentGridId: gridId});
+                $("div.container").errorFieldsDialog({
+                    responseData: response.customErrorMessages,
+                    parentFormId: formId,
+                    parentGridId: gridId
+                });
                 return [true, "", ""];
 
             }
@@ -104,7 +109,7 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-refrsh",
         onClickButton: function () {
-            jQuery('#' + formId).hide(500);
+            jQuery('#panelDiv').hide(500);
             jQuery('#' + gridId).jqGrid('resetSelection');
             $('#' + formId + ' input').removeAttr('disabled');
             $('#' + formId + ' select').removeAttr("disabled");
@@ -118,7 +123,7 @@ function addJqgridCustomButtons(gridId, formId) {
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
-           // $('#registeredDate').val(registeredDate);
+            // $('#registeredDate').val(registeredDate);
             //jQuery('form').trigger('reset');
             $('.actionSpan').text("View");
         },
@@ -147,8 +152,8 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-add",
         onClickButton: function () {
-            jQuery('#' + formId).show(500);
-            $('#' + formId).removeClass('hidedisplay');
+            jQuery('#panelDiv').show(500);
+            $('#panelDiv').removeClass('hidedisplay');
             jQuery('#' + gridId).jqGrid('resetSelection'); //to reset the selected row
 
             $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
@@ -163,7 +168,7 @@ function addJqgridCustomButtons(gridId, formId) {
                 .attr('value', '')
                 .removeAttr('checked')
                 .removeAttr('selected');
-            $('#registeredDate').prop('value',registeredDate);
+            $('#registeredDate').prop('value', registeredDate);
             $('.actionSpan').text("Add");
         },
         position: "first"
@@ -224,7 +229,7 @@ function cancelActions(formId, gridId) {
         .removeAttr('selected');
     jQuery('#' + gridId).jqGrid('resetSelection');
     //jQuery('#' + formId).trigger('reset');
-   // $('#registeredDate').val(registeredDate);
+    // $('#registeredDate').val(registeredDate);
     $('#' + formId).find('textarea').text('');
 
     //});

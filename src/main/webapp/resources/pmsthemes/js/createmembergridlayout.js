@@ -475,7 +475,7 @@ function loadMemberGrid() {
             width: 'auto',
             onSelectRow: function () {
                 $('#memberGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#memberForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#memberGrid").jqGrid('getGridParam', 'selrow');
                 $('#memberForm').loadJSON(jQuery("#memberGrid").getRowData(rowId));
                 document.getElementById("ItemPreview").src = "data:image/png;base64," + $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.imageBytesAsString');

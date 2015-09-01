@@ -108,7 +108,7 @@ function loadParishGrid() {
             width: 'auto',
             onSelectRow: function () {
                 $('#parishGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
-                jQuery('#parishForm').show(500);
+                jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
                 $('#parishForm').loadJSON(jQuery("#parishGrid").getRowData(rowId));
             }
