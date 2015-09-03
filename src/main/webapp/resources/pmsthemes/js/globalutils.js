@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 function blinker(blinkerElt) {
-    blinkerElt.find('span').css('color', 'red').effect("pulsate", {times: 10}, 5000);
+    blinkerElt.find('span').addClass('tabErrorHighlight').effect("pulsate", {times: 10}, 5000);
 }
 
 function globalSubmissionOfForms(formId, gridId) {
@@ -27,7 +27,7 @@ function globalSubmissionOfForms(formId, gridId) {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
-                    var itemFieldName = item.fieldName
+                    var itemFieldName = item.fieldName.replace(/\./g, '\\.');
                     var $field = $($form).find("[name='" + itemFieldName + "']");
                     $("label[for='" + itemFieldName + "']").addClass('labelErrorAlert');
                     var tabHeaderId = $field.closest('div.tab-pane').attr("id");
@@ -40,7 +40,8 @@ function globalSubmissionOfForms(formId, gridId) {
                         template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner tooltip-error"></div></div>'
                     });
                     $field.change(function () {
-                        $("label[for='" + itemFieldName + "']").removeClass('labelErrorAlert');
+                        var fieldName = $(this).attr('name').replace(/\./g, '\.');
+                        $("label[for='" + fieldName + "']").removeClass('labelErrorAlert');
                         $(this).removeClass('borderRed');
                         $(this).removeAttr('title');
                         $(this).tooltip('destroy');
@@ -59,14 +60,6 @@ function globalSubmissionOfForms(formId, gridId) {
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
-                /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
-                 jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
-                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "warn"){
-                 jQuery('#jqgrowlContainer > ul').addClass('warnContainer');
-                 }
-                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "success"){
-                 jQuery('#jqgrowlContainer > ul').addClass('successContainer');
-                 }*/
                 $('#' + formId)[0].reset();
                 $(':input', '#' + formId)
                     .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #localAddresscountry')
@@ -74,22 +67,13 @@ function globalSubmissionOfForms(formId, gridId) {
                     .removeAttr('checked')
                     .removeAttr('selected');
                 jQuery('#' + gridId).trigger('reloadGrid');
-                $('ul.nav-tabs').find('span').css('color','#1F232E');
+                $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
             }
             else if (response.statusCode == 'FAILURE') {
                 jQuery.jqGrowl.timeout = 2000;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'FAILURE');
 
-                /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
-                 jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
-                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "warn"){
-                 jQuery('#jqgrowlContainer > ul').addClass('warnContainer');
-                 }
-                 else if(JSON.parse(response.customErrorMessages[0].fieldName) == "success"){
-                 jQuery('#jqgrowlContainer > ul').addClass('successContainer');
-                 }*/
-                $('#' + formId)[0].reset();
                 jQuery('#' + gridId).trigger('reloadGrid');
             }
             else {
@@ -181,11 +165,9 @@ function addJqgridCustomButtons(gridId, formId) {
     });
 
     var $parentContinerWidth = $('#' + gridId).closest('div.tab-content').width() - 24;
-    // var $gridWidth = $('#' +  gridId).width();
     if ($parentContinerWidth)
         $('#' + gridId).jqGrid('setGridWidth', parseInt($parentContinerWidth));
 
-    // var customButtons = $('<td/>', {class:"ui-pg-button ui-corner-all buttontd hidedisplay", width:"100%"}).append($('<div/>',{class:"btn btn-sm btn-success", click:function(){updateFormInfo(formId, gridId)}, style:"float:right;", text :"SAVE"}).append($('<span/>',{class:"fa fa-floppy-o"}))).append($('<div/>',{class:"btn btn-sm btn-danger",click :function(){cancelActions(formId, gridId)}, style:"float:right;margin-right: 5px;",text:"CANCEL"}).append($('<span/>',{class:"fa fa-times"})));
     var customButtons = $('<td/>', {
         class: "ui-pg-button ui-corner-all buttontd hidedisplay",
         width: "100%"
@@ -226,17 +208,11 @@ function backToTop() {
 
 
 function cancelActions(formId, gridId) {
-    //on cancel button click we reset form and grid selection .
-    // jQuery("#cancelUser").click(function () {
     $(':input', '#' + formId)
         .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio, #nativeAddresscountry, #localAddresscountry')
         .attr('value', '')
         .removeAttr('checked')
         .removeAttr('selected');
     jQuery('#' + gridId).jqGrid('resetSelection');
-    //jQuery('#' + formId).trigger('reset');
-    // $('#registeredDate').val(registeredDate);
     $('#' + formId).find('textarea').text('');
-
-    //});
 }

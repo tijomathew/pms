@@ -47,7 +47,6 @@
 
             loadMemberGrid();
 
-            // $("select#personalStatus").val("0");
             $('#memberAsPersonnationality').change(function () {
                         $('#memberAsPersonnationalityTextBox').hide();
                         var nationality = $("#memberAsPersonnationality option:selected").val();
@@ -57,6 +56,10 @@
                     }
             );
         });
+
+        function blinker(blinkerElt) {
+            blinkerElt.find('span').addClass('tabErrorHighlight').effect("pulsate", {times: 10}, 5000);
+        }
 
         function callImageSubmission() {
             var formData = new FormData($('#memberForm')[0]);
@@ -72,18 +75,21 @@
 
                         for (var i = 0; i < response.customErrorMessages.length; i++) {
                             var item = response.customErrorMessages[i];
-                            var itemFieldName = item.fieldName
-                            var $field = $('#memberForm').find("[name='" + itemFieldName + "']");
+                            var itemFieldName = item.fieldName.replace(/\./g, '\.');
+                            var field = $('#memberForm').find("[name='" + itemFieldName + "']");
                             $("label[for='" + itemFieldName + "']").addClass('labelErrorAlert');
-                            $field.addClass('borderRed');
-                            $field.attr('title', item.message);
-                            $field.tooltip({
+                            var tabHeaderId = field.closest('div.tab-pane').attr("id");
+                            blinker($("a[href=#" + tabHeaderId + "]"));
+                            field.addClass('borderRed');
+                            field.attr('title', item.message);
+                            field.tooltip({
                                 placement: "top",
                                 trigger: "hover",
                                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner tooltip-error"></div></div>'
                             });
-                            $field.change(function () {
-                                $("label[for='" + itemFieldName + "']").removeClass('labelErrorAlert');
+                            field.change(function () {
+                                var fieldName = $(this).attr('name').replace(/\./g, '\.');
+                                $("label[for='" + fieldName + "']").removeClass('labelErrorAlert');
                                 $(this).removeClass('borderRed');
                                 $(this).removeAttr('title');
                                 $(this).tooltip('destroy');
@@ -97,14 +103,6 @@
                         jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                         jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
-                        /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
-                         jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
-                         else if(JSON.parse(response.customErrorMessages[0].fieldName) == "warn"){
-                         jQuery('#jqgrowlContainer > ul').addClass('warnContainer');
-                         }
-                         else if(JSON.parse(response.customErrorMessages[0].fieldName) == "success"){
-                         jQuery('#jqgrowlContainer > ul').addClass('successContainer');
-                         }*/
                         $('#memberForm')[0].reset();
                         $(':input', '#memberForm')
                                 .not(':button, :submit, :reset, :checkbox, #registeredDate, :radio')
@@ -113,21 +111,13 @@
                                 .removeAttr('selected');
                         $('#memberAsPersonnationalityTextBox').hide();
                         jQuery('#memberGrid').trigger('reloadGrid');
+                        $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
                     }
                     else if (response.statusCode == 'FAILURE') {
                         jQuery.jqGrowl.timeout = 2000;
                         jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                         jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'FAILURE');
 
-                        /*if(JSON.parse(response.customErrorMessages[0].fieldName) == "error")
-                         jQuery('#jqgrowlContainer > ul').addClass('errorContainer');
-                         else if(JSON.parse(response.customErrorMessages[0].fieldName) == "warn"){
-                         jQuery('#jqgrowlContainer > ul').addClass('warnContainer');
-                         }
-                         else if(JSON.parse(response.customErrorMessages[0].fieldName) == "success"){
-                         jQuery('#jqgrowlContainer > ul').addClass('successContainer');
-                         }*/
-                        $('#memberForm')[0].reset();
                         $('#memberAsPersonnationalityTextBox').hide();
                         jQuery('#memberGrid').trigger('reloadGrid');
                     }
@@ -364,8 +354,7 @@
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:checkbox
-                                                                                                            path="familyHead"
-                                                                                                            checked="false"/>
+                                                                                                            path="familyHead"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
