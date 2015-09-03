@@ -77,11 +77,11 @@ public class Parish implements Serializable {
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "mappedParish")
-    private List<MassCentre> massCentreList = new ArrayList<MassCentre>();
+    private List<MassCentre> massCentreList = new ArrayList<>();
 
     @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "familyParish")
-    private List<Family> mappedFamilies = new ArrayList<Family>();
+    private List<Family> mappedFamilies = new ArrayList<>();
 
     public Parish() {
     }
