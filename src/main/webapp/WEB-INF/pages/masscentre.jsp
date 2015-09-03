@@ -125,9 +125,7 @@
                                                                                                         path="id"
                                                                                                         id="id"/>
                                                                                                 <label for="massCentreName"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Center
-                                                                                                    Name</label>
+                                                                                                       class="col-sm-2 control-label">Name</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input
@@ -137,7 +135,7 @@
                                                                                                 </div>
                                                                                                 <label for="massCentreNo"
                                                                                                        class="col-sm-2 control-label">Mass
-                                                                                                    Center No.</label>
+                                                                                                    Centre No.</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input path="massCentreNo"
@@ -149,8 +147,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="place"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Center Place</label>
+                                                                                                       class="col-sm-2 control-label">Place</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input path="place"
@@ -179,8 +176,7 @@
                                                                                                                 class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="landLineNo"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Center Land Line No.</label>
+                                                                                                       class="col-sm-2 control-label">Land Line No.</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input path="landLineNo"
@@ -191,8 +187,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="mobileNo"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Center Mobile No.</label>
+                                                                                                       class="col-sm-2 control-label">Mobile No.</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input path="mobileNo"
@@ -200,8 +195,7 @@
                                                                                                                 class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="faxNo"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Center Fax No.</label>
+                                                                                                       class="col-sm-2 control-label">Fax No.</label>
 
                                                                                                 <div class="col-sm-4">
                                                                                                     <form:input path="faxNo"
@@ -227,7 +221,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="tab-pane active" id="masscentre2">
+                                                                                <div class="tab-pane" id="masscentre2">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">

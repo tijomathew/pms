@@ -112,6 +112,7 @@
                         $('#memberAsPersonnationalityTextBox').hide();
                         jQuery('#memberGrid').trigger('reloadGrid');
                         $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
+                        $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
                     }
                     else if (response.statusCode == 'FAILURE') {
                         jQuery.jqGrowl.timeout = 2000;

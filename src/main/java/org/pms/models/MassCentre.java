@@ -49,15 +49,12 @@ public class MassCentre implements Serializable {
     @Column(name = "registered_date")
     private String registeredDate;
 
-    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "landline_no")
     private String landLineNo;
 
-    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "mobile_no")
     private String mobileNo;
 
-    @Pattern(regexp = "(^[0-9]{10,15}$)")
     @Column(name = "faxno")
     private String faxNo;
 

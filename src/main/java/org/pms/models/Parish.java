@@ -72,11 +72,11 @@ public class Parish implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedParish")
     private List<MassCentre> massCentreList = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyParish")
     private List<Family> mappedFamilies = new ArrayList<>();
 

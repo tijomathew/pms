@@ -68,6 +68,7 @@ function globalSubmissionOfForms(formId, gridId) {
                     .removeAttr('selected');
                 jQuery('#' + gridId).trigger('reloadGrid');
                 $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
+                $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
             }
             else if (response.statusCode == 'FAILURE') {
                 jQuery.jqGrowl.timeout = 2000;
@@ -106,6 +107,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' radio').removeAttr("disabled");
             $('#' + formId + ' textarea').removeAttr("disabled");
             $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
+            $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
             $('#' + formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
@@ -240,5 +242,6 @@ function cancelActions(formId, gridId) {
         $(this).removeClass('borderRed');
         $(this).removeAttr('title');
         $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
+        $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
     });
 }
