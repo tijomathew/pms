@@ -1,11 +1,12 @@
 package org.pms.models;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "parishes")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "org.pms.models.Parish")
 public class Parish implements Serializable {
 
     private static final long serialVersionUID = 4089680743003228381L;
@@ -73,11 +75,11 @@ public class Parish implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "mappedParish")
     private List<MassCentre> massCentreList = new ArrayList<MassCentre>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "familyParish")
     private List<Family> mappedFamilies = new ArrayList<Family>();
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false"
+         name="ehcacheManager">
+
+    <diskStore path="/tmp"/>
+
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="true"
+            timeToLiveSeconds="86400"
+            overflowToDisk="false"
+            memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="org.pms.models.Parish"
+           eternal="true" overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU"/>
+</ehcache>
