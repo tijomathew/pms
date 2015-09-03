@@ -105,6 +105,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' select').removeAttr("disabled");
             $('#' + formId + ' radio').removeAttr("disabled");
             $('#' + formId + ' textarea').removeAttr("disabled");
+            $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
             $('#' + formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
@@ -115,7 +116,19 @@ function addJqgridCustomButtons(gridId, formId) {
                 .removeAttr('selected');
             // $('#registeredDate').val(registeredDate);
             //jQuery('form').trigger('reset');
+
             $('.actionSpan').text("View");
+            $(':input', '#' + formId).each(function () {
+                if ($(this).is(':radio')) {
+                    $("#" + formId).find("[name='active-btn-group']").tooltip('destroy');
+                }
+                else {
+                    $(this).tooltip('destroy');
+                }
+                $("#" + formId).find("label[for='" + ($(this).attr('name')) + "']").removeClass('labelErrorAlert');
+                $(this).removeClass('borderRed');
+                $(this).removeAttr('title');
+            });
         },
         position: "first"
     }).navButtonAdd('#' + gridId + 'Pager', {
@@ -215,4 +228,17 @@ function cancelActions(formId, gridId) {
         .removeAttr('selected');
     jQuery('#' + gridId).jqGrid('resetSelection');
     $('#' + formId).find('textarea').text('');
+
+    $(':input', '#' + formId).each(function () {
+        if ($(this).is(':radio')) {
+            $("#" + formId).find("[name='active-btn-group']").tooltip('destroy');
+        }
+        else {
+            $(this).tooltip('destroy');
+        }
+        $("#" + formId).find("label[for='" + ($(this).attr('name')) + "']").removeClass('labelErrorAlert');
+        $(this).removeClass('borderRed');
+        $(this).removeAttr('title');
+        $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
+    });
 }
