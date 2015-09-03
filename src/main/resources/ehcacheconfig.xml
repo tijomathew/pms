@@ -13,6 +13,6 @@
             memoryStoreEvictionPolicy="LRU"/>
 
     <cache name="org.pms.models.Parish"
-           eternal="true" overflowToDisk="false"
+           eternal="true" overflowToDisk="true"
            memoryStoreEvictionPolicy="LRU"/>
 </ehcache>
