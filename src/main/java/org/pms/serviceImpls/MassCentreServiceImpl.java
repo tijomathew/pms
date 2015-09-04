@@ -68,7 +68,11 @@ public class MassCentreServiceImpl implements MassCentreService {
 
     @Override
     public Long getMassCentreCountForParish(Long parishId) {
-        return massCentreDao.getMassCentreCountForParish(parishId);
+        Long massCenterCount = massCentreDao.getMassCentreCountForParish(parishId);
+        if (massCenterCount == null) {
+            massCenterCount = 0l;
+        }
+        return massCenterCount;
     }
 
     @Override
