@@ -202,7 +202,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="tab-pane active" id="prayerunit2">
+                                                                                <div class="tab-pane" id="prayerunit2">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
