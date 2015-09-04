@@ -167,6 +167,7 @@
                         <form:input path="email" placeholder="Email" class="input-field" />
                         <form:password path="password" placeholder="Password" class="input-field" />
                         <input type="submit" class="btn btn-login" value="Login"/>
+                        <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay" ></form:errors>
                     </form:form>
                     <div class="login-links">
                         <a data-toggle="modal" data-target="#forgotPass" id="forgotPasswordClicker">
