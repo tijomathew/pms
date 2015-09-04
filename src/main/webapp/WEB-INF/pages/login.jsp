@@ -1,27 +1,56 @@
 <%--
+  Created by IntelliJ IDEA.
   User: tijo
-  Date: 29/9/14
-  Time: 9:17 PM  
+  Date: 4/9/15
+  Time: 9:29 AM
+  To change this template use File | Settings | File Templates.
 --%>
 <%@include file="tagLibraryTemplate.jsp" %>
-<html>
-<head>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-    <title>PMS-Login</title>
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Login"/>
+    <meta name="keywords" content="Login"/>
+    <meta name="author" content="Adsays"/>
+    <link rel="shortcut icon" href="favicon.png">
+
+    <title>PMS-Parish Management System</title>
+    <spring:url value="/resources/css/bootstrap.css" var="bootstrapcss"/>
+    <spring:url value="/resources/css/demo.css" var="democss"/>
+    <spring:url value="/resources/css/login-theme-1.css" var="loginthemecss"/>
+    <spring:url value="/resources/css/animate-custom.css" var="animatecss"/>
+    <spring:url value="/resources/css/loginstyle.css" var="loginStyleURL"/>
 
     <spring:url value="/resources/css/bootstrap.min.latest.css" var="bootstrapcsslatestUrl"/>
     <spring:url value="/resources/css/bootstrap-theme.min.css" var="bootstrapthemeUrl"/>
 
+    <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
+    <script type='text/javascript' src="${jqueryURL}"></script>
+
+    <spring:url value="/forgotpassword.action" var="forgotPasswordActionURL"/>
+
     <link href="${bootstrapcsslatestUrl}" rel="stylesheet">
     <link href="${bootstrapthemeUrl}" rel="stylesheet">
 
-    <spring:url value="/resources/js/jquery-1.11.0.min.js" var="jqueryURL"/>
-    <spring:url value="/forgotpassword.action" var="forgotPasswordActionURL"/>
 
-    <script type='text/javascript' src="${jqueryURL}"></script>
+    <link href="${loginStyleURL}" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="${bootstrapcss} " rel="stylesheet">
 
-    <spring:url value="/resources/js/bootstrap.min.js" var="bootstrapURL"/>
-    <script type='text/javascript' src="${bootstrapURL}"></script>
+    <!-- Demo CSS -->
+    <link href="${democss}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${loginthemecss}" rel="stylesheet" id="fordemo">
+
+    <link href="${animatecss}" rel="stylesheet">
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -55,11 +84,9 @@
         });
     </script>
 
-    <spring:url value="/resources/css/loginstyle.css" var="loginStyleURL"/>
-    <link href="${loginStyleURL}" rel="stylesheet">
 
 </head>
-<body>
+<body class="fade-in">
 
 <div class="modal fade" id="forgotPass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -109,56 +136,65 @@
 </div>
 
 
-<div class="container">
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-info mainPanel">
-            <div class="panel-heading headerBackground">
-                <div class="panel-title">Sign In</div>
-                <div style="float:right; font-size: 80%; position: relative; top:-10px">
-                    <a data-toggle="modal" data-target="#forgotPass" id="forgotPasswordClicker">Forgot password?</a>
+<!-- start Login box -->
+<div class="container" id="login-block">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+            <div class="page-icon-shadow animated bounceInDown"></div>
+            <div class="login-box clearfix animated flipInY">
+                <div class="page-icon animated bounceInDown">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
+                <div class="login-logo">
+                    <spring:url value="/resources/images/login-logo.png" var="logo"/>
+                    <a href="#"><img src="${logo}" alt="Company Logo"/></a>
+                </div>
+                <hr/>
+                <div class="login-form">
+                    <!-- Start Error box -->
+                    <div class="alert alert-danger hide">
+                        <button type="button" class="close" data-dismiss="alert"> &times;</button>
+                        <h4>Error!</h4>
+                        Your Error Message goes here
+                    </div>
+                    <!-- End Error box -->
+                    <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
+                               id="loginForm1">
+                       <%-- <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <form:input path="email" id="login-username" class="form-control" placeholder="email"/>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <form:password path="password" id="login-password" class="form-control" placeholder="password"/>--%>
+                        <form:input path="email" placeholder="Email" class="input-field" />
+                        <form:password path="password" placeholder="Password" class="input-field" />
+                        <input type="submit" class="btn btn-login" value="Login"/>
+                    </form:form>
+                    <div class="login-links">
+                        <a data-toggle="modal" data-target="#forgotPass" id="forgotPasswordClicker">
+                            Forgot password?
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div style="padding-top:30px" class="panel-body">
-
-                <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
-                           id="loginForm1">
-
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <form:input path="email" id="login-username" class="form-control" placeholder="email"/>
-                    </div>
-
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <form:password path="password" id="login-password" class="form-control" placeholder="password"/>
-                    </div>
-
-
-                    <div class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                            </label>
-                        </div>
-                    </div>
-                    <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay" ></form:errors>
-
-                    <div style="margin-top:10px" class="form-group">
-
-                        <div class="col-sm-12 controls">
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-                        </div>
-                    </div>
-                </form:form>
-            </div>
         </div>
     </div>
-
 </div>
+
+<!-- End Login box -->
+<footer class="container">
+    <p id="footer-text">
+        <small>Copyright &copy; 2015 <a href="#">Pin2</a></small>
+    </p>
+</footer>
+
+
+<spring:url value="/resources/js/bootstrap.min.js" var="bootstrapURL"/>
+<spring:url value="/resources/js/custom.js" var="customjs"/>
+
+
+<script type='text/javascript' src="${bootstrapURL}"></script>
+<script src="${customjs}" type="text/javascript"></script>
 
 </body>
 </html>
-
-
 
