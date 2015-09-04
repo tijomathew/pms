@@ -9872,6 +9872,30 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
   min-width: 15px;
   text-align: center;
   display: inline-block;
+  background-image: url(../images/sprite.png);
+  min-height: 10px;
+}
+#sidebar i.pms-users{
+  background-position: 0 0;
+}
+#sidebar i.pms-prest{
+  background-position: 0px -23px;
+}
+#sidebar i.pms-parish{
+  background-position: 0px -46px;
+}
+#sidebar i.pms-massCentres{
+  background-position: 0px -69px;
+}
+#sidebar i.pms-prayerUnits{
+  background-position: 0px -91px;
+
+}
+#sidebar i.pms-family{
+  background-position: 0px -114px;
+}
+#sidebar i.pms-members{
+  background-position: 0px -138px;
 }
 #sidebar .divider {
   height: 1px;

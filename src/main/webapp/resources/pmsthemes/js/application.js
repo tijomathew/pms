@@ -69,7 +69,7 @@ $(function () {
 
     //On click of left menu
     $("a#leftmenu-trigger").click(function () {
-        
+
         if ((window.innerWidth)<768) {
             $('body').toggleClass('show-leftbar');
         } else {

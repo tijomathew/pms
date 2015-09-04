@@ -23,6 +23,27 @@ function globalSubmissionOfForms(formId, gridId) {
         dataType: 'json',
         data: data,
         success: function (response) {
+
+
+
+
+            /*$.toaster({
+                settings : {
+                    'css'       : {
+                    'position' : 'fixed',
+                    'bottom'      : '10px',
+                    'right'    : '10px',
+                    'width'    : '300px',
+                    'zIndex'   : 50000
+                    }
+                }
+            });*/
+            //jQuery.toaster({ priority : 'success', title : 'Title', message : 'Your message here'});
+            /*jQuery.toaster({ priority : 'info', title : 'Title', message : 'Your message here'});
+
+            jQuery.toaster({ priority : 'warning', title : 'Title', message : 'Your message here'});
+
+            jQuery.toaster({ priority : 'danger', title : 'Title', message : 'Your message here'});*/
             if (response.statusCode == 'FAIL') {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {

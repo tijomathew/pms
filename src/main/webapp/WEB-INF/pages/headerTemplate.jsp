@@ -17,12 +17,18 @@
 
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle username" data-toggle="dropdown">
-                <span class="hidden-xs">${loggedInUserEmail} <i class="fa fa-caret-down"></i></span>
-                <spring:url value="/resources/images/dangerfield.png" var="dangerimageURL"/>
-                <img src="${dangerimageURL}" alt="Dangerfield"/>
+            <a href="#" class="dropdown-toggle username">
+                <span class="hidden-xs"><i class="fa fa-sign-out fa-2x"></i></span>
             </a>
-            <ul class="dropdown-menu userinfo arrow">
+
+        </li>
+        <li>
+            <a href="#" class="username">
+                <span class="hidden-xs">${loggedInUserEmail} <!--<i class="fa fa-caret-down"></i>--></span>
+                <spring:url value="/resources/images/dangerfield.png" var="dangerimageURL"/>
+                <!--<img src="${dangerimageURL}" alt="Dangerfield"/>-->
+            </a>
+            <!--<ul class="dropdown-menu userinfo arrow">
                 <li class="username">
                     <a href="#">
                         <div class="pull-left"><img src="${dangerimageURL}" alt="Jeff Dangerfield"/></div>
@@ -41,7 +47,9 @@
                     </ul>
                 </li>
             </ul>
+            -->
         </li>
+
 
     </ul>
 </header>
