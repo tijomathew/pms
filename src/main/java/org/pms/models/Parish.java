@@ -25,7 +25,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "parishes")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "org.pms.models.Parish")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "org.pms.models.Parish")
 public class Parish implements Serializable {
 
     private static final long serialVersionUID = 4089680743003228381L;
