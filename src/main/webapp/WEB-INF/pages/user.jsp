@@ -37,7 +37,7 @@
 
             loadUserGrid();
 
-          /*  <c:if test = "${showForPrayerUnitAdmin == false}" >
+         /* <c:if test = "${showForPrayerUnitAdmin == false}" >
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>*/
 
@@ -245,7 +245,7 @@
                                                                                                     <form:select
                                                                                                             path="userOfFamily"
                                                                                                             id="familySelectBox"
-                                                                                                            class="form-control">
+                                                                                                            class="form-control" items="${familyList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>

@@ -64,13 +64,19 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @ResponseBody
     CustomResponse addFamily(@ModelAttribute("family") @Valid Family family, BindingResult result) {
 
+        boolean familyAdditionFlagForFamilyUser=true;
+
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
+            if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() != null) {
+                familyAdditionFlagForFamilyUser=false;
+            }
+
             if (family.getId() == null && family.getFamilyNo() == null) {
 
-                if (currentUser.getSystemRole() != SystemRole.FAMILY_USER) {
+                if (familyAdditionFlagForFamilyUser) {
                     family.getFamilyParish().addFamilyForParish(family);
                     family.getFamilyMassCentre().addFamilyForMassCentre(family);
                     family.getFamilyPrayerUnit().addFamilyForWard(family);
@@ -78,9 +84,10 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                     familyService.setFamilyNumber(family);
 
                     familyService.addFamilySM(family);
-
-                   /* currentUser.setUserOfFamily(family);
-                    userService.addUserSM(currentUser);*/
+                    if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() == null) {
+                        currentUser.setUserOfFamily(family);
+                        userService.updateUser(currentUser);
+                    }
 
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {

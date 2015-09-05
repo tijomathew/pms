@@ -3,10 +3,7 @@ package org.pms.serviceImpls;
 import org.pms.daos.UserDao;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
-import org.pms.models.MassCentre;
-import org.pms.models.Parish;
-import org.pms.models.PrayerUnit;
-import org.pms.models.User;
+import org.pms.models.*;
 import org.pms.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
+
+    @Autowired
+    private FamilyService familyService;
 
     @Override
     public Boolean addUserSM(User user) {
@@ -171,9 +171,16 @@ public class UserServiceImpl implements UserService {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
         }
 
+        Map<Long, String> familyMap = new HashMap<>();
+        List<Family> familyList = familyService.getAllFamiliesForUserRole(currentUser);
+        if (!familyList.isEmpty()) {
+            familyMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
+        }
+
         model.addAttribute("parishList", parishMap);
         model.addAttribute("massCentreList", massCentreMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
+        model.addAttribute("familyList", familyMap);
 
     }
 }
