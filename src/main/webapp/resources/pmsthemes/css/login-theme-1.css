@@ -38,7 +38,7 @@ body{
 
 .login-logo{
 	 text-align: center;
-	 padding: 15px 0 10px;
+	 padding: 0px;
 }
 
 .login-logo img{
@@ -95,6 +95,7 @@ body{
 	-moz-animation-delay: .8s;
 	-o-animation-delay: .8s;
 	animation-delay: .8s;
+    background-image: url('../images/logo.png');
 }
 /* Login Form */
 .login-form input{
@@ -121,12 +122,11 @@ body{
 	-moz-transition: all .5s ease-in-out;
 	-o-transition: all .5s ease-in-out;
 	transition: all .5s ease-in-out;
-	
+    border: 1px solid #198573;
 }
-.btn.btn-login:hover {	 
-	border:1px solid #FFF;
+.btn.btn-login:hover {
 	opacity: 0.8;
-} 
+}
 .btn.btn-reset{
 	width: 180px;
 }
@@ -143,6 +143,7 @@ body{
 	-o-transition: all .5s ease;
 	transition: all .5s ease;
 	opacity: 0.7;
+    cursor: pointer;
 }
 .login-links a:hover{
 	 opacity: 1;
@@ -464,7 +465,7 @@ label.checkbox input{
     rgb(34, 45, 58) 203px 203px;
     rgb(34, 45, 58) 204px 204px;
     rgb(34, 45, 58) 205px 205px;
-    rgb(34, 45, 58) 206px 206px;  
+    rgb(34, 45, 58) 206px 206px;
 }
 
 .page-icon .glyphicon{
@@ -557,6 +558,14 @@ label.checkbox input{
 
 #footer-text{
 	position: relative;
+}
+#loginErrorDisplay{
+    font-size: 12px;
+    text-align: center;
+    color: #a94442;
+    padding: 1px;
+    margin: 8px auto;
+    display:block
 }
 
  

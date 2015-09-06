@@ -69,7 +69,7 @@
                     break;
                 case 'text':
                 case 'hidden':
-                    $(element).attr("value", value).attr("disabled", true);
+                    $(element).val(value).attr("disabled", true);
                     break;
                 case 'a':
                     var href = $(element).attr("href");
@@ -104,7 +104,8 @@
                 case 'button':
                 default:
                     try {
-                        $(element).html(value);
+                        $(element).val(value);
+                        //$(element).html(value);
                     } catch (exc) {
                     }
             }

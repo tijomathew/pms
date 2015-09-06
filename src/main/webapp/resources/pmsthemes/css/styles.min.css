@@ -3635,7 +3635,7 @@ button.close {
   border-radius: 1px;
 }
 .tooltip-error {
-  color: red !important;
+  color: #d61a1a !important;
   background-color: #ffffff !important;
   border-color: #ff0000 !important;
   border-style: solid;
@@ -9885,7 +9885,7 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
   background-position: 0px -46px;
 }
 #sidebar i.pms-massCentres{
-  background-position: 0px -69px;
+  background-position: 0px -71px;
 }
 #sidebar i.pms-prayerUnits{
   background-position: 0px -91px;
@@ -9898,7 +9898,7 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
   background-position: 0px -138px;
 }
 #sidebar .divider {
-  height: 1px;
+  height: 0px;
   width: 100%;
   margin: 10px 0px;
   overflow: hidden;
@@ -15325,12 +15325,12 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 
 .borderRed{
-  border:1px solid red !important;
+  border:1px solid #d61a1a !important;
   color: #003399!important;
 }
 
 .labelErrorAlert{
-  color:red !important;
+  color:#d61a1a !important;
 }
 
 
@@ -15596,5 +15596,50 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
   background-color: rgb(50, 50, 50) !important; /* This will make it darker */
 }
 .tabErrorHighlight{
-color: red
+color: #d61a1a;
 }
+
+div.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+  /* background-color: rgb(189, 72, 72); */
+  color: white;
+  /*background: linear-gradient(to bottom, #1192A7, rgba(49, 77, 104, 1) 100%);*/
+  background: #1192A7;
+  border-color: #1192A7;
+}
+
+div.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons {
+  /*border-color: #d61a1a;*/
+  /*border-radius: 6px;*/
+  top:15% !important;
+}
+div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
+  margin-top: 0px;
+}
+
+.required:after {
+  content:"*";
+  color:#ff0000;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+
+

@@ -18,8 +18,8 @@ $.jqGrowl = {
     },
 
     /* initialize the plugin */
-    init: function(corner, tout) {
-
+    init: function(corner, tout, stat) {
+        console.log(stat);
         this.makeGrowlContainer();
         $("#jqgrowlContainer").css(corner);
         if (tout) {
@@ -48,8 +48,9 @@ $.jqGrowl = {
         if (theTimeout != 0) {
             timerId = setTimeout(function() { $(tag).fadeOut(2000); }, theTimeout);
         }
-
+        var titletoLwr = title.toLowerCase()
         $("ul", clone).attr("id", "jqgrowlMsg" + this.msg_ctr);
+        $("ul", clone).attr("class", titletoLwr);
         $("li.jqgrowl-title", clone).html(title);
         $("li.jqgrowl-msg", clone).html(message);
 

@@ -68,11 +68,11 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-                /* $("div.container").errorFieldsDialog({
+                 $("div.container").errorFieldsDialog({
                  responseData: response.customErrorMessages,
                  parentFormId: formId,
                  parentGridId: gridId
-                 });*/
+                 });
                 return [true, "", ""];
 
             }
@@ -93,7 +93,7 @@ function globalSubmissionOfForms(formId, gridId) {
             }
             else if (response.statusCode == 'FAILURE') {
                 jQuery.jqGrowl.timeout = 2000;
-                jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
+                jQuery.jqGrowl.init({right: '8px', bottom: '8px', top: '', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'FAILURE');
 
                 jQuery('#' + gridId).trigger('reloadGrid');
@@ -132,16 +132,16 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
-            $(':input', '#' + formId)
+            $('#' + formId).find(':input')
                 .not(':button, :submit, :reset, :checkbox, #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
-                .attr('value', '')
+                .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
             // $('#registeredDate').val(registeredDate);
             //jQuery('form').trigger('reset');
 
             $('.actionSpan').text("View");
-            $(':input', '#' + formId).each(function () {
+            $('#' + formId).find(':input').each(function () {
                 if ($(this).is(':radio')) {
                     $("#" + formId).find("[name='active-btn-group']").tooltip('destroy');
                 }
@@ -164,10 +164,10 @@ function addJqgridCustomButtons(gridId, formId) {
             }
             else {
                 jQuery('#' + formId).show(500);
-                $('#' + formId + ' input').removeAttr('disabled');
-                $('#' + formId + ' select').removeAttr("disabled");
-                $('#' + formId + ' radio').removeAttr("disabled");
-                $('#' + formId + ' textarea').removeAttr("disabled");
+                $('#' + formId).find(':input').removeAttr('disabled');
+                //$('#' + formId + ' select').removeAttr("disabled");
+                //$('#' + formId + ' radio').removeAttr("disabled");
+                //$('#' + formId + ' textarea').removeAttr("disabled");
 
                 $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
                 $('.actionSpan').text("Edit");
@@ -184,14 +184,14 @@ function addJqgridCustomButtons(gridId, formId) {
 
             $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
 
-            $('#' + formId + ' input').removeAttr('disabled');
-            $('#' + formId + ' select').removeAttr("disabled");
-            $('#' + formId + ' radio').removeAttr("disabled");
-            $('#' + formId + ' textarea').removeAttr("disabled");
+            $('#' + formId).find(':input').removeAttr('disabled');
+            //$('#' + formId + ' select').removeAttr("disabled");
+            //$('#' + formId + ' radio').removeAttr("disabled");
+            //$('#' + formId + ' textarea').removeAttr("disabled");
 
-            $(':input', '#' + formId)
+            $('#' + formId).find(':input')
                 .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
-                .attr('value', '')
+                .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
             $('#registeredDate').prop('value', registeredDate);

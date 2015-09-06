@@ -19,7 +19,7 @@
     <meta name="description" content="Login"/>
     <meta name="keywords" content="Login"/>
     <meta name="author" content="Adsays"/>
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="resources/images/favicon.png">
 
     <title>PMS-Parish Management System</title>
     <spring:url value="/resources/css/bootstrap.css" var="bootstrapcss"/>
@@ -97,7 +97,7 @@
                 </button>
                 <h4 class="modal-title" id="myModalLabel">Forgot password?</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body forgetPassBody">
                 <div id="forgotPasswordContainer">
                     <form:form modelAttribute="loginUser"
                                action="${pageContext.request.contextPath}/forgotpassword.action"
@@ -105,14 +105,12 @@
 
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Email</label>
-
-                                <div class="col-sm-10">
-                                    <form:input path="email" class="form-control" placeholder="Email"/>
-                                    <div class="alert alert-danger" role="alert" id="failureforgotpassword">This mail ID
-                                        is
-                                        invalid in our system. Please re-check the mail ID.
+                                <div class="col-sm-12">
+                                    <div class="alert alert-danger" role="alert" id="failureforgotpassword">
+                                        This mail ID is invalid in our system. <br/>Please re-check the mail ID.
                                     </div>
+                                    <form:input path="email" class="form-control" placeholder="Email"/>
+
                                 </div>
                             </div>
 
@@ -140,13 +138,16 @@
 <div class="container" id="login-block">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-            <div class="page-icon-shadow animated bounceInDown"></div>
+            <div class="page-icon-shadow"></div>
             <div class="login-box clearfix animated flipInY">
-                <div class="page-icon animated bounceInDown">
+                <!--<div class="page-icon animated bounceInDown">
                     <i class="glyphicon glyphicon-user"></i>
+                </div>-->
+                <div class="page-icon">
+
                 </div>
                 <div class="login-logo">
-                    <spring:url value="/resources/images/login-logo.png" var="logo"/>
+                    <spring:url value="/resources/images/header.png" var="logo"/>
                     <a href="#"><img src="${logo}" alt="Company Logo"/></a>
                 </div>
                 <hr/>
@@ -164,10 +165,14 @@
                         <form:input path="email" id="login-username" class="form-control" placeholder="email"/>
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <form:password path="password" id="login-password" class="form-control" placeholder="password"/>--%>
+
+                        <form:errors class="alert alert-danger"  role="alert" id="loginErrorDisplay"></form:errors>
+
+
                         <form:input path="email" placeholder="Email" class="input-field" />
                         <form:password path="password" placeholder="Password" class="input-field" />
                         <input type="submit" class="btn btn-login" value="Login"/>
-                        <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay" ></form:errors>
+
                     </form:form>
                     <div class="login-links">
                         <a data-toggle="modal" data-target="#forgotPass" id="forgotPasswordClicker">

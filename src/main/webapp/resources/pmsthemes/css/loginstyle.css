@@ -16,7 +16,7 @@ body {
     color: #fff;
 }
 
-#loginbox .headerBackground, .headerBackground {
+#loginbox .headerBackground1, .headerBackground1 {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003466+0,314d68+100 */
     background: rgb(0, 52, 102); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(0, 52, 102, 1) 0%, rgba(49, 77, 104, 1) 100%); /* FF3.6+ */
@@ -33,12 +33,64 @@ body {
 }
 
 #forgotPass .modal-header {
-    background: #003466;
+    background: #198573;
     color: #fff;
-}
+    padding: 10px;
+    border-bottom: 1px solid #198573;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
 
+}
+#forgotPass .forgetPassBody {
+    background: #16A085;
+    color: #fff;
+    padding: 10px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+#forgotPass #email{
+    display: block;
+    margin: 0 auto 15px;
+    width: 70%;
+    background: #fefefe;
+    border: 0;
+    color: #6c6c6c;
+    padding: 8px;
+    border-radius: 2px;
+
+}
+#forgotPass .modal-dialog{
+    width: 500px;
+}
+#forgotPass .forgetPassBody .modal-footer .btn{
+    background: #198573;
+    color: white;
+    text-transform: uppercase;
+    width: 120px;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    border: 0;
+    padding: 8px;
+    border-radius: 2px;
+}
+#forgotPass .forgetPassBody .modal-footer .btn:hover {
+    opacity: 0.8;
+}
 #forgotPass .modal-content {
     background-color: #F4F4F4;
+}
+#forgotPass .modal-footer{
+    text-align: center;
+}
+#failureforgotpassword{
+    font-size: 12px;
+    text-align: center;
+    color: #a94442;
+    padding: 1px;
+    margin: 8px auto;
+    display: block;
 }
 
 .noborder {
@@ -52,4 +104,46 @@ body {
 button.close {
     color: #fff;
     opacity: .7;
+}
+
+.changePassBody{
+    background-color: #325263;
+}
+.changePassBody .headerBackground{
+    background: #1192a7; /* Old browsers */
+    background: -moz-linear-gradient(top, #1192a7 0%, #1192a7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1192a7), color-stop(100%,#1192a7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1192a7 0%,#1192a7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1192a7', endColorstr='#1192a7',GradientType=0 ); /* IE6-9 */
+}
+#changePasswordForm{
+    margin:0;
+}
+#changePasswordContainer{
+
+}
+.changePassBody .btn {
+    background: #1192a7; /* Old browsers */
+    background: -moz-linear-gradient(top, #1192a7 0%, #1192a7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1192a7), color-stop(100%,#1192a7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1192a7 0%,#1192a7 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1192a7 0%,#1192a7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1192a7', endColorstr='#1192a7',GradientType=0 ); /* IE6-9 */
+    width: 180px !important;
+    display: inline;
+    color: white;
+    text-transform: uppercase;
+    border: 1px solid #198573;
+    font-size: 14px;
+    border-radius: 2px;
+}
+.successContainer{
+    display: block;
+    width: 90%;
+    margin: 20px auto;
 }

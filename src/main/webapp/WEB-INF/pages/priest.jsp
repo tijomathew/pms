@@ -118,7 +118,7 @@
                                                                                            class="col-sm-2 control-label">Priest
                                                                                         Status</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:select path="priestStatus"
                                                                                                      id="priestStatus"
                                                                                                      class="form-control"
@@ -129,7 +129,7 @@
                                                                                            class="col-sm-2 control-label">Priest
                                                                                         No.</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="priestNo"
                                                                                                     id="priestNo"
                                                                                                     readonly="true"
@@ -141,7 +141,7 @@
                                                                                     <label for="salutation"
                                                                                            class="col-sm-2 control-label">Salutation</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:select
                                                                                                 path="priestAsPerson.salutation"
                                                                                                 id="salutation"
@@ -153,7 +153,7 @@
                                                                                            class="col-sm-2 control-label">First
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.firstName"
                                                                                                 id="priestAsPersonfirstName"
@@ -165,7 +165,7 @@
                                                                                            class="col-sm-2 control-label">Middle
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.middleName"
                                                                                                 id="priestAsPersonmiddleName"
@@ -175,7 +175,7 @@
                                                                                            class="col-sm-2 control-label">Last
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.lastName"
                                                                                                 id="priestAsPersonlastName"
@@ -187,7 +187,7 @@
                                                                                            class="col-sm-2 control-label">Date
                                                                                         of Birth</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.dateOfBirth"
                                                                                                 id="priestAsPersondateOfBirth"
@@ -197,7 +197,7 @@
                                                                                            class="col-sm-2 control-label">Family
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="familyName"
                                                                                                 id="familyName"
@@ -209,7 +209,7 @@
                                                                                            class="col-sm-2 control-label">Place
                                                                                         of Birth</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.placeOfBirth"
                                                                                                 id="priestAsPersonplaceOfBirth"
@@ -218,7 +218,7 @@
                                                                                     <label for="priestAsPersongender"
                                                                                            class="col-sm-2 control-label">Gender</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:radiobuttons
                                                                                                 path="priestAsPerson.gender"
                                                                                                 id="priestAsPersongender"
@@ -230,7 +230,7 @@
                                                                                     <label for="priestAsPerson.nationality"
                                                                                            class="col-sm-2 control-label">Nationality</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.nationality"
                                                                                                 id="priestAsPersonnationality"
@@ -241,7 +241,7 @@
                                                                                         To
                                                                                         Diocese</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="ordainedToDiocese"
                                                                                                 id="ordainedToDiocese"
@@ -253,7 +253,7 @@
                                                                                            class="col-sm-2 control-label">Father's
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="fatherName"
                                                                                                     id="fatherName"
                                                                                                     class="form-control"/>
@@ -262,7 +262,7 @@
                                                                                            class="col-sm-2 control-label">Education
                                                                                         Qualifications</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:textarea
                                                                                                 path="priestAsPerson.educationQualifications"
                                                                                                 id="priestAsPersoneducationQualifications"
@@ -274,7 +274,7 @@
                                                                                            class="col-sm-2 control-label">Job
                                                                                         Details</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:textarea
                                                                                                 path="priestAsPerson.jobDetails"
                                                                                                 id="priestAsPersonjobDetails"
@@ -284,7 +284,7 @@
                                                                                            class="col-sm-2 control-label">Personal
                                                                                         Status</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:select
                                                                                                 path="priestAsPerson.personalStatus"
                                                                                                 id="personalStatus"
@@ -298,7 +298,7 @@
                                                                                            class="col-sm-2 control-label">Blood
                                                                                         Group</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:select
                                                                                                 path="priestAsPerson.bloodGroup"
                                                                                                 id="bloodGroup"
@@ -310,7 +310,7 @@
                                                                                            class="col-sm-2 control-label">Car
                                                                                         Number</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.carNumber"
                                                                                                 id="carNumber"
@@ -322,7 +322,7 @@
                                                                                            class="col-sm-2 control-label">Life
                                                                                         Status</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:select
                                                                                                 path="priestAsPerson.lifeStatus"
                                                                                                 id="lifeStatus"
@@ -334,7 +334,7 @@
                                                                                            class="col-sm-2 control-label">Personal
                                                                                         Remarks</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:textarea
                                                                                                 path="priestAsPerson.personalRemarks"
                                                                                                 id="personalRemarks"
@@ -347,7 +347,7 @@
                                                                                         of
                                                                                         Ordination</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="dateOfOrdination"
                                                                                                 id="dateOfOrdination"
@@ -357,7 +357,7 @@
                                                                                            class="col-sm-2 control-label">Feast
                                                                                         Day</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="feastDay"
                                                                                                     id="feastDay"
                                                                                                     class="form-control"/>
@@ -368,7 +368,7 @@
                                                                                            class="col-sm-2 control-label">Heavenly
                                                                                         Patron</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="heavenlyPatron"
                                                                                                 id="heavenlyPatron"
@@ -378,7 +378,7 @@
                                                                                            class="col-sm-2 control-label">Native
                                                                                         Diocese</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="nativeDiocese"
                                                                                                     id="nativeDiocese"
                                                                                                     class="form-control"/>
@@ -388,7 +388,7 @@
                                                                                     <label for="congregation"
                                                                                            class="col-sm-2 control-label">Congregation</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="congregation"
                                                                                                     id="congregation"
                                                                                                     class="form-control"/>
@@ -397,7 +397,7 @@
                                                                                            class="col-sm-2 control-label">Native
                                                                                         Parish</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="nativeParish"
                                                                                                     id="nativeParish"
                                                                                                     class="form-control"/>
@@ -408,7 +408,7 @@
                                                                                            class="col-sm-2 control-label">Native
                                                                                         Place</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="nativePlace"
                                                                                                     id="nativePlace"
                                                                                                     class="form-control"/>
@@ -417,7 +417,7 @@
                                                                                            class="col-sm-2 control-label">Card
                                                                                         Validity</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestCardValidity"
                                                                                                 id="priestCardValidity"
@@ -429,7 +429,7 @@
                                                                                            class="col-sm-2 control-label">Mother's
                                                                                         Name</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input path="motherName"
                                                                                                     id="motherName"
                                                                                                     class="form-control"/>
@@ -453,7 +453,7 @@
                                                                                     <label for="priestAsPerson.email"
                                                                                            class="col-sm-2 control-label">Email</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.email"
                                                                                                 id="priestAsPersonemail"
@@ -463,7 +463,7 @@
                                                                                            class="col-sm-2 control-label">Mobile
                                                                                         No.</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.mobileNo"
                                                                                                 id="priestAsPersonmobileNo"
@@ -475,7 +475,7 @@
                                                                                            class="col-sm-2 control-label">Land
                                                                                         Line No.</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.landLine"
                                                                                                 id="priestAsPersonlandLine"
@@ -485,7 +485,7 @@
                                                                                            class="col-sm-2 control-label">Fax
                                                                                         No.</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="priestAsPerson.faxNo"
                                                                                                 id="priestAsPersonfaxNo"
@@ -497,7 +497,7 @@
                                                                                            class="col-sm-2 control-label">Name
                                                                                         & Address</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:textarea
                                                                                                 path="emergencyContact.nameAddress"
                                                                                                 id="emergencyContact.nameAddress"
@@ -507,7 +507,7 @@
                                                                                            class="col-sm-2 control-label">Phone
                                                                                         No</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="emergencyContact.phoneNo"
                                                                                                 id="emergencyContact.phoneNo"
@@ -519,7 +519,7 @@
                                                                                            class="col-sm-2 control-label">Alternative
                                                                                         Phone No</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="emergencyContact.alternativePhoneNo"
                                                                                                 id="emergencyContact.alternativePhoneNo"
@@ -528,7 +528,7 @@
                                                                                     <label for="emergencyContact.email"
                                                                                            class="col-sm-2 control-label">Email</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="emergencyContact.email"
                                                                                                 id="emergencyContactemail"
@@ -556,7 +556,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 1</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.addressLineOne"
                                                                                                 id="localAddressaddressLineOne"
@@ -566,7 +566,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 2</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.addressLineTwo"
                                                                                                 id="localAddressaddressLineTwo"
@@ -579,7 +579,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 3</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.addressLineThree"
                                                                                                 id="localAddressaddressLineThree"
@@ -588,7 +588,7 @@
                                                                                     <label for="localAddress.town"
                                                                                            class="col-sm-2 control-label">Town</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.town"
                                                                                                 id="localAddresstown"
@@ -600,7 +600,7 @@
                                                                                     <label for="localAddress.county"
                                                                                            class="col-sm-2 control-label">County</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.county"
                                                                                                 id="localAddresscounty"
@@ -610,7 +610,7 @@
                                                                                            class="col-sm-2 control-label">Pin
                                                                                         code</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.pin"
                                                                                                 id="localAddresspin"
@@ -622,7 +622,7 @@
                                                                                     <label for="localAddress.country"
                                                                                            class="col-sm-2 control-label">Country</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="localAddress.country"
                                                                                                 id="localAddresscountry"
@@ -649,7 +649,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 1</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.addressLineOne"
                                                                                                 id="nativeAddressaddressLineOne"
@@ -659,7 +659,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 2</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.addressLineTwo"
                                                                                                 id="nativeAddressaddressLineTwo"
@@ -672,7 +672,7 @@
                                                                                            class="col-sm-2 control-label">Address
                                                                                         Line 3</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.addressLineThree"
                                                                                                 id="nativeAddressaddressLineThree"
@@ -682,7 +682,7 @@
                                                                                            class="col-sm-2 control-label">Post
                                                                                         Office</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.postOffice"
                                                                                                 id="nativeAddresspostOffice"
@@ -694,7 +694,7 @@
                                                                                     <label for="nativeAddress.district"
                                                                                            class="col-sm-2 control-label">District</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.district"
                                                                                                 id="nativeAddressdistrict"
@@ -703,7 +703,7 @@
                                                                                     <label for="nativeAddress.state"
                                                                                            class="col-sm-2 control-label">State</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.state"
                                                                                                 id="nativeAddressstate"
@@ -715,7 +715,7 @@
                                                                                     <label for="nativeAddress.country"
                                                                                            class="col-sm-2 control-label">Country</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.country"
                                                                                                 id="nativeAddresscountry"
@@ -725,7 +725,7 @@
                                                                                            class="col-sm-2 control-label">Pin
                                                                                         code</label>
 
-                                                                                    <div class="col-sm-4">
+                                                                                    <div class="col-sm-3">
                                                                                         <form:input
                                                                                                 path="nativeAddress.pin"
                                                                                                 id="nativeAddresspin"

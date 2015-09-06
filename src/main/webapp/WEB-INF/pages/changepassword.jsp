@@ -29,6 +29,7 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip({template : '<div class="tooltip" role="tooltip" style="width:300px"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'});
             $('#changePasswordContainer').show();
             $('#successContainer').hide();
             var $form = $('#changePasswordForm');
@@ -50,44 +51,49 @@
     <link href="${loginStyleURL}" rel="stylesheet">
 
 </head>
-<body>
+<body class="changePassBody">
 
 <div class="container">
     <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info mainPanel">
             <div class="panel-heading headerBackground">
-                <div class="panel-title">Change Password</div>
+                <h4 class="modal-title" id="myModalLabel" style="color:#fff;">Change Password</h4>
             </div>
 
-            <div style="padding-top:30px" class="panel-body" id="changePasswordContainer">
+            <div class="panel-body" id="changePasswordContainer">
                 <form:form modelAttribute="changePasswordUser"
                            action="${pageContext.request.contextPath}/changepassword.action"
-                           id="changePasswordForm" method="post">
-
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <form:password path="newPassword" id="login-username" class="form-control"
-                                       placeholder="New Password"/>
-                        <form:hidden path="email"/>
+                           id="changePasswordForm" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-11" style="padding-right: 0px;">
+                            <form:password path="newPassword" id="login-username" class="form-control"
+                                           placeholder="New Password"/>
+                            <form:hidden path="email"/>
+                        </div>
+                        <div class="col-sm-1" style="padding-top: 8px;padding-left: 8px;">
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Tooltip on left kjaksd aslkjdkjasd lkasjdkljasd lajsdkjas dlaksjdkjasd kljasd klasdk"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11" style="padding-right: 0px;">
+                            <form:password path="confirmPassword" id="login-password" class="form-control" placeholder="Confirm Password"/>
+                        </div>
+                        <div class="col-sm-1" style="padding-top: 8px;padding-left: 8px;">
+                            <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Tooltip on left kjaksd aslkjdkjasd lkasjdkljasd lajsdkjas dlaksjdkjasd kljasd klasdk"></span>
+                        </div>
                     </div>
 
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <form:password path="confirmPassword" id="login-password" class="form-control"
-                                       placeholder="Confirm Password"/>
-                    </div>
-
-                    <div style="margin-top:10px" class="form-group">
-
-                        <div class="col-sm-12 controls">
+                    <div style="margin-top:10px" class="row">
+                        <div class="col-sm-12 controls text-center">
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Change Password"/>
                         </div>
                     </div>
                 </form:form>
 
             </div>
-            <div class="alert alert-success" role="alert" id="successContainer">Password is updated successfully.Please
-                <a href="login.action"> re-login</a> to continue the system use.
+            <div class="alert alert-success" role="alert" id="successContainer">
+                    Password is updated successfully.<br/>
+                    Please <a href="login.action"> re-login</a> to continue the system use.
             </div>
         </div>
     </div>

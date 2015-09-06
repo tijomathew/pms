@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Parish Management System Software">
 <meta name="author" content="Tijo Mathew(tijopower888@gmail.com)">
-
+<link rel="shortcut icon" href="resources/images/favicon.png">
 <spring:url value="/resources/css/bootstrap.min.latest.css" var="bootstrapcsslatestUrl"/>
 <spring:url value="/resources/css/jqgrowl.css" var="jqGrowlCSS"/>
 

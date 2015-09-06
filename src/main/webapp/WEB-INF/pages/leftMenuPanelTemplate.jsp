@@ -106,7 +106,7 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
-            <li class="divider"></li>
+           <%-- <li class="divider"></li>--%>
         </ul>
     </c:if>
     <!-- END SIDEBAR MENU -->

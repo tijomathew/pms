@@ -123,14 +123,14 @@
                                      class="col-sm-2 control-label">Prayer Unit
                                 Name</label>
 
-                              <div class="col-sm-4">
+                              <div class="col-sm-3">
                                 <form:input path="prayerUnitName"
                                             id="prayerUnitName" class="form-control"/>
                               </div>
                               <label for="prayerUnitCode" class="col-sm-2 control-label">Prayer
                                 Unit Code</label>
 
-                              <div class="col-sm-4">
+                              <div class="col-sm-3">
                                 <form:input path="prayerUnitCode"
                                             id="prayerUnitCode"
                                             readonly="true" class="form-control"/>
@@ -141,14 +141,14 @@
                                      class="col-sm-2 control-label">Prayer Unit
                                 Place</label>
 
-                              <div class="col-sm-4">
+                              <div class="col-sm-3">
                                 <form:input path="prayerUnitPlace"
                                             id="prayerUnitPlace" class="form-control"/>
                               </div>
                               <label for="massCentreId" class="col-sm-2 control-label">Mass
                                 Center</label>
 
-                              <div class="col-sm-4">
+                              <div class="col-sm-3">
                                 <form:select path="massCentreId"
                                              items="${massCentreMap}"
                                              id="massCentreId" class="form-control"/>

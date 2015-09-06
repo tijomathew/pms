@@ -177,10 +177,10 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="systemRole"
-                                                                                                       class="col-sm-2 control-label">System
+                                                                                                       class="col-sm-2 control-label required">System
                                                                                                     Role</label>
 
-                                                                                                <div class="col-sm-4">
+                                                                                                <div class="col-sm-3">
                                                                                                     <form:select path="systemRole"
                                                                                                                  id="systemRole"
                                                                                                                  class="form-control toaddUnderScore"
@@ -188,9 +188,9 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="isActive"
-                                                                                                       class="col-sm-2 control-label">Active</label>
+                                                                                                       class="col-sm-2 control-label required">Active</label>
 
-                                                                                                <div class="col-sm-4">
+                                                                                                <div class="col-sm-3">
                                                                                                     <form:select path="isActive"
                                                                                                                  id="isActive"
                                                                                                                  class="form-control"
@@ -200,9 +200,9 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label for="usersOfParishes"
-                                                                                                       class="col-sm-2 control-label">Parish</label>
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
 
-                                                                                                <div class="col-sm-4"
+                                                                                                <div class="col-sm-3"
                                                                                                      id="parishSelectBoxer">
                                                                                                     <form:select
                                                                                                             path="usersOfParishes"
@@ -211,10 +211,10 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="usersOfMassCentres"
-                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                       class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>
 
-                                                                                                <div class="col-sm-4"
+                                                                                                <div class="col-sm-3"
                                                                                                      id="massCentreSelectBoxer">
                                                                                                     <form:select
                                                                                                             path="usersOfMassCentres"
@@ -226,10 +226,10 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="usersOfPrayerUnits"
-                                                                                                       class="col-sm-2 control-label">Prayer
+                                                                                                       class="col-sm-2 control-label required">Prayer
                                                                                                     Unit</label>
 
-                                                                                                <div class="col-sm-4"
+                                                                                                <div class="col-sm-3"
                                                                                                      id="prayerUnitSelectBoxer">
                                                                                                     <form:select
                                                                                                             path="usersOfPrayerUnits"
@@ -238,9 +238,9 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="userOfFamily"
-                                                                                                       class="col-sm-2 control-label">Family</label>
+                                                                                                       class="col-sm-2 control-label required">Family</label>
 
-                                                                                                <div class="col-sm-4"
+                                                                                                <div class="col-sm-3"
                                                                                                      id="familySelectBoxer">
                                                                                                     <form:select
                                                                                                             path="userOfFamily"
@@ -251,9 +251,9 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label for="email"
-                                                                                                       class="col-sm-2 control-label">Email</label>
+                                                                                                       class="col-sm-2 control-label required">Email</label>
 
-                                                                                                <div class="col-sm-4" id="email">
+                                                                                                <div class="col-sm-3" id="email">
                                                                                                     <form:input path="email"
                                                                                                                 id="email"
                                                                                                                 class="form-control"/>
@@ -261,7 +261,7 @@
                                                                                                 <label for="password"
                                                                                                        class="col-sm-2 control-label">Password</label>
 
-                                                                                                <div class="col-sm-4" id="password">
+                                                                                                <div class="col-sm-3" id="password">
                                                                                                     <form:password path="password"
                                                                                                                    id="password"
                                                                                                                    class="form-control"/>
