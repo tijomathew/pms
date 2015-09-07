@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "prayerunits")
+@Table(name = "prayerunits", indexes = {@Index(columnList = "id")})
 public class PrayerUnit implements Serializable {
 
     @Id

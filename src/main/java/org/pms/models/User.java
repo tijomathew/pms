@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {@Index(columnList = "user_prayerunit"),@Index(columnList = "user_of_family")})
 public class User implements Serializable {
 
     @Id

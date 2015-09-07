@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "family")
+@Table(name = "family", indexes = {@Index(columnList = "id")})
 public class Family implements Serializable {
 
     private static final long serialVersionUID = 79358401630884627L;
