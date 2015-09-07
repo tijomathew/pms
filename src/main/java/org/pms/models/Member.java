@@ -688,7 +688,6 @@ public class Member implements Serializable {
     @Override
     public int hashCode() {
         int result = memberAsPerson.hashCode();
-        result = 31 * result + relationshipInFamily.hashCode();
         result = 31 * result + registeredDate.hashCode();
         return result;
     }

@@ -19,7 +19,6 @@ $.jqGrowl = {
 
     /* initialize the plugin */
     init: function(corner, tout, stat) {
-        console.log(stat);
         this.makeGrowlContainer();
         $("#jqgrowlContainer").css(corner);
         if (tout) {

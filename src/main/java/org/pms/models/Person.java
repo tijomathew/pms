@@ -329,15 +329,12 @@ public class Person implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = salutation.hashCode();
-        result = 31 * result + firstName.hashCode();
+        int result = firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
         result = 31 * result + placeOfBirth.hashCode();
         result = 31 * result + nationality.hashCode();
-        result = 31 * result + personalStatus.hashCode();
         result = 31 * result + educationQualifications.hashCode();
-        result = 31 * result + lifeStatus.hashCode();
         return result;
     }
 
