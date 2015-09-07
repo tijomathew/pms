@@ -2,6 +2,7 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.pms.enums.PageName;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
@@ -106,7 +107,20 @@ public class LoginController extends AbstractErrorAndGridHandler {
             logger.error("The authentication and authorization of the user is failed in the system");
         }
 
-        return redirectPageName.toString();
+        String redirectedActionName;
+        if (redirectPageName == PageName.PARISH) {
+            redirectedActionName = "redirect:/viewparish.action";
+        } else if (redirectPageName == PageName.MASSCENTRE) {
+            redirectedActionName = "redirect:/viewmasscentre.action";
+        } else if (redirectPageName == PageName.PRAYERUNIT) {
+            redirectedActionName = "redirect:/viewprayerunit.action";
+        } else if (redirectPageName == PageName.FAMILY) {
+            redirectedActionName = "redirect:/viewfamily.action";
+        } else {
+            redirectedActionName = redirectPageName.toString();
+        }
+
+        return redirectedActionName;
     }
 
     /**
