@@ -113,6 +113,11 @@
                                 $(this).tooltip('destroy');
                             });
                         }
+                        $("div.container").errorFieldsDialog({
+                            responseData: response.customErrorMessages,
+                            parentFormId: 'memberForm',
+                            parentGridId: 'memberGrid'
+                        });
                         return [true, "", ""];
 
                     }
