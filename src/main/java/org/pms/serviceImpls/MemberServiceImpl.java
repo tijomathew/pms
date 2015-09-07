@@ -90,7 +90,9 @@ public class MemberServiceImpl implements MemberService {
                 }
                 break;
             case FAMILY_USER:
-                allMembers.addAll(getAllMembersForFamilyID(currentUser.getUserOfFamily().getId()));
+                if (currentUser.getUserOfFamily() != null) {
+                    allMembers.addAll(getAllMembersForFamilyID(currentUser.getUserOfFamily().getId()));
+                }
                 break;
         }
         return allMembers;

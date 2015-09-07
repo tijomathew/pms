@@ -185,15 +185,13 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
 
             $('#' + formId).find(':input').removeAttr('disabled');
-            //$('#' + formId + ' select').removeAttr("disabled");
-            //$('#' + formId + ' radio').removeAttr("disabled");
-            //$('#' + formId + ' textarea').removeAttr("disabled");
 
             $('#' + formId).find(':input')
-                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry, select')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
+            $('#' + formId +' .thumbnail').hide();
             $('#registeredDate').prop('value', registeredDate);
             $('.actionSpan').text("Add");
         },

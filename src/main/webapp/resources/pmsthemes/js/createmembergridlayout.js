@@ -478,7 +478,13 @@ function loadMemberGrid() {
                 jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#memberGrid").jqGrid('getGridParam', 'selrow');
                 $('#memberForm').loadJSON(jQuery("#memberGrid").getRowData(rowId));
-                document.getElementById("ItemPreview").src = "data:image/png;base64," + $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.imageBytesAsString');
+                var imageData=$('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.imageBytesAsString');
+                if(imageData){
+                    $('#imagePreviewHeader').hide();
+                    $('#thumbnail').show();
+                    document.getElementById("ItemPreview").src = "data:image/png;base64," + imageData;
+                }
+
                 var nationality = $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.nationality');
                 if (nationality != 'Indian' && nationality != 'Ireland') {
                     $('#memberAsPersonnationalityTextBox').val(nationality).show();

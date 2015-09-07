@@ -44,7 +44,7 @@
 
 
 
-            $('form select').prepend($('<option/>', {text: '-Select-', value: ''})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
             $('#memberAsPersonnationalityTextBox').hide();
 
             backToTop();
@@ -1263,10 +1263,10 @@
                                                                                                 <div class="col-sm-3" style="width: auto;">
 
                                                                                                     <div class="thumbnail" style="padding-top: 4px;display:none;" id="thumbnail">
-                                                                                                        <div class="caption text-center" style="padding: 0;">
+                                                                                                        <div class="caption text-center" style="padding: 0;" id="imagePreviewHeader">
                                                                                                             <h4 style="margin: 0;">Preview</h4>
                                                                                                         </div>
-                                                                                                        <img id="ItemPreview" src="#" alt="Upload Image" class="img-rounded" style="height: 84px;">
+                                                                                                        <img id="ItemPreview" src="" alt="Upload Image" class="img-rounded" style="height: 84px;" />
                                                                                                     </div>
 
                                                                                                 </div>

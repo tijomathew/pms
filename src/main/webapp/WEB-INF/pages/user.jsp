@@ -37,9 +37,12 @@
 
             loadUserGrid();
 
-         /* <c:if test = "${showForPrayerUnitAdmin == false}" >
-            loadSelectBox("${pageContext.request.contextPath}");
-            </c:if>*/
+            $('form select#familySelectBox').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+
+            <c:if test = "${showForPrayerUnitAdmin == false}" >
+            //loadSelectBox("${pageContext.request.contextPath}");
+            $('form select').prepend($('<option/>', {text: '-Select-', value: ''})).attr('disabled', true);
+            </c:if>
 
             function reactiveAdminsComboBox() {
                 $('#parishSelectBox').prop('selectedIndex', 0);
@@ -155,7 +158,8 @@
                                                                         <h4>
                                                                             <ul class="nav nav-tabs">
                                                                                 <li class="active">
-                                                                                    <a href="#user1" data-toggle="tab"><i
+                                                                                    <a href="#user1"
+                                                                                       data-toggle="tab"><i
                                                                                             class="fa fa-list visible-xs icon-scale"></i><span
                                                                                             class="hidden-xs">User Details</span></a>
                                                                                 </li>
@@ -165,10 +169,11 @@
 
                                                                     <div class="panel-body">
                                                                         <form:form modelAttribute="user"
-                                                                                   action="${userActionURL}" method="post" id="userForm"
+                                                                                   action="${userActionURL}"
+                                                                                   method="post" id="userForm"
                                                                                    class="form-horizontal nomargin">
 
-                                                                        <div class="tab-content">
+                                                                            <div class="tab-content">
 
                                                                                 <div class="tab-pane active" id="user1">
 
@@ -181,20 +186,22 @@
                                                                                                     Role</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:select path="systemRole"
-                                                                                                                 id="systemRole"
-                                                                                                                 class="form-control toaddUnderScore"
-                                                                                                                 items="${systemRoles}">
+                                                                                                    <form:select
+                                                                                                            path="systemRole"
+                                                                                                            id="systemRole"
+                                                                                                            class="form-control toaddUnderScore"
+                                                                                                            items="${systemRoles}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="isActive"
                                                                                                        class="col-sm-2 control-label required">Active</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:select path="isActive"
-                                                                                                                 id="isActive"
-                                                                                                                 class="form-control"
-                                                                                                                 items="${systemRoleStatus}">
+                                                                                                    <form:select
+                                                                                                            path="isActive"
+                                                                                                            id="isActive"
+                                                                                                            class="form-control"
+                                                                                                            items="${systemRoleStatus}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
@@ -207,7 +214,8 @@
                                                                                                     <form:select
                                                                                                             path="usersOfParishes"
                                                                                                             id="parishSelectBox"
-                                                                                                            class="form-control" items="${parishList}">
+                                                                                                            class="form-control"
+                                                                                                            items="${parishList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="usersOfMassCentres"
@@ -219,7 +227,8 @@
                                                                                                     <form:select
                                                                                                             path="usersOfMassCentres"
                                                                                                             id="massCentreSelectBox"
-                                                                                                            class="form-control" items="${massCentreList}">
+                                                                                                            class="form-control"
+                                                                                                            items="${massCentreList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
@@ -234,7 +243,8 @@
                                                                                                     <form:select
                                                                                                             path="usersOfPrayerUnits"
                                                                                                             id="prayerUnitSelectBox"
-                                                                                                            class="form-control" items="${prayerUnitList}">
+                                                                                                            class="form-control"
+                                                                                                            items="${prayerUnitList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="userOfFamily"
@@ -245,7 +255,8 @@
                                                                                                     <form:select
                                                                                                             path="userOfFamily"
                                                                                                             id="familySelectBox"
-                                                                                                            class="form-control" items="${familyList}">
+                                                                                                            class="form-control"
+                                                                                                            items="${familyList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
@@ -253,18 +264,22 @@
                                                                                                 <label for="email"
                                                                                                        class="col-sm-2 control-label required">Email</label>
 
-                                                                                                <div class="col-sm-3" id="email">
-                                                                                                    <form:input path="email"
-                                                                                                                id="email"
-                                                                                                                class="form-control"/>
+                                                                                                <div class="col-sm-3"
+                                                                                                     id="email">
+                                                                                                    <form:input
+                                                                                                            path="email"
+                                                                                                            id="email"
+                                                                                                            class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="password"
                                                                                                        class="col-sm-2 control-label">Password</label>
 
-                                                                                                <div class="col-sm-3" id="password">
-                                                                                                    <form:password path="password"
-                                                                                                                   id="password"
-                                                                                                                   class="form-control"/>
+                                                                                                <div class="col-sm-3"
+                                                                                                     id="password">
+                                                                                                    <form:password
+                                                                                                            path="password"
+                                                                                                            id="password"
+                                                                                                            class="form-control"/>
                                                                                                     <form:checkbox
                                                                                                             path="sendMailFlag"
                                                                                                             checked="true"/>Send

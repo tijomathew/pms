@@ -10,7 +10,6 @@
         $('#logoutIcon').click(function () {
             $('#logoutForm').submit();
         });
-//        $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
     });
 </script>
 <header class="navbar navbar-inverse navbar-fixed-top" role="banner">

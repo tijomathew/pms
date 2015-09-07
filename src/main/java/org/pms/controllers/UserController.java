@@ -102,7 +102,7 @@ public class UserController extends AbstractErrorAndGridHandler {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                if (user.getUsersOfParishes() != null && user.getUsersOfMassCentres() != null && user.getUsersOfPrayerUnits() != null && user.getUserOfFamily() != null) {
+                if (user.getUsersOfParishes() != null && user.getUsersOfMassCentres() != null && user.getUsersOfPrayerUnits() != null) {
                     insertUser = true;
                 }
             }
