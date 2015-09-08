@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "system_role")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private SystemRole systemRole;
 
     @Column(name = "created_by")
@@ -43,7 +43,7 @@ public class User implements Serializable {
     private Long updatedOn = new DateTime().getMillis();
 
     @Column(name = "is_active")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private SystemRolesStatus isActive;
 
     @Column(name = "email")

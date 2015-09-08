@@ -68,7 +68,6 @@ public class MassCentre implements Serializable {
     @JoinColumn(name = "parish_no")
     private Parish mappedParish;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedMassCentre")
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 

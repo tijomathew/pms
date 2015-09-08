@@ -37,7 +37,7 @@ public class Member implements Serializable {
 
     @NotNull
     @Column(name = "relationship_in_family")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private RelationShipInFamily relationshipInFamily;
 
     @Column(name = "date_of_baptism")

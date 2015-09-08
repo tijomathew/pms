@@ -26,7 +26,7 @@ public class Person implements Serializable {
 
     @NotNull
     @Column(name = "salutation")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PersonSalutation salutation;
 
     @NotEmpty
@@ -49,7 +49,7 @@ public class Person implements Serializable {
 
     @NotNull
     @Column(name = "gender")
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     @NotEmpty
@@ -58,7 +58,7 @@ public class Person implements Serializable {
 
     @NotNull
     @Column(name = "personal_status")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private PersonalStatus personalStatus;
 
     @Email
@@ -94,7 +94,7 @@ public class Person implements Serializable {
 
     @NotNull
     @Column(name = "life_status")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private LifeStatus lifeStatus;
 
     @Column(name = "personal_remarks")
