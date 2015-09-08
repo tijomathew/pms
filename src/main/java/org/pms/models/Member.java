@@ -658,13 +658,13 @@ public class Member implements Serializable {
         return this.familyMember.getFamilyName();
     }
 
-    public String getParishName() {
+    /*public String getParishName() {
         return this.familyMember.getFamilyParish().getParishName();
     }
 
     public String getMassCentreName() {
         return this.familyMember.getFamilyMassCentre().getMassCentreName();
-    }
+    }*/
 
     public String getPrayerUnitName() {
         return this.familyMember.getFamilyPrayerUnit().getPrayerUnitName();

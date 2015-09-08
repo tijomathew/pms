@@ -58,7 +58,7 @@ public class PrayerUnit implements Serializable {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyPrayerUnit")
-    private List<Family> mappedFamilies = new ArrayList<Family>();
+    private List<Family> mappedFamilies = new ArrayList<>();
 
     public PrayerUnit() {
     }

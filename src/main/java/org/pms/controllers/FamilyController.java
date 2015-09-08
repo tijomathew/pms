@@ -77,8 +77,6 @@ public class FamilyController extends AbstractErrorAndGridHandler {
             if (family.getId() == null && family.getFamilyNo() == null) {
 
                 if (familyAdditionFlagForFamilyUser) {
-                    family.getFamilyParish().addFamilyForParish(family);
-                    family.getFamilyMassCentre().addFamilyForMassCentre(family);
                     family.getFamilyPrayerUnit().addFamilyForWard(family);
 
                     familyService.setFamilyNumber(family);
@@ -95,7 +93,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 Family retrievedFamily = familyService.getFamilyForID(family.getId());
-                if (!family.getFamilyParish().equals(retrievedFamily.getFamilyParish())) {
+                if (!family.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().equals(retrievedFamily.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish())) {
                     familyService.setFamilyNumber(family);
                 }
 

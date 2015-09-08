@@ -76,10 +76,6 @@ public class Parish implements Serializable {
     @OneToMany(mappedBy = "mappedParish")
     private List<MassCentre> massCentreList = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "familyParish")
-    private List<Family> mappedFamilies = new ArrayList<>();
-
     public Parish() {
     }
 
@@ -179,13 +175,13 @@ public class Parish implements Serializable {
         this.massCentreList = massCentreList;
     }
 
-    public List<Family> getMappedFamilies() {
+   /* public List<Family> getMappedFamilies() {
         return mappedFamilies;
     }
 
     public void setMappedFamilies(List<Family> mappedFamilies) {
         this.mappedFamilies = mappedFamilies;
-    }
+    }*/
 
     public String getPatron() {
         return patron;
@@ -210,13 +206,13 @@ public class Parish implements Serializable {
     /**
      * This method is for adding family for parish.
      *
-     * @param family The family to be added.
+     * @param //family The family to be added.
      */
-    public void addFamilyForParish(Family family) {
+   /* public void addFamilyForParish(Family family) {
         if (!this.mappedFamilies.contains(family)) {
             this.mappedFamilies.add(family);
         }
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -257,7 +253,7 @@ public class Parish implements Serializable {
                 .append("patron", patron)
                 .append("localAddress", localAddress)
                 .append("massCentreList", massCentreList)
-                .append("mappedFamilies", mappedFamilies)
+                //.append("mappedFamilies", mappedFamilies)
                 .toString();
     }
 }

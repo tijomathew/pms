@@ -115,7 +115,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyParish().getId());
+        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId());
         family.setFamilyNo(++familyCounterForParish);
     }
 }

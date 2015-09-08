@@ -65,14 +65,12 @@ public class Family implements Serializable {
     @Embedded
     private EmergencyContact emergencyContact;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parish_no")
+    //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
+    @Transient
     private Parish familyParish;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "masscentre_no")
+    //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
+    @Transient
     private MassCentre familyMassCentre;
 
     @NotNull
@@ -82,7 +80,7 @@ public class Family implements Serializable {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyMember")
-    private List<Member> memberList = new ArrayList<Member>();
+    private List<Member> memberList = new ArrayList<>();
 
     public Family() {
     }
@@ -203,15 +201,15 @@ public class Family implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getFamilyParish().getParishNo();
+        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishNo();
     }
 
     public String getParishName() {
-        return this.getFamilyParish().getParishName();
+        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishName();
     }
 
     public Long getMassCentreNumber() {
-        return this.getFamilyMassCentre().getMassCentreNo();
+        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreNo();
     }
 
     public Long getPrayerUnitNumber() {
@@ -219,7 +217,7 @@ public class Family implements Serializable {
     }
 
     public String getMassCentreName() {
-        return this.getFamilyMassCentre().getMassCentreName();
+        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreName();
     }
 
     public String getPrayerUnitName() {
@@ -263,8 +261,6 @@ public class Family implements Serializable {
                 .append("localAddress", localAddress)
                 .append("nativeAddress", nativeAddress)
                 .append("emergencyContact", emergencyContact)
-                .append("familyParish", familyParish)
-                .append("familyMassCentre", familyMassCentre)
                 .append("familyPrayerUnit", familyPrayerUnit)
                 .append("memberList", memberList)
                 .toString();

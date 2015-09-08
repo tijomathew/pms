@@ -94,17 +94,21 @@ public class UserController extends AbstractErrorAndGridHandler {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                if (user.getUsersOfParishes() != null && user.getUsersOfMassCentres() != null) {
+                if (user.getUsersOfMassCentres() != null) {
+                    user.setUsersOfParishes(null);
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-                if (user.getUsersOfParishes() != null && user.getUsersOfMassCentres() != null && user.getUsersOfPrayerUnits() != null) {
+                if (user.getUsersOfPrayerUnits() != null) {
+                    user.setUsersOfParishes(null);
+                    user.setUsersOfMassCentres(null);
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                if (user.getUsersOfParishes() != null && user.getUsersOfMassCentres() != null && user.getUsersOfPrayerUnits() != null) {
-                    insertUser = true;
-                }
+                user.setUsersOfParishes(null);
+                user.setUsersOfMassCentres(null);
+                user.setUsersOfPrayerUnits(null);
+                insertUser = true;
             }
         }
 
