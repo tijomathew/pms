@@ -47,6 +47,7 @@ function loadUserGrid() {
             shrinkToFit: true,
             height: 'auto',
             width: 'auto',
+            emptyrecords: 'No data available to show!!..Please add data to view',
             onSelectRow: function () {
                 $('#userGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').show(500);

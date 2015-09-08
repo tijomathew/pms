@@ -17,7 +17,7 @@ function loadParishGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'webSite', 'facebookPage', 'registeredDate', 'mobileNo', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country','id'],
+            colNames: ['Parish No.', 'Parish Name', 'Parish Place', 'Parish Patron', 'webSite', 'facebookPage', 'registeredDate', 'mobileNo', 'landLineNo', 'faxNo', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id'],
             colModel: [
                 {name: 'parishNo', index: 'parishNo', width: 80, align: "right", sortable: false},
                 {name: 'parishName', index: 'parishName', width: 80, align: "right", sortable: false},
@@ -106,6 +106,7 @@ function loadParishGrid() {
             shrinkToFit: true,
             height: 'auto',
             width: 'auto',
+            emptyrecords: 'No data available to show!!..Please add data to view',
             onSelectRow: function () {
                 $('#parishGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').show(500);
