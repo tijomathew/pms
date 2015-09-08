@@ -24,6 +24,8 @@
                     class="fa pms-massCentres"></i> <span>Mass Centres</span></a></li>
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i
                     class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
+            <li id="familywelcome"><a href="${pageContext.request.contextPath}/viewfamilywelcome.action"><i class="fa pms-family"></i>
+                <span>Family Home</span></a></li>
             <li id="family"><a href="${pageContext.request.contextPath}/viewfamily.action"><i class="fa pms-family"></i>
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i

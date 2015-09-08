@@ -33,7 +33,7 @@
         </li>
         <li>
             <a href="#" class="username">
-                <span class="hidden-xs">${loggedInUserEmail} <!--<i class="fa fa-caret-down"></i>--></span>
+                <span class="hidden-xs usernameBold">${loggedInUserEmail} <!--<i class="fa fa-caret-down"></i>--></span>
                 <spring:url value="/resources/images/dangerfield.png" var="dangerimageURL"/>
                 <!--<img src="${dangerimageURL}" alt="Dangerfield"/>-->
             </a>

@@ -52,6 +52,11 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
+    @RequestMapping(value = "/viewfamilywelcome.action", method = RequestMethod.GET)
+    public String familyWelcomePageDisplay() {
+        return PageName.FAMILYWELCOME.toString();
+    }
+
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
     public String familyPageDisplay(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
@@ -64,14 +69,14 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @ResponseBody
     CustomResponse addFamily(@ModelAttribute("family") @Valid Family family, BindingResult result) {
 
-        boolean familyAdditionFlagForFamilyUser=true;
+        boolean familyAdditionFlagForFamilyUser = true;
 
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
             if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() != null) {
-                familyAdditionFlagForFamilyUser=false;
+                familyAdditionFlagForFamilyUser = false;
             }
 
             if (family.getId() == null && family.getFamilyNo() == null) {

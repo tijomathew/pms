@@ -115,7 +115,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
         } else if (redirectPageName == PageName.PRAYERUNIT) {
             redirectedActionName = "redirect:/viewprayerunit.action";
         } else if (redirectPageName == PageName.FAMILY) {
-            redirectedActionName = "redirect:/viewfamily.action";
+            redirectedActionName = "redirect:/viewfamilywelcome.action";
         } else {
             redirectedActionName = redirectPageName.toString();
         }
