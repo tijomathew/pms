@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "family", indexes = {@Index(columnList = "id")})
+@Table(name = "family", indexes = {@Index(columnList = "id"), @Index(columnList = "family_no"), @Index(columnList = "date_of_registration"), @Index(columnList = "prayerunit_no")})
 public class Family implements Serializable {
 
     private static final long serialVersionUID = 79358401630884627L;
@@ -32,22 +32,22 @@ public class Family implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "family_name")
+    @Column(name = "family_name", nullable = false)
     private String familyName;
 
-    @Column(name = "family_no")
+    @Column(name = "family_no", nullable = false, unique = true)
     private Long familyNo;
 
     @NotEmpty
-    @Column(name = "parish_in_native")
+    @Column(name = "parish_in_native", nullable = false)
     private String parishInNative;
 
     @NotEmpty
-    @Column(name = "diocese_in_native")
+    @Column(name = "diocese_in_native", nullable = false)
     private String dioceseInNative;
 
     @NotEmpty
-    @Column(name = "date_of_registration")
+    @Column(name = "date_of_registration", nullable = false)
     private String dateOfRegistration;
 
     @Valid
@@ -74,11 +74,11 @@ public class Family implements Serializable {
     private MassCentre familyMassCentre;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prayerunit_no")
     private PrayerUnit familyPrayerUnit;
 
-    @OneToMany(mappedBy = "familyMember")
+    @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Member> memberList = new ArrayList<>();
 
     public Family() {

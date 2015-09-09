@@ -25,50 +25,50 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 966228303336553974L;
 
     @NotNull
-    @Column(name = "salutation")
+    @Column(name = "salutation", nullable = false)
     @Enumerated(EnumType.STRING)
     private PersonSalutation salutation;
 
     @NotEmpty
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
     @NotEmpty
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @NotEmpty
-    @Column(name = "dob")
+    @Column(name = "dob", nullable = false)
     private String dateOfBirth;
 
     @Column(name = "place_of_birth")
     private String placeOfBirth;
 
     @NotNull
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     @NotEmpty
-    @Column(name = "nationality")
+    @Column(name = "nationality", nullable = false)
     private String nationality;
 
     @NotNull
-    @Column(name = "personal_status")
+    @Column(name = "personal_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private PersonalStatus personalStatus;
 
     @Email
     @NotEmpty
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotEmpty
     @Pattern(regexp = "(^[0-9]{10,15}$)")
-    @Column(name = "mobile_no")
+    @Column(name = "mobile_no", nullable = false)
     private String mobileNo;
 
     @Column(name = "land_no")
@@ -77,15 +77,15 @@ public class Person implements Serializable {
     @Column(name = "fax")
     private String faxNo;
 
-    @Column(name = "education_qualifications")
     @NotEmpty
+    @Column(name = "education_qualifications", nullable = false)
     private String educationQualifications;
 
     @Column(name = "job_details")
     private String jobDetails;
 
     @NotNull
-    @Column(name = "blood_group")
+    @Column(name = "blood_group", nullable = false)
     @Enumerated(EnumType.STRING)
     private BloodGroup bloodGroup;
 
@@ -93,7 +93,7 @@ public class Person implements Serializable {
     private String carNumber;
 
     @NotNull
-    @Column(name = "life_status")
+    @Column(name = "life_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private LifeStatus lifeStatus;
 

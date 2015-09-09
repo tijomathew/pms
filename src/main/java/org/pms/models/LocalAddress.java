@@ -19,33 +19,33 @@ public class LocalAddress implements Serializable {
     private static final long serialVersionUID = -3368576220015835720L;
 
     @NotEmpty
-    @Column(name = "la_addressline_one")
+    @Column(name = "la_addressline_one", nullable = false)
     private String addressLineOne;
 
     @NotEmpty
-    @Column(name = "la_addressline_two")
+    @Column(name = "la_addressline_two", nullable = false)
     private String addressLineTwo;
 
     @Column(name = "la_addressline_three")
     private String addressLineThree;
 
     @NotEmpty
-    @Column(name = "la_town")
+    @Column(name = "la_town", nullable = false)
     private String town;
 
     @NotEmpty
-    @Column(name = "la_county")
+    @Column(name = "la_county", nullable = false)
     private String county;
 
     @Column(name = "la_postcode")
     private String postCode;
 
     @NotEmpty
-    @Column(name = "la_pin")
+    @Column(name = "la_pin", nullable = false)
     private String pin;
 
     @NotEmpty
-    @Column(name = "la_country")
+    @Column(name = "la_country", nullable = false)
     private String country = "Ireland";
 
     public LocalAddress() {

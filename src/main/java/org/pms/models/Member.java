@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "members")
+@Table(name = "members", indexes = {@Index(columnList = "id"), @Index(columnList = "member_no"), @Index(columnList = "registered_date"), @Index(columnList = "family_no")})
 public class Member implements Serializable {
 
     private static final long serialVersionUID = 7607498012522751092L;
@@ -32,11 +32,11 @@ public class Member implements Serializable {
     @Embedded
     private Person memberAsPerson;
 
-    @Column(name = "member_no")
+    @Column(name = "member_no", nullable = false, unique = true)
     private Long memberNo;
 
     @NotNull
-    @Column(name = "relationship_in_family")
+    @Column(name = "relationship_in_family", nullable = false)
     @Enumerated(EnumType.STRING)
     private RelationShipInFamily relationshipInFamily;
 
@@ -188,7 +188,7 @@ public class Member implements Serializable {
     private String ministerOfAnointingTheSick;
 
     @NotEmpty
-    @Column(name = "registered_date")
+    @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
     @Column(name = "family_head")

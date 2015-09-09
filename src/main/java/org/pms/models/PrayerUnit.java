@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "prayerunits", indexes = {@Index(columnList = "id")})
+@Table(name = "prayerunits", indexes = {@Index(columnList = "id"), @Index(columnList = "prayerunit_no"), @Index(columnList = "registered_date"), @Index(columnList = "masscentre_no")})
 public class PrayerUnit implements Serializable {
 
     @Id
@@ -26,20 +26,21 @@ public class PrayerUnit implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String prayerUnitName;
 
-    @Column(name = "prayerunit_no")
+    @Column(name = "prayerunit_no", nullable = false, unique = true)
     private Long prayerUnitNo;
 
     @NotEmpty
-    @Column(name = "place")
+    @Column(name = "place", nullable = false)
     private String prayerUnitPlace;
 
     @Column(name = "patron")
     private String patron;
 
-    @Column(name = "registered_date")
+    @NotEmpty
+    @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
     //This field is added to resolve the selection issue of mass center if two or more parish has same mass center name. This field has no role in logic of adding a mass center.
@@ -47,7 +48,7 @@ public class PrayerUnit implements Serializable {
     private Parish mappedParish;
 
     @NotNull
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "masscentre_no")
     private MassCentre mappedMassCentre;
 
@@ -56,7 +57,7 @@ public class PrayerUnit implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "familyPrayerUnit")
+    @OneToMany(mappedBy = "familyPrayerUnit", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Family> mappedFamilies = new ArrayList<>();
 
     public PrayerUnit() {

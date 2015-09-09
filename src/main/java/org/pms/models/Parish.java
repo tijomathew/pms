@@ -5,7 +5,9 @@ import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,7 +26,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "parishes")
+@Table(name = "parishes", indexes = {@Index(columnList = "id"), @Index(columnList = "parish_no"), @Index(columnList = "registered_date")})
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "org.pms.models.Parish")
 public class Parish implements Serializable {
 
@@ -34,15 +36,15 @@ public class Parish implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "parish_no")
+    @Column(name = "parish_no", nullable = false, unique = true)
     private Long parishNo;
 
     @NotEmpty
-    @Column(name = "parish_name")
+    @Column(name = "parish_name", nullable = false, unique = true)
     private String parishName;
 
     @NotEmpty
-    @Column(name = "place")
+    @Column(name = "place", nullable = false)
     private String place;
 
     @Column(name = "website")
@@ -52,7 +54,7 @@ public class Parish implements Serializable {
     private String facebookPage;
 
     @NotEmpty
-    @Column(name = "registered_date")
+    @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
     @Column(name = "mobile_no")
@@ -72,7 +74,7 @@ public class Parish implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
-    @OneToMany(mappedBy = "mappedParish")
+    @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<MassCentre> massCentreList = new ArrayList<>();
 
     public Parish() {

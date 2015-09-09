@@ -45,6 +45,9 @@
 
 
             $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            <c:if test="${showForFamilyUser == true}">
+            $("#familySelectBox option[value='0']").remove();
+            </c:if>
             $('#memberAsPersonnationalityTextBox').hide();
 
             backToTop();

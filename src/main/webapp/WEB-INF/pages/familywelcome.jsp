@@ -39,29 +39,17 @@
     </div>
   </div>
   <!-- END RIGHTBAR -->
-  <div id="page-content">
+  <div id="page-content" style="background-color: #C3D3D6 !important;">
     <div id='wrap'>
-      <div class="container padding7">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-midnightblue">
-              <div class="panel-body">
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tabs-1">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <p>Welcome to Syro Malabar, Dublin Ireland</p>
-                        <p>1. Fill your family details first.</p>
-                        <p>2. Add each member in your family with details.</p>
-                        <p>3. Keep your Login Name and Password for future access.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="container padding7" style="background-color: #C3D3D6 !important;">
+
+         <div class="jumbotron" style="background-color: #C3D3D6 !important;">
+           <h1 style="font-weight: bold">Welcome to Syro Malabar, Dublin Ireland</h1>
+           <p style="font-weight: bold">1. Fill your family details first.</p>
+           <p style="font-weight: bold">2. Add each member in your family with details.</p>
+           <p style="font-weight: bold">3. Keep your Login Name and Password for future access.</p>
+         </div>
+
       </div>
       <!--wrap -->
     </div>

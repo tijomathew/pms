@@ -23,7 +23,7 @@ public class NativeAddress implements Serializable {
     private static final long serialVersionUID = -3708545110602581311L;
 
     @NotEmpty
-    @Column(name = "na_addressline_one")
+    @Column(name = "na_addressline_one", nullable = false)
     private String addressLineOne;
 
     @Column(name = "na_addressline_two")
@@ -33,24 +33,24 @@ public class NativeAddress implements Serializable {
     private String addressLineThree;
 
     @NotEmpty
-    @Column(name = "na_postoffice")
+    @Column(name = "na_postoffice", nullable = false)
     private String postOffice;
 
     @NotEmpty
-    @Column(name = "na_district")
+    @Column(name = "na_district", nullable = false)
     private String district;
 
     @NotEmpty
     @Pattern(regexp = "(^[0-9]{6,6}$)")
-    @Column(name = "na_pin")
+    @Column(name = "na_pin", nullable = false)
     private String pin;
 
     @NotEmpty
-    @Column(name = "na_state")
+    @Column(name = "na_state", nullable = false)
     private String state;
 
     @NotEmpty
-    @Column(name = "na_country")
+    @Column(name = "na_country", nullable = false)
     private String country = "India";
 
     public NativeAddress() {

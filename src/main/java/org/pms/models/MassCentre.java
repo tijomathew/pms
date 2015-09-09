@@ -22,7 +22,7 @@ import java.util.List;
  * User: tijo
  */
 @Entity
-@Table(name = "masscentres")
+@Table(name = "masscentres", indexes = {@Index(columnList = "id"), @Index(columnList = "masscentre_no"), @Index(columnList = "registered_date"), @Index(columnList = "parish_no")})
 public class MassCentre implements Serializable {
 
     private static final long serialVersionUID = 1669408565953568157L;
@@ -32,21 +32,21 @@ public class MassCentre implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "masscentre_name")
+    @Column(name = "masscentre_name", nullable = false)
     private String massCentreName;
 
-    @Column(name = "masscentre_no")
+    @Column(name = "masscentre_no", nullable = false, unique = true)
     private Long massCentreNo;
 
     @Column(name = "patron_name")
     private String patronName;
 
     @NotEmpty
-    @Column(name = "place")
+    @Column(name = "place", nullable = false)
     private String place;
 
     @NotEmpty
-    @Column(name = "registered_date")
+    @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
     @Column(name = "landline_no")
@@ -64,11 +64,11 @@ public class MassCentre implements Serializable {
     private LocalAddress localAddress;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parish_no")
     private Parish mappedParish;
 
-    @OneToMany(mappedBy = "mappedMassCentre")
+    @OneToMany(mappedBy = "mappedMassCentre", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
     public MassCentre() {

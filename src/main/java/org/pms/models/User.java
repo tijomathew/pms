@@ -7,6 +7,7 @@ import org.pms.enums.SystemRolesStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * This class describes the user's attributes who has login privileges in the system.
@@ -16,7 +17,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "users", indexes = {@Index(columnList = "user_prayerunit"),@Index(columnList = "user_of_family")})
+@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email")})
 public class User implements Serializable {
 
     @Id
@@ -37,10 +38,10 @@ public class User implements Serializable {
     private String updatedBy;
 
     @Column(name = "created_on")
-    private Long createdOn = new DateTime().getMillis();
+    private Date createdOn = new DateTime().toDate();
 
     @Column(name = "updated_on")
-    private Long updatedOn = new DateTime().getMillis();
+    private Date updatedOn = new DateTime().toDate();
 
     @Column(name = "is_active")
     @Enumerated(EnumType.STRING)
@@ -53,10 +54,10 @@ public class User implements Serializable {
     private Boolean alreadyLoggedIn = Boolean.FALSE;
 
     @Column(name = "is_validated")
-    private boolean isValidated = Boolean.FALSE;
+    private Boolean isValidated = Boolean.FALSE;
 
     @Column(name = "sent_mail")
-    private boolean sendMailFlag = Boolean.TRUE;
+    private Boolean sendMailFlag = Boolean.TRUE;
 
     @Transient
     private String newPassword;
@@ -123,19 +124,19 @@ public class User implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public Long getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Long createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Long getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
-    public void setUpdatedOn(Long updatedOn) {
+    public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
 
@@ -163,19 +164,19 @@ public class User implements Serializable {
         this.alreadyLoggedIn = alreadyLoggedIn;
     }
 
-    public boolean getIsValidated() {
+    public Boolean getIsValidated() {
         return isValidated;
     }
 
-    public void setValidated(boolean isValidated) {
+    public void setValidated(Boolean isValidated) {
         this.isValidated = isValidated;
     }
 
-    public boolean getSendMailFlag() {
+    public Boolean getSendMailFlag() {
         return sendMailFlag;
     }
 
-    public void setSendMailFlag(boolean sendMailFlag) {
+    public void setSendMailFlag(Boolean sendMailFlag) {
         this.sendMailFlag = sendMailFlag;
     }
 

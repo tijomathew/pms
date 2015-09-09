@@ -19,11 +19,11 @@ public class EmergencyContact implements Serializable {
     private static final long serialVersionUID = -8670323338285172206L;
 
     @NotEmpty
-    @Column(name = "ec_name_address")
+    @Column(name = "ec_name_address", nullable = false)
     private String nameAddress;
 
     @NotEmpty
-    @Column(name = "ec_phoneno")
+    @Column(name = "ec_phoneno", nullable = false)
     private String phoneNo;
 
     @Column(name = "ec_alternative_phoneno")
