@@ -68,7 +68,7 @@ public class MassCentre implements Serializable {
     @JoinColumn(name = "parish_no")
     private Parish mappedParish;
 
-    @OneToMany(mappedBy = "mappedMassCentre", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "mappedMassCentre", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
     public MassCentre() {

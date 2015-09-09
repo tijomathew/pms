@@ -17,7 +17,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email")})
+@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email"), @Index(columnList = "user_of_parish"), @Index(columnList = "user_of_masscentre"), @Index(columnList = "user_prayerunit"), @Index(columnList = "user_of_family")})
 public class User implements Serializable {
 
     @Id

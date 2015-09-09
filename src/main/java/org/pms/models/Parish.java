@@ -74,7 +74,7 @@ public class Parish implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
-    @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "mappedParish", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MassCentre> massCentreList = new ArrayList<>();
 
     public Parish() {
