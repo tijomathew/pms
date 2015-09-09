@@ -140,7 +140,11 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());
                 break;
             case FAMILY_USER:
-                allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());
+                if (currentUser.getUserOfFamily() == null) {
+                    allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());
+                } else {
+                    allPrayerUnits.add(currentUser.getUserOfFamily().getFamilyPrayerUnit());
+                }
                 break;
         }
 

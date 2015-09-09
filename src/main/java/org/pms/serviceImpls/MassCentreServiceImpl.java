@@ -120,13 +120,17 @@ public class MassCentreServiceImpl implements MassCentreService {
                 allMassCentres.addAll(getAllMassCentresForParishID(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
-                allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfMassCentres().getId()));
+                allMassCentres.add(currentUser.getUsersOfMassCentres());
                 break;
             case PRAYER_UNIT_ADMIN:
-                allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfMassCentres().getId()));
+                allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getId()));
                 break;
             case FAMILY_USER:
-                allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfMassCentres().getId()));
+                if (currentUser.getUserOfFamily() == null) {
+                    allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getId()));
+                } else {
+                    allMassCentres.add(getMassCentreForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getMappedMassCentre().getId()));
+                }
                 break;
         }
         return allMassCentres;

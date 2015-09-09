@@ -64,7 +64,11 @@ public class ParishServiceImpl implements ParishService {
                 parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish());
                 break;
             case FAMILY_USER:
-                parishList.add(getParishForIDSM(currentUser.getUsersOfParishes().getId()));
+                if (currentUser.getUserOfFamily() == null) {
+                    parishList.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish().getId()));
+                } else {
+                    parishList.add(getParishForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId()));
+                }
                 break;
         }
         return parishList;
