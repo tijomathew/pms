@@ -28,6 +28,7 @@
             backToTop();
             loadPrayerUnitGrid();
             loadSelectBox("${pageContext.request.contextPath}");
+
         });
 
     </script>
@@ -93,12 +94,14 @@
                                                                         <h4>
                                                                             <ul class="nav nav-tabs">
                                                                                 <li class="active">
-                                                                                    <a href="#prayerunit1" data-toggle="tab"><i
+                                                                                    <a href="#prayerunit1"
+                                                                                       data-toggle="tab"><i
                                                                                             class="fa fa-list visible-xs icon-scale"></i><span
                                                                                             class="hidden-xs">Prayer Unit Details</span></a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#prayerunit2" data-toggle="tab"><i
+                                                                                    <a href="#prayerunit2"
+                                                                                       data-toggle="tab"><i
                                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
                                                                                             class="hidden-xs">Local Address</span></a>
                                                                                 </li>
@@ -108,13 +111,15 @@
 
                                                                     <div class="panel-body">
                                                                         <form:form modelAttribute="prayerUnit"
-                                                                                   action="${prayerUnitActionURL}" method="post"
+                                                                                   action="${prayerUnitActionURL}"
+                                                                                   method="post"
                                                                                    id="prayerUnitForm"
                                                                                    cssClass="form-horizontal">
 
-                                                                        <div class="tab-content">
+                                                                            <div class="tab-content">
 
-                                                                                <div class="tab-pane active" id="prayerunit1">
+                                                                                <div class="tab-pane active"
+                                                                                     id="prayerunit1">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
@@ -129,17 +134,19 @@
                                                                                                             path="prayerUnitName"
                                                                                                             id="prayerUnitName"
                                                                                                             class="form-control"/>
-                                                                                                    <form:hidden path="id"/>
+                                                                                                    <form:hidden
+                                                                                                            path="id"/>
                                                                                                 </div>
                                                                                                 <label for="prayerUnitNo"
                                                                                                        class="col-sm-2 control-label">Prayer
                                                                                                     Unit No.</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:input path="prayerUnitNo"
-                                                                                                                id="prayerUnitNo"
-                                                                                                                readonly="true"
-                                                                                                                class="form-control"/>
+                                                                                                    <form:input
+                                                                                                            path="prayerUnitNo"
+                                                                                                            id="prayerUnitNo"
+                                                                                                            readonly="true"
+                                                                                                            class="form-control"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
@@ -158,10 +165,11 @@
                                                                                                        class="col-sm-2 control-label">Parish</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:select path="mappedParish"
-                                                                                                                 items="${parishMap}"
-                                                                                                                 id="parishNo"
-                                                                                                                 class="form-control"/>
+                                                                                                    <form:select
+                                                                                                            path="mappedParish"
+                                                                                                            items="${parishMap}"
+                                                                                                            id="parishNo"
+                                                                                                            class="form-control"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
@@ -180,9 +188,10 @@
                                                                                                        class="col-sm-2 control-label">Patron</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:input path="patron"
-                                                                                                                id="patron"
-                                                                                                                class="form-control"/>
+                                                                                                    <form:input
+                                                                                                            path="patron"
+                                                                                                            id="patron"
+                                                                                                            class="form-control"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">

@@ -31,6 +31,10 @@
 
             loadMassCentreGrid();
 
+            <c:if test = "${showForMassCentreAdmin == false}" >
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            </c:if>
+
         });
 
     </script>
