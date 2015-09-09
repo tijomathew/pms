@@ -57,6 +57,7 @@ public class PrayerUnit implements Serializable {
     @Embedded
     private LocalAddress localAddress;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyPrayerUnit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Family> mappedFamilies = new ArrayList<>();
 

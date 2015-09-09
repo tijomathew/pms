@@ -49,17 +49,17 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
 
     @Override
     public List<Family> getAllFamilyForParishID(Long parishId) {
-        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyParish.id", parishId)).list();
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").createAlias("familymasscentre.mappedParish", "familyparish").add(Restrictions.eq("familyparish.id", parishId)).list();
     }
 
     @Override
     public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
-        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyMassCentre.id", massCentreId)).list();
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").add(Restrictions.eq("familymasscentre.id", massCentreId)).list();
     }
 
     @Override
     public List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId) {
-        return getDb(false).createCriteria(Family.class, "family").add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitId)).list();
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyprayerunit").add(Restrictions.eq("familyprayerunit.id", prayerUnitId)).list();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
 
     @Override
     public List<Long> getAllFamiliesIDForParishID(Long parishId) {
-        return getDb(false).createCriteria(Family.class, "family").setProjection(Projections.property("id")).add(Restrictions.eq("family.familyParish.id", parishId)).list();
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").createAlias("familymasscentre.mappedParish", "familyparish").setProjection(Projections.property("family.id")).add(Restrictions.eq("familyparish.id", parishId)).list();
     }
 
     @Override

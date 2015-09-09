@@ -17,7 +17,7 @@ function loadMemberGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship", "Parish Name", "MC Name", "PU Name",
+            colNames: ["Family No.", "Family Name", "Member No.", "Member Name", "Gender", "Date of Birth", "Relationship",
                 "memberAsPerson.salutation", "memberAsPerson.firstName",
                 "memberAsPerson.middleName", "memberAsPerson.lastName", "Place of Birth", "memberAsPerson.nationality",
                 "memberAsPerson.personalStatus", "memberAsPerson.email", "memberAsPerson.mobileNo", "memberAsPerson.landLine",
@@ -43,9 +43,6 @@ function loadMemberGrid() {
                 {name: "memberAsPerson.gender", index: "memberAsPerson.gender", width: 100, sortable: false},
                 {name: "memberAsPerson.dateOfBirth", index: "memberAsPerson.dateOfBirth", width: 100, sortable: false},
                 {name: 'relationshipInFamily', index: 'relationshipInFamily', width: 100, sortable: false},
-                {name: 'parishName', index: 'parishName', width: 100, sortable: false},
-                {name: 'massCentreName', index: 'massCentreName', width: 100, sortable: false},
-                {name: 'prayerUnitName', index: 'prayerUnitName', width: 100, sortable: false},
                 {
                     name: 'memberAsPerson.salutation',
                     index: 'memberAsPerson.salutation',

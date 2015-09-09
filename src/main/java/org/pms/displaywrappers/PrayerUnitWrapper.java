@@ -31,11 +31,11 @@ public class PrayerUnitWrapper implements GridRow {
         List<String> convertedResult = new ArrayList<String>();
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
-                String assignedValue = "N/A";
+                String assignedValue = "";
                 if (BeanUtils.getProperty(this.prayerUnitBean, VALID_BEAN_PROPERTIES[i]) != null) {
                     assignedValue = BeanUtils.getProperty(this.prayerUnitBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
-                        assignedValue = "N/A";
+                        assignedValue = "";
                     }
                 }
                 convertedResult.add(assignedValue);

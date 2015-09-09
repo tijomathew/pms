@@ -64,11 +64,12 @@ public class MassCentre implements Serializable {
     private LocalAddress localAddress;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "parish_no")
     private Parish mappedParish;
 
-    @OneToMany(mappedBy = "mappedMassCentre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "mappedMassCentre")
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
     public MassCentre() {

@@ -37,11 +37,13 @@
 
             loadUserGrid();
 
+            <c:if test = "${showForPrayerUnitAdmin == true}" >
             $('form select#familySelectBox').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            </c:if>
 
             <c:if test = "${showForPrayerUnitAdmin == false}" >
-            //loadSelectBox("${pageContext.request.contextPath}");
-            $('form select').prepend($('<option/>', {text: '-Select-', value: ''})).attr('disabled', true);
+            loadSelectBox("${pageContext.request.contextPath}");
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
             </c:if>
 
             function reactiveAdminsComboBox() {

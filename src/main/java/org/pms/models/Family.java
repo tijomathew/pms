@@ -78,6 +78,7 @@ public class Family implements Serializable {
     @JoinColumn(name = "prayerunit_no")
     private PrayerUnit familyPrayerUnit;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "familyMember", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Member> memberList = new ArrayList<>();
 
