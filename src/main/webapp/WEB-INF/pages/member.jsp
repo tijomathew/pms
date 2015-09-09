@@ -48,6 +48,9 @@
             <c:if test="${showForFamilyUser == true}">
             $("#familySelectBox option[value='0']").remove();
             </c:if>
+
+            $("#lifeStatus option[value='0']").remove();
+            $("#lifeStatus >option[value=LIVE]").attr("selected","true");
             $('#memberAsPersonnationalityTextBox').hide();
 
             backToTop();

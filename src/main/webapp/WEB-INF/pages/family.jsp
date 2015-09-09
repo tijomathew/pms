@@ -30,8 +30,12 @@
 
             loadDatePicker();
 
-            <c:if test="${showForPrayerUnitAdmin == false && showForFamilyUser == false}">
+            <c:if test = "${!((showForPrayerUnitAdmin == true && showForFamilyUser==false) && (showForPrayerUnitAdmin == false && showForFamilyUser==true))}" >
             loadSelectBox("${pageContext.request.contextPath}");
+            </c:if>
+
+            <c:if test = "${((showForPrayerUnitAdmin == true && showForFamilyUser==false) && (showForPrayerUnitAdmin == false && showForFamilyUser==true))}" >
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
             </c:if>
 
             loadFamilyGrid();

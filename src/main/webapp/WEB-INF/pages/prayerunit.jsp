@@ -27,7 +27,13 @@
 
             backToTop();
             loadPrayerUnitGrid();
+            <c:if test = "${!((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
             loadSelectBox("${pageContext.request.contextPath}");
+            </c:if>
+
+            <c:if test = "${((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            </c:if>
 
         });
 
