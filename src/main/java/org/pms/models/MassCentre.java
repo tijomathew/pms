@@ -35,7 +35,7 @@ public class MassCentre implements Serializable {
     @Column(name = "masscentre_name", nullable = false)
     private String massCentreName;
 
-    @Column(name = "masscentre_no", nullable = false, unique = true)
+    @Column(name = "masscentre_no", nullable = false)
     private Long massCentreNo;
 
     @Column(name = "patron_name")

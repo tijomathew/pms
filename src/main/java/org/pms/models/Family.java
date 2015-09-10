@@ -35,7 +35,7 @@ public class Family implements Serializable {
     @Column(name = "family_name", nullable = false)
     private String familyName;
 
-    @Column(name = "family_no", nullable = false, unique = true)
+    @Column(name = "family_no", nullable = false)
     private Long familyNo;
 
     @NotEmpty

@@ -29,7 +29,7 @@ public class PrayerUnit implements Serializable {
     @Column(name = "name", nullable = false)
     private String prayerUnitName;
 
-    @Column(name = "prayerunit_no", nullable = false, unique = true)
+    @Column(name = "prayerunit_no", nullable = false)
     private Long prayerUnitNo;
 
     @NotEmpty

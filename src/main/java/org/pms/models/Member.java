@@ -32,7 +32,7 @@ public class Member implements Serializable {
     @Embedded
     private Person memberAsPerson;
 
-    @Column(name = "member_no", nullable = false, unique = true)
+    @Column(name = "member_no", nullable = false)
     private Long memberNo;
 
     @NotNull
