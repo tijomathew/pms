@@ -3,6 +3,9 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
 import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
@@ -73,6 +76,8 @@ public class UserController extends AbstractErrorAndGridHandler {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         user.setCreatedBy(currentUser.getEmail());
         user.setUpdatedBy(currentUser.getEmail());
+        user.setCreatedOn(getCurrentDate());
+        user.setUpdatedOn(getCurrentDate());
         String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             user.setPassword(generatedPassword);
@@ -168,6 +173,12 @@ public class UserController extends AbstractErrorAndGridHandler {
         binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
         binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
+    }
+
+    private String getCurrentDate() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+        DateTime currentDate = new DateTime();
+        return dateTimeFormatter.print(currentDate);
     }
 
 }
