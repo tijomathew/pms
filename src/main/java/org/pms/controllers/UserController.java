@@ -110,9 +110,14 @@ public class UserController extends AbstractErrorAndGridHandler {
                     insertUser = true;
                 }
             } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                user.setUsersOfParishes(null);
-                user.setUsersOfMassCentres(null);
-                user.setUsersOfPrayerUnits(null);
+                if (user.getUserOfFamily() == null) {
+                    user.setUsersOfParishes(null);
+                    user.setUsersOfMassCentres(null);
+                } else {
+                    user.setUsersOfParishes(null);
+                    user.setUsersOfMassCentres(null);
+                    user.setUsersOfPrayerUnits(null);
+                }
                 insertUser = true;
             }
         }

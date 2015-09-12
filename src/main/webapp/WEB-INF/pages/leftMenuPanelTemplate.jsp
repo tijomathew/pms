@@ -104,6 +104,8 @@
     </c:if>
     <c:if test="${showForFamilyUser == true}">
         <ul class="acc-menu" id="sidebar">
+            <li id="familywelcome"><a href="${pageContext.request.contextPath}/viewfamilywelcome.action"><i class="fa pms-family"></i>
+                <span>Family Home</span></a></li>
             <li id="family"><a href="${pageContext.request.contextPath}/viewfamily.action"><i class="fa pms-family"></i>
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i

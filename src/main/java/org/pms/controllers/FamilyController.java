@@ -88,6 +88,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
                     familyService.addFamilySM(family);
                     if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() == null) {
+                        currentUser.setUsersOfPrayerUnits(null);
                         currentUser.setUserOfFamily(family);
                         userService.updateUser(currentUser);
                     }
