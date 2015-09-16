@@ -21,6 +21,9 @@
                 parentElementClassReplace: "col-sm-7",
                 radioButtonGroupClass: "btn-group",
                 responseData: {},
+                tabHeaderEltSelector : "div.tab-pane",
+                parentFieldSet: $([]),
+                groupFieldSet: $([]),
                 propKey: "fieldName",
                 dialog:"",
                 colSpan: 1
@@ -83,8 +86,30 @@
                 });
             },
             createParentElement = function() {
-
                 return $("<div/>", {class: "form-group"});
+            },
+            createParentFieldSetElement = function($elt) {
+                var fieldSetLabel = $defaults.parentFieldSet ? $defaults.parentFieldSet.find('legend').text() : "";
+                var eltFieldSetLabel = $("li a[href='#" + $elt.parents($defaults.tabHeaderEltSelector).attr("id") +"']").text(), fieldSet;
+                if(fieldSetLabel != eltFieldSetLabel) {
+                    $defaults.parentFieldSet = $("<fieldset/>", {class : "scheduler-border"}).append($("<legend/>", {class : "scheduler-border", text: eltFieldSetLabel}));
+                }
+
+                return $defaults.parentFieldSet;
+            },
+            createGroupFieldSetElement = function($elt) {
+                var $groupFieldSetLabel = $defaults.groupFieldSet ? $defaults.groupFieldSet.find('legend').text() : "", $eltFieldSet =  $elt.parents("fieldset");
+
+                if($eltFieldSet != $defaults.parentFieldSet) {
+                    if($groupFieldSetLabel != $eltFieldSet.find('legend').text()) {
+                        $defaults.groupFieldSet = $("<fieldset/>", {class : "scheduler-border"}).append($("<legend/>", {class : "scheduler-border", text: $eltFieldSet.find('legend').text(), style: "font-size:12px;"}));
+                    }
+                } else {
+                    $defaults.groupFieldSet = $([]); // reset field set
+                }
+
+
+                return $defaults.groupFieldSet;
             },
             reOrderNames = function(data) {
                 var eltNames = new Array(),  $form = $("form#" + $defaults.parentFormId), $formElts = $("form#" + $defaults.parentFormId).find(':input');
@@ -96,15 +121,33 @@
                 });
             },
             cloneElementsToDialog = function() {
-                var $elt, $label, $form = $("form#" + $defaults.parentFormId ), $rootElement = $("<div/>", {id: "eltsContainer", class: "form-horizontal", style: "height:400px;margin-left:15px;overflow-x:hidden;z-index:9999;"}), $parentBlock;
-
+                var $elt, $label, $form = $("form#" + $defaults.parentFormId ), $rootElement = $("<div/>", {id: "eltsContainer", class: "form-horizontal", style: "height:400px;margin-left:15px;overflow-x:hidden;z-index:9999;"}), $parentBlock,  $fieldSet, $groupFieldSet;
+                var $parentFSLbl, $groupFSLbl, $currentParentFSLbl, $currentGroupFSLbl;
                 $.each(reOrderNames($defaults.responseData), function(index, item) {
                     if(!$rootElement.find("[name=" + item[$defaults.propKey].replace(/\./g, "\\.") + "]").length) {
+                        $elt                = $form.find("[name=" + item[$defaults.propKey].replace(/\./g, "\\.") + "]");
+                        $parentFSLbl        = $fieldSet ? $fieldSet.find('legend:eq(0)').text() : "";
+                        $groupFSLbl         = $groupFieldSet ? $groupFieldSet.find('legend').text() : "";
+                        $currentParentFSLbl = createParentFieldSetElement($elt).length ? $defaults.parentFieldSet.find('legend').text() : "";
+                        $currentGroupFSLbl  = createGroupFieldSetElement($elt).length ? $defaults.groupFieldSet.find('legend').text() : "";
+
+                        if($parentFSLbl !== $currentParentFSLbl) {
+                            $fieldSet = $defaults.parentFieldSet;
+                            $rootElement.append($fieldSet);
+                            //$defaults.parentFieldSet = $fieldSet;
+                        } else if($groupFSLbl !== $currentGroupFSLbl) {
+                            $groupFieldSet = $defaults.groupFieldSet;
+                            $fieldSet.append($groupFieldSet);
+                        }
+
                         if(index % $defaults.colSpan === 0) {
                             $parentBlock = createParentElement();
-                            $rootElement.append($parentBlock);
+                            if($groupFSLbl)
+                                $groupFieldSet.append($parentBlock);
+                            else
+                                $fieldSet.append($parentBlock);
                         }
-                        $elt = $form.find("[name=" + item[$defaults.propKey].replace(/\./g, "\\.") + "]");
+
                         $label =  $form.find("label[for=" + item[$defaults.propKey].replace(/\./g, "\\.") + "]");
                         if(!$label.length && $elt.attr("id"))
                             $label =  $form.find("label[for=" + $elt.attr("id").replace(/\./g, "\\.") + "]");
@@ -188,7 +231,9 @@
                             break;
 
                         case 'textarea':
-                            $elt.html($value);
+                            //$elt.html($value);
+                            $elt.val($value);
+                            break;
                         case 'submit':
                         case 'button':
                         default:

@@ -36,11 +36,11 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $("#memberAsPerson\\.file").change(function(){
-                readURL(this);
-            });
+                $("#memberAsPerson\\.file").change(function(){
+                    readURL(this);
+                });
 
 
 

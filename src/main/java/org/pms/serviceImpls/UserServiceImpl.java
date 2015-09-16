@@ -119,29 +119,78 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsersForUserRole(User currentUser) {
-        List<User> allUsers = new ArrayList<>();
+        final List<User> allUsers = new ArrayList<>();
+        List<Long> prayerUnitIdsOfUsersToShowInParishAdmin = new ArrayList<>();
+        List<Long> familyIdsOfUsersToShowInParishAdmin = new ArrayList<>();
 
         switch (currentUser.getSystemRole()) {
             case ADMIN:
-                allUsers = getAllUsers();
+                allUsers.addAll(getAllUsers());
                 break;
             case PARISH_ADMIN:
-                List<Long> currentUserParishIdAsList = new ArrayList<>();
-                currentUserParishIdAsList.add(currentUser.getUsersOfParishes().getId());
+                Parish ParishOfParishAdmin = currentUser.getUsersOfParishes();
 
+                List<Long> currentUserParishIdAsList = new ArrayList<>();
+                currentUserParishIdAsList.add(ParishOfParishAdmin.getId());
                 allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
+
+                List<Long> massCentreIdsOfUsersToShowInParishAdmin = new ArrayList<>();
+
+                if (!ParishOfParishAdmin.getMassCentreList().isEmpty()) {
+                    ParishOfParishAdmin.getMassCentreList().stream().forEach((MassCentre) -> {
+                        massCentreIdsOfUsersToShowInParishAdmin.add(MassCentre.getId());
+                        if (!MassCentre.getPrayerUnits().isEmpty()) {
+                            MassCentre.getPrayerUnits().stream().forEach(PrayerUnit -> {
+                                prayerUnitIdsOfUsersToShowInParishAdmin.add(PrayerUnit.getId());
+                                if (!PrayerUnit.getMappedFamilies().isEmpty()) {
+                                    PrayerUnit.getMappedFamilies().stream().forEach((Family) -> {
+                                        familyIdsOfUsersToShowInParishAdmin.add(Family.getId());
+                                    });
+                                    allUsers.addAll(getAllUsersForFamilyIds(familyIdsOfUsersToShowInParishAdmin));
+                                }
+                            });
+                            allUsers.addAll(getAllUsersForPrayerUnitIds(prayerUnitIdsOfUsersToShowInParishAdmin));
+                        }
+                    });
+                    allUsers.addAll(getAllUsersForMassCentreIds(massCentreIdsOfUsersToShowInParishAdmin));
+                }
+
                 break;
             case MASS_CENTER_ADMIN:
-                List<Long> currentUserMassCentreIdAsList = new ArrayList<>();
-                currentUserMassCentreIdAsList.add(currentUser.getUsersOfMassCentres().getId());
+                MassCentre massCentreOfMassCentreAdmin = currentUser.getUsersOfMassCentres();
 
+                List<Long> currentUserMassCentreIdAsList = new ArrayList<>();
+                currentUserMassCentreIdAsList.add(massCentreOfMassCentreAdmin.getId());
                 allUsers.addAll(getAllUsersForMassCentreIds(currentUserMassCentreIdAsList));
+
+                if (!massCentreOfMassCentreAdmin.getPrayerUnits().isEmpty()) {
+                    massCentreOfMassCentreAdmin.getPrayerUnits().stream().forEach(PrayerUnit -> {
+                        prayerUnitIdsOfUsersToShowInParishAdmin.add(PrayerUnit.getId());
+                        if (!PrayerUnit.getMappedFamilies().isEmpty()) {
+                            PrayerUnit.getMappedFamilies().stream().forEach(Family -> {
+                                familyIdsOfUsersToShowInParishAdmin.add(Family.getId());
+                            });
+                            allUsers.addAll(getAllUsersForFamilyIds(familyIdsOfUsersToShowInParishAdmin));
+                        }
+                    });
+                    allUsers.addAll(getAllUsersForPrayerUnitIds(prayerUnitIdsOfUsersToShowInParishAdmin));
+                }
+
+
                 break;
             case PRAYER_UNIT_ADMIN:
+                PrayerUnit prayerUnitOfPrayerUnitAdmin = currentUser.getUsersOfPrayerUnits();
                 List<Long> currentUserPrayerUnitIdAsList = new ArrayList<>();
-                currentUserPrayerUnitIdAsList.add(currentUser.getUsersOfPrayerUnits().getId());
+                currentUserPrayerUnitIdAsList.add(prayerUnitOfPrayerUnitAdmin.getId());
 
                 allUsers.addAll(getAllUsersForPrayerUnitIds(currentUserPrayerUnitIdAsList));
+
+                if (!prayerUnitOfPrayerUnitAdmin.getMappedFamilies().isEmpty()) {
+                    prayerUnitOfPrayerUnitAdmin.getMappedFamilies().stream().forEach(Family -> {
+                        familyIdsOfUsersToShowInParishAdmin.add(Family.getId());
+                    });
+                    allUsers.addAll(getAllUsersForFamilyIds(familyIdsOfUsersToShowInParishAdmin));
+                }
                 break;
             case FAMILY_USER:
                 //No Op
