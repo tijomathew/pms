@@ -140,9 +140,6 @@
         <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
             <div class="page-icon-shadow"></div>
             <div class="login-box clearfix animated flipInY">
-                <!--<div class="page-icon animated bounceInDown">
-                    <i class="glyphicon glyphicon-user"></i>
-                </div>-->
                 <div class="page-icon">
 
                 </div>
@@ -161,16 +158,13 @@
                     <!-- End Error box -->
                     <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
                                id="loginForm1">
-                       <%-- <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <form:input path="email" id="login-username" class="form-control" placeholder="email"/>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <form:password path="password" id="login-password" class="form-control" placeholder="password"/>--%>
+                        <c:if test="${not empty showURLAccessDenied}">
+                            <span class="alert alert-danger accessDenied">${showURLAccessDenied}</span>
+                        </c:if>
+                        <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
 
-                        <form:errors class="alert alert-danger"  role="alert" id="loginErrorDisplay"></form:errors>
-
-
-                        <form:input path="email" placeholder="Email" class="input-field" />
-                        <form:password path="password" placeholder="Password" class="input-field" />
+                        <form:input path="email" placeholder="Email" class="input-field"/>
+                        <form:password path="password" placeholder="Password" class="input-field"/>
                         <input type="submit" class="btn btn-login" value="Login"/>
 
                     </form:form>

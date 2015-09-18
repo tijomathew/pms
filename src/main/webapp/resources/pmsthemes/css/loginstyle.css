@@ -147,3 +147,12 @@ button.close {
     width: 90%;
     margin: 20px auto;
 }
+
+.accessDenied{
+    font-size: 12px;
+    text-align: center;
+    color: #a94442;
+    padding: 1px;
+    margin: 8px auto;
+    display: block;
+}

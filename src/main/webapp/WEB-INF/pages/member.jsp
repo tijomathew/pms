@@ -49,11 +49,11 @@
                 selected: true
             })).attr('disabled', true);
             <c:if test="${showForFamilyUser == true}">
-            $("#familySelectBox option[value='0']").remove();
+            $("#familySelectBox option[value='']").remove();
             </c:if>
 
-            $("#lifeStatus option[value='0']").remove();
-            $("#lifeStatus >option[value=LIVE]").attr("selected", "true");
+            $("#lifeStatus option[value='']").remove();
+            $("#lifeStatus option[value='LIVE']").attr('selected', 'selected');
             $('#memberAsPersonnationalityTextBox').hide();
 
             backToTop();
@@ -89,6 +89,8 @@
         }
 
         function callImageSubmission() {
+            $('#loadProgresser').removeClass('hideLoader');
+            $('#successButton').hide();
             var formData = new FormData($('#memberForm')[0]);
             $.ajax({
                 type: 'POST',
@@ -98,6 +100,8 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    $('#loadProgresser').addClass('hideLoader');
+                    $('#successButton').show();
                     if (response.statusCode == 'FAIL') {
 
                         for (var i = 0; i < response.customErrorMessages.length; i++) {
@@ -131,6 +135,7 @@
 
                     }
                     else if (response.statusCode == 'SUCCESS') {
+                        $('#memberGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                         jQuery('#panelDiv').hide(500);
                         jQuery.jqGrowl.timeout = 2000;
                         jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});

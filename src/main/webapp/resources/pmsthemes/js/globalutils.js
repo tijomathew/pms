@@ -13,7 +13,8 @@ function blinker(blinkerElt) {
 }
 
 function globalSubmissionOfForms(formId, gridId) {
-
+    $('#loadProgresser').removeClass('hideLoader');
+    $('#successButton').hide();
     var $form = $('#' + formId);
     var data = $("#" + formId).serialize();
 
@@ -23,9 +24,9 @@ function globalSubmissionOfForms(formId, gridId) {
         dataType: 'json',
         data: data,
         success: function (response) {
-
+            $('#loadProgresser').addClass('hideLoader');
+            $('#successButton').show();
             if (response.statusCode == 'FAIL') {
-
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
                     var item = response.customErrorMessages[i];
                     var itemFieldName = item.fieldName.replace(/\./g, '\\.');
@@ -57,8 +58,9 @@ function globalSubmissionOfForms(formId, gridId) {
 
             }
             else if (response.statusCode == 'SUCCESS') {
+                $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').hide(500);
-                //jQuery.jqGrowl.timeout = 2000;
+                jQuery.jqGrowl.timeout = 2000;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
@@ -144,11 +146,9 @@ function addJqgridCustomButtons(gridId, formId) {
             else {
                 jQuery('#' + formId).show(500);
                 $('#' + formId).find(':input').removeAttr('disabled');
-                //$('#' + formId + ' select').removeAttr("disabled");
-                //$('#' + formId + ' radio').removeAttr("disabled");
-                //$('#' + formId + ' textarea').removeAttr("disabled");
-
+                $('#loadProgresser').addClass('hideLoader');
                 $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
+
                 $('.actionSpan').text("Edit");
             }
         },
@@ -158,6 +158,7 @@ function addJqgridCustomButtons(gridId, formId) {
         buttonicon: "ui-icon-add",
         onClickButton: function () {
             jQuery('#panelDiv').show(500);
+            $('#loadProgresser').addClass('hideLoader');
             $('#panelDiv').removeClass('hidedisplay');
             $('#familyHeadDiv').hide();
             jQuery('#' + gridId).jqGrid('resetSelection'); //to reset the selected row
@@ -167,11 +168,11 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find(':input').removeAttr('disabled');
 
             $('#' + formId).find(':input')
-                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry,#lifeStatus')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
-            $('#' + formId).find('select option:first').attr('selected','selected');
+            $('#' + formId).find('select option:first').attr('selected', 'selected');
             $('#' + formId + ' .thumbnail').hide();
             $('#registeredDate').prop('value', registeredDate);
             $('.actionSpan').text("Add");
@@ -191,14 +192,14 @@ function addJqgridCustomButtons(gridId, formId) {
             cancelActions(formId, gridId)
         }, style: "float:right;font-size: 10px;", text: "CANCEL", title: "CANCEL"
     })).append($('<div/>', {
-        class: "btn btn-sm btn-success", click: function () {
+        class: "btn btn-sm btn-success", id: "successButton", click: function () {
             if (formId != 'memberForm') {
                 globalSubmissionOfForms(formId, gridId)
             } else {
                 callImageSubmission();
             }
         }, style: "float:right;font-size: 10px;margin-right: 5px;width:55px", text: "SAVE", title: "SAVE"
-    }));
+    })).append($('<span style="padding-right: 10px; color: #1192A7;float:right;" class="hideLoader" id="loadProgresser"><i class="fa fa-refresh fa-spin fa-2x"></i></span>'));
 
     $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').append(customButtons);
 }

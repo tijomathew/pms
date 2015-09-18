@@ -2091,7 +2091,7 @@ legend {
     line-height: inherit;
     color: #32373d;
     border: 0;
-    border-bottom: 1px solid #e6e7e8;
+    border-bottom: 3px solid #e6e7e8;
 }
 
 label {
@@ -18619,6 +18619,10 @@ legend.custom-border {
     display: none;
 }
 
+.hideLoader {
+    display: none !important;
+}
+
 /*.ui-jqgrid {font-size:0.8em !important;}*/
 
 .ui-jqgrid tr.jqgrow td {
@@ -18903,6 +18907,9 @@ button.ui-button::-moz-focus-inner {
     margin: -10px 0 0 0;
     padding: 1px;
     height: 18px;
+    background-image: url(../images/close.png);
+    background-position: center;
+    background-size: 20px 20px;
 }
 
 .ui-dialog .ui-dialog-titlebar-close span {

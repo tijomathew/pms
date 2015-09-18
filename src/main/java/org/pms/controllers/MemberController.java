@@ -73,8 +73,9 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                 Boolean isFamilyHeadExistsForFamily = memberService.verifyIsFamilyHeadMemberAddedForFamily(member.getFamilyMember().getId());
 
-                if (!isFamilyHeadExistsForFamily)
+                if (!isFamilyHeadExistsForFamily) {
                     member.setFamilyHead(Boolean.TRUE);
+                }
 
                 member.getFamilyMember().addMemberForFamily(member);
                 try {
