@@ -18,7 +18,7 @@ public abstract class AbstractErrorAndGridHandler {
     protected CustomResponse customResponse;
     protected GridGenerator gridGenerator;
 
-    protected static final String SUCCESS_MESSAGE_DISPLAY="added in to the system";
+    protected static final String SUCCESS_MESSAGE_DISPLAY = "added in to the system";
 
     protected final CustomResponse createErrorMessage(StatusCode statusCode, String fieldName, String message) {
         customResponse = new CustomResponse(statusCode, createCustomErrorMessage(fieldName, message));
@@ -31,7 +31,7 @@ public abstract class AbstractErrorAndGridHandler {
     }
 
     protected final CustomResponse createSuccessMessage(StatusCode statusCode, String addedObjectDisplayName, String message) {
-        customResponse = new CustomResponse(statusCode, createCustomErrorMessage(addedObjectDisplayName, message));
+        customResponse = new CustomResponse(statusCode, createCustomSuccessMessage(addedObjectDisplayName, message));
         return customResponse;
     }
 
@@ -50,6 +50,13 @@ public abstract class AbstractErrorAndGridHandler {
         customErrorMessages.add(new CustomErrorMessage(fieldName, message));
         return customErrorMessages;
     }
+
+    private List<CustomErrorMessage> createCustomSuccessMessage(String fieldName, String message) {
+        List<CustomErrorMessage> customErrorMessages = new ArrayList<>();
+        customErrorMessages.add(new CustomErrorMessage(fieldName, message));
+        return customErrorMessages;
+    }
+
 
     private List<CustomErrorMessage> createCustomErrorMessage(List<FieldError> fieldErrorList) {
         List<CustomErrorMessage> customErrorMessages = new ArrayList<>();

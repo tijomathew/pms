@@ -91,19 +91,6 @@
         <value>addprayerunit.action</value>
         <value>displayprayerunitgrid.action</value>
 
-        <value>viewfamilywelcome.action</value>
-        <value>viewfamily.action</value>
-        <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
-        <value>createprayerunitselectbox.action</value>
-        <value>displayfamilygrid.action</value>
-
-        <value>viewmember.action</value>
-        <value>createfamilyselectbox.action</value>
-        <value>addmember.action</value>
-        <value>displaymembergrid.action</value>
-
         <value>viewusers.action</value>
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
@@ -114,19 +101,6 @@
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
         <value>displayprayerunitgrid.action</value>
-
-        <value>viewfamilywelcome.action</value>
-        <value>viewfamily.action</value>
-        <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
-        <value>createprayerunitselectbox.action</value>
-        <value>displayfamilygrid.action</value>
-
-        <value>viewmember.action</value>
-        <value>createfamilyselectbox.action</value>
-        <value>addmember.action</value>
-        <value>displaymembergrid.action</value>
 
         <value>viewusers.action</value>
         <value>adduser.action</value>
