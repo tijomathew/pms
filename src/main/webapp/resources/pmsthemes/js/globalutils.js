@@ -24,26 +24,6 @@ function globalSubmissionOfForms(formId, gridId) {
         data: data,
         success: function (response) {
 
-
-
-
-            /*$.toaster({
-                settings : {
-                    'css'       : {
-                    'position' : 'fixed',
-                    'bottom'      : '10px',
-                    'right'    : '10px',
-                    'width'    : '300px',
-                    'zIndex'   : 50000
-                    }
-                }
-            });*/
-            //jQuery.toaster({ priority : 'success', title : 'Title', message : 'Your message here'});
-            /*jQuery.toaster({ priority : 'info', title : 'Title', message : 'Your message here'});
-
-            jQuery.toaster({ priority : 'warning', title : 'Title', message : 'Your message here'});
-
-            jQuery.toaster({ priority : 'danger', title : 'Title', message : 'Your message here'});*/
             if (response.statusCode == 'FAIL') {
 
                 for (var i = 0; i < response.customErrorMessages.length; i++) {
@@ -68,16 +48,17 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-                 $("div.container").errorFieldsDialog({
-                 responseData: response.customErrorMessages,
-                 parentFormId: formId,
-                 parentGridId: gridId
-                 });
+                $("div.container").errorFieldsDialog({
+                    responseData: response.customErrorMessages,
+                    parentFormId: formId,
+                    parentGridId: gridId
+                });
                 return [true, "", ""];
 
             }
             else if (response.statusCode == 'SUCCESS') {
-                jQuery.jqGrowl.timeout = 2000;
+                jQuery('#panelDiv').hide(500);
+                //jQuery.jqGrowl.timeout = 2000;
                 jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                 jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
 
@@ -89,7 +70,7 @@ function globalSubmissionOfForms(formId, gridId) {
                     .removeAttr('selected');
                 jQuery('#' + gridId).trigger('reloadGrid');
                 $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
-                $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
+                $('ul.nav-tabs').find('span').stop(true, true).css('opacity', 1);
             }
             else if (response.statusCode == 'FAILURE') {
                 jQuery.jqGrowl.timeout = 2000;
@@ -128,7 +109,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId + ' radio').removeAttr("disabled");
             $('#' + formId + ' textarea').removeAttr("disabled");
             $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
-            $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
+            $('ul.nav-tabs').find('span').stop(true, true).css('opacity', 1);
             $('#' + formId).find('input[type="button"][value="SAVE"]').addClass('hidedisplay');
             $('#' + formId).find('input[type="reset"]').addClass('hidedisplay');
 
@@ -137,8 +118,6 @@ function addJqgridCustomButtons(gridId, formId) {
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
-            // $('#registeredDate').val(registeredDate);
-            //jQuery('form').trigger('reset');
 
             $('.actionSpan').text("View");
             $('#' + formId).find(':input').each(function () {
@@ -180,6 +159,7 @@ function addJqgridCustomButtons(gridId, formId) {
         onClickButton: function () {
             jQuery('#panelDiv').show(500);
             $('#panelDiv').removeClass('hidedisplay');
+            $('#familyHeadDiv').hide();
             jQuery('#' + gridId).jqGrid('resetSelection'); //to reset the selected row
 
             $('#' + gridId + 'Pager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').removeClass('hidedisplay');
@@ -187,11 +167,12 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find(':input').removeAttr('disabled');
 
             $('#' + formId).find(':input')
-                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry, select')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
-            $('#' + formId +' .thumbnail').hide();
+            $('#' + formId).find('select option:first').attr('selected','selected');
+            $('#' + formId + ' .thumbnail').hide();
             $('#registeredDate').prop('value', registeredDate);
             $('.actionSpan').text("Add");
         },
@@ -261,6 +242,6 @@ function cancelActions(formId, gridId) {
         $(this).removeClass('borderRed');
         $(this).removeAttr('title');
         $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
-        $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
+        $('ul.nav-tabs').find('span').stop(true, true).css('opacity', 1);
     });
 }

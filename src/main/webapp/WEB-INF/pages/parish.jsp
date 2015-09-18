@@ -121,7 +121,7 @@
                                                                                                         class="form-control"/>
                                                                                                 <div class="form-group">
                                                                                                     <label for="parishNo"
-                                                                                                           class="col-sm-2 control-label required">Parish
+                                                                                                           class="col-sm-2 control-label">Parish
                                                                                                         No.</label>
 
                                                                                                     <div class="col-sm-3">
@@ -145,7 +145,7 @@
 
                                                                                                 <div class="form-group">
                                                                                                     <label for="place"
-                                                                                                           class="col-sm-2 control-label">Parish
+                                                                                                           class="col-sm-2 control-label required">Parish
                                                                                                         Place</label>
 
                                                                                                     <div class="col-sm-3">
@@ -255,7 +255,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="panel">
                                                                                                 <div class="form-group">
-                                                                                                    <label for="localAddressaddressLineOne"
+                                                                                                    <label for="localAddress.addressLineOne"
                                                                                                            class="col-sm-2 control-label required">Address
                                                                                                         Line 1</label>
 
@@ -265,7 +265,7 @@
                                                                                                                 id="localAddressaddressLineOne"
                                                                                                                 class="form-control"/>
                                                                                                     </div>
-                                                                                                    <label for="localAddressaddressLineTwo"
+                                                                                                    <label for="localAddress.addressLineTwo"
                                                                                                            class="col-sm-2 control-label required">Address
                                                                                                         Line
                                                                                                         2 </label>
@@ -289,7 +289,7 @@
                                                                                                                 id="localAddressaddressLineThree"
                                                                                                                 class="form-control"/>
                                                                                                     </div>
-                                                                                                    <label for="localAddresstown"
+                                                                                                    <label for="localAddress.town"
                                                                                                            class="col-sm-2 control-label required">Town</label>
 
                                                                                                     <div class="col-sm-3">
@@ -300,7 +300,7 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="form-group">
-                                                                                                    <label for="localAddresscounty"
+                                                                                                    <label for="localAddress.county"
                                                                                                            class="col-sm-2 control-label required">County</label>
 
                                                                                                     <div class="col-sm-3">
@@ -309,7 +309,7 @@
                                                                                                                 id="localAddresscounty"
                                                                                                                 class="form-control"/>
                                                                                                     </div>
-                                                                                                    <label for="localAddresspin"
+                                                                                                    <label for="localAddress.pin"
                                                                                                            class="col-sm-2 control-label required">Pin
                                                                                                         code</label>
 
@@ -321,8 +321,8 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="form-group">
-                                                                                                    <label for="localAddresscountry"
-                                                                                                           class="col-sm-2 control-label required">Country</label>
+                                                                                                    <label for="localAddress.country"
+                                                                                                           class="col-sm-2 control-label">Country</label>
 
                                                                                                     <div class="col-sm-3">
                                                                                                         <form:input

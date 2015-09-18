@@ -73,36 +73,24 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                 Boolean isFamilyHeadExistsForFamily = memberService.verifyIsFamilyHeadMemberAddedForFamily(member.getFamilyMember().getId());
 
-                //to tackle a situation where both family head is false and family head is not present in the system for the family.
-                Boolean dontInsertMemberBeforeFamilyHead = Boolean.FALSE;
-                if (!isFamilyHeadExistsForFamily) {
-                    if (!member.getFamilyHead()) {
-                        dontInsertMemberBeforeFamilyHead = Boolean.TRUE;
-                    }
+                if (!isFamilyHeadExistsForFamily)
+                    member.setFamilyHead(Boolean.TRUE);
+
+                member.getFamilyMember().addMemberForFamily(member);
+                try {
+                    member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                if (!dontInsertMemberBeforeFamilyHead) {
-                    if (!(isFamilyHeadExistsForFamily && member.getFamilyHead())) {
 
-                        member.getFamilyMember().addMemberForFamily(member);
-                        try {
-                            member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId());
+                Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
 
-                        List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId());
-                        Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
+                member.setMemberNo(++memberCountForParish);
 
-                        member.setMemberNo(++memberCountForParish);
+                memberService.addMember(member);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);
 
-                        memberService.addMember(member);
-                        customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);
-                    } else {
-                        customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add a member to the system either a family head in the family already exist Or before adding family admin to the system");
-                    }
-                } else {
-                    customResponse = createErrorMessage(StatusCode.FAILURE, member.getMemberAsPerson().getFullName(), "cannot add a member to the system either a family head in the family already exist Or before adding family admin to the system");
-                }
 
             } else {
                 if (member.getFamilyHead()) {

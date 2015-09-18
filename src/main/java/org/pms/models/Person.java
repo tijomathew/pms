@@ -44,6 +44,7 @@ public class Person implements Serializable {
     @Column(name = "dob", nullable = false)
     private String dateOfBirth;
 
+    @NotEmpty
     @Column(name = "place_of_birth")
     private String placeOfBirth;
 
@@ -333,7 +334,6 @@ public class Person implements Serializable {
         result = 31 * result + lastName.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
         result = 31 * result + placeOfBirth.hashCode();
-        result = 31 * result + nationality.hashCode();
         result = 31 * result + educationQualifications.hashCode();
         return result;
     }

@@ -32,7 +32,7 @@
             loadMassCentreGrid();
 
             <c:if test = "${showForMassCentreAdmin == false}" >
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
         });
@@ -138,7 +138,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="massCentreNo"
-                                                                                                       class="col-sm-2 control-label required">Mass
+                                                                                                       class="col-sm-2 control-label">Mass
                                                                                                     Centre No.</label>
 
                                                                                                 <div class="col-sm-3">
@@ -275,8 +275,8 @@
                                                                                             </div>
 
                                                                                             <div class="form-group">
-                                                                                                <label for="localAddress.addressLineThree"
-                                                                                                       class="col-sm-2 control-label">County</label>
+                                                                                                <label for="localAddress.county"
+                                                                                                       class="col-sm-2 control-label required">County</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input

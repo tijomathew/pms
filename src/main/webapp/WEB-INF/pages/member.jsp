@@ -36,21 +36,24 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                $("#memberAsPerson\\.file").change(function(){
-                    readURL(this);
-                });
+            $("#memberAsPerson\\.file").change(function () {
+                readURL(this);
+            });
 
 
-
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {
+                text: '--Select--',
+                value: '',
+                selected: true
+            })).attr('disabled', true);
             <c:if test="${showForFamilyUser == true}">
             $("#familySelectBox option[value='0']").remove();
             </c:if>
 
             $("#lifeStatus option[value='0']").remove();
-            $("#lifeStatus >option[value=LIVE]").attr("selected","true");
+            $("#lifeStatus >option[value=LIVE]").attr("selected", "true");
             $('#memberAsPersonnationalityTextBox').hide();
 
             backToTop();
@@ -128,6 +131,7 @@
 
                     }
                     else if (response.statusCode == 'SUCCESS') {
+                        jQuery('#panelDiv').hide(500);
                         jQuery.jqGrowl.timeout = 2000;
                         jQuery.jqGrowl.init({right: '8px', bottom: '', top: '8px', left: ''});
                         jQuery.jqGrowl.msg(response.customErrorMessages[0].fieldName + ' ' + response.customErrorMessages[0].message, 'SUCCESS');
@@ -141,7 +145,7 @@
                         $('#memberAsPersonnationalityTextBox').hide();
                         jQuery('#memberGrid').trigger('reloadGrid');
                         $('ul.nav-tabs').find('span').removeClass('tabErrorHighlight');
-                        $('ul.nav-tabs').find('span').stop(true,true).css('opacity', 1);
+                        $('ul.nav-tabs').find('span').stop(true, true).css('opacity', 1);
                     }
                     else if (response.statusCode == 'FAILURE') {
                         jQuery.jqGrowl.timeout = 2000;
@@ -290,7 +294,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="memberNo"
-                                                                                                       class="col-sm-2 control-label required">Member
+                                                                                                       class="col-sm-2 control-label">Member
                                                                                                     Number</label>
 
                                                                                                 <div class="col-sm-3">
@@ -378,13 +382,15 @@
                                                                                                             items="${relationshipInFamily}">
                                                                                                     </form:select>
                                                                                                 </div>
-                                                                                                <label for="familyHead"
-                                                                                                       class="col-sm-2 control-label">Family
-                                                                                                    Head</label>
+                                                                                                <div id="familyHeadDiv">
+                                                                                                    <label for="familyHead"
+                                                                                                           class="col-sm-2 control-label">Family
+                                                                                                        Head</label>
 
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:checkbox
-                                                                                                            path="familyHead"/>
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <form:checkbox
+                                                                                                                path="familyHead"/>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
@@ -454,7 +460,7 @@
                                                                                                             id="memberAsPersonnationalityTextBox"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.educationQualifications"
-                                                                                                       class="col-sm-2 control-label">Education
+                                                                                                       class="col-sm-2 control-label required">Education
                                                                                                     Qualifications</label>
 
                                                                                                 <div class="col-sm-3">
@@ -476,7 +482,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.bloodGroup"
-                                                                                                       class="col-sm-2 control-label">Blood
+                                                                                                       class="col-sm-2 control-label required">Blood
                                                                                                     Group</label>
 
                                                                                                 <div class="col-sm-3">
@@ -526,7 +532,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label for="registeredDate"
-                                                                                                       class="col-sm-2 control-label required">Registered
+                                                                                                       class="col-sm-2 control-label">Registered
                                                                                                     Date</label>
 
                                                                                                 <div class="col-sm-3">
@@ -547,7 +553,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="memberAsPerson.email"
-                                                                                                       class="col-sm-2 control-label">Email</label>
+                                                                                                       class="col-sm-2 control-label required">Email</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -556,7 +562,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.mobileNo"
-                                                                                                       class="col-sm-2 control-label">Mobile
+                                                                                                       class="col-sm-2 control-label required">Mobile
                                                                                                     No.</label>
 
                                                                                                 <div class="col-sm-3">
@@ -1248,10 +1254,16 @@
                                                                                 <div class="tab-pane" id="member11">
 
                                                                                     <div class="col-md-12">
-                                                                                        <div class="panel" style="width:420px; margin: 0 auto">
+                                                                                        <div class="panel"
+                                                                                             style="width:420px; margin: 0 auto">
                                                                                             <div class="form-group">
-                                                                                                <label for="memberAsPerson.file" class="col-sm-2 control-label" style="width: 105px;padding-top: 54px;padding-bottom: 50px;">Upload Photo</label>
-                                                                                                <div class="col-sm-3" style="width: 135px;overflow: hidden;padding-top: 45px;">
+                                                                                                <label for="memberAsPerson.file"
+                                                                                                       class="col-sm-2 control-label"
+                                                                                                       style="width: 105px;padding-top: 54px;padding-bottom: 50px;">Upload
+                                                                                                    Photo</label>
+
+                                                                                                <div class="col-sm-3"
+                                                                                                     style="width: 135px;overflow: hidden;padding-top: 45px;">
 
 
                                                                                                     <span class="btn btn-primary btn-file">
@@ -1271,13 +1283,23 @@
 
 
                                                                                                 </div>
-                                                                                                <div class="col-sm-3" style="width: auto;">
+                                                                                                <div class="col-sm-3"
+                                                                                                     style="width: auto;">
 
-                                                                                                    <div class="thumbnail" style="padding-top: 4px;display:none;" id="thumbnail">
-                                                                                                        <div class="caption text-center" style="padding: 0;" id="imagePreviewHeader">
-                                                                                                            <h4 style="margin: 0;">Preview</h4>
+                                                                                                    <div class="thumbnail"
+                                                                                                         style="padding-top: 4px;display:none;"
+                                                                                                         id="thumbnail">
+                                                                                                        <div class="caption text-center"
+                                                                                                             style="padding: 0;"
+                                                                                                             id="imagePreviewHeader">
+                                                                                                            <h4 style="margin: 0;">
+                                                                                                                Preview</h4>
                                                                                                         </div>
-                                                                                                        <img id="ItemPreview" src="" alt="Upload Image" class="img-rounded" style="height: 84px;" />
+                                                                                                        <img id="ItemPreview"
+                                                                                                             src=""
+                                                                                                             alt="Upload Image"
+                                                                                                             class="img-rounded"
+                                                                                                             style="height: 84px;"/>
                                                                                                     </div>
 
                                                                                                 </div>

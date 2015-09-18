@@ -33,30 +33,8 @@
         </li>
         <li>
             <a href="#" class="username">
-                <span class="hidden-xs usernameBold">${loggedInUserEmail} <!--<i class="fa fa-caret-down"></i>--></span>
-                <spring:url value="/resources/images/dangerfield.png" var="dangerimageURL"/>
-                <!--<img src="${dangerimageURL}" alt="Dangerfield"/>-->
+                <span class="hidden-xs usernameBold">${loggedInUserEmail}</span>
             </a>
-            <!--<ul class="dropdown-menu userinfo arrow">
-                <li class="username">
-                    <a href="#">
-                        <div class="pull-left"><img src="${dangerimageURL}" alt="Jeff Dangerfield"/></div>
-                        <div class="pull-right"><h5>${loggedInUserEmail}</h5>
-                            <small>Logged in as <span>${loggedInUserEmail}</span></small>
-                        </div>
-                    </a>
-                </li>
-                <li class="userlinks">
-                    <ul class="dropdown-menu">
-                        <li class="text-right">
-                            <form:form method="post" action="loggedout.action" >
-                            <input type="submit" class="btn btn-primary defaultButtonWidth" id="logoutButton" value="Sign Out"></input>
-                            </form:form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            -->
         </li>
 
 

@@ -32,7 +32,7 @@
             </c:if>
 
             <c:if test = "${((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
         });
@@ -131,9 +131,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="prayerUnitName"
-                                                                                                       class="col-sm-2 control-label required">Prayer
-                                                                                                    Unit
-                                                                                                    Name</label>
+                                                                                                       class="col-sm-2 control-label required">Name</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -157,9 +155,7 @@
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label for="prayerUnitPlace"
-                                                                                                       class="col-sm-2 control-label required">Prayer
-                                                                                                    Unit
-                                                                                                    Place</label>
+                                                                                                       class="col-sm-2 control-label required">Place</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -168,7 +164,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="mappedParish"
-                                                                                                       class="col-sm-2 control-label">Parish</label>
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:select

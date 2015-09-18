@@ -35,7 +35,7 @@
             </c:if>
 
             <c:if test = "${((showForPrayerUnitAdmin == true && showForFamilyUser==false) && (showForPrayerUnitAdmin == false && showForFamilyUser==true))}" >
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '0', selected: true})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
             loadFamilyGrid();
@@ -206,7 +206,7 @@
                                                                                                             id="parishSelectBox"></form:select>
                                                                                                 </div>
                                                                                                 <label for="familyMassCentre"
-                                                                                                       class="col-sm-2 control-label">Mass
+                                                                                                       class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>
 
                                                                                                 <div class="col-sm-3">
@@ -321,7 +321,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="localAddress.postCode"
-                                                                                                       class="col-sm-2 control-label required">Eire/Post
+                                                                                                       class="col-sm-2 control-label">Eire/Post
                                                                                                     Code</label>
 
                                                                                                 <div class="col-sm-3">
@@ -331,7 +331,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="localAddress.country"
-                                                                                                       class="col-sm-2 control-label required">Country</label>
+                                                                                                       class="col-sm-2 control-label">Country</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -362,7 +362,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="nativeAddress.addressLineTwo"
-                                                                                                       class="col-sm-2 control-label required">Address
+                                                                                                       class="col-sm-2 control-label">Address
                                                                                                     Line
                                                                                                     2</label>
 
@@ -400,7 +400,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="nativeAddress.district"
-                                                                                                       class="col-sm-2 control-label">District</label>
+                                                                                                       class="col-sm-2 control-label required">District</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -409,7 +409,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="nativeAddress.state"
-                                                                                                       class="col-sm-2 control-label">State</label>
+                                                                                                       class="col-sm-2 control-label required">State</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -450,7 +450,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="emergencyContact.nameAddress"
-                                                                                                       class="col-sm-2 control-label">Name
+                                                                                                       class="col-sm-2 control-label required">Name
                                                                                                     & Address</label>
 
                                                                                                 <div class="col-sm-3">
@@ -460,7 +460,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="emergencyContact.phoneNo"
-                                                                                                       class="col-sm-2 control-label">Phone
+                                                                                                       class="col-sm-2 control-label required">Phone
                                                                                                     No</label>
 
                                                                                                 <div class="col-sm-3">

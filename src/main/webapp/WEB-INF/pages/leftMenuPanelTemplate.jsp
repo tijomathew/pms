@@ -10,7 +10,6 @@
 
 
 <nav id="page-leftbar" role="navigation">
-    <!-- BEGIN SIDEBAR MENU -->
 
     <c:if test="${showForAdmin == true}">
         <ul class="acc-menu" id="sidebar">
@@ -102,8 +101,7 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
-           <%-- <li class="divider"></li>--%>
         </ul>
     </c:if>
-    <!-- END SIDEBAR MENU -->
+
 </nav>
