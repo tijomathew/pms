@@ -79,7 +79,9 @@ public class MemberController extends AbstractErrorAndGridHandler {
 
                 member.getFamilyMember().addMemberForFamily(member);
                 try {
-                    member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                    if (member.getMemberAsPerson().getFile() != null) {
+                        member.getMemberAsPerson().setImageBytes(member.getMemberAsPerson().getFile().getBytes());
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

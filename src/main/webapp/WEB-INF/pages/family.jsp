@@ -122,6 +122,12 @@
                                                                                             class="hidden-xs">Native Address</span></a>
                                                                                 </li>
                                                                                 <li>
+                                                                                    <a href="#family5"
+                                                                                       data-toggle="tab"><i
+                                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
+                                                                                            class="hidden-xs">Primary Contact</span></a>
+                                                                                </li>
+                                                                                <li>
                                                                                     <a href="#family4"
                                                                                        data-toggle="tab"><i
                                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
@@ -488,6 +494,33 @@
                                                                                                     <form:input
                                                                                                             path="emergencyContact.email"
                                                                                                             id="emergencyContactemail"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="tab-pane" id="family5">
+
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="panel">
+                                                                                            <div class="form-group">
+                                                                                                <label for="email"
+                                                                                                       class="col-sm-2 control-label required">Email</label>
+
+                                                                                                <div class="col-sm-3">
+                                                                                                    <form:input
+                                                                                                            path="email"
+                                                                                                            id="email"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
+                                                                                                <label for="mobileNo"
+                                                                                                       class="col-sm-2 control-label required">Mobiel No</label>
+
+                                                                                                <div class="col-sm-3">
+                                                                                                    <form:input
+                                                                                                            path="mobileNo"
+                                                                                                            id="mobileNo"
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                             </div>

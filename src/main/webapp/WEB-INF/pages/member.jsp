@@ -558,7 +558,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="memberAsPerson.email"
-                                                                                                       class="col-sm-2 control-label required">Email</label>
+                                                                                                       class="col-sm-2 control-label">Email</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -567,7 +567,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.mobileNo"
-                                                                                                       class="col-sm-2 control-label required">Mobile
+                                                                                                       class="col-sm-2 control-label">Mobile
                                                                                                     No.</label>
 
                                                                                                 <div class="col-sm-3">

@@ -3,11 +3,13 @@ package org.pms.models;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,16 @@ public class Family implements Serializable {
     @NotEmpty
     @Column(name = "date_of_registration", nullable = false)
     private String dateOfRegistration;
+
+    @Email
+    @NotEmpty
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @NotEmpty
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
+    @Column(name = "mobile_no", nullable = false)
+    private String mobileNo;
 
     @Valid
     @NotNull
@@ -187,6 +199,22 @@ public class Family implements Serializable {
 
     public void setMemberList(List<Member> memberList) {
         this.memberList = memberList;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     /**

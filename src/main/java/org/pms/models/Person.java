@@ -63,13 +63,10 @@ public class Person implements Serializable {
     private PersonalStatus personalStatus;
 
     @Email
-    @NotEmpty
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @NotEmpty
-    @Pattern(regexp = "(^[0-9]{10,15}$)")
-    @Column(name = "mobile_no", nullable = false)
+    @Column(name = "mobile_no")
     private String mobileNo;
 
     @Column(name = "land_no")
