@@ -159,7 +159,7 @@
                     <form:form modelAttribute="loginUser" action="${pageContext.request.contextPath}/loggedin.action"
                                id="loginForm1">
                         <c:if test="${not empty showURLAccessDenied}">
-                            <span class="alert alert-danger accessDenied">${showURLAccessDenied}</span>
+                            <span class="alert alert-danger accessDenied" id="customErrorSpan">${showURLAccessDenied}</span>
                         </c:if>
                         <form:errors class="alert alert-danger" role="alert" id="loginErrorDisplay"></form:errors>
 

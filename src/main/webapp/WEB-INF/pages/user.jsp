@@ -38,12 +38,26 @@
             loadUserGrid();
 
             <c:if test = "${showForPrayerUnitAdmin == true}" >
-            $('form select#familySelectBox').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
+            $('form select#familySelectBox').prepend($('<option/>', {
+                text: '--Select--',
+                value: '',
+                selected: true
+            })).attr('disabled', true);
             </c:if>
 
             <c:if test = "${showForPrayerUnitAdmin == false}" >
             loadSelectBox("${pageContext.request.contextPath}");
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
+            $('form select').prepend($('<option/>', {
+                text: '--Select--',
+                value: '',
+                selected: true
+            })).attr('disabled', true);
+            </c:if>
+
+            $("#isActive option[value='ACTIVE']").attr('selected', true);
+
+            <c:if test = "${showForParishAdmin == true}" >
+            $("#systemRole option[value='FAMILY_USER']").attr('selected', true);
             </c:if>
 
             function reactiveAdminsComboBox() {
@@ -196,7 +210,8 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="isActive"
-                                                                                                       class="col-sm-2 control-label required">Active</label>
+                                                                                                       class="col-sm-2 control-label required">User
+                                                                                                    Status</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:select

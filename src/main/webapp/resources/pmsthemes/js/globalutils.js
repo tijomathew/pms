@@ -168,7 +168,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find(':input').removeAttr('disabled');
 
             $('#' + formId).find(':input')
-                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry,#lifeStatus')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry,#lifeStatus,#isActive,#parishSelectBox,#massCentreSelectBox,#prayerUnitSelectBox')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');

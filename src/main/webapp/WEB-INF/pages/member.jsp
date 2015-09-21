@@ -58,11 +58,20 @@
 
             backToTop();
 
-            $('#memberAsPersondateOfBirth').datepicker({
+            $('#memberAsPersondateOfBirth, #dateOfBaptism, #dateOfConfirmation, #dateOfFirstCommunion, #dateOfBetrothal, #dateOfMarriage, #dateOfDeath, #funeralDate').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 format: 'dd-mm-yyyy',
                 endDate: '+0d',
+                onClose: function () {
+                    $(this).valid();
+                }
+            });
+
+            $('#patronSaintFeastDay').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd MM',
                 onClose: function () {
                     $(this).valid();
                 }
@@ -383,8 +392,15 @@
                                                                                                     <form:select
                                                                                                             path="relationshipInFamily"
                                                                                                             id="relationshipInFamily"
-                                                                                                            class="form-control toCaps"
-                                                                                                            items="${relationshipInFamily}">
+                                                                                                            class="form-control toCaps">
+                                                                                                        <form:option value="HUSBAND">Husband</form:option>
+                                                                                                        <form:option value="WIFE">Wife</form:option>
+                                                                                                        <form:option value="SON">Son</form:option>
+                                                                                                        <form:option value="DAUGHTER">Daughter</form:option>
+                                                                                                        <form:option value="FATHER">Father</form:option>
+                                                                                                        <form:option value="MOTHER">Mother</form:option>
+                                                                                                        <form:option value="GRANDFATHER">Grand Father</form:option>
+                                                                                                        <form:option value="GRANDMOTHER">Grand Mother</form:option>
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <div id="familyHeadDiv">
@@ -439,8 +455,13 @@
                                                                                                     <form:select
                                                                                                             path="memberAsPerson.personalStatus"
                                                                                                             id="personalStatus"
-                                                                                                            class="form-control toCaps"
-                                                                                                            items="${personalStatus}">
+                                                                                                            class="form-control toCaps">
+                                                                                                        <form:option value="MARRIED">Married</form:option>
+                                                                                                        <form:option value="STUDENT">Student</form:option>
+                                                                                                        <form:option value="SINGLE">Single</form:option>
+                                                                                                        <form:option value="PRIEST">Priest</form:option>
+                                                                                                        <form:option value="DIVORCED">Divorced</form:option>
+                                                                                                        <form:option value="OTHER">Other</form:option>
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
@@ -454,7 +475,7 @@
                                                                                                             id="memberAsPersonnationality"
                                                                                                             class="form-control">
                                                                                                         <form:option
-                                                                                                                value="Indian">Indian</form:option>
+                                                                                                                value="Indian">India</form:option>
                                                                                                         <form:option
                                                                                                                 value="Ireland">Ireland</form:option>
                                                                                                         <form:option
@@ -622,7 +643,7 @@
                                                                                                             class="form-control date"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfBaptism"
-                                                                                                       class="col-sm-2 control-label">Place/Church
+                                                                                                       class="col-sm-2 control-label required">Place/Church
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -636,7 +657,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="countryOfBaptism"
-                                                                                                       class="col-sm-2 control-label">Country
+                                                                                                       class="col-sm-2 control-label required">Country
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -647,7 +668,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="baptismName"
-                                                                                                       class="col-sm-2 control-label">Baptism
+                                                                                                       class="col-sm-2 control-label required">Baptism
                                                                                                     Name</label>
 
                                                                                                 <div class="col-sm-3">
@@ -660,7 +681,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="ministerOfBaptism"
-                                                                                                       class="col-sm-2 control-label">Minister
+                                                                                                       class="col-sm-2 control-label required">Minister
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -671,7 +692,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="baptismGodFather"
-                                                                                                       class="col-sm-2 control-label">God
+                                                                                                       class="col-sm-2 control-label required">God
                                                                                                     Father</label>
 
                                                                                                 <div class="col-sm-3">
@@ -684,7 +705,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="baptismGodMother"
-                                                                                                       class="col-sm-2 control-label">God
+                                                                                                       class="col-sm-2 control-label required">God
                                                                                                     Mother</label>
 
                                                                                                 <div class="col-sm-3">
@@ -694,7 +715,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="patronSaint"
-                                                                                                       class="col-sm-2 control-label">Patron
+                                                                                                       class="col-sm-2 control-label required">Patron
                                                                                                     Saint</label>
 
                                                                                                 <div class="col-sm-3">
@@ -1000,7 +1021,7 @@
                                                                                                     Address</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:input
+                                                                                                    <form:textarea
                                                                                                             path="spouseNativeAddress"
                                                                                                             id="spouseNativeAddress"
                                                                                                             class="form-control"/>

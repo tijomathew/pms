@@ -90,7 +90,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
         User loggedInUser;
 
         try {
-            loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
+                loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
             if (loggedInUser != null) {
                 if (loggedInUser.getIsActive() == SystemRolesStatus.ACTIVE) {
                     redirectPageName = loginService.getRedirectPageForLoggedInUser(loggedInUser);
