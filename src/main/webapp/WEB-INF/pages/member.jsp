@@ -433,7 +433,7 @@
                                                                                                     <form:input
                                                                                                             path="memberAsPerson.dateOfBirth"
                                                                                                             id="memberAsPersondateOfBirth"
-                                                                                                            class="form-control"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
@@ -640,7 +640,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfBaptism"
                                                                                                             id="dateOfBaptism"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfBaptism"
                                                                                                        class="col-sm-2 control-label required">Place/Church
@@ -758,7 +758,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfConfirmation"
                                                                                                             id="dateOfConfirmation"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfConfirmation"
                                                                                                        class="col-sm-2 control-label">Place/Church
@@ -840,7 +840,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfFirstCommunion"
                                                                                                             id="dateOfFirstCommunion"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfHolyCommunion"
                                                                                                        class="col-sm-2 control-label">Place/Church
@@ -900,7 +900,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfBetrothal"
                                                                                                             id="dateOfBetrothal"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfBetrothal"
                                                                                                        class="col-sm-2 control-label">Place/Church
@@ -1079,7 +1079,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfMarriage"
                                                                                                             id="dateOfMarriage"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfMarriage"
                                                                                                        class="col-sm-2 control-label">Place/Church
@@ -1149,7 +1149,7 @@
                                                                                                     <form:input
                                                                                                             path="dateOfDeath"
                                                                                                             id="dateOfDeath"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="placeOfDeath"
                                                                                                        class="col-sm-2 control-label">Place
@@ -1173,7 +1173,7 @@
                                                                                                     <form:input
                                                                                                             path="funeralDate"
                                                                                                             id="funeralDate"
-                                                                                                            class="form-control date"/>
+                                                                                                            class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="buriedChurch"
                                                                                                        class="col-sm-2 control-label">Buried

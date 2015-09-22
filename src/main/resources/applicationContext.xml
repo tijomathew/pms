@@ -78,6 +78,13 @@
         </tx:attributes>
     </tx:advice>
 
+
+
+    <aop:aspectj-autoproxy />
+
+    <bean id="customLoggerAspect" class="org.pms.aspectsoflogger.CustomLoggerAspect"/>
+
+
     <aop:config>
         <aop:pointcut id="pmsTransactionalOperation"
                       expression="target(org.springframework.transaction.annotation.Transactional)"/>

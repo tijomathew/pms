@@ -110,6 +110,12 @@
                                                                                             class="hidden-xs">Family Details</span></a>
                                                                                 </li>
                                                                                 <li>
+                                                                                    <a href="#family5"
+                                                                                       data-toggle="tab"><i
+                                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
+                                                                                            class="hidden-xs">Primary Contact</span></a>
+                                                                                </li>
+                                                                                <li>
                                                                                     <a href="#family2"
                                                                                        data-toggle="tab"><i
                                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
@@ -122,16 +128,10 @@
                                                                                             class="hidden-xs">Native Address</span></a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#family5"
-                                                                                       data-toggle="tab"><i
-                                                                                            class="fa fa-comments visible-xs icon-scale"></i><span
-                                                                                            class="hidden-xs">Primary Contact</span></a>
-                                                                                </li>
-                                                                                <li>
                                                                                     <a href="#family4"
                                                                                        data-toggle="tab"><i
                                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
-                                                                                            class="hidden-xs">Emergency Contact Native</span></a>
+                                                                                            class="hidden-xs">Native Emergency Contact</span></a>
                                                                                 </li>
                                                                             </ul>
                                                                         </h4>

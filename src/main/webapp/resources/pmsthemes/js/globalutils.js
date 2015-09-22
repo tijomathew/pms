@@ -208,6 +208,8 @@ function loadDatePicker() {
     $('.date').datepicker({
         autoclose: true,
         todayHighlight: true,
+        format: 'dd-mm-yyyy',
+        endDate: '+0d',
         onClose: function () {
             $(this).valid();
         }

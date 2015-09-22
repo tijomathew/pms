@@ -7,7 +7,9 @@ import org.pms.enums.SystemRolesStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class describes the user's attributes who has login privileges in the system.

@@ -48,10 +48,12 @@
                         $(this).html(cloneElementsToDialog);
                         var $dateFields = $(this).find('input.date');
                         if($dateFields.length) {
-                            $dateFields.datepicker("destroy");
+                          //  $dateFields.datepicker("destroy");
                             $dateFields.datepicker({
                                 autoclose: true,
                                 todayHighlight: true,
+                                format: 'dd-mm-yyyy',
+                                endDate: '+0d',
                                 onClose: function() {$(this).valid();}
                             });
                         }

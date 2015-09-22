@@ -1,6 +1,7 @@
 package org.pms.applicationbuilder;
 
 import org.pms.models.User;
+import org.springframework.core.io.Resource;
 
 /**
  * User: tijo.
@@ -20,5 +21,7 @@ public interface PMSApplicationBuilder {
     void destroyEntireUserSessionMap();
 
     User getUserFromUserSessionMap(String sessionContextKey);
+
+    Resource getResource(String classPath);
 
 }

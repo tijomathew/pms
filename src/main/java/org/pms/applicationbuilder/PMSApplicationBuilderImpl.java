@@ -5,6 +5,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +23,7 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
 
     private ApplicationContext applicationContext;
     private final Map<String, User> userSessionMap;
+    private ResourceLoader resourceLoader;
 
     public PMSApplicationBuilderImpl() {
         userSessionMap = new HashMap<>();
@@ -79,5 +82,14 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public Resource getResource(String classPath) {
+        Resource resource = null;
+        if (!classPath.isEmpty()) {
+            resource = this.applicationContext.getResource(classPath);
+        }
+        return resource;
     }
 }
