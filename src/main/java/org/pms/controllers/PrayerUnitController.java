@@ -47,7 +47,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewprayerunit.action", method = RequestMethod.GET)
-    public String prayerUnitPageDisplay(Model modelMap) {
+    public String viewPrayerUnitPageDisplay(Model modelMap) {
 
         prayerUnitService.createPrayerUnitFormBackObject(modelMap);
 

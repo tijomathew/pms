@@ -35,7 +35,7 @@ public class PriestController extends AbstractErrorAndGridHandler {
     private PriestService priestService;
 
     @RequestMapping(value = "/viewpriest.action", method = RequestMethod.GET)
-    public String priestStaticPageDisplay(Model model) {
+    public String viewPriestPageDisplay(Model model) {
 
         priestService.createPriestFormBackObject(model);
 

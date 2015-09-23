@@ -40,7 +40,7 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewmasscentre.action", method = RequestMethod.GET)
-    public String massCentreDisplay(Model modelMap) {
+    public String viewMassCentreDisplay(Model modelMap) {
 
         massCentreService.createMassCentreFormBackObject(modelMap);
         return PageName.MASSCENTRE.toString();

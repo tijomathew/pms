@@ -53,12 +53,12 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewfamilywelcome.action", method = RequestMethod.GET)
-    public String familyWelcomePageDisplay() {
+    public String viewFamilyWelcomePageDisplay() {
         return PageName.FAMILYWELCOME.toString();
     }
 
     @RequestMapping(value = "/viewfamily.action", method = RequestMethod.GET)
-    public String familyPageDisplay(Model model) {
+    public String viewFamilyPageDisplay(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         factorySelectBox.generateSelectBoxInModel(model, currentUser);
         return PageName.FAMILY.toString();

@@ -60,7 +60,7 @@ public class UserController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
-    public String usersPageDisplay(Model model) {
+    public String viewUsersPageDisplay(Model model) {
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         userService.createUserFormBackObject(model, currentUser);

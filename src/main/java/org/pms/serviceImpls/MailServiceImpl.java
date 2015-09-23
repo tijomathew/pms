@@ -33,7 +33,7 @@ public class MailServiceImpl implements MailService {
             //mailMsg.setFrom("pin2pms2015@gmail.com");
             mailMsg.setTo(registeredUser.getEmail());
             mailMsg.setSubject("Password to login to the Parish Management Software System in Ireland!!..");
-            mailMsg.setText("Password:- " + registeredUser.getPassword());
+            mailMsg.setText("Link:- http://54.195.240.25:8080/pms \nPassword:- " + registeredUser.getPassword());
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             System.out.println("---Errorrr from Mail Sending---");

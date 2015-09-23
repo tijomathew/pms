@@ -36,7 +36,7 @@ public class ParishController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
-    public String parishPageDisplay(Model model) {
+    public String viewParishPageDisplay(Model model) {
         Parish modelBackObject = new Parish();
         modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("parish", modelBackObject);

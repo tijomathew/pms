@@ -16,7 +16,9 @@ import org.pms.enums.SystemRole;
 import org.pms.helpers.PMSRequestResponseHolder;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.User;
+import org.pms.models.UserSessionBasedURLLogger;
 import org.pms.models.UserSessionLogger;
+import org.pms.services.UserSessionBasedURLLoggerService;
 import org.pms.services.UserSessionLoggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -38,6 +40,9 @@ public class CustomLoggerAspect {
 
     @Autowired
     UserSessionLoggerService userSessionLoggerService;
+
+    @Autowired
+    UserSessionBasedURLLoggerService userSessionBasedURLLoggerService;
 
     @AfterReturning("execution(* org.pms.controllers.LoginController.verifyUser(..))")
     public void getAdviceForLogin() {
@@ -84,9 +89,38 @@ public class CustomLoggerAspect {
             userSessionLogger.setRemark("Logout");
             userSessionLoggerService.updateUserSessionLogger(userSessionLogger);
             requestResponseHolder.removeAttributeFromSession("userSessionLog");
+            requestResponseHolder.removeAttributeFromSession("userSessionBasedURLLog");
         }
     }
 
+    @Before("execution(* view*(..))")
+    public void getAdviceForAllViewURLS() {
+        if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class) != null) {
+            UserSessionLogger userSessionLogger = requestResponseHolder.getAttributeFromSession("userSessionLog", UserSessionLogger.class);
+            UserSessionBasedURLLogger userSessionBasedURLLogger = null;
+
+            if (requestResponseHolder.getAttributeFromSession("userSessionBasedURLLog", UserSessionBasedURLLogger.class) != null) {
+                userSessionBasedURLLogger = requestResponseHolder.getAttributeFromSession("userSessionBasedURLLog", UserSessionBasedURLLogger.class);
+            }
+
+            if (userSessionBasedURLLogger == null) {
+                userSessionBasedURLLogger = getAndSaveNewInstanceForUserSessionBasedURLLogger(userSessionLogger);
+            } else {
+                if (!userSessionBasedURLLogger.getVisitedURL().equals(requestResponseHolder.getCurrentRequest().getRequestURI())) {
+                    userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime().getMillis());
+                    Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionBasedURLLogger.getUrlVisitInitTime()), getDateTime(userSessionBasedURLLogger.getUrlVisitEndTime()));
+                    userSessionBasedURLLogger.setTotalSpentTime(totalSpent);
+                    userSessionBasedURLLoggerService.updateUserSessionBasedURLLog(userSessionBasedURLLogger);
+
+                    userSessionBasedURLLogger = getAndSaveNewInstanceForUserSessionBasedURLLogger(userSessionLogger);
+                }
+            }
+
+            requestResponseHolder.setAttributeToSession("userSessionBasedURLLog", userSessionBasedURLLogger);
+
+
+        }
+    }
 
     private DateTime getDateTime(long dateInMillis) {
         Chronology calendar = ISOChronology.getInstance();
@@ -96,7 +130,16 @@ public class CustomLoggerAspect {
     private Double getTimeInHoursAndMinutes(DateTime fromDate, DateTime toDate) {
         Duration duration = new Duration(fromDate, toDate);
         Long totalMinutes = duration.getStandardMinutes();
-        return Double.valueOf(totalMinutes / 60);
+        return Double.valueOf((double) totalMinutes / 60);
+    }
+
+    private UserSessionBasedURLLogger getAndSaveNewInstanceForUserSessionBasedURLLogger(UserSessionLogger userSessionLogger) {
+        UserSessionBasedURLLogger newInstance = new UserSessionBasedURLLogger();
+        newInstance.setUrlVisitInitTime(new DateTime().getMillis());
+        newInstance.setVisitedURL(requestResponseHolder.getCurrentRequest().getRequestURI());
+        newInstance.setUserSessionLogger(userSessionLogger);
+        userSessionBasedURLLoggerService.addUserSessionBasedURLLog(newInstance);
+        return newInstance;
     }
 }
 

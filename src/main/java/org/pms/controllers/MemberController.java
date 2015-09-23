@@ -48,7 +48,7 @@ public class MemberController extends AbstractErrorAndGridHandler {
     private FactorySelectBox factorySelectBox;
 
     @RequestMapping(value = "/viewmember.action", method = RequestMethod.GET)
-    public String memberPageDisplay(Model model) {
+    public String viewMemberPageDisplay(Model model) {
         Member modelObjectMember = new Member();
         modelObjectMember.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("member", modelObjectMember);

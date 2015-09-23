@@ -19,10 +19,10 @@ public class UserSessionBasedURLLogger implements Serializable {
     private Long id;
 
     @Column(name = "init_time")
-    private DateTime urlVisitInitTime;
+    private Long urlVisitInitTime;
 
     @Column(name = "end_time")
-    private DateTime urlVisitEndTime;
+    private Long urlVisitEndTime;
 
     @Column(name = "total_spent_time")
     private Double totalSpentTime;
@@ -41,19 +41,19 @@ public class UserSessionBasedURLLogger implements Serializable {
         return id;
     }
 
-    public DateTime getUrlVisitInitTime() {
+    public Long getUrlVisitInitTime() {
         return urlVisitInitTime;
     }
 
-    public void setUrlVisitInitTime(DateTime urlVisitInitTime) {
+    public void setUrlVisitInitTime(Long urlVisitInitTime) {
         this.urlVisitInitTime = urlVisitInitTime;
     }
 
-    public DateTime getUrlVisitEndTime() {
+    public Long getUrlVisitEndTime() {
         return urlVisitEndTime;
     }
 
-    public void setUrlVisitEndTime(DateTime urlVisitEndTime) {
+    public void setUrlVisitEndTime(Long urlVisitEndTime) {
         this.urlVisitEndTime = urlVisitEndTime;
     }
 
