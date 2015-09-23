@@ -139,7 +139,7 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-edit",
         onClickButton: function () {
-
+            $('#passwordDiv').hide();
             if (!jQuery("#" + gridId).jqGrid('getGridParam', 'selrow')) {
                 $.jgrid.viewModal("#alertmod_" + this.id, {toTop: true, jqm: true});
             }
@@ -157,6 +157,7 @@ function addJqgridCustomButtons(gridId, formId) {
         caption: "",
         buttonicon: "ui-icon-add",
         onClickButton: function () {
+            $('#passwordDiv').show();
             jQuery('#panelDiv').show(500);
             $('#loadProgresser').addClass('hideLoader');
             $('#panelDiv').removeClass('hidedisplay');

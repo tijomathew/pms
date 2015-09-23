@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.joda.time.Chronology;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.chrono.ISOChronology;
 import org.pms.applicationbuilder.PMSApplicationBuilder;
@@ -57,7 +58,7 @@ public class CustomLoggerAspect {
                 UserSessionLogger userSessionLogger = new UserSessionLogger();
                 userSessionLogger.setAccessedIP(requestResponseHolder.getCurrentRequest().getRemoteAddr());
                 userSessionLogger.setUserAgent(requestResponseHolder.getCurrentRequest().getHeader("User-Agent"));
-                userSessionLogger.setLoginTime(new DateTime().getMillis());
+                userSessionLogger.setLoginTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
                 userSessionLogger.setSessionLogMappedUser(currentUser);
                 if (locationServices != null) {
                     userSessionLogger.setCity(locationServices.city);
@@ -83,7 +84,7 @@ public class CustomLoggerAspect {
     public void getAdviceForLogout() {
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class) != null) {
             UserSessionLogger userSessionLogger = requestResponseHolder.getAttributeFromSession("userSessionLog", UserSessionLogger.class);
-            userSessionLogger.setLogoutTime(new DateTime().getMillis());
+            userSessionLogger.setLogoutTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
             Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionLogger.getLoginTime()), getDateTime(userSessionLogger.getLogoutTime()));
             userSessionLogger.setTotalTimeSpent(totalSpent);
             userSessionLogger.setRemark("Logout");
@@ -107,7 +108,7 @@ public class CustomLoggerAspect {
                 userSessionBasedURLLogger = getAndSaveNewInstanceForUserSessionBasedURLLogger(userSessionLogger);
             } else {
                 if (!userSessionBasedURLLogger.getVisitedURL().equals(requestResponseHolder.getCurrentRequest().getRequestURI())) {
-                    userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime().getMillis());
+                    userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
                     Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionBasedURLLogger.getUrlVisitInitTime()), getDateTime(userSessionBasedURLLogger.getUrlVisitEndTime()));
                     userSessionBasedURLLogger.setTotalSpentTime(totalSpent);
                     userSessionBasedURLLoggerService.updateUserSessionBasedURLLog(userSessionBasedURLLogger);
@@ -123,7 +124,7 @@ public class CustomLoggerAspect {
     }
 
     private DateTime getDateTime(long dateInMillis) {
-        Chronology calendar = ISOChronology.getInstance();
+        Chronology calendar = ISOChronology.getInstance(DateTimeZone.UTC);
         return new DateTime(dateInMillis, calendar);
     }
 
@@ -135,7 +136,7 @@ public class CustomLoggerAspect {
 
     private UserSessionBasedURLLogger getAndSaveNewInstanceForUserSessionBasedURLLogger(UserSessionLogger userSessionLogger) {
         UserSessionBasedURLLogger newInstance = new UserSessionBasedURLLogger();
-        newInstance.setUrlVisitInitTime(new DateTime().getMillis());
+        newInstance.setUrlVisitInitTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
         newInstance.setVisitedURL(requestResponseHolder.getCurrentRequest().getRequestURI());
         newInstance.setUserSessionLogger(userSessionLogger);
         userSessionBasedURLLoggerService.addUserSessionBasedURLLog(newInstance);

@@ -2,8 +2,19 @@ package org.pms.sessionmanager;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.Chronology;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.chrono.ISOChronology;
 import org.pms.applicationbuilder.PMSApplicationBuilder;
 import org.pms.applicationbuilder.PMSApplicationBuilderImpl;
+import org.pms.models.UserSessionBasedURLLogger;
+import org.pms.models.UserSessionLogger;
+import org.pms.serviceImpls.UserSessionBasedURLLoggerServiceImpl;
+import org.pms.serviceImpls.UserSessionLoggerServiceImpl;
+import org.pms.services.UserSessionBasedURLLoggerService;
+import org.pms.services.UserSessionLoggerService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -39,11 +50,29 @@ public class PMSSessionManager implements HttpSessionListener {
         if (springContext != null) {
             PMSApplicationBuilder pmsApplicationBuilder = springContext.getBean(PMSApplicationBuilderImpl.class);
             if (pmsApplicationBuilder != null) {
-                System.out.println("Inside the session destroy function call!!..");
+                if (se.getSession().getAttribute("userSessionLog") != null && se.getSession().getAttribute("userSessionBasedURLLog") != null) {
+                    ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(se.getSession().getServletContext());
+
+                    UserSessionLogger userSessionLogger = (UserSessionLogger) se.getSession().getAttribute("userSessionLog");
+                    userSessionLogger.setLogoutTime(new DateTime().getMillis());
+                    Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionLogger.getLoginTime()), getDateTime(userSessionLogger.getLogoutTime()));
+                    userSessionLogger.setTotalTimeSpent(totalSpent);
+                    userSessionLogger.setRemark("Session Expired");
+                    UserSessionLoggerService userSessionLoggerService = (UserSessionLoggerService) applicationContext.getBean("userSessionLoggerServiceImpl");
+                    userSessionLoggerService.updateUserSessionLogger(userSessionLogger);
+
+
+                    UserSessionBasedURLLogger userSessionBasedURLLogger = (UserSessionBasedURLLogger) se.getSession().getAttribute("userSessionBasedURLLog");
+                    userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime().getMillis());
+                    Double totalSpentInUrl = getTimeInHoursAndMinutes(getDateTime(userSessionBasedURLLogger.getUrlVisitInitTime()), getDateTime(userSessionBasedURLLogger.getUrlVisitEndTime()));
+                    userSessionBasedURLLogger.setTotalSpentTime(totalSpentInUrl);
+
+                    UserSessionBasedURLLoggerService userSessionBasedURLLoggerService = (UserSessionBasedURLLoggerService) applicationContext.getBean("userSessionBasedURLLoggerServiceImpl");
+                    userSessionBasedURLLoggerService.updateUserSessionBasedURLLog(userSessionBasedURLLogger);
+                }
                 String sessionContextKey = (String) se.getSession().getAttribute(PMS_APPLICATION_SESSION);
                 if (StringUtils.isNotBlank(sessionContextKey)) {
                     try {
-                        System.out.println("session context key is not blank!!..");
                         if (pmsApplicationBuilder.isUserSessionActive(sessionContextKey)) {
                             pmsApplicationBuilder.destroyUserSessionFromSessionMap(sessionContextKey);
                             System.out.println("session context key is destroyed!!..");
@@ -66,5 +95,16 @@ public class PMSSessionManager implements HttpSessionListener {
             System.out.println("Spring's web application context(bean factory named as applicationContext.xml) required for accessing PMS application is not available at this time!");
         }
         return springContext;
+    }
+
+    private DateTime getDateTime(long dateInMillis) {
+        Chronology calendar = ISOChronology.getInstance();
+        return new DateTime(dateInMillis, calendar);
+    }
+
+    private Double getTimeInHoursAndMinutes(DateTime fromDate, DateTime toDate) {
+        Duration duration = new Duration(fromDate, toDate);
+        Long totalMinutes = duration.getStandardMinutes();
+        return Double.valueOf((double) totalMinutes / 60);
     }
 }

@@ -74,63 +74,81 @@ public class UserController extends AbstractErrorAndGridHandler {
         boolean insertUser = false;
         boolean userEmailAlreadyExists = true;
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        user.setCreatedBy(currentUser.getEmail());
-        user.setUpdatedBy(currentUser.getEmail());
-        user.setCreatedOn(getCurrentDate());
-        user.setUpdatedOn(getCurrentDate());
-        String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            user.setPassword(generatedPassword);
-        }
-        String passwordBeforeHashing = user.getPassword();
-        user.setPassword(DigestUtils.shaHex(user.getPassword()));
-
-        User userFromDB = userService.getUserByEmail(user.getEmail());
-
-        if (userFromDB == null) {
-            userEmailAlreadyExists = false;
-        }
-
-        // A single user must have single role in the system. A single user cannot act as multiple role in the system.
-
-        if (!userEmailAlreadyExists) {
-            if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
-                if (user.getUsersOfParishes() != null) {
-                    insertUser = true;
-                }
-            } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                if (user.getUsersOfMassCentres() != null) {
-                    insertUser = true;
-                }
-            } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
-                if (user.getUsersOfPrayerUnits() != null) {
-                    insertUser = true;
-                }
-            } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
-                insertUser = true;
+        if (user.getId() == null) {
+            user.setCreatedBy(currentUser.getEmail());
+            user.setUpdatedBy(currentUser.getEmail());
+            user.setCreatedOn(getCurrentDate());
+            user.setUpdatedOn(getCurrentDate());
+            String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                user.setPassword(generatedPassword);
             }
-        }
+            String passwordBeforeHashing = user.getPassword();
+            user.setPassword(DigestUtils.shaHex(user.getPassword()));
 
-        //Insert a User Role only if he is assigned with a single role from UI.
-        if (insertUser && !userEmailAlreadyExists) {
-            userService.addUserSM(user);
-            user.setPassword(passwordBeforeHashing);
-            if (user.getSendMailFlag()) {
-                mailService.sendUserCredentials(user);
+            User userFromDB = userService.getUserByEmail(user.getEmail());
+
+            if (userFromDB == null) {
+                userEmailAlreadyExists = false;
             }
-            customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "loaded to the system");
-        }
 
-        //Error message when user is having multiple roles in the system.
-        if (!insertUser) {
-            //show the error message.
-            customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
-        }
+            // A single user must have single role in the system. A single user cannot act as multiple role in the system.
 
-        //Error message when entered username is already exists from the database.
-        if (userEmailAlreadyExists) {
-            customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
-            //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
+            if (!userEmailAlreadyExists) {
+                if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
+                    if (user.getUsersOfParishes() != null) {
+                        insertUser = true;
+                    }
+                } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
+                    if (user.getUsersOfMassCentres() != null) {
+                        insertUser = true;
+                    }
+                } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
+                    if (user.getUsersOfPrayerUnits() != null) {
+                        insertUser = true;
+                    }
+                } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
+                    insertUser = true;
+                }
+            }
+
+            //Insert a User Role only if he is assigned with a single role from UI.
+            if (insertUser && !userEmailAlreadyExists) {
+                userService.addUserSM(user);
+                user.setPassword(passwordBeforeHashing);
+                if (user.getSendMailFlag()) {
+                    mailService.sendUserCredentials(user);
+                }
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "loaded to the system");
+            }
+
+            //Error message when user is having multiple roles in the system.
+            if (!insertUser) {
+                //show the error message.
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
+            }
+
+            //Error message when entered username is already exists from the database.
+            if (userEmailAlreadyExists) {
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
+                //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
+            }
+        } else {
+            User userFromDB = userService.getUserByEmail(user.getEmail());
+            if (userFromDB.getEmail().equals(user.getEmail())) {
+                user.setPassword(userFromDB.getPassword());
+                user.setCreatedBy(userFromDB.getCreatedBy());
+                user.setCreatedOn(userFromDB.getCreatedOn());
+                user.setUpdatedBy(currentUser.getEmail());
+                user.setUpdatedOn(getCurrentDate());
+                user.setAlreadyLoggedIn(userFromDB.getAlreadyLoggedIn());
+                user.setValidated(userFromDB.getIsValidated());
+                user.setSendMailFlag(userFromDB.getSendMailFlag());
+                userService.updateUser(user);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "updated successfully");
+            } else {
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not edit the email");
+            }
         }
 
         return customResponse;

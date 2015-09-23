@@ -18,7 +18,7 @@ function loadUserGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'usersOfParishes', 'usersOfMassCentres', 'usersOfPrayerUnits', 'userOfFamily'],
+            colNames: ['Email', 'Role', 'Active', 'Parish', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'usersOfParishes', 'usersOfMassCentres', 'usersOfPrayerUnits', 'userOfFamily','id'],
             colModel: [
                 {name: 'email', index: 'email', width: 100, sortable: false},
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
@@ -35,7 +35,7 @@ function loadUserGrid() {
                 {name: 'usersOfMassCentres', index: 'usersOfMassCentres', width: 100, sortable: false, hidden: true},
                 {name: 'usersOfPrayerUnits', index: 'usersOfPrayerUnits', width: 100, sortable: false, hidden: true},
                 {name: 'userOfFamily', index: 'userOfFamily', width: 100, sortable: false, hidden: true},
-
+                {name: 'id', index: 'id', width: 100, sortable: false, hidden: true},
             ],
             rowNum: 10,
             pager: '#userGridPager',
@@ -49,6 +49,7 @@ function loadUserGrid() {
             width: 'auto',
             emptyrecords: 'No data available to show!!..Please add data to view',
             onSelectRow: function () {
+                $('#passwordDiv').hide();
                 $('#userGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#userGrid").jqGrid('getGridParam', 'selrow');

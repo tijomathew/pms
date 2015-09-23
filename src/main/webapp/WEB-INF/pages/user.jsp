@@ -37,6 +37,8 @@
 
             loadUserGrid();
 
+            $('#passwordDiv').show();
+
             <c:if test = "${showForPrayerUnitAdmin == true}" >
             $('form select#familySelectBox').prepend($('<option/>', {
                 text: '--Select--',
@@ -190,7 +192,7 @@
                                                                                    class="form-horizontal nomargin">
 
                                                                             <div class="tab-content">
-
+                                                                                <form:hidden path="id"/>
                                                                                 <div class="tab-pane active" id="user1">
 
                                                                                     <div class="col-md-12">
@@ -217,7 +219,7 @@
                                                                                                     <form:select
                                                                                                             path="isActive"
                                                                                                             id="isActive"
-                                                                                                            class="form-control"
+                                                                                                            class="form-control toCaps"
                                                                                                             items="${systemRoleStatus}">
                                                                                                     </form:select>
                                                                                                 </div>
@@ -288,6 +290,7 @@
                                                                                                             id="email"
                                                                                                             class="form-control"/>
                                                                                                 </div>
+                                                                                                <div id="passwordDiv">
                                                                                                 <label for="password"
                                                                                                        class="col-sm-2 control-label">Password</label>
 
@@ -301,6 +304,7 @@
                                                                                                             path="sendMailFlag"
                                                                                                             checked="true"/>Send
                                                                                                     an email
+                                                                                                </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
