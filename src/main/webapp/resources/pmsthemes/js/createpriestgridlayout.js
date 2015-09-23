@@ -321,7 +321,7 @@ function loadPriestGrid() {
     jQuery("#priestGrid").jqGrid('navGrid', '#priestGridPager', {
         edit: false,
         add: false,
-        del: true,
+        del: false,
         search: true,
         refresh: false
     });

@@ -498,7 +498,7 @@ function loadMemberGrid() {
     replaceDefaultGridCss();
 
     jQuery("#memberGrid").jqGrid('navGrid', '#memberGridPager', {
-        edit: false, add: false, del: true,
+        edit: false, add: false, del: false,
         search: true, refresh: false
     });
 

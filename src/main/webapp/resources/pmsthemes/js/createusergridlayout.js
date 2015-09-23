@@ -57,7 +57,7 @@ function loadUserGrid() {
             }
         });
     jQuery("#userGrid").jqGrid('navGrid', '#userGridPager', {
-        edit: false, add: false, del: true,
+        edit: false, add: false, del: false,
         search: true, refresh: false
     });
 

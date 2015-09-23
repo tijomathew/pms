@@ -242,7 +242,7 @@ function loadFamilyGrid() {
             }
         });
     jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {
-        edit: false, add: false, del: true,
+        edit: false, add: false, del: false,
         search: true, refresh: false
     });
 
