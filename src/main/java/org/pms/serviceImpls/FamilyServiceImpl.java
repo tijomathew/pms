@@ -100,7 +100,7 @@ public class FamilyServiceImpl implements FamilyService {
                 familyList = getAllFamilyForPrayerUnitID(currentUser.getUsersOfPrayerUnits().getId());
                 break;
             case FAMILY_USER:
-                familyList.add(currentUser.getUserOfFamily());
+                familyList.addAll(getFamilyForFamilyID(currentUser.getUserOfFamily().getId()));
                 break;
         }
 

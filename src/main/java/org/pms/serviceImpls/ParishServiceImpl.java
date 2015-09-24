@@ -55,13 +55,13 @@ public class ParishServiceImpl implements ParishService {
                 parishList.addAll(getAllParish());
                 break;
             case PARISH_ADMIN:
-                parishList.add(currentUser.getUsersOfParishes());
+                parishList.add(getParishForIDSM(currentUser.getUsersOfParishes().getId()));
                 break;
             case MASS_CENTER_ADMIN:
-                parishList.add(currentUser.getUsersOfMassCentres().getMappedParish());
+                parishList.add(getParishForIDSM(currentUser.getUsersOfMassCentres().getMappedParish().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
-                parishList.add(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish());
+                parishList.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish().getId()));
                 break;
             case FAMILY_USER:
                 if (currentUser.getUserOfFamily() == null) {

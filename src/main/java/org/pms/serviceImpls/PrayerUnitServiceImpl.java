@@ -137,13 +137,13 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
                 allPrayerUnits.addAll(getAllPrayerUnitsForMassCentreID(currentUser.getUsersOfMassCentres().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
-                allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());
+                allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()));
                 break;
             case FAMILY_USER:
                 if (currentUser.getUserOfFamily() == null) {
-                    allPrayerUnits.add(currentUser.getUsersOfPrayerUnits());
+                    allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()));
                 } else {
-                    allPrayerUnits.add(currentUser.getUserOfFamily().getFamilyPrayerUnit());
+                    allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getId()));
                 }
                 break;
         }
