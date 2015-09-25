@@ -38,7 +38,7 @@
             $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
-            loadFamilyGrid();
+            loadFamilyGrid(${showForAdmin or showForPrayerUnitAdmin or showForParishAdmin or showForMassCentreAdmin});
 
         });
     </script>
@@ -85,7 +85,7 @@
 
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>Families</h4>
+                                                        <h4>Family</h4>
                                                     </div>
 
 

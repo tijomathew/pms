@@ -2,7 +2,7 @@
  * Created by tijo on 6/7/15.
  */
 
-function loadFamilyGrid() {
+function loadFamilyGrid(isAdmin) {
 
     $("#familyGrid").jqGrid(
         {
@@ -239,6 +239,15 @@ function loadFamilyGrid() {
                 var rowId = jQuery("#familyGrid").jqGrid('getGridParam', 'selrow');
                 $('#familyForm').loadJSON(jQuery("#familyGrid").getRowData(rowId));
 
+            },
+            loadComplete: function() {
+               if(!isAdmin) { //to hide 'Add' button if the any record added for a Family and the user is of type 'User'
+                   var $recordCount = jQuery("#familyGrid").jqGrid('getGridParam', 'records');
+                   if($recordCount > 0) {
+                      var $pagerId =  jQuery("#familyGrid")[0].p.pager;
+                       $($pagerId).find("#addButton").remove();
+                   }
+               }
             }
         });
     jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {

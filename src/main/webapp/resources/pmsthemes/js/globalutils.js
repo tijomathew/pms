@@ -156,6 +156,7 @@ function addJqgridCustomButtons(gridId, formId) {
     }).navButtonAdd('#' + gridId + 'Pager', {
         caption: "",
         buttonicon: "ui-icon-add",
+                id: "addButton",
         onClickButton: function () {
             $('#passwordDiv').show();
             jQuery('#panelDiv').show(500);

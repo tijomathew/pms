@@ -11,7 +11,11 @@ html {
 }
 
 body {
-    margin: 0;
+    font-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif";
+    font-size: 13px;
+    line-height: 1.428571429;
+    color: #4d4d4d;
+    background-color: #ffffff;
 }
 
 article,
@@ -18626,7 +18630,7 @@ legend.custom-border {
 /*.ui-jqgrid {font-size:0.8em !important;}*/
 
 .ui-jqgrid tr.jqgrow td {
-    font-size: 0.8em !important;
+    font-size: 13px !important;
 }
 
 /*ul.nav.nav-tabs > li:not(.active){
