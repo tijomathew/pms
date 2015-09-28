@@ -3,19 +3,6 @@
  */
 
 function loadSelectBox(contextPath) {
-    /*$.getJSON(contextPath + '/createparishselectbox.action',
-        {},
-        function (data) {
-            $('#massCentreSelectBox').find('option').remove();
-            $('#prayerUnitSelectBox').find('option').remove();
-            $('#familySelectBox').find('option').remove();
-            var html;
-            var len = data.length;
-            for (var i = 0; i < len; i++) {
-                html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
-            }
-            $('#parishSelectBox').append(html);
-        });*/
     $('#parishSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();
 
@@ -65,7 +52,7 @@ function loadSelectBox(contextPath) {
                     {selectedPrayerUnitId: $('#prayerUnitSelectBox').val()},
                     function (data) {
                         $('#familySelectBox').find('option').remove();
-                        var html;
+                        var html= '<option value="' + 0 + '">' + "--Select--" + '</option>';
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
                             html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';

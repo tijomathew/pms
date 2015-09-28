@@ -2,7 +2,7 @@
  * Created by tijo on 6/7/15.
  */
 
-function loadFamilyGrid(isAdmin) {
+function loadFamilyGrid(isFamilyUser) {
 
     $("#familyGrid").jqGrid(
         {
@@ -19,7 +19,7 @@ function loadFamilyGrid(isAdmin) {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCentre', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail','email','mobileNo'],
+            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCentre', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail', 'email', 'mobileNo'],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 90, sortable: false},
@@ -240,14 +240,14 @@ function loadFamilyGrid(isAdmin) {
                 $('#familyForm').loadJSON(jQuery("#familyGrid").getRowData(rowId));
 
             },
-            loadComplete: function() {
-               if(!isAdmin) { //to hide 'Add' button if the any record added for a Family and the user is of type 'User'
-                   var $recordCount = jQuery("#familyGrid").jqGrid('getGridParam', 'records');
-                   if($recordCount > 0) {
-                      var $pagerId =  jQuery("#familyGrid")[0].p.pager;
-                       $($pagerId).find("#addButton").remove();
-                   }
-               }
+            loadComplete: function () {
+                if (isFamilyUser) { //to hide 'Add' button if the any record added for a Family and the user is of type 'User'
+                    var $recordCount = jQuery("#familyGrid").jqGrid('getGridParam', 'records');
+                    if ($recordCount > 0) {
+                        var $pagerId = jQuery("#familyGrid")[0].p.pager;
+                        $($pagerId).find("#addButton").remove();
+                    }
+                }
             }
         });
     jQuery("#familyGrid").jqGrid('navGrid', '#familyGridPager', {

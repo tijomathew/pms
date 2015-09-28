@@ -38,7 +38,7 @@
             $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
-            loadFamilyGrid(${showForAdmin or showForPrayerUnitAdmin or showForParishAdmin or showForMassCentreAdmin});
+            loadFamilyGrid(${showForFamilyUser});
 
         });
     </script>
