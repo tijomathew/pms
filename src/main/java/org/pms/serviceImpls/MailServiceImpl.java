@@ -32,7 +32,7 @@ public class MailServiceImpl implements MailService {
         try {
             mailMsg.setTo(registeredUser.getEmail());
             mailMsg.setSubject("Username & Password to login to the Parish Management Software System in Ireland!!..");
-            mailMsg.setText("Link:- http://pms.heart4needy.com/pms \nUsername:- " + registeredUser.getEmail() + "\nPassword:- " + registeredUser.getPassword());
+            mailMsg.setText("Link to login :- http://pms.heart4needy.com \n\nUsername:- " + registeredUser.getEmail() + "\n\nPassword:- " + registeredUser.getPassword() + "\n\nThanking you," + "\n\nPin2");
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             System.out.println("---Errorrr from Mail Sending---");
