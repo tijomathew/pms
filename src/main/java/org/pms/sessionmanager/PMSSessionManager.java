@@ -55,17 +55,12 @@ public class PMSSessionManager implements HttpSessionListener {
 
                     UserSessionLogger userSessionLogger = (UserSessionLogger) se.getSession().getAttribute("userSessionLog");
                     userSessionLogger.setLogoutTime(new DateTime().getMillis());
-                    Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionLogger.getLoginTime()), getDateTime(userSessionLogger.getLogoutTime()));
-                    userSessionLogger.setTotalTimeSpent(totalSpent);
                     userSessionLogger.setRemark("Session Expired");
                     UserSessionLoggerService userSessionLoggerService = (UserSessionLoggerService) applicationContext.getBean("userSessionLoggerServiceImpl");
                     userSessionLoggerService.updateUserSessionLogger(userSessionLogger);
 
-
                     UserSessionBasedURLLogger userSessionBasedURLLogger = (UserSessionBasedURLLogger) se.getSession().getAttribute("userSessionBasedURLLog");
                     userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime().getMillis());
-                    Double totalSpentInUrl = getTimeInHoursAndMinutes(getDateTime(userSessionBasedURLLogger.getUrlVisitInitTime()), getDateTime(userSessionBasedURLLogger.getUrlVisitEndTime()));
-                    userSessionBasedURLLogger.setTotalSpentTime(totalSpentInUrl);
 
                     UserSessionBasedURLLoggerService userSessionBasedURLLoggerService = (UserSessionBasedURLLoggerService) applicationContext.getBean("userSessionBasedURLLoggerServiceImpl");
                     userSessionBasedURLLoggerService.updateUserSessionBasedURLLog(userSessionBasedURLLogger);

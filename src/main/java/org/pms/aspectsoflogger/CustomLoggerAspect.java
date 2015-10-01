@@ -56,7 +56,7 @@ public class CustomLoggerAspect {
                 Location locationServices = lookup.getLocation(requestResponseHolder.getCurrentRequest().getRemoteAddr());
 
                 UserSessionLogger userSessionLogger = new UserSessionLogger();
-                userSessionLogger.setAccessedIP(requestResponseHolder.getCurrentRequest().getRemoteAddr());
+                userSessionLogger.setAccessedIP(requestResponseHolder.getCurrentRequest().getHeader("X-Forwarded-For"));
                 userSessionLogger.setUserAgent(requestResponseHolder.getCurrentRequest().getHeader("User-Agent"));
                 userSessionLogger.setLoginTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
                 userSessionLogger.setSessionLogMappedUser(currentUser);
@@ -85,8 +85,6 @@ public class CustomLoggerAspect {
         if (requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class) != null) {
             UserSessionLogger userSessionLogger = requestResponseHolder.getAttributeFromSession("userSessionLog", UserSessionLogger.class);
             userSessionLogger.setLogoutTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
-            Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionLogger.getLoginTime()), getDateTime(userSessionLogger.getLogoutTime()));
-            userSessionLogger.setTotalTimeSpent(totalSpent);
             userSessionLogger.setRemark("Logout");
             userSessionLoggerService.updateUserSessionLogger(userSessionLogger);
             requestResponseHolder.removeAttributeFromSession("userSessionLog");
@@ -109,8 +107,6 @@ public class CustomLoggerAspect {
             } else {
                 if (!userSessionBasedURLLogger.getVisitedURL().equals(requestResponseHolder.getCurrentRequest().getRequestURI())) {
                     userSessionBasedURLLogger.setUrlVisitEndTime(new DateTime(ISOChronology.getInstance(DateTimeZone.UTC)).getMillis());
-                    Double totalSpent = getTimeInHoursAndMinutes(getDateTime(userSessionBasedURLLogger.getUrlVisitInitTime()), getDateTime(userSessionBasedURLLogger.getUrlVisitEndTime()));
-                    userSessionBasedURLLogger.setTotalSpentTime(totalSpent);
                     userSessionBasedURLLoggerService.updateUserSessionBasedURLLog(userSessionBasedURLLogger);
 
                     userSessionBasedURLLogger = getAndSaveNewInstanceForUserSessionBasedURLLogger(userSessionLogger);

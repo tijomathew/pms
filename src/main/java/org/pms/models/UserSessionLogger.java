@@ -24,9 +24,6 @@ public class UserSessionLogger implements Serializable {
     @Column(name = "logout_time")
     private Long logoutTime;
 
-    @Column(name = "total_time_spent")
-    private Double totalTimeSpent;
-
     @Column(name = "remark")
     private String remark;
 
@@ -85,14 +82,6 @@ public class UserSessionLogger implements Serializable {
 
     public void setLogoutTime(Long logoutTime) {
         this.logoutTime = logoutTime;
-    }
-
-    public Double getTotalTimeSpent() {
-        return totalTimeSpent;
-    }
-
-    public void setTotalTimeSpent(Double totalTimeSpent) {
-        this.totalTimeSpent = totalTimeSpent;
     }
 
     public String getRemark() {

@@ -24,9 +24,6 @@ public class UserSessionBasedURLLogger implements Serializable {
     @Column(name = "end_time")
     private Long urlVisitEndTime;
 
-    @Column(name = "total_spent_time")
-    private Double totalSpentTime;
-
     @Column(name = "visited_url")
     private String visitedURL;
 
@@ -57,14 +54,6 @@ public class UserSessionBasedURLLogger implements Serializable {
         this.urlVisitEndTime = urlVisitEndTime;
     }
 
-    public Double getTotalSpentTime() {
-        return totalSpentTime;
-    }
-
-    public void setTotalSpentTime(Double totalSpentTime) {
-        this.totalSpentTime = totalSpentTime;
-    }
-
     public String getVisitedURL() {
         return visitedURL;
     }
@@ -88,8 +77,6 @@ public class UserSessionBasedURLLogger implements Serializable {
 
         UserSessionBasedURLLogger that = (UserSessionBasedURLLogger) o;
 
-        if (totalSpentTime != null ? !totalSpentTime.equals(that.totalSpentTime) : that.totalSpentTime != null)
-            return false;
         if (urlVisitEndTime != null ? !urlVisitEndTime.equals(that.urlVisitEndTime) : that.urlVisitEndTime != null)
             return false;
         if (!urlVisitInitTime.equals(that.urlVisitInitTime)) return false;
@@ -113,7 +100,6 @@ public class UserSessionBasedURLLogger implements Serializable {
                 .append("id", id)
                 .append("urlVisitInitTime", urlVisitInitTime)
                 .append("urlVisitEndTime", urlVisitEndTime)
-                .append("totalSpentTime", totalSpentTime)
                 .append("visitedURL", visitedURL)
                 .append("userSessionLogger", userSessionLogger)
                 .toString();
