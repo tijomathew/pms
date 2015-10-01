@@ -505,17 +505,8 @@
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
-                                                                                                <label for="email"
-                                                                                                       class="col-sm-2 control-label required">Email</label>
-
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:input
-                                                                                                            path="email"
-                                                                                                            id="email"
-                                                                                                            class="form-control"/>
-                                                                                                </div>
                                                                                                 <label for="mobileNo"
-                                                                                                       class="col-sm-2 control-label">Mobiel No</label>
+                                                                                                       class="col-sm-2 control-label required">Mobile No</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input

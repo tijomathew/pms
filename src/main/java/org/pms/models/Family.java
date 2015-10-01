@@ -52,12 +52,9 @@ public class Family implements Serializable {
     @Column(name = "date_of_registration", nullable = false)
     private String dateOfRegistration;
 
-    @Email
     @NotEmpty
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "mobile_no")
+    @Pattern(regexp = "(^[0-9]{10,15}$)")
+    @Column(name = "mobile_no", nullable = false)
     private String mobileNo;
 
     @Valid
@@ -197,14 +194,6 @@ public class Family implements Serializable {
 
     public void setMemberList(List<Member> memberList) {
         this.memberList = memberList;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getMobileNo() {
