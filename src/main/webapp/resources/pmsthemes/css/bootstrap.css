@@ -513,7 +513,9 @@ p {
 
 small,
 .small {
-  font-size: 85%;
+  font-size: 96%;
+  font-weight: bold;
+  color: #fff;
 }
 
 cite {

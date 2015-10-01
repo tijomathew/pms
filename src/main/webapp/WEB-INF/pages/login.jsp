@@ -183,7 +183,7 @@
 <!-- End Login box -->
 <footer class="container">
     <p id="footer-text">
-        <small>Copyright &copy; 2015 <a href="#">Pin2</a></small>
+        <small>PMS &copy; Shinto Jacob, Naduvilekuttu 2015</small>
     </p>
 </footer>
 
