@@ -31,8 +31,8 @@ public class MailServiceImpl implements MailService {
         MimeMessageHelper mailMsg = new MimeMessageHelper(mimeMessage);
         try {
             mailMsg.setTo(registeredUser.getEmail());
-            mailMsg.setSubject("Username & Password to login to the Parish Management Software System in Ireland!!..");
-            mailMsg.setText("Link to login :- http://pms.heart4needy.com \n\nUsername:- " + registeredUser.getEmail() + "\n\nPassword:- " + registeredUser.getPassword() + "\n\nThanking you," + "\n\nPin2");
+            mailMsg.setSubject("Welcome to Parish Management System (PMS) of Syromalabar Church in Ireland");
+            mailMsg.setText("Your family’s unique login details to the PMS are given below."+"\n\nClick on the link and enter your user credentials for gaining access to PMS \n\nURL:http://pms.heart4needy.com \n\nLogin Email: " + registeredUser.getEmail() + "\n\nPassword: " + registeredUser.getPassword() + "\n\nNote:\n1. Please keep your login credentials for future access. \n\n2. You can also access PMS from www.syromalabar.ie \n\nThanking you," + "\n\nPin2");
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             System.out.println("---Errorrr from Mail Sending---");
