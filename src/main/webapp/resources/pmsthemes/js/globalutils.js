@@ -174,7 +174,7 @@ function addJqgridCustomButtons(gridId, formId) {
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
-            $('#' + formId).find('select option:first').attr('selected', 'selected');
+            $('#' + formId).find('select option:first').prop('selected', 'selected');
             $('#' + formId + ' .thumbnail').hide();
             $('#registeredDate').prop('value', registeredDate);
             $('.actionSpan').text("Add");
