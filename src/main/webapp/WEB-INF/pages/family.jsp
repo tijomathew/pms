@@ -515,7 +515,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="mobileNo"
-                                                                                                       class="col-sm-2 control-label required">Mobiel No</label>
+                                                                                                       class="col-sm-2 control-label">Mobiel No</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input

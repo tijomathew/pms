@@ -57,9 +57,7 @@ public class Family implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @NotEmpty
-    @Pattern(regexp = "(^[0-9]{10,15}$)")
-    @Column(name = "mobile_no", nullable = false)
+    @Column(name = "mobile_no")
     private String mobileNo;
 
     @Valid
