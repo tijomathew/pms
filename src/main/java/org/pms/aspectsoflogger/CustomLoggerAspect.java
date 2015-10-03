@@ -53,7 +53,7 @@ public class CustomLoggerAspect {
             try {
                 File geoGraphicFile = new File(resource.getFile().getAbsolutePath());
                 LookupService lookup = new LookupService(geoGraphicFile, LookupService.GEOIP_MEMORY_CACHE);
-                Location locationServices = lookup.getLocation(requestResponseHolder.getCurrentRequest().getRemoteAddr());
+                Location locationServices = lookup.getLocation(requestResponseHolder.getCurrentRequest().getHeader("X-Forwarded-For"));
 
                 UserSessionLogger userSessionLogger = new UserSessionLogger();
                 userSessionLogger.setAccessedIP(requestResponseHolder.getCurrentRequest().getHeader("X-Forwarded-For"));

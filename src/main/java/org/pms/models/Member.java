@@ -13,7 +13,7 @@ import java.io.Serializable;
  * This class describes the various attributes of the member of the family.
  * It contains various getters and setters of the attributes of the member.
  * It contains relationship with family where member belongs to.
- * <p/>
+ * <p>
  * User: tijo
  */
 
@@ -40,7 +40,6 @@ public class Member implements Serializable {
     @Enumerated(EnumType.STRING)
     private RelationShipInFamily relationshipInFamily;
 
-    @NotEmpty
     @Column(name = "date_of_baptism")
     private String dateOfBaptism;
 
@@ -56,31 +55,24 @@ public class Member implements Serializable {
     @Column(name = "date_of_death")
     private String dateOfDeath;
 
-    @NotEmpty
     @Column(name = "church_of_baptism")
     private String churchOfBaptism;
 
-    @NotEmpty
     @Column(name = "country_of_baptism")
     private String countryOfBaptism;
 
-    @NotEmpty
     @Column(name = "baptism_name")
     private String baptismName;
 
-    @NotEmpty
     @Column(name = "minister_of_baptism")
     private String ministerOfBaptism;
 
-    @NotEmpty
     @Column(name = "baptism_god_father")
     private String baptismGodFather;
 
-    @NotEmpty
     @Column(name = "baptism_god_mother")
     private String baptismGodMother;
 
-    @NotEmpty
     @Column(name = "patron_saint")
     private String patronSaint;
 

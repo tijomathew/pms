@@ -632,7 +632,7 @@
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
                                                                                                 <label for="dateOfBaptism"
-                                                                                                       class="col-sm-2 control-label required">Date
+                                                                                                       class="col-sm-2 control-label">Date
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -643,7 +643,7 @@
                                                                                                             class="form-control date" placeholder="dd-mm-yyyy"/>
                                                                                                 </div>
                                                                                                 <label for="churchOfBaptism"
-                                                                                                       class="col-sm-2 control-label required">Place/Church
+                                                                                                       class="col-sm-2 control-label">Place/Church
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -657,7 +657,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="countryOfBaptism"
-                                                                                                       class="col-sm-2 control-label required">Country
+                                                                                                       class="col-sm-2 control-label">Country
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -668,7 +668,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="baptismName"
-                                                                                                       class="col-sm-2 control-label required">Baptism
+                                                                                                       class="col-sm-2 control-label">Baptism
                                                                                                     Name</label>
 
                                                                                                 <div class="col-sm-3">
@@ -681,7 +681,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="ministerOfBaptism"
-                                                                                                       class="col-sm-2 control-label required">Minister
+                                                                                                       class="col-sm-2 control-label">Minister
                                                                                                     of
                                                                                                     Baptism</label>
 
@@ -692,7 +692,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="baptismGodFather"
-                                                                                                       class="col-sm-2 control-label required">God
+                                                                                                       class="col-sm-2 control-label">God
                                                                                                     Father</label>
 
                                                                                                 <div class="col-sm-3">
@@ -705,7 +705,7 @@
 
                                                                                             <div class="form-group">
                                                                                                 <label for="baptismGodMother"
-                                                                                                       class="col-sm-2 control-label required">God
+                                                                                                       class="col-sm-2 control-label">God
                                                                                                     Mother</label>
 
                                                                                                 <div class="col-sm-3">
@@ -715,7 +715,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="patronSaint"
-                                                                                                       class="col-sm-2 control-label required">Patron
+                                                                                                       class="col-sm-2 control-label">Patron
                                                                                                     Saint</label>
 
                                                                                                 <div class="col-sm-3">

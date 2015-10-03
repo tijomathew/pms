@@ -19,7 +19,7 @@ function loadFamilyGrid(isFamilyUser) {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCentre', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail', 'email', 'mobileNo'],
+            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCentre', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail', 'mobileNo'],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: false},
                 {name: 'familyName', index: 'familyName', width: 90, sortable: false},
@@ -200,14 +200,6 @@ function loadFamilyGrid(isFamilyUser) {
                 {
                     name: 'emergencyContact.email',
                     index: 'emergencyContact.email',
-                    width: 150,
-                    align: "right",
-                    sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'email',
-                    index: 'email',
                     width: 150,
                     align: "right",
                     sortable: false,
