@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,13 +88,17 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displaymasscentregrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMassCentre(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForMassCentre(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<MassCentre> allMassCentres = massCentreService.getAllMassCentresForUserRole(currentUser);
         Integer massCentreCount = allMassCentres.size();
+        QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         List<MassCentre> allUsersSubList = new ArrayList<>();
         if (massCentreCount > 0) {
+            if (!formatter.equals(QueryFormat.NONE)) {
+                Collections.sort(allMassCentres, formatter.by(sortIndexColumnName, MassCentre.class));
+            }
             allUsersSubList = JsonBuilder.generateSubList(page, rows, massCentreCount, allMassCentres);
         }
 

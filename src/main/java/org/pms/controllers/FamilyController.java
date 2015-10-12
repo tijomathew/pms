@@ -116,16 +116,20 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/displayfamilygrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForFamily(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Family> allFamilies = familyService.getAllFamiliesForUserRole(currentUser);
         Integer totalFamilyCount = allFamilies.size();
+        QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         List<GridRow> familyGridRows = new ArrayList<GridRow>(allFamilies.size());
 
         List<Family> allFamilySubList = new ArrayList<>();
 
         if (totalFamilyCount > 0) {
+            if (!formatter.equals(QueryFormat.NONE)) {
+                Collections.sort(allFamilies, formatter.by(sortIndexColumnName, Family.class));
+            }
             allFamilySubList = JsonBuilder.generateSubList(page, rows, totalFamilyCount, allFamilies);
         }
 

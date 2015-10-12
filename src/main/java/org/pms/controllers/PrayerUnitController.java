@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,14 +96,18 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displayprayerunitgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<PrayerUnit> allPrayerUnits = prayerUnitService.getAllPrayerUnitsForUserRole(currentUser);
         Integer totalRows = allPrayerUnits.size();
+        QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         List<PrayerUnit> allPrayerUnitSubList = new ArrayList<>();
 
         if (totalRows > 0) {
+            if (!formatter.equals(QueryFormat.NONE)) {
+                Collections.sort(allPrayerUnits, formatter.by(sortIndexColumnName, PrayerUnit.class));
+            }
             allPrayerUnitSubList = JsonBuilder.generateSubList(page, rows, totalRows, allPrayerUnits);
         }
 

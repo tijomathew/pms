@@ -76,16 +76,20 @@ public class ParishController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displayparishgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> allParishes = parishService.getAllParishForUserRole(currentUser);
         Integer totalParishCount = allParishes.size();
 
-        List<GridRow> parishGridRows = new ArrayList<GridRow>(allParishes.size());
-        List<Parish> allUsersSubList = new ArrayList<Parish>();
+        List<GridRow> parishGridRows = new ArrayList<>(allParishes.size());
+        List<Parish> allUsersSubList = new ArrayList<>();
+        QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         if (totalParishCount > 0) {
+            if (!formatter.equals(QueryFormat.NONE)) {
+                Collections.sort(allParishes, formatter.by(sortIndexColumnName, Parish.class));
+            }
             allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount, allParishes);
         }
 

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,15 +127,19 @@ public class MemberController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/displaymembergrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page) {
+    Object generateJsonDisplayForMembers(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Member> allMembers = memberService.getAllMembersForUserRole(currentUser);
         Integer totalMembersCount = allMembers.size();
+        QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         List<GridRow> memberGridRows = new ArrayList<GridRow>(allMembers.size());
         List<Member> allMemberSubList = new ArrayList<>();
 
         if (totalMembersCount > 0) {
+            if (!formatter.equals(QueryFormat.NONE)) {
+                Collections.sort(allMembers, formatter.by(sortIndexColumnName, Member.class));
+            }
             allMemberSubList = JsonBuilder.generateSubList(page, rows, totalMembersCount, allMembers);
         }
 
