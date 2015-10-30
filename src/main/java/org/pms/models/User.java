@@ -232,15 +232,15 @@ public class User implements Serializable {
 
     public Long getParishId() {
         Long returnedId = 0l;
-        if (this.getUsersOfPrayerUnits() != null)
-            returnedId = this.getUsersOfPrayerUnits().getId();
+        if (this.getUsersOfParishes() != null)
+            returnedId = this.getUsersOfParishes().getId();
         return returnedId;
     }
 
     public Long getMassCentreId() {
         Long returnedId = 0l;
-        if (this.getUsersOfPrayerUnits() != null)
-            returnedId = this.getUsersOfPrayerUnits().getId();
+        if (this.getUsersOfMassCentres() != null)
+            returnedId = this.getUsersOfMassCentres().getId();
         return returnedId;
     }
 
@@ -253,8 +253,8 @@ public class User implements Serializable {
 
     public Long getFamilyId() {
         Long returnedId = 0l;
-        if (this.getUsersOfPrayerUnits() != null)
-            returnedId = this.getUsersOfPrayerUnits().getId();
+        if (this.getUserOfFamily() != null)
+            returnedId = this.getUserOfFamily().getId();
         return returnedId;
     }
 
