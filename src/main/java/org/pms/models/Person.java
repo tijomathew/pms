@@ -75,15 +75,13 @@ public class Person implements Serializable {
     @Column(name = "fax")
     private String faxNo;
 
-    @NotEmpty
-    @Column(name = "education_qualifications", nullable = false)
+    @Column(name = "education_qualifications")
     private String educationQualifications;
 
     @Column(name = "job_details")
     private String jobDetails;
 
-    @NotNull
-    @Column(name = "blood_group", nullable = false)
+    @Column(name = "blood_group")
     @Enumerated(EnumType.STRING)
     private BloodGroup bloodGroup;
 

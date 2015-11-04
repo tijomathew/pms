@@ -29,6 +29,7 @@
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
+                    $('#ItemPreview').show();
                     $('#ItemPreview').attr('src', e.target.result);
                     $('#thumbnail').show();
                 }

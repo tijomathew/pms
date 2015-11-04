@@ -472,6 +472,9 @@ function loadMemberGrid() {
             width: 'auto',
             emptyrecords: 'No data available to show!!..Please add data to view',
             onSelectRow: function () {
+                document.getElementById("ItemPreview").src = "";
+                $('#ItemPreview').hide();
+                $('#thumbnail').hide();
                 $('#memberGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').show(500);
                 var rowId = jQuery("#memberGrid").jqGrid('getGridParam', 'selrow');
@@ -479,6 +482,7 @@ function loadMemberGrid() {
                 var imageData = $('#memberGrid').jqGrid('getCell', rowId, 'memberAsPerson.imageBytesAsString');
                 if (imageData) {
                     $('#imagePreviewHeader').hide();
+                    $('#ItemPreview').show();
                     $('#thumbnail').show();
                     document.getElementById("ItemPreview").src = "data:image/png;base64," + imageData;
                 }
