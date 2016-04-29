@@ -29,6 +29,8 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
+            <li id="emailnotification"><a href="${pageContext.request.contextPath}/viewemailnotification.action"><i
+                    class="fa pms-members"></i> <span>Email Notification</span></a></li>
             <%--<li id="priestdesignation"><a href="#"><i class="fa pms-members"></i> <span>Assign Priest Designation</span></a>--%>
             </li>
             <%--<li><a href="javascript:;"><i class="fa pms-reports"></i> <span>Reports</span> <span

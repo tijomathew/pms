@@ -19232,6 +19232,23 @@ div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
     100% { opacity: 1; }
 }
 
+.icon-list {
+    background-position: -360px -48px;
+}
+
+.icon-th-list {
+    background-position: -264px 0;
+}
+.icon-indent-right {
+    background-position: -408px -48px;
+}
+.icon-indent-left {
+    background-position: -384px -48px;
+}
+.icon-font {
+    background-position: -144px -48px;
+}
+
 
 
 

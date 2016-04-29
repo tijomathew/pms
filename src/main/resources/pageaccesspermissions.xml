@@ -43,6 +43,9 @@
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
         <value>createfamilyselectbox.action</value>
+
+        <value>viewemailnotification.action</value>
+        <value>createmailidlist.action</value>
     </util:list>
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
