@@ -224,19 +224,6 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="form-group">
-                                                                                                <label for="usersOfParishes"
-                                                                                                       class="col-sm-2 control-label required">Parish</label>
-
-                                                                                                <div class="col-sm-3"
-                                                                                                     id="parishSelectBoxer">
-                                                                                                    <form:select
-                                                                                                            path="usersOfParishes"
-                                                                                                            id="parishSelectBox"
-                                                                                                            class="form-control"
-                                                                                                            items="${parishList}">
-                                                                                                    </form:select>
-                                                                                                </div>
                                                                                                 <label for="usersOfMassCentres"
                                                                                                        class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>

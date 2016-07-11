@@ -19,14 +19,12 @@ function loadPrayerUnitGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'parishNo', 'id', 'mappedMassCentre', 'registeredDate'],
+            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'mappedMassCentre', 'registeredDate'],
             colModel: [
                 {name: 'prayerUnitNo', index: 'prayerUnitNo', width: 90, sortable: true},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false, hidden: true},
                 {name: 'prayerUnitName', index: 'prayerUnitName', width: 90, sortable: false},
                 {name: 'patron', index: 'patron', width: 90, sortable: false},
-                {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
-                {name: 'parishName', index: 'parishName', width: 90, sortable: false},
                 {name: 'massCentreNumber', index: 'massCentreNumber', width: 90, sortable: false},
                 {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
                 {
@@ -77,13 +75,6 @@ function loadPrayerUnitGrid() {
                 {
                     name: 'localAddress.country',
                     index: 'localAddress.country',
-                    width: 80,
-                    align: "right",
-                    sortable: false, hidden: true
-                },
-                {
-                    name: 'mappedParish',
-                    index: 'mappedParish',
                     width: 80,
                     align: "right",
                     sortable: false, hidden: true

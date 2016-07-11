@@ -80,7 +80,6 @@
 <script src="${errorfieldsdialog}" type="text/javascript"></script>
 
 <c:set var="showForAdmin" value="${sessionScope.adminRole}"/>
-<c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
 <c:set var="showForMassCentreAdmin" value="${sessionScope.massCentreAdminRole}"/>
 <c:set var="showForPrayerUnitAdmin" value="${sessionScope.prayerUnitAdminRole}"/>
 <c:set var="showForFamilyUser" value="${sessionScope.familyUserRole}"/>

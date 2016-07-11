@@ -2,17 +2,21 @@ package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
 import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
-import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.enums.PageName;
-import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
+import org.pms.enums.PageName;
+import org.pms.enums.StatusCode;
+import org.pms.enums.SystemRole;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.enums.StatusCode;
-import org.pms.helpers.*;
-import org.pms.models.*;
+import org.pms.helpers.GridRow;
+import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.QueryFormat;
+import org.pms.helpers.RequestResponseHolder;
+import org.pms.models.MassCentre;
+import org.pms.models.PrayerUnit;
+import org.pms.models.SelectBox;
+import org.pms.models.User;
 import org.pms.services.MassCentreService;
-import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,9 +41,6 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private PrayerUnitService prayerUnitService;
-
-    @Autowired
-    private ParishService parishService;
 
     @Autowired
     private MassCentreService massCentreService;
@@ -67,7 +68,6 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
                 prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
 
-                prayerUnitService.setPrayerUnitNumber(prayerUnit);
 
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
@@ -79,8 +79,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
-                if (!prayerUnit.getMappedMassCentre().getMappedParish().equals(retrievedPrayerUnit.getMappedMassCentre().getMappedParish())) {
-                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                if (!prayerUnit.getMappedMassCentre().equals(retrievedPrayerUnit.getMappedMassCentre())) {
                 }
                 prayerUnitService.updatePrayerUnit(prayerUnit);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "updated successfully.");
@@ -130,12 +129,6 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
         }
         return returnObject;
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
     }
 
 }

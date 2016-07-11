@@ -32,6 +32,5 @@ public interface PrayerUnitService {
 
     List<PrayerUnit> getAllPrayerUnitsForUserRole(User currentUser);
 
-    void setPrayerUnitNumber(PrayerUnit prayerUnit);
 
 }

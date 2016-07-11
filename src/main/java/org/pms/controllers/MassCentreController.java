@@ -1,7 +1,6 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.MassCentreWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
@@ -9,7 +8,6 @@ import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.MassCentreService;
-import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +33,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
     private MassCentreService massCentreService;
 
     @Autowired
-    private ParishService parishService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewmasscentre.action", method = RequestMethod.GET)
@@ -56,10 +51,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
 
             if (massCentre.getId() == null && massCentre.getMassCentreNo() == null) {
 
-                massCentre.getMappedParish().addMassCentresForParish(massCentre);
-
-                massCentreService.setMassCentreNumber(massCentre);
-
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.MASS_CENTER_ADMIN) {
@@ -71,9 +62,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
             } else {
                 MassCentre retrievedMassCentre = massCentreService.getMassCentreForIDSM(massCentre.getId());
 
-                if (!retrievedMassCentre.getMappedParish().equals(massCentre.getMappedParish())) {
-                    massCentreService.setMassCentreNumber(massCentre);
-                }
                 massCentreService.updateMassCentre(massCentre);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), "updated successfully!");
             }
@@ -125,11 +113,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
             returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
         }
         return returnObject;
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
     }
 
 }

@@ -28,9 +28,6 @@ public class PMSInterceptor implements HandlerInterceptor {
     @Resource(name = "adminLinks")
     private List<String> adminLinks;
 
-    @Resource(name = "parishAdminLinks")
-    private List<String> parishAdminLinks;
-
     @Resource(name = "massCentreAdminLinks")
     private List<String> massCentreAdminLinks;
 
@@ -67,9 +64,6 @@ public class PMSInterceptor implements HandlerInterceptor {
                     switch (currentUser.getSystemRole()) {
                         case ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, adminLinks);
-                            break;
-                        case PARISH_ADMIN:
-                            indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, parishAdminLinks);
                             break;
                         case MASS_CENTER_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, massCentreAdminLinks);

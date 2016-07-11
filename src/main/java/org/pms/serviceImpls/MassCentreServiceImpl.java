@@ -6,13 +6,10 @@ import org.pms.daos.MassCentreDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCentre;
-import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.MassCentreService;
-import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
@@ -20,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This class is the implementation for the Mass Center Service contract.
@@ -35,20 +31,12 @@ public class MassCentreServiceImpl implements MassCentreService {
     private MassCentreDao massCentreDao;
 
     @Autowired
-    private ParishService parishService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @Override
     public Boolean addMassCentre(MassCentre massCentre) {
         massCentreDao.addMassCentre(massCentre);
         return true;
-    }
-
-    @Override
-    public List<Parish> getAllParishSM() {
-        return massCentreDao.getAllParishDM();
     }
 
     @Override
@@ -90,12 +78,7 @@ public class MassCentreServiceImpl implements MassCentreService {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
         Map<Long, String> parishMap = new HashMap<>();
-        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
-        if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
 
-        model.addAttribute("parishList", parishMap);
         return formBackMassCentre;
     }
 
@@ -116,9 +99,6 @@ public class MassCentreServiceImpl implements MassCentreService {
             case ADMIN:
                 allMassCentres = getAllMassCentre();
                 break;
-            case PARISH_ADMIN:
-                allMassCentres.addAll(getAllMassCentresForParishID(currentUser.getUsersOfParishes().getId()));
-                break;
             case MASS_CENTER_ADMIN:
                 allMassCentres.add(getMassCentreForIDSM(currentUser.getUsersOfMassCentres().getId()));
                 break;
@@ -136,9 +116,4 @@ public class MassCentreServiceImpl implements MassCentreService {
         return allMassCentres;
     }
 
-    @Override
-    public void setMassCentreNumber(MassCentre massCentre) {
-        Long massCentreCount = getMassCentreCountForParish(massCentre.getMappedParish().getId());
-        massCentre.setMassCentreNo(++massCentreCount);
-    }
 }

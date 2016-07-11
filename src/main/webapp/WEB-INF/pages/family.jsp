@@ -201,16 +201,6 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label for="familyParish"
-                                                                                                       class="col-sm-2 control-label required">Parish</label>
-
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:select
-                                                                                                            path="familyParish"
-                                                                                                            items="${parishList}"
-                                                                                                            class="form-control"
-                                                                                                            id="parishSelectBox"></form:select>
-                                                                                                </div>
                                                                                                 <label for="familyMassCentre"
                                                                                                        class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>

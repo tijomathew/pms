@@ -90,9 +90,6 @@ public class FamilyServiceImpl implements FamilyService {
             case ADMIN:
                 familyList = getAllFamilySM();
                 break;
-            case PARISH_ADMIN:
-                familyList = getAllFamilyForParishID(currentUser.getUsersOfParishes().getId());
-                break;
             case MASS_CENTER_ADMIN:
                 familyList = getAllFamilyForMassCentreID(currentUser.getUsersOfMassCentres().getId());
                 break;
@@ -115,7 +112,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId());
+        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedMassCentre().getId());
         family.setFamilyNo(++familyCounterForParish);
     }
 }

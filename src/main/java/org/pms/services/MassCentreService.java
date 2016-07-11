@@ -1,7 +1,6 @@
 package org.pms.services;
 
 import org.pms.models.MassCentre;
-import org.pms.models.Parish;
 import org.pms.models.User;
 import org.springframework.ui.Model;
 
@@ -14,8 +13,6 @@ import java.util.List;
 public interface MassCentreService {
 
     Boolean addMassCentre(MassCentre massCentre);
-
-    List<Parish> getAllParishSM();
 
     List<MassCentre> getAllMassCentre();
 
@@ -34,7 +31,6 @@ public interface MassCentreService {
     List<Long> getAllMassCentreIdsForParish(Long parishId);
 
     List<MassCentre> getAllMassCentresForUserRole(User currentUser);
-
-    void setMassCentreNumber(MassCentre massCentre);
+    
 
 }

@@ -6,7 +6,6 @@ import org.pms.enums.SystemRole;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
 import org.pms.services.MassCentreService;
-import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,9 +27,6 @@ import java.util.stream.Collectors;
 public final class FactorySelectBox {
 
     @Autowired
-    private ParishService parishService;
-
-    @Autowired
     private MassCentreService massCentreService;
 
     @Autowired
@@ -42,18 +38,14 @@ public final class FactorySelectBox {
     @Autowired
     private FamilyService familyService;
 
-    private List<Parish> parishList;
     private List<MassCentre> massCentreList;
     private List<PrayerUnit> prayerUnitList;
-    private Map<Long, String> parishMap;
     private Map<Long, String> massCentreMap;
     private Map<Long, String> prayerUnitMap;
 
     public FactorySelectBox() {
-        this.parishList = new ArrayList<>();
         this.massCentreList = new ArrayList<>();
         this.prayerUnitList = new ArrayList<>();
-        this.parishMap = new HashMap<>();
         this.massCentreMap = new HashMap<>();
         this.prayerUnitMap = new HashMap<>();
     }
@@ -64,10 +56,6 @@ public final class FactorySelectBox {
         model.addAttribute("family", modelObjectOfFamily);
         switch (currentUser.getSystemRole()) {
             case ADMIN:
-                cleanUpListAndMap();
-                createListEntries(currentUser, model);
-                break;
-            case PARISH_ADMIN:
                 cleanUpListAndMap();
                 createListEntries(currentUser, model);
                 break;
@@ -88,12 +76,9 @@ public final class FactorySelectBox {
     }
 
     private void createListEntries(User currentUser, Model model) {
-        parishList.addAll(parishService.getAllParishForUserRole(currentUser));
         massCentreList.addAll(massCentreService.getAllMassCentresForUserRole(currentUser));
         prayerUnitList.addAll(prayerUnitService.getAllPrayerUnitsForUserRole(currentUser));
-        if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
+
         if (!massCentreList.isEmpty()) {
             massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
         }
@@ -101,7 +86,6 @@ public final class FactorySelectBox {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
         }
 
-        model.addAttribute("parishList", parishMap);
         model.addAttribute("massCentreList", massCentreMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
 
@@ -122,17 +106,11 @@ public final class FactorySelectBox {
     }
 
     private void cleanUpListAndMap() {
-        if (!parishList.isEmpty()) {
-            parishList.clear();
-        }
         if (!massCentreList.isEmpty()) {
             massCentreList.clear();
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitList.clear();
-        }
-        if (!parishMap.isEmpty()) {
-            parishMap.clear();
         }
         if (!massCentreMap.isEmpty()) {
             massCentreMap.clear();

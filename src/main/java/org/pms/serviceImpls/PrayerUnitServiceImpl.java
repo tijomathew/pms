@@ -6,11 +6,9 @@ import org.pms.daos.PrayerUnitDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
 import org.pms.models.MassCentre;
-import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
 import org.pms.services.MassCentreService;
-import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,9 +35,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
-
-    @Autowired
-    private ParishService parishService;
 
     @Autowired
     private MassCentreService massCentreService;
@@ -97,11 +92,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
 
-        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
-
-        if (!parishList.isEmpty()) {
-            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
 
         List<MassCentre> massCentreList = massCentreService.getAllMassCentresForUserRole(currentUser);
 
@@ -111,7 +101,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
         formBackPrayerUnit.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
 
-        modelMap.addAttribute("parishMap", parishMap);
         modelMap.addAttribute("massCentreMap", massCentreMap);
     }
 
@@ -126,12 +115,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         switch (currentUser.getSystemRole()) {
             case ADMIN:
                 allPrayerUnits.addAll(getAllPrayerUnits());
-                break;
-            case PARISH_ADMIN:
-                List<MassCentre> massCentresUnderParish = massCentreService.getAllMassCentresForParishID(currentUser.getUsersOfParishes().getId());
-                if (!massCentresUnderParish.isEmpty()) {
-                    massCentresUnderParish.stream().forEach(massCentre -> allPrayerUnits.addAll(massCentre.getPrayerUnits()));
-                }
                 break;
             case MASS_CENTER_ADMIN:
                 allPrayerUnits.addAll(getAllPrayerUnitsForMassCentreID(currentUser.getUsersOfMassCentres().getId()));
@@ -151,9 +134,4 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         return allPrayerUnits;
     }
 
-    @Override
-    public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
-        Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedMassCentre().getMappedParish().getId());
-        prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
-    }
 }

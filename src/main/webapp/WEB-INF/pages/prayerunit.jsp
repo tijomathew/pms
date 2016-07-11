@@ -163,16 +163,6 @@
                                                                                                             id="prayerUnitPlace"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                                <label for="mappedParish"
-                                                                                                       class="col-sm-2 control-label required">Parish</label>
-
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:select
-                                                                                                            path="mappedParish"
-                                                                                                            items="${parishMap}"
-                                                                                                            id="parishNo"
-                                                                                                            class="form-control"/>
-                                                                                                </div>
                                                                                             </div>
                                                                                             <div class="form-group">
                                                                                                 <label for="mappedMassCentre"

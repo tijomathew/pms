@@ -27,9 +27,6 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Autowired
-    private ParishService parishService;
-
-    @Autowired
     private MassCentreService massCentreService;
 
     @Autowired
@@ -95,19 +92,14 @@ public class UserServiceImpl implements UserService {
             case ADMIN:
                 createUserModelSelectBoxes(model, currentUser);
                 break;
-            case PARISH_ADMIN:
-                Predicate<SystemRole> excludeParishAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdmin);
-                createUserModelSelectBoxes(model, currentUser);
-                break;
             case MASS_CENTER_ADMIN:
-                Predicate<SystemRole> excludeParishAdminAndMassCentreAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCentreAdmin);
+                Predicate<SystemRole> excludeMassCentreAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeMassCentreAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
             case PRAYER_UNIT_ADMIN:
-                Predicate<SystemRole> excludeParishAdminAndMassCentreAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCentreAdminAndPrayerUnitAdmin);
+                Predicate<SystemRole> excludeMassCentreAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeMassCentreAdminAndPrayerUnitAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
         }
@@ -124,12 +116,6 @@ public class UserServiceImpl implements UserService {
         switch (currentUser.getSystemRole()) {
             case ADMIN:
                 allUsers.addAll(getAllUsers());
-                break;
-            case PARISH_ADMIN:
-                Parish ParishOfParishAdmin = currentUser.getUsersOfParishes();
-                List<Long> currentUserParishIdAsList = new ArrayList<>();
-                currentUserParishIdAsList.add(ParishOfParishAdmin.getId());
-                allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
                 break;
             case MASS_CENTER_ADMIN:
                 MassCentre massCentreOfMassCentreAdmin = currentUser.getUsersOfMassCentres();
@@ -154,10 +140,6 @@ public class UserServiceImpl implements UserService {
     private void createUserModelSelectBoxes(Model model, User currentUser) {
 
         Map<Long, String> parishMap = new HashMap<Long, String>();
-        List<Parish> addedParishes = parishService.getAllParishForUserRole(currentUser);
-        if (!addedParishes.isEmpty()) {
-            parishMap = addedParishes.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
 
         Map<Long, String> massCentreMap = new HashMap<Long, String>();
         List<MassCentre> massCentreList = massCentreService.getAllMassCentresForUserRole(currentUser);
@@ -177,7 +159,6 @@ public class UserServiceImpl implements UserService {
             familyMap = familyList.stream().collect(Collectors.toMap(Family::getId, Family::getFamilyName));
         }
 
-        model.addAttribute("parishList", parishMap);
         model.addAttribute("massCentreList", massCentreMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
         model.addAttribute("familyList", familyMap);

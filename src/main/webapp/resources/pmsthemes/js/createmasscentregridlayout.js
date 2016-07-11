@@ -19,15 +19,13 @@ function loadMassCentreGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'Parish No.', 'Parish Name', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
-                'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'mappedParish'],
+            colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
+                'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id'],
             colModel: [
                 {name: 'massCentreNo', index: 'massCentreNo', width: 90, sortable: true},
                 {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
                 {name: 'place', index: 'place', width: 90, sortable: false, hidden: true},
                 {name: 'patronName', index: 'patronName', width: 90, sortable: false},
-                {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
-                {name: 'parishName', index: 'parishName', width: 90, sortable: false},
                 {name: 'registeredDate', index: 'registeredDate', width: 90, sortable: false, hidden: true},
                 {name: 'landLineNo', index: 'landLineNo', width: 90, sortable: false, hidden: true},
                 {name: 'mobileNo', index: 'mobileNo', width: 90, sortable: false, hidden: true},
@@ -87,13 +85,6 @@ function loadMassCentreGrid() {
                 {
                     name: 'id',
                     index: 'id',
-                    width: 80,
-                    align: "right",
-                    sortable: false, hidden: true
-                },
-                {
-                    name: 'mappedParish',
-                    index: 'mappedParish',
                     width: 80,
                     align: "right",
                     sortable: false, hidden: true

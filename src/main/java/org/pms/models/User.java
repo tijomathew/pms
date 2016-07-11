@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email"), @Index(columnList = "user_of_parish"), @Index(columnList = "user_of_masscentre"), @Index(columnList = "user_prayerunit"), @Index(columnList = "user_of_family")})
+@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email"), @Index(columnList = "user_of_masscentre"), @Index(columnList = "user_prayerunit"), @Index(columnList = "user_of_family")})
 public class User implements Serializable {
 
     @Id
@@ -66,10 +66,6 @@ public class User implements Serializable {
 
     @Transient
     private String confirmPassword;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_of_parish")
-    private Parish usersOfParishes;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_of_masscentre")
@@ -202,12 +198,6 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getParish() {
-        String returnedObject = StringUtils.EMPTY;
-        if (this.getUsersOfParishes() != null)
-            returnedObject = this.getUsersOfParishes().getParishName();
-        return returnedObject;
-    }
 
     public String getMassCentre() {
         String returnedObject = StringUtils.EMPTY;
@@ -230,13 +220,6 @@ public class User implements Serializable {
         return returnedObject;
     }
 
-    public Long getParishId() {
-        Long returnedId = 0l;
-        if (this.getUsersOfParishes() != null)
-            returnedId = this.getUsersOfParishes().getId();
-        return returnedId;
-    }
-
     public Long getMassCentreId() {
         Long returnedId = 0l;
         if (this.getUsersOfMassCentres() != null)
@@ -256,14 +239,6 @@ public class User implements Serializable {
         if (this.getUserOfFamily() != null)
             returnedId = this.getUserOfFamily().getId();
         return returnedId;
-    }
-
-    public Parish getUsersOfParishes() {
-        return usersOfParishes;
-    }
-
-    public void setUsersOfParishes(Parish usersOfParishes) {
-        this.usersOfParishes = usersOfParishes;
     }
 
     public MassCentre getUsersOfMassCentres() {

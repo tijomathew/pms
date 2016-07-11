@@ -1,7 +1,6 @@
 package org.pms.daos;
 
 import org.pms.models.MassCentre;
-import org.pms.models.Parish;
 
 import java.util.List;
 
@@ -12,8 +11,6 @@ import java.util.List;
 public interface MassCentreDao {
 
     Boolean addMassCentre(MassCentre massCentre);
-
-    List<Parish> getAllParishDM();
 
     List<MassCentre> getAllMassCentres();
 

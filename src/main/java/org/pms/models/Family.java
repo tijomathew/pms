@@ -74,10 +74,6 @@ public class Family implements Serializable {
 
     //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
     @Transient
-    private Parish familyParish;
-
-    //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
-    @Transient
     private MassCentre familyMassCentre;
 
     @NotNull
@@ -164,14 +160,6 @@ public class Family implements Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public Parish getFamilyParish() {
-        return familyParish;
-    }
-
-    public void setFamilyParish(Parish familyParish) {
-        this.familyParish = familyParish;
-    }
-
     public MassCentre getFamilyMassCentre() {
         return familyMassCentre;
     }
@@ -213,14 +201,6 @@ public class Family implements Serializable {
         if (!this.memberList.contains(member)) {
             this.memberList.add(member);
         }
-    }
-
-    public Long getParishNumber() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishNo();
-    }
-
-    public String getParishName() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishName();
     }
 
     public Long getMassCentreNumber() {

@@ -80,8 +80,7 @@ public class LoginServiceImpl implements LoginService {
         PageName redirectPageName = PageName.LOGIN;
         switch (loggedInUser.getSystemRole()) {
             case ADMIN:
-            case PARISH_ADMIN:
-                redirectPageName = PageName.PARISH;
+                redirectPageName = PageName.MASSCENTRE;
                 break;
             case MASS_CENTER_ADMIN:
                 redirectPageName = PageName.MASSCENTRE;
@@ -100,9 +99,6 @@ public class LoginServiceImpl implements LoginService {
         switch (loggedInUser.getSystemRole()) {
             case ADMIN:
                 createUserAndRolesInSessionScope("adminRole", loggedInUser);
-                break;
-            case PARISH_ADMIN:
-                createUserAndRolesInSessionScope("parishAdminRole", loggedInUser);
                 break;
             case MASS_CENTER_ADMIN:
                 createUserAndRolesInSessionScope("massCentreAdminRole", loggedInUser);

@@ -1,16 +1,13 @@
 package org.pms.controllers;
 
-import org.pms.enums.*;
 import org.pms.displaywrappers.PriestWrapper;
+import org.pms.enums.PageName;
+import org.pms.enums.StatusCode;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.enums.StatusCode;
-import org.pms.helpers.GridContainer;
-import org.pms.helpers.GridGenerator;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
 import org.pms.models.Priest;
-import org.pms.services.ParishService;
 import org.pms.services.PriestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**

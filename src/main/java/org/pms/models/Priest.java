@@ -81,10 +81,6 @@ public class Priest implements Serializable {
     private EmergencyContact emergencyContact;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parishPriestId")
-    private Parish parish;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "massCentrePriestId")
     private MassCentre massCentre;
 
@@ -237,14 +233,6 @@ public class Priest implements Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public Parish getParish() {
-        return parish;
-    }
-
-    public void setParish(Parish parish) {
-        this.parish = parish;
-    }
-
     public MassCentre getMassCentre() {
         return massCentre;
     }
@@ -275,13 +263,6 @@ public class Priest implements Serializable {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
-    }
-
-    public String getParishName() {
-        String returnObject = StringUtils.EMPTY;
-        if (this.getParish() != null)
-            returnObject = this.getParish().getParishName();
-        return returnObject;
     }
 
     public String getMassCentreName() {

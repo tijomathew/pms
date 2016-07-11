@@ -5,7 +5,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.MassCentreDao;
 import org.pms.models.MassCentre;
-import org.pms.models.Parish;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,12 +25,6 @@ public class MassCentreDaoImpl extends GenericDaoImpl<MassCentre> implements Mas
     public Boolean addMassCentre(MassCentre massCentre) {
         createAndSave(massCentre);
         return true;
-    }
-
-    //TODO remove all parish related dao operations from masscentre dao.
-    @Override
-    public List<Parish> getAllParishDM() {
-        return getDb(false).createCriteria(Parish.class).list();
     }
 
     @Override

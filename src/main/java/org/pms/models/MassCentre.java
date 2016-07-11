@@ -22,7 +22,7 @@ import java.util.List;
  * User: tijo
  */
 @Entity
-@Table(name = "masscentres", indexes = {@Index(columnList = "id"), @Index(columnList = "masscentre_no"), @Index(columnList = "registered_date"), @Index(columnList = "parish_no")})
+@Table(name = "masscentres", indexes = {@Index(columnList = "id"), @Index(columnList = "masscentre_no"), @Index(columnList = "registered_date")})
 public class MassCentre implements Serializable {
 
     private static final long serialVersionUID = 1669408565953568157L;
@@ -62,11 +62,6 @@ public class MassCentre implements Serializable {
     @NotNull
     @Embedded
     private LocalAddress localAddress;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "parish_no")
-    private Parish mappedParish;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedMassCentre")
@@ -155,14 +150,6 @@ public class MassCentre implements Serializable {
         this.localAddress = localAddress;
     }
 
-    public Parish getMappedParish() {
-        return mappedParish;
-    }
-
-    public void setMappedParish(Parish mappedParish) {
-        this.mappedParish = mappedParish;
-    }
-
     public List<PrayerUnit> getPrayerUnits() {
         return prayerUnits;
     }
@@ -180,14 +167,6 @@ public class MassCentre implements Serializable {
         if (!this.prayerUnits.contains(ward)) {
             this.prayerUnits.add(ward);
         }
-    }
-
-    public Long getParishNumber() {
-        return this.getMappedParish().getParishNo();
-    }
-
-    public String getParishName() {
-        return this.getMappedParish().getParishName();
     }
 
     @Override
@@ -226,7 +205,6 @@ public class MassCentre implements Serializable {
                 .append("mobileNo", mobileNo)
                 .append("faxNo", faxNo)
                 .append("localAddress", localAddress)
-                .append("mappedParish", mappedParish)
                 .append("prayerUnits", prayerUnits)
                 .toString();
     }
