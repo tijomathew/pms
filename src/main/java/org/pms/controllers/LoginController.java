@@ -67,7 +67,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
      */
     @RequestMapping(value = "login.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
-        logger.debug("application creates the login user form back object and redirects to the login page");
         model.addAttribute("loginUser", new User());
         return PageName.LOGIN.toString();
     }
@@ -82,7 +81,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
      */
     @RequestMapping(value = "loggedin.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
-        logger.debug("authenticating and authorizing the user in the system");
         PageName redirectPageName = PageName.LOGIN;
         User loggedInUser;
 

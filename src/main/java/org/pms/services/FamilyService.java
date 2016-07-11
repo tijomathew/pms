@@ -19,9 +19,7 @@ public interface FamilyService {
 
     Long getFamilyTotalCount();
 
-    Long getFamilyCountForParish(Long parishId);
-
-    List<Family> getAllFamilyForParishID(Long parishId);
+    Long getFamilyCountForMassCentre(Long parishId);
 
     List<Family> getAllFamilyForMassCentreID(Long massCentreId);
 
@@ -29,7 +27,7 @@ public interface FamilyService {
 
     List<Family> getFamilyForFamilyID(Long familyId);
 
-    List<Long> getAllFamiliesIDForParishID(Long parishId);
+    List<Long> getAllFamiliesIDForMassCentreId(Long parishId);
 
     List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds);
 

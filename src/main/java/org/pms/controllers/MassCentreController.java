@@ -60,8 +60,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a mass center as a MC admin in the system.");
                 }
             } else {
-                MassCentre retrievedMassCentre = massCentreService.getMassCentreForIDSM(massCentre.getId());
-
                 massCentreService.updateMassCentre(massCentre);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, massCentre.getMassCentreName(), "updated successfully!");
             }
@@ -96,23 +94,6 @@ public class MassCentreController extends AbstractErrorAndGridHandler {
         }
 
         return JsonBuilder.convertToJson(createGridContent(massCentreCount, page, rows, massCentreGridRows));
-    }
-
-    @RequestMapping(value = "/createmasscentreselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generateMassCentreSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishID) {
-        String returnObject = StringUtils.EMPTY;
-        if (selectedParishID != 0l) {
-            List<MassCentre> massCentreListForParishID = massCentreService.getAllMassCentresForParishID(selectedParishID);
-            User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-            if (currentUser.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                massCentreListForParishID = massCentreListForParishID.stream().filter(massCentre -> massCentre.getMassCentreName().equalsIgnoreCase(currentUser.getUsersOfMassCentres().getMassCentreName())).collect(Collectors.toList());
-            }
-            List<SelectBox<String, Long>> selectBoxList = massCentreListForParishID.stream().map(massCentre -> new SelectBox<>(massCentre.getMassCentreName(), massCentre.getId())).collect(Collectors.toList());
-            returnObject = SelectBox.getJsonForSelectBoxCreation(selectBoxList);
-        }
-        return returnObject;
     }
 
 }

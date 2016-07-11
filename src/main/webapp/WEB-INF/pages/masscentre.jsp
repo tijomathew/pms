@@ -158,9 +158,6 @@
                                                                                                                 id="place"
                                                                                                                 class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="form-group">
                                                                                                 <label for="patronName"
                                                                                                        class="col-sm-2 control-label">Patron
                                                                                                     Name</label>
@@ -170,6 +167,9 @@
                                                                                                                 id="patronName"
                                                                                                                 class="form-control"/>
                                                                                                 </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
                                                                                                 <label for="landLineNo"
                                                                                                        class="col-sm-2 control-label">Land Line No.</label>
 
@@ -178,9 +178,6 @@
                                                                                                                 id="landLineNo"
                                                                                                                 class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="form-group">
                                                                                                 <label for="mobileNo"
                                                                                                        class="col-sm-2 control-label">Mobile No.</label>
 
@@ -189,6 +186,9 @@
                                                                                                                 id="mobileNo"
                                                                                                                 class="form-control"/>
                                                                                                 </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
                                                                                                 <label for="faxNo"
                                                                                                        class="col-sm-2 control-label">Fax No.</label>
 
@@ -197,9 +197,6 @@
                                                                                                                 id="faxNo"
                                                                                                                 class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="form-group">
                                                                                                 <label for="registeredDate"
                                                                                                        class="col-sm-2 control-label">Registered
                                                                                                     Date</label>

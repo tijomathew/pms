@@ -163,8 +163,6 @@
                                                                                                             id="prayerUnitPlace"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
                                                                                                 <label for="mappedMassCentre"
                                                                                                        class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>
@@ -176,6 +174,8 @@
                                                                                                             items="${massCentreMap}"
                                                                                                             class="form-control"/>
                                                                                                 </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
                                                                                                 <label for="patron"
                                                                                                        class="col-sm-2 control-label">Patron</label>
 
@@ -185,8 +185,6 @@
                                                                                                             id="patron"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
                                                                                                 <label for="registeredDate"
                                                                                                        class="col-sm-2 control-label">Registered
                                                                                                     Date</label>

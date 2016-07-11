@@ -58,12 +58,7 @@
 
             $("#isActive option[value='ACTIVE']").attr('selected', true);
 
-            <c:if test = "${showForParishAdmin == true}" >
-            $("#systemRole option[value='FAMILY_USER']").attr('selected', true);
-            </c:if>
-
             function reactiveAdminsComboBox() {
-                $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#massCentreSelectBox').prop('selectedIndex', 0);
                 $('#prayerUnitSelectBox').prop('selectedIndex', 0);
                 $('#familySelectBox').prop('selectedIndex', 0);
@@ -81,19 +76,6 @@
                 reactiveAdminsComboBox();
                 var selectedSystemRole = $('#systemRole').val();
                 switch (selectedSystemRole) {
-                    case 'PARISH_ADMIN':
-                        $('#massCentreSelectBox').prop('disabled', true);
-                        $('#prayerUnitSelectBox').prop('disabled', true);
-                        $('#familySelectBox').prop('disabled', true);
-
-                        $('#massCentreSelectBox').addClass('hideSelectImage');
-                        $('#prayerUnitSelectBox').addClass('hideSelectImage');
-                        $('#familySelectBox').addClass('hideSelectImage');
-
-                        $('#massCentreSelectBox').find('option').remove();
-                        $('#prayerUnitSelectBox').find('option').remove();
-                        $('#familySelectBox').find('option').remove();
-                        break;
                     case 'MASS_CENTER_ADMIN':
                         $('#prayerUnitSelectBox').prop('disabled', true);
                         $('#familySelectBox').prop('disabled', true);
@@ -224,6 +206,7 @@
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                             </div>
+                                                                                            <div class="form-group">
                                                                                                 <label for="usersOfMassCentres"
                                                                                                        class="col-sm-2 control-label required">Mass
                                                                                                     Center</label>
@@ -237,9 +220,6 @@
                                                                                                             items="${massCentreList}">
                                                                                                     </form:select>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="form-group">
                                                                                                 <label for="usersOfPrayerUnits"
                                                                                                        class="col-sm-2 control-label required">Prayer
                                                                                                     Unit</label>
@@ -253,6 +233,10 @@
                                                                                                             items="${prayerUnitList}">
                                                                                                     </form:select>
                                                                                                 </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+
                                                                                                 <label for="userOfFamily"
                                                                                                        class="col-sm-2 control-label required">Family</label>
 
@@ -265,8 +249,7 @@
                                                                                                             items="${familyList}">
                                                                                                     </form:select>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
+
                                                                                                 <label for="email"
                                                                                                        class="col-sm-2 control-label required">Email</label>
 
@@ -277,6 +260,8 @@
                                                                                                             id="email"
                                                                                                             class="form-control"/>
                                                                                                 </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
                                                                                                 <div id="passwordDiv">
                                                                                                 <label for="password"
                                                                                                        class="col-sm-2 control-label">Password</label>
@@ -323,7 +308,6 @@
         </div>
 
     </div>
-
 
     <%@include file="footerPanelTemplate.jsp" %>
 

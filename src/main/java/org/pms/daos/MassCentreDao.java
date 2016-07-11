@@ -16,15 +16,8 @@ public interface MassCentreDao {
 
     MassCentre getMassCentreForID(Long id);
 
-    List<MassCentre> getAllMassCentresForParishID(Long parishAutoID);
-
-    Long getMassCentreCountForParish(Long parishId);
+    Long getMassCentreCount();
 
     Boolean updateMassCentre(MassCentre massCentre);
 
-    MassCentre getMassCentreByMassCentreID(String massCentreID);
-
-    Long getAllMassCentreCount();
-
-    List<Long> getAllMassCentreIdsForParish(Long parishId);
 }

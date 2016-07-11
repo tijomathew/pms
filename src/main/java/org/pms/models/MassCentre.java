@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,8 @@ import java.util.List;
 /**
  * This class describes the various attributes of the mass center in the Ireland.
  * It contains various getters and setters of the attributes of the mass center.
- * It contains various relationships with parish, ward and family.
- * It contains methods for adding ward and family to the mass center.
+ * It contains various relationships with parish, prayerUnit and family.
+ * It contains methods for adding prayerUnit and family to the mass center.
  * <p/>
  * User: tijo
  */
@@ -159,13 +158,13 @@ public class MassCentre implements Serializable {
     }
 
     /**
-     * This method for adding ward to the mass center.
+     * This method for adding prayerUnit to the mass center.
      *
-     * @param ward ward to be added to the mass center.
+     * @param prayerUnit prayerUnit to be added to the mass center.
      */
-    public void addPrayerUnitsForMassCentre(PrayerUnit ward) {
-        if (!this.prayerUnits.contains(ward)) {
-            this.prayerUnits.add(ward);
+    public void addPrayerUnitsForMassCentre(PrayerUnit prayerUnit) {
+        if (!this.prayerUnits.contains(prayerUnit)) {
+            this.prayerUnits.add(prayerUnit);
         }
     }
 

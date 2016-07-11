@@ -29,8 +29,6 @@
         <value>viewfamilywelcome.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -62,6 +60,17 @@
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
         <value>createfamilyselectbox.action</value>
+
+        <value>viewfamilywelcome.action</value>
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
     </util:list>
 
     <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -73,14 +82,23 @@
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
         <value>createfamilyselectbox.action</value>
+
+        <value>viewfamilywelcome.action</value>
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
     </util:list>
 
     <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewfamilywelcome.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 

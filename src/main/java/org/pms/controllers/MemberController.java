@@ -87,10 +87,10 @@ public class MemberController extends AbstractErrorAndGridHandler {
                     e.printStackTrace();
                 }
 
-                List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishID(member.getFamilyMember().getFamilyPrayerUnit().getMappedMassCentre().getId());
-                Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
+                List<Long> allFamiliesIDUnderMassCentre = familyService.getAllFamiliesIDForMassCentreId(member.getFamilyMember().getFamilyPrayerUnit().getMappedMassCentre().getId());
+                Long memberCountForMassCentre = memberService.getMemberCountForMassCentre(allFamiliesIDUnderMassCentre);
 
-                member.setMemberNo(++memberCountForParish);
+                member.setMemberNo(++memberCountForMassCentre);
 
                 memberService.addMember(member);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, member.getMemberAsPerson().getFullName(), SUCCESS_MESSAGE_DISPLAY);

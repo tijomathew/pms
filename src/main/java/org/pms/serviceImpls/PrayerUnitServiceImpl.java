@@ -75,8 +75,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public Long getPrayerUnitCountUnderParish(Long parishId) {
-        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderParish(parishId);
+    public Long getPrayerUnitCountUnderMassCentre(Long massCentreId) {
+        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderMassCentre(massCentreId);
         if (prayerUnitCount == null) {
             prayerUnitCount = 0l;
         }
@@ -86,7 +86,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Override
     public void createPrayerUnitFormBackObject(Model modelMap) {
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
-        Map<Long, String> parishMap = new HashMap<>();
         Map<Long, String> massCentreMap = new HashMap<>();
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
@@ -132,6 +131,12 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         }
 
         return allPrayerUnits;
+    }
+
+    @Override
+    public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
+        Long prayerUnitCounter = getPrayerUnitCountUnderMassCentre(prayerUnit.getMappedMassCentre().getId());
+        prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
     }
 
 }

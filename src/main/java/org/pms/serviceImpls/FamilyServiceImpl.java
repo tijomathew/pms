@@ -45,17 +45,12 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public Long getFamilyCountForParish(Long parishId) {
-        Long familyNumber = familyDao.getFamilyCountForParish(parishId);
+    public Long getFamilyCountForMassCentre(Long massCentreId) {
+        Long familyNumber = familyDao.getFamilyCountForMassCentre(massCentreId);
         if (familyNumber == null) {
             familyNumber = 0l;
         }
         return familyNumber;
-    }
-
-    @Override
-    public List<Family> getAllFamilyForParishID(Long parishId) {
-        return familyDao.getAllFamilyForParishID(parishId);
     }
 
     @Override
@@ -74,8 +69,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Long> getAllFamiliesIDForParishID(Long parishId) {
-        return familyDao.getAllFamiliesIDForParishID(parishId);
+    public List<Long> getAllFamiliesIDForMassCentreId(Long massCentreId) {
+        return familyDao.getAllFamiliesIDForMassCentreId(massCentreId);
     }
 
     @Override
@@ -112,7 +107,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedMassCentre().getId());
+        Long familyCounterForParish = getFamilyCountForMassCentre(family.getFamilyPrayerUnit().getMappedMassCentre().getId());
         family.setFamilyNo(++familyCounterForParish);
     }
 }

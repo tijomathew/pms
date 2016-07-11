@@ -30,11 +30,10 @@ public class MassCentreServiceImpl implements MassCentreService {
     @Autowired
     private MassCentreDao massCentreDao;
 
-    @Autowired
-    private RequestResponseHolder requestResponseHolder;
-
     @Override
     public Boolean addMassCentre(MassCentre massCentre) {
+        Long massCentreCount = getMassCentreCount();
+        massCentre.setMassCentreNo(++massCentreCount);
         massCentreDao.addMassCentre(massCentre);
         return true;
     }
@@ -50,13 +49,8 @@ public class MassCentreServiceImpl implements MassCentreService {
     }
 
     @Override
-    public List<MassCentre> getAllMassCentresForParishID(Long parishAutoID) {
-        return massCentreDao.getAllMassCentresForParishID(parishAutoID);
-    }
-
-    @Override
-    public Long getMassCentreCountForParish(Long parishId) {
-        Long massCenterCount = massCentreDao.getMassCentreCountForParish(parishId);
+    public Long getMassCentreCount() {
+        Long massCenterCount = massCentreDao.getMassCentreCount();
         if (massCenterCount == null) {
             massCenterCount = 0l;
         }
@@ -75,21 +69,7 @@ public class MassCentreServiceImpl implements MassCentreService {
         formBackMassCentre.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("massCentre", formBackMassCentre);
 
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-
-        Map<Long, String> parishMap = new HashMap<>();
-
         return formBackMassCentre;
-    }
-
-    @Override
-    public Long getAllMassCentreCount() {
-        return massCentreDao.getAllMassCentreCount();
-    }
-
-    @Override
-    public List<Long> getAllMassCentreIdsForParish(Long parishId) {
-        return massCentreDao.getAllMassCentreIdsForParish(parishId);
     }
 
     @Override

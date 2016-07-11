@@ -66,12 +66,11 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
             if (prayerUnit.getId() == null && prayerUnit.getPrayerUnitNo() == null) {
 
-                prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
-
-
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
+                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                    prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
                     prayerUnitService.addPrayerUnitSM(prayerUnit);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
@@ -80,6 +79,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             } else {
                 PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
                 if (!prayerUnit.getMappedMassCentre().equals(retrievedPrayerUnit.getMappedMassCentre())) {
+                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
                 }
                 prayerUnitService.updatePrayerUnit(prayerUnit);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "updated successfully.");
@@ -129,6 +129,11 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
         }
         return returnObject;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
     }
 
 }

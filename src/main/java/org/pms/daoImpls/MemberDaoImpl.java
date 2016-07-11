@@ -39,7 +39,7 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     }
 
     @Override
-    public Long getMemberCountForParish(List<Long> familyIdsList) {
+    public Long getMemberCountForMassCentre(List<Long> familyIdsList) {
         return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.in("member.familyMember.id", familyIdsList)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).uniqueResult();
     }
 

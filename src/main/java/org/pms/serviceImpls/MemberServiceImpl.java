@@ -50,10 +50,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Long getMemberCountForParish(List<Long> familyIdsList) {
+    public Long getMemberCountForMassCentre(List<Long> familyIdsList) {
         Long countOfMembers = 0l;
         if (!familyIdsList.isEmpty()) {
-            countOfMembers = memberDao.getMemberCountForParish(familyIdsList);
+            countOfMembers = memberDao.getMemberCountForMassCentre(familyIdsList);
         }
         return countOfMembers;
     }

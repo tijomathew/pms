@@ -3,26 +3,6 @@
  */
 
 function loadSelectBox(contextPath) {
-    $('#parishSelectBox').change(function () {
-            var systemRole = $("#systemRole option:selected").val();
-
-            if (systemRole != 'PARISH_ADMIN') {
-                $.getJSON(contextPath + "/createmasscentreselectbox.action",
-                    {selectedParishId: $('#parishSelectBox').val()},
-                    function (data) {
-                        $('#massCentreSelectBox').find('option').remove();
-                        $('#prayerUnitSelectBox').find('option').remove();
-                        $('#familySelectBox').find('option').remove();
-                        var html = '<option value="' + 0 + '">' + "--Select--" + '</option>';
-                        var len = data.length;
-                        for (var i = 0; i < len; i++) {
-                            html += '<option value="' + data[i].value + '">' + data[i].displayName + '</option>';
-                        }
-                        $('#massCentreSelectBox').append(html);
-                    });
-            }
-        }
-    );
 
     $('#massCentreSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();

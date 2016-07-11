@@ -18,19 +18,12 @@ public interface MassCentreService {
 
     MassCentre getMassCentreForIDSM(Long id);
 
-    List<MassCentre> getAllMassCentresForParishID(Long parishAutoID);
-
-    Long getMassCentreCountForParish(Long parishId);
+    Long getMassCentreCount();
 
     Boolean updateMassCentre(MassCentre massCentre);
 
-    Long getAllMassCentreCount();
-
     MassCentre createMassCentreFormBackObject(Model model);
 
-    List<Long> getAllMassCentreIdsForParish(Long parishId);
-
     List<MassCentre> getAllMassCentresForUserRole(User currentUser);
-    
 
 }
