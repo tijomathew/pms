@@ -12,7 +12,6 @@
 <head>
     <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
     <spring:url value="/resources/js/createparishgridlayout.js" var="parishGridURL"/>
     <spring:url value="/addparish.action" var="parishActionURL"/>
 

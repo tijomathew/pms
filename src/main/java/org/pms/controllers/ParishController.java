@@ -75,23 +75,23 @@ public class ParishController extends AbstractErrorAndGridHandler {
     Object generateJsonDisplayForMassCentre(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> allParishes = parishService.getAllParishForUserRole(currentUser);
-        Integer massCentreCount = allParishes.size();
+        Integer parishCount = allParishes.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
         List<Parish> allUsersSubList = new ArrayList<>();
-        if (massCentreCount > 0) {
+        if (parishCount > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
                 Collections.sort(allParishes, formatter.by(sortIndexColumnName, Parish.class));
             }
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, massCentreCount, allParishes);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, parishCount, allParishes);
         }
 
-        List<GridRow> massCentreGridRows = new ArrayList<>(allParishes.size());
+        List<GridRow> parishGridRows = new ArrayList<>(allParishes.size());
         if (!allUsersSubList.isEmpty()) {
-            massCentreGridRows = allUsersSubList.stream().map(masscentre -> new ParishWrapper(masscentre)).collect(Collectors.toList());
+            parishGridRows = allUsersSubList.stream().map(parish -> new ParishWrapper(parish)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(massCentreCount, page, rows, massCentreGridRows));
+        return JsonBuilder.convertToJson(createGridContent(parishCount, page, rows, parishGridRows));
     }
 
 }

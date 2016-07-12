@@ -202,7 +202,7 @@ public class Family implements Serializable {
         }
     }
 
-    public Long getMassCentreNumber() {
+    public Long getParishNumber() {
         return this.getFamilyPrayerUnit().getMappedParish().getParishNo();
     }
 
@@ -210,7 +210,7 @@ public class Family implements Serializable {
         return this.getFamilyPrayerUnit().getPrayerUnitNo();
     }
 
-    public String getMassCentreName() {
+    public String getParishName() {
         return this.getFamilyPrayerUnit().getMappedParish().getParsihName();
     }
 

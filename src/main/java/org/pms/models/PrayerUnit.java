@@ -138,11 +138,11 @@ public class PrayerUnit implements Serializable {
         }
     }
 
-    public Long getMassCentreNumber() {
+    public Long getParishNumber() {
         return this.getMappedParish().getParishNo();
     }
 
-    public String getMassCentreName() {
+    public String getParishName() {
         return this.getMappedParish().getParsihName();
     }
 

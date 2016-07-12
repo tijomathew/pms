@@ -17,7 +17,7 @@
                 <span>Users</span></a></li>
            <%-- <li id="priest"><a href="${pageContext.request.contextPath}/viewpriest.action"><i class="fa pms-priest"></i>
                 <span>Priest</span> </a></li>--%>
-            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewparish.action"><i
+            <li id="parish"><a href="${pageContext.request.contextPath}/viewparish.action"><i
                     class="fa pms-massCentres"></i> <span>Parish</span></a></li>
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i
                     class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
@@ -49,7 +49,7 @@
         <ul class="acc-menu" id="sidebar">
             <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><i class="fa pms-users"></i>
                 <span>Users</span></a></li>
-            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewparish.action"><i
+            <li id="parish"><a href="${pageContext.request.contextPath}/viewparish.action"><i
                     class="fa pms-massCentres"></i> <span>Parish</span></a></li>
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i
                     class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
