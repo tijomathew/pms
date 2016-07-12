@@ -201,20 +201,16 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label for="familyMassCentre"
-                                                                                                       class="col-sm-2 control-label required">Mass
-                                                                                                    Center</label>
+                                                                                                <label for="familyParish"
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:select
-                                                                                                            path="familyMassCentre"
-                                                                                                            items="${massCentreList}"
+                                                                                                            path="familyParish"
+                                                                                                            items="${parishList}"
                                                                                                             class="form-control"
-                                                                                                            id="massCentreSelectBox"></form:select>
+                                                                                                            id="parishSelectBox"></form:select>
                                                                                                 </div>
-                                                                                            </div>
-
-                                                                                            <div class="form-group">
                                                                                                 <label for="familyPrayerUnit"
                                                                                                        class="col-sm-2 control-label required">Prayer
                                                                                                     Unit</label>
@@ -226,6 +222,10 @@
                                                                                                             class="form-control"
                                                                                                             id="prayerUnitSelectBox"></form:select>
                                                                                                 </div>
+                                                                                            </div>
+
+                                                                                            <div class="form-group">
+
                                                                                                 <label for="parishInNative"
                                                                                                        class="col-sm-2 control-label required">Native
                                                                                                     Parish</label>

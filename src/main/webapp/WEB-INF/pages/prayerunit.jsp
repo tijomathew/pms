@@ -15,7 +15,7 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/masscentreselectbox.js" var="massCentreSelectBoxURL"/>
+    <spring:url value="/resources/js/parishselectbox.js" var="massCentreSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
@@ -27,11 +27,11 @@
 
             backToTop();
             loadPrayerUnitGrid();
-            <c:if test = "${!((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
+            <c:if test = "${!((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
 
-            <c:if test = "${((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
+            <c:if test = "${((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
             $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
@@ -163,15 +163,14 @@
                                                                                                             id="prayerUnitPlace"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                                <label for="mappedMassCentre"
-                                                                                                       class="col-sm-2 control-label required">Mass
-                                                                                                    Center</label>
+                                                                                                <label for="mappedParish"
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:select
-                                                                                                            path="mappedMassCentre"
-                                                                                                            id="mappedMassCentre"
-                                                                                                            items="${massCentreMap}"
+                                                                                                            path="mappedParish"
+                                                                                                            id="mappedParish"
+                                                                                                            items="${parishMap}"
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                             </div>

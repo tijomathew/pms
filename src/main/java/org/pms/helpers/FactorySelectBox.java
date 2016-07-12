@@ -5,7 +5,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.SystemRole;
 import org.pms.models.*;
 import org.pms.services.FamilyService;
-import org.pms.services.MassCentreService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public final class FactorySelectBox {
 
     @Autowired
-    private MassCentreService massCentreService;
+    private ParishService parishService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -38,15 +38,15 @@ public final class FactorySelectBox {
     @Autowired
     private FamilyService familyService;
 
-    private List<MassCentre> massCentreList;
+    private List<Parish> parishList;
     private List<PrayerUnit> prayerUnitList;
-    private Map<Long, String> massCentreMap;
+    private Map<Long, String> parishMap;
     private Map<Long, String> prayerUnitMap;
 
     public FactorySelectBox() {
-        this.massCentreList = new ArrayList<>();
+        this.parishList = new ArrayList<>();
         this.prayerUnitList = new ArrayList<>();
-        this.massCentreMap = new HashMap<>();
+        this.parishMap = new HashMap<>();
         this.prayerUnitMap = new HashMap<>();
     }
 
@@ -59,7 +59,7 @@ public final class FactorySelectBox {
                 cleanUpListAndMap();
                 createListEntries(currentUser, model);
                 break;
-            case MASS_CENTER_ADMIN:
+            case PARISH_ADMIN:
                 cleanUpListAndMap();
                 createListEntries(currentUser, model);
                 break;
@@ -76,17 +76,17 @@ public final class FactorySelectBox {
     }
 
     private void createListEntries(User currentUser, Model model) {
-        massCentreList.addAll(massCentreService.getAllMassCentresForUserRole(currentUser));
+        parishList.addAll(parishService.getAllParishForUserRole(currentUser));
         prayerUnitList.addAll(prayerUnitService.getAllPrayerUnitsForUserRole(currentUser));
 
-        if (!massCentreList.isEmpty()) {
-            massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
+        if (!parishList.isEmpty()) {
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitMap = prayerUnitList.stream().collect(Collectors.toMap(PrayerUnit::getId, PrayerUnit::getPrayerUnitName));
         }
 
-        model.addAttribute("massCentreList", massCentreMap);
+        model.addAttribute("parishList", parishMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
 
     }
@@ -106,14 +106,14 @@ public final class FactorySelectBox {
     }
 
     private void cleanUpListAndMap() {
-        if (!massCentreList.isEmpty()) {
-            massCentreList.clear();
+        if (!parishList.isEmpty()) {
+            parishList.clear();
         }
         if (!prayerUnitList.isEmpty()) {
             prayerUnitList.clear();
         }
-        if (!massCentreMap.isEmpty()) {
-            massCentreMap.clear();
+        if (!parishMap.isEmpty()) {
+            parishMap.clear();
         }
         if (!prayerUnitMap.isEmpty()) {
             prayerUnitMap.clear();

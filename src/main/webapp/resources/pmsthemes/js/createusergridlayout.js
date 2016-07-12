@@ -18,7 +18,7 @@ function loadUserGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [10, 20, 30],
-            colNames: ['Email', 'Role', 'Active', 'Mass Center', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'usersOfMassCentres', 'usersOfPrayerUnits', 'userOfFamily','id'],
+            colNames: ['Email', 'Role', 'Active', 'Parish', 'Prayer Unit', 'Family', 'Email Sent', 'Already Logged In', 'Validated', 'Created By', 'usersOfMassCentres', 'usersOfPrayerUnits', 'userOfFamily','id'],
             colModel: [
                 {name: 'email', index: 'email', width: 100, sortable: false},
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},

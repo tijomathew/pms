@@ -13,10 +13,10 @@
     <%@ include file="scriptLibraryTemplate.jsp" %>
 
     <spring:url value="/resources/js/priestdesignationdisplay.js" var="priestdesignationdisplayURL"/>
-    <spring:url value="/resources/js/createmasscentregridlayout.js" var="massCentreGridURL"/>
-    <spring:url value="/addmasscentre.action" var="massCentreActionURL"/>
+    <spring:url value="/resources/js/createparishgridlayout.js" var="parishGridURL"/>
+    <spring:url value="/addparish.action" var="parishActionURL"/>
 
-    <script src="${massCentreGridURL}" type="text/javascript"
+    <script src="${parishGridURL}" type="text/javascript"
             language="javascript"></script>
 
     <script src="${priestdesignationdisplayURL}" type="text/javascript"
@@ -29,9 +29,9 @@
 
             loadDatePicker();
 
-            loadMassCentreGrid();
+            loadParishGrid();
 
-            <c:if test = "${showForMassCentreAdmin == false}" >
+            <c:if test = "${showForParishAdmin == false}" >
             $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
@@ -80,14 +80,14 @@
 
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>Mass Center</h4>
+                                                        <h4>Parish</h4>
                                                     </div>
 
 
                                                     <div class="panel-body">
 
-                                                        <table id="massCentreGrid"></table>
-                                                        <div id="massCentreGridPager"></div>
+                                                        <table id="parishGrid"></table>
+                                                        <div id="parishGridPager"></div>
 
                                                         <div class="tab-content" style="padding: 10px;">
 
@@ -100,12 +100,12 @@
                                                                         <h4>
                                                                             <ul class="nav nav-tabs">
                                                                                 <li class="active">
-                                                                                    <a href="#masscentre1" data-toggle="tab"><i
+                                                                                    <a href="#parish1" data-toggle="tab"><i
                                                                                             class="fa fa-list visible-xs icon-scale"></i><span
-                                                                                            class="hidden-xs">Mass Center Details</span></a>
+                                                                                            class="hidden-xs">Parish Details</span></a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="#masscentre2" data-toggle="tab"><i
+                                                                                    <a href="#parish2" data-toggle="tab"><i
                                                                                             class="fa fa-comments visible-xs icon-scale"></i><span
                                                                                             class="hidden-xs">Local Address</span></a>
                                                                                 </li>
@@ -114,13 +114,13 @@
                                                                     </div>
 
                                                                     <div class="panel-body">
-                                                                        <form:form modelAttribute="massCentre"
-                                                                                   action="${massCentreActionURL}" method="post"
-                                                                                   id="massCentreForm"
+                                                                        <form:form modelAttribute="parish"
+                                                                                   action="${parishActionURL}" method="post"
+                                                                                   id="parishForm"
                                                                                    cssClass="form-horizontal">
                                                                             <div class="tab-content">
 
-                                                                                <div class="tab-pane active" id="masscentre1">
+                                                                                <div class="tab-pane active" id="parish1">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
@@ -128,22 +128,21 @@
                                                                                                 <form:hidden
                                                                                                         path="id"
                                                                                                         id="id"/>
-                                                                                                <label for="massCentreName"
+                                                                                                <label for="parsihName"
                                                                                                        class="col-sm-2 control-label required">Name</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
-                                                                                                            path="massCentreName"
-                                                                                                            id="massCentreName"
+                                                                                                            path="parsihName"
+                                                                                                            id="parsihName"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                                <label for="massCentreNo"
-                                                                                                       class="col-sm-2 control-label">Mass
-                                                                                                    Centre No.</label>
+                                                                                                <label for="parishNo"
+                                                                                                       class="col-sm-2 control-label">Parish No.</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:input path="massCentreNo"
-                                                                                                                id="massCentreNo"
+                                                                                                    <form:input path="parishNo"
+                                                                                                                id="parishNo"
                                                                                                                 class="form-control"
                                                                                                                 readonly="true"/>
                                                                                                 </div>
@@ -213,7 +212,7 @@
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="tab-pane" id="masscentre2">
+                                                                                <div class="tab-pane" id="parish2">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">

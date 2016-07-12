@@ -5,10 +5,10 @@ import org.joda.time.format.DateTimeFormat;
 import org.pms.daos.PrayerUnitDao;
 import org.pms.enums.SystemRole;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.MassCentre;
+import org.pms.models.Parish;
 import org.pms.models.PrayerUnit;
 import org.pms.models.User;
-import org.pms.services.MassCentreService;
+import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private MassCentreService massCentreService;
+    private ParishService parishService;
 
     @Override
     public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
@@ -51,8 +51,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public List<PrayerUnit> getAllPrayerUnitsForMassCentreID(Long massCentreID) {
-        return prayerUnitDao.getPrayerUnitsForMassCentreIDDM(massCentreID);
+    public List<PrayerUnit> getAllPrayerUnitsForParishID(Long parishID) {
+        return prayerUnitDao.getPrayerUnitsForParishIDDM(parishID);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Override
     public Long getPrayerUnitCountUnderMassCentre(Long massCentreId) {
-        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderMassCentre(massCentreId);
+        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderParish(massCentreId);
         if (prayerUnitCount == null) {
             prayerUnitCount = 0l;
         }
@@ -86,26 +86,26 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     @Override
     public void createPrayerUnitFormBackObject(Model modelMap) {
         PrayerUnit formBackPrayerUnit = new PrayerUnit();
-        Map<Long, String> massCentreMap = new HashMap<>();
+        Map<Long, String> parishMap = new HashMap<>();
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         modelMap.addAttribute("prayerUnit", formBackPrayerUnit);
 
 
-        List<MassCentre> massCentreList = massCentreService.getAllMassCentresForUserRole(currentUser);
+        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
 
-        if (!massCentreList.isEmpty()) {
-            massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
+        if (!parishList.isEmpty()) {
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
 
         formBackPrayerUnit.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
 
-        modelMap.addAttribute("massCentreMap", massCentreMap);
+        modelMap.addAttribute("parishMap", parishMap);
     }
 
     @Override
     public List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds) {
-        return prayerUnitDao.getAllPrayerUnitIdsForMassCentreIds(massCentreIds);
+        return prayerUnitDao.getAllPrayerUnitIdsForParishIds(massCentreIds);
     }
 
     @Override
@@ -115,8 +115,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
             case ADMIN:
                 allPrayerUnits.addAll(getAllPrayerUnits());
                 break;
-            case MASS_CENTER_ADMIN:
-                allPrayerUnits.addAll(getAllPrayerUnitsForMassCentreID(currentUser.getUsersOfMassCentres().getId()));
+            case PARISH_ADMIN:
+                allPrayerUnits.addAll(getAllPrayerUnitsForParishID(currentUser.getUsersOfParish().getId()));
                 break;
             case PRAYER_UNIT_ADMIN:
                 allPrayerUnits.add(getPrayerUnitForIDSM(currentUser.getUsersOfPrayerUnits().getId()));
@@ -135,7 +135,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Override
     public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
-        Long prayerUnitCounter = getPrayerUnitCountUnderMassCentre(prayerUnit.getMappedMassCentre().getId());
+        Long prayerUnitCounter = getPrayerUnitCountUnderMassCentre(prayerUnit.getMappedParish().getId());
         prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
     }
 

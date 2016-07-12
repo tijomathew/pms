@@ -46,7 +46,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public Long getFamilyCountForMassCentre(Long massCentreId) {
-        Long familyNumber = familyDao.getFamilyCountForMassCentre(massCentreId);
+        Long familyNumber = familyDao.getFamilyCountForParish(massCentreId);
         if (familyNumber == null) {
             familyNumber = 0l;
         }
@@ -55,7 +55,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
-        return familyDao.getAllFamilyForMassCentreID(massCentreId);
+        return familyDao.getAllFamilyForParishID(massCentreId);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public List<Long> getAllFamiliesIDForMassCentreId(Long massCentreId) {
-        return familyDao.getAllFamiliesIDForMassCentreId(massCentreId);
+        return familyDao.getAllFamiliesIDForParishId(massCentreId);
     }
 
     @Override
@@ -85,8 +85,8 @@ public class FamilyServiceImpl implements FamilyService {
             case ADMIN:
                 familyList = getAllFamilySM();
                 break;
-            case MASS_CENTER_ADMIN:
-                familyList = getAllFamilyForMassCentreID(currentUser.getUsersOfMassCentres().getId());
+            case PARISH_ADMIN:
+                familyList = getAllFamilyForMassCentreID(currentUser.getUsersOfParish().getId());
                 break;
             case PRAYER_UNIT_ADMIN:
                 familyList = getAllFamilyForPrayerUnitID(currentUser.getUsersOfPrayerUnits().getId());
@@ -107,7 +107,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForMassCentre(family.getFamilyPrayerUnit().getMappedMassCentre().getId());
+        Long familyCounterForParish = getFamilyCountForMassCentre(family.getFamilyPrayerUnit().getMappedParish().getId());
         family.setFamilyNo(++familyCounterForParish);
     }
 }

@@ -43,13 +43,13 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public Long getFamilyCountForMassCentre(Long massCentreId) {
-        return (Long) getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre","familymasscentre").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("familymasscentre.id", massCentreId)).uniqueResult();
+    public Long getFamilyCountForParish(Long parishId) {
+        return (Long) getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish","familyParish").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("familyParish.id", parishId)).uniqueResult();
     }
    
     @Override
-    public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
-        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").add(Restrictions.eq("familymasscentre.id", massCentreId)).list();
+    public List<Family> getAllFamilyForParishID(Long parishId) {
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").add(Restrictions.eq("familyParish.id", parishId)).list();
     }
 
     @Override
@@ -63,8 +63,8 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public List<Long> getAllFamiliesIDForMassCentreId(Long massCentreId) {
-        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").setProjection(Projections.property("family.id")).add(Restrictions.eq("familymasscentre.id", massCentreId)).list();
+    public List<Long> getAllFamiliesIDForParishId(Long parishId) {
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").setProjection(Projections.property("family.id")).add(Restrictions.eq("familyParish.id", parishId)).list();
     }
 
     @Override

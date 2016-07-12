@@ -9,18 +9,6 @@
         <value>viewparish.action</value>
         <value>addparish.action</value>
         <value>displayparishgrid.action</value>
-        <value>createpriestdesignationbox.action</value>
-        <value>editparishdetails.action</value>
-        <value>updateparishinformation.action</value>
-
-        <value>viewpriest.action</value>
-        <value>addpriest.action</value>
-        <value>displaypriestgrid.action</value>
-
-        <value>viewmasscentre.action</value>
-        <value>addmasscentre.action</value>
-        <value>displaymasscentregrid.action</value>
-        <value>createpriestdesignationboxinmasscentre.action</value>
 
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
@@ -46,10 +34,10 @@
         <value>createmailidlist.action</value>
     </util:list>
 
-    <util:list id="massCentreAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
-        <value>viewmasscentre.action</value>
-        <value>addmasscentre.action</value>
-        <value>displaymasscentregrid.action</value>
+    <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewparish.action</value>
+        <value>addparish.action</value>
+        <value>displayparishgrid.action</value>
         <value>createpriestdesignationboxinmasscentre.action</value>
 
         <value>viewprayerunit.action</value>

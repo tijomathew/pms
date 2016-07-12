@@ -16,7 +16,7 @@ public interface PrayerUnitService {
 
     List<PrayerUnit> getAllPrayerUnits();
 
-    List<PrayerUnit> getAllPrayerUnitsForMassCentreID(Long massCentreID);
+    List<PrayerUnit> getAllPrayerUnitsForParishID(Long massCentreID);
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
 

@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
-import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
@@ -44,7 +44,7 @@ public class UserController extends AbstractErrorAndGridHandler {
     private MailService mailService;
 
     @Autowired
-    private MassCentreService massCentreService;
+    private ParishService parishService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -91,8 +91,8 @@ public class UserController extends AbstractErrorAndGridHandler {
             // A single user must have single role in the system. A single user cannot act as multiple role in the system.
 
             if (!userEmailAlreadyExists) {
-                if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                    if (user.getUsersOfMassCentres() != null) {
+                if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
+                    if (user.getUsersOfParish() != null) {
                         insertUser = true;
                     }
                 } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -173,7 +173,7 @@ public class UserController extends AbstractErrorAndGridHandler {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
         binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }

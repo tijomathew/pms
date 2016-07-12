@@ -45,7 +45,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private MassCentreService massCentreService;
+    private ParishService parishService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -103,8 +103,8 @@ public class LoginController extends AbstractErrorAndGridHandler {
         }
 
         String redirectedActionName;
-        if (redirectPageName == PageName.MASSCENTRE) {
-            redirectedActionName = "redirect:/viewmasscentre.action";
+        if (redirectPageName == PageName.PARISH) {
+            redirectedActionName = "redirect:/viewparish.action";
         } else if (redirectPageName == PageName.PRAYERUNIT) {
             redirectedActionName = "redirect:/viewprayerunit.action";
         } else if (redirectPageName == PageName.FAMILY) {
@@ -181,8 +181,8 @@ public class LoginController extends AbstractErrorAndGridHandler {
             case LOGIN:
                 model.addAttribute("loginUser", new User());
                 break;
-            case MASSCENTRE:
-                massCentreService.createMassCentreFormBackObject(model);
+            case PARISH:
+                parishService.createParishFormBackObject(model);
                 break;
             case PRAYERUNIT:
                 prayerUnitService.createPrayerUnitFormBackObject(model);

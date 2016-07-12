@@ -3,7 +3,6 @@ package org.pms.models;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -74,7 +73,7 @@ public class Family implements Serializable {
 
     //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
     @Transient
-    private MassCentre familyMassCentre;
+    private Parish familyParish;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -160,12 +159,12 @@ public class Family implements Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public MassCentre getFamilyMassCentre() {
-        return familyMassCentre;
+    public Parish getFamilyParish() {
+        return familyParish;
     }
 
-    public void setFamilyMassCentre(MassCentre familyMassCentre) {
-        this.familyMassCentre = familyMassCentre;
+    public void setFamilyParish(Parish familyParish) {
+        this.familyParish = familyParish;
     }
 
     public PrayerUnit getFamilyPrayerUnit() {
@@ -204,7 +203,7 @@ public class Family implements Serializable {
     }
 
     public Long getMassCentreNumber() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreNo();
+        return this.getFamilyPrayerUnit().getMappedParish().getParishNo();
     }
 
     public Long getPrayerUnitNumber() {
@@ -212,7 +211,7 @@ public class Family implements Serializable {
     }
 
     public String getMassCentreName() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreName();
+        return this.getFamilyPrayerUnit().getMappedParish().getParsihName();
     }
 
     public String getPrayerUnitName() {

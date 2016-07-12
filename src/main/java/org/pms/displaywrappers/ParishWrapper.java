@@ -2,7 +2,7 @@ package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.pms.helpers.GridRow;
-import org.pms.models.MassCentre;
+import org.pms.models.Parish;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -11,20 +11,20 @@ import java.util.List;
 /**
  * Created by tijo on 1/12/14.
  */
-public class MassCentreWrapper implements GridRow {
+public class ParishWrapper implements GridRow {
 
-    private MassCentre massCentreBean;
+    private Parish parishBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"massCentreNo", "massCentreName", "place", "patronName", "registeredDate", "landLineNo", "mobileNo", "faxNo",
+    private String[] VALID_BEAN_PROPERTIES = {"parishNo", "parsihName", "place", "patronName", "registeredDate", "landLineNo", "mobileNo", "faxNo",
             "localAddress.addressLineOne", "localAddress.addressLineTwo", "localAddress.addressLineThree", "localAddress.town", "localAddress.county", "localAddress.pin", "localAddress.country", "id"};
 
-    public MassCentreWrapper(MassCentre massCentreBean) {
-        this.massCentreBean = massCentreBean;
+    public ParishWrapper(Parish parishBean) {
+        this.parishBean = parishBean;
     }
 
     @Override
     public Long getId() {
-        return massCentreBean.getId();
+        return parishBean.getId();
     }
 
     @Override
@@ -33,8 +33,8 @@ public class MassCentreWrapper implements GridRow {
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
                 String assignedValue = "";
-                if (BeanUtils.getProperty(this.massCentreBean, VALID_BEAN_PROPERTIES[i]) != null) {
-                    assignedValue = BeanUtils.getProperty(this.massCentreBean, VALID_BEAN_PROPERTIES[i]).toString();
+                if (BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    assignedValue = BeanUtils.getProperty(this.parishBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
                         assignedValue = "";
                     }

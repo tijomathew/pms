@@ -17,8 +17,8 @@
                 <span>Users</span></a></li>
            <%-- <li id="priest"><a href="${pageContext.request.contextPath}/viewpriest.action"><i class="fa pms-priest"></i>
                 <span>Priest</span> </a></li>--%>
-            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewmasscentre.action"><i
-                    class="fa pms-massCentres"></i> <span>Mass Centres</span></a></li>
+            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewparish.action"><i
+                    class="fa pms-massCentres"></i> <span>Parish</span></a></li>
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i
                     class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
             <li id="familywelcome"><a href="${pageContext.request.contextPath}/viewfamilywelcome.action"><i class="fa pms-family"></i>
@@ -45,12 +45,12 @@
         </ul>
     </c:if>
 
-    <c:if test="${showForMassCentreAdmin == true}">
+    <c:if test="${showForParishAdmin == true}">
         <ul class="acc-menu" id="sidebar">
             <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><i class="fa pms-users"></i>
                 <span>Users</span></a></li>
-            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewmasscentre.action"><i
-                    class="fa pms-massCentres"></i> <span>Mass Centres</span></a></li>
+            <li id="masscentre"><a href="${pageContext.request.contextPath}/viewparish.action"><i
+                    class="fa pms-massCentres"></i> <span>Parish</span></a></li>
             <li id="prayerunit"><a href="${pageContext.request.contextPath}/viewprayerunit.action"><i
                     class="fa pms-prayerUnits"></i> <span>Prayer Units</span></a></li>
             <li id="familywelcome"><a href="${pageContext.request.contextPath}/viewfamilywelcome.action"><i class="fa pms-family"></i>

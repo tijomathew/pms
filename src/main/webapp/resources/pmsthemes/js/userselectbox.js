@@ -4,12 +4,12 @@
 
 function loadSelectBox(contextPath) {
 
-    $('#massCentreSelectBox').change(function () {
+    $('#parishSelectBox').change(function () {
             var systemRole = $("#systemRole option:selected").val();
 
-            if (systemRole != 'MASS_CENTER_ADMIN') {
+            if (systemRole != 'PARISH_ADMIN') {
                 $.getJSON(contextPath + "/createprayerunitselectbox.action",
-                    {selectedMassCentreId: $('#massCentreSelectBox').val()},
+                    {selectedParishId: $('#parishSelectBox').val()},
                     function (data) {
                         $('#prayerUnitSelectBox').find('option').remove();
                         $('#familySelectBox').find('option').remove();

@@ -28,8 +28,8 @@ public class PMSInterceptor implements HandlerInterceptor {
     @Resource(name = "adminLinks")
     private List<String> adminLinks;
 
-    @Resource(name = "massCentreAdminLinks")
-    private List<String> massCentreAdminLinks;
+    @Resource(name = "parishAdminLinks")
+    private List<String> parishAdminLinks;
 
     @Resource(name = "prayerUnitAdminLinks")
     private List<String> prayerUnitAdminLinks;
@@ -65,8 +65,8 @@ public class PMSInterceptor implements HandlerInterceptor {
                         case ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, adminLinks);
                             break;
-                        case MASS_CENTER_ADMIN:
-                            indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, massCentreAdminLinks);
+                        case PARISH_ADMIN:
+                            indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, parishAdminLinks);
                             break;
                         case PRAYER_UNIT_ADMIN:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, prayerUnitAdminLinks);

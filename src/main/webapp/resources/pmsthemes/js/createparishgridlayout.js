@@ -2,9 +2,9 @@
  * Created by tijo on 6/7/15.
  */
 
-function loadMassCentreGrid() {
+function loadParishGrid() {
 
-    jQuery("#massCentreGrid").jqGrid(
+    jQuery("#parishGrid").jqGrid(
         {
             jsonreader: {
                 root: "rows",
@@ -14,16 +14,16 @@ function loadMassCentreGrid() {
 
 
             },
-            url: 'displaymasscentregrid.action',
+            url: 'displayparishgrid.action',
             autoencode: true,
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['MC No.', 'MC Name', 'place', 'patronName', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
+            colNames: ['Parish No.', 'Parish Name', 'place', 'patronName', 'registeredDate', 'landLineNo', 'mobileNo', 'faxNo',
                 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id'],
             colModel: [
-                {name: 'massCentreNo', index: 'massCentreNo', width: 90, sortable: true},
-                {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
+                {name: 'parishNo', index: 'parishNo', width: 90, sortable: true},
+                {name: 'parsihName', index: 'parsihName', width: 90, sortable: false},
                 {name: 'place', index: 'place', width: 90, sortable: false, hidden: true},
                 {name: 'patronName', index: 'patronName', width: 90, sortable: false},
                 {name: 'registeredDate', index: 'registeredDate', width: 90, sortable: false, hidden: true},
@@ -91,29 +91,29 @@ function loadMassCentreGrid() {
                 }
             ],
             rowNum: 10,
-            pager: '#massCentreGridPager',
-            sortname: 'massCentreNo',
+            pager: '#parishGridPager',
+            sortname: 'parishNo',
             viewrecords: true,
             sortorder: "asc",
-            caption: "Mass Centres",
+            caption: "Parish",
             autowidth: true,
             shrinkToFit: true,
             height: 'auto',
             width: 'auto',
             emptyrecords: 'no data available to show!!..Please add data to view',
             onSelectRow: function () {
-                $('#massCentreGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
+                $('#parishGridPager').find('.ui-pg-table .navtable').find('tr:first').find('.buttontd').addClass('hidedisplay');
                 jQuery('#panelDiv').show(500);
-                var rowId = jQuery("#massCentreGrid").jqGrid('getGridParam', 'selrow');
-                $('#massCentreForm').loadJSON(jQuery("#massCentreGrid").getRowData(rowId));
+                var rowId = jQuery("#parishGrid").jqGrid('getGridParam', 'selrow');
+                $('#parishForm').loadJSON(jQuery("#parishGrid").getRowData(rowId));
 
             }
         });
-    jQuery("#massCentreGrid").jqGrid('navGrid', '#massCentreGridPager', {
+    jQuery("#parishGrid").jqGrid('navGrid', '#parishGridPager', {
         edit: false, add: false, del: false,
         search: true, refresh: false
     });
 
-    addJqgridCustomButtons("massCentreGrid", "massCentreForm");
+    addJqgridCustomButtons("parishGrid", "parishForm");
     replaceDefaultGridCss();
 }

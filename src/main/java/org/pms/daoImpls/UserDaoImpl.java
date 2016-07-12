@@ -44,12 +44,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     @Override
     public List<User> getAllUsersForParishIds(List<Long> parishIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfParishes.id", parishIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
-    }
-
-    @Override
-    public List<User> getAllUsersForMassCentreIds(List<Long> massCentreIds) {
-        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfMassCentres.id", massCentreIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfParish.id", parishIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

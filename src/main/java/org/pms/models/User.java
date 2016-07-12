@@ -1,15 +1,11 @@
 package org.pms.models;
 
 import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class describes the user's attributes who has login privileges in the system.
@@ -19,7 +15,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email"), @Index(columnList = "user_of_masscentre"), @Index(columnList = "user_prayerunit"), @Index(columnList = "user_of_family")})
+@Table(name = "users", indexes = {@Index(columnList = "id"), @Index(columnList = "email"), @Index(columnList = "user_of_parish"), @Index(columnList = "user_prayerunit"), @Index(columnList = "user_of_family")})
 public class User implements Serializable {
 
     @Id
@@ -68,8 +64,8 @@ public class User implements Serializable {
     private String confirmPassword;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_of_masscentre")
-    private MassCentre usersOfMassCentres;
+    @JoinColumn(name = "user_of_parish")
+    private Parish usersOfParish;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_prayerunit")
@@ -201,8 +197,8 @@ public class User implements Serializable {
 
     public String getMassCentre() {
         String returnedObject = StringUtils.EMPTY;
-        if (this.getUsersOfMassCentres() != null)
-            returnedObject = this.getUsersOfMassCentres().getMassCentreName();
+        if (this.getUsersOfParish() != null)
+            returnedObject = this.getUsersOfParish().getParsihName();
         return returnedObject;
     }
 
@@ -222,8 +218,8 @@ public class User implements Serializable {
 
     public Long getMassCentreId() {
         Long returnedId = 0l;
-        if (this.getUsersOfMassCentres() != null)
-            returnedId = this.getUsersOfMassCentres().getId();
+        if (this.getUsersOfParish() != null)
+            returnedId = this.getUsersOfParish().getId();
         return returnedId;
     }
 
@@ -241,12 +237,12 @@ public class User implements Serializable {
         return returnedId;
     }
 
-    public MassCentre getUsersOfMassCentres() {
-        return usersOfMassCentres;
+    public Parish getUsersOfParish() {
+        return usersOfParish;
     }
 
-    public void setUsersOfMassCentres(MassCentre usersOfMassCentres) {
-        this.usersOfMassCentres = usersOfMassCentres;
+    public void setUsersOfParish(Parish usersOfParish) {
+        this.usersOfParish = usersOfParish;
     }
 
     public PrayerUnit getUsersOfPrayerUnits() {

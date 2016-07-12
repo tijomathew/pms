@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "prayerunits", indexes = {@Index(columnList = "id"), @Index(columnList = "prayerunit_no"), @Index(columnList = "registered_date"), @Index(columnList = "masscentre_no")})
+@Table(name = "prayerunits", indexes = {@Index(columnList = "id"), @Index(columnList = "prayerunit_no"), @Index(columnList = "registered_date"), @Index(columnList = "parish_no")})
 public class PrayerUnit implements Serializable {
 
     @Id
@@ -45,8 +45,8 @@ public class PrayerUnit implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "masscentre_no")
-    private MassCentre mappedMassCentre;
+    @JoinColumn(name = "parish_no")
+    private Parish mappedParish;
 
     @NotNull
     @Valid
@@ -100,12 +100,12 @@ public class PrayerUnit implements Serializable {
         this.patron = patron;
     }
 
-    public MassCentre getMappedMassCentre() {
-        return mappedMassCentre;
+    public Parish getMappedParish() {
+        return mappedParish;
     }
 
-    public void setMappedMassCentre(MassCentre mappedMassCentre) {
-        this.mappedMassCentre = mappedMassCentre;
+    public void setMappedParish(Parish mappedParish) {
+        this.mappedParish = mappedParish;
     }
 
     public LocalAddress getLocalAddress() {
@@ -139,11 +139,11 @@ public class PrayerUnit implements Serializable {
     }
 
     public Long getMassCentreNumber() {
-        return this.getMappedMassCentre().getMassCentreNo();
+        return this.getMappedParish().getParishNo();
     }
 
     public String getMassCentreName() {
-        return this.getMappedMassCentre().getMassCentreName();
+        return this.getMappedParish().getParsihName();
     }
 
     @Override
@@ -178,7 +178,7 @@ public class PrayerUnit implements Serializable {
                 .append("prayerUnitPlace", prayerUnitPlace)
                 .append("patron", patron)
                 .append("registeredDate", registeredDate)
-                .append("mappedMassCentre", mappedMassCentre)
+                .append("mappedParish", mappedParish)
                 .append("localAddress", localAddress)
                 .append("mappedFamilies", mappedFamilies)
                 .toString();

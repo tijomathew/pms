@@ -59,15 +59,15 @@
             $("#isActive option[value='ACTIVE']").attr('selected', true);
 
             function reactiveAdminsComboBox() {
-                $('#massCentreSelectBox').prop('selectedIndex', 0);
+                $('#parishSelectBox').prop('selectedIndex', 0);
                 $('#prayerUnitSelectBox').prop('selectedIndex', 0);
                 $('#familySelectBox').prop('selectedIndex', 0);
 
-                $('#massCentreSelectBox').prop('disabled', false);
+                $('#parishSelectBox').prop('disabled', false);
                 $('#prayerUnitSelectBox').prop('disabled', false);
                 $('#familySelectBox').prop('disabled', false);
 
-                $('#massCentreSelectBox').removeClass('hideSelectImage');
+                $('#parishSelectBox').removeClass('hideSelectImage');
                 $('#prayerUnitSelectBox').removeClass('hideSelectImage');
                 $('#familySelectBox').removeClass('hideSelectImage');
             }
@@ -76,7 +76,7 @@
                 reactiveAdminsComboBox();
                 var selectedSystemRole = $('#systemRole').val();
                 switch (selectedSystemRole) {
-                    case 'MASS_CENTER_ADMIN':
+                    case 'PARISH_ADMIN':
                         $('#prayerUnitSelectBox').prop('disabled', true);
                         $('#familySelectBox').prop('disabled', true);
 
@@ -207,17 +207,16 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label for="usersOfMassCentres"
-                                                                                                       class="col-sm-2 control-label required">Mass
-                                                                                                    Center</label>
+                                                                                                <label for="usersOfParish"
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
 
                                                                                                 <div class="col-sm-3"
                                                                                                      id="massCentreSelectBoxer">
                                                                                                     <form:select
-                                                                                                            path="usersOfMassCentres"
+                                                                                                            path="usersOfParish"
                                                                                                             id="massCentreSelectBox"
                                                                                                             class="form-control"
-                                                                                                            items="${massCentreList}">
+                                                                                                            items="${parishList}">
                                                                                                     </form:select>
                                                                                                 </div>
                                                                                                 <label for="usersOfPrayerUnits"

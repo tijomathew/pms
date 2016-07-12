@@ -19,7 +19,7 @@ function loadPrayerUnitGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'mappedMassCentre', 'registeredDate'],
+            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'mappedMassCentre', 'registeredDate'],
             colModel: [
                 {name: 'prayerUnitNo', index: 'prayerUnitNo', width: 90, sortable: true},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false, hidden: true},

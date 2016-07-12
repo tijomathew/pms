@@ -82,7 +82,7 @@ public class Priest implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "massCentrePriestId")
-    private MassCentre massCentre;
+    private Parish parish;
 
     @Transient
     private Long parishId;
@@ -233,12 +233,12 @@ public class Priest implements Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public MassCentre getMassCentre() {
-        return massCentre;
+    public Parish getParish() {
+        return parish;
     }
 
-    public void setMassCentre(MassCentre massCentre) {
-        this.massCentre = massCentre;
+    public void setParish(Parish parish) {
+        this.parish = parish;
     }
 
     public PriestDesignations getDesignation() {
@@ -267,8 +267,8 @@ public class Priest implements Serializable {
 
     public String getMassCentreName() {
         String returnObject = StringUtils.EMPTY;
-        if (this.getMassCentre() != null)
-            returnObject = this.getMassCentre().getMassCentreName();
+        if (this.getParish() != null)
+            returnObject = this.getParish().getParsihName();
         return returnObject;
     }
 

@@ -4,9 +4,9 @@
 
 function loadSelectBox(contextPath) {
 
-    $('#massCentreSelectBox').change(function () {
+    $('#parishSelectBox').change(function () {
             $.getJSON(contextPath + "/createprayerunitselectbox.action",
-                {selectedMassCentreId: $('#massCentreSelectBox').val()},
+                {selectedParishId: $('#parishSelectBox').val()},
                 function (data) {
                     $('#prayerUnitSelectBox').find('option').remove();
                     var html = '<option value="' + 0 + '">' + "--Select--" + '</option>';

@@ -1,6 +1,6 @@
 package org.pms.controllers;
 
-import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
+import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.PageName;
 import org.pms.displaywrappers.FamilyWrapper;
@@ -34,7 +34,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
     private FamilyService familyService;
 
     @Autowired
-    private MassCentreService massCentreService;
+    private ParishService parishService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -94,7 +94,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 Family retrievedFamily = familyService.getFamilyForID(family.getId());
-                if (!family.getFamilyPrayerUnit().getMappedMassCentre().equals(retrievedFamily.getFamilyPrayerUnit().getMappedMassCentre())) {
+                if (!family.getFamilyPrayerUnit().getMappedParish().equals(retrievedFamily.getFamilyPrayerUnit().getMappedParish())) {
                     familyService.setFamilyNumber(family);
                 }
 
@@ -154,7 +154,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
     }
 

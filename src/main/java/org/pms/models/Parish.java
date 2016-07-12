@@ -21,8 +21,8 @@ import java.util.List;
  * User: tijo
  */
 @Entity
-@Table(name = "masscentres", indexes = {@Index(columnList = "id"), @Index(columnList = "masscentre_no"), @Index(columnList = "registered_date")})
-public class MassCentre implements Serializable {
+@Table(name = "parish", indexes = {@Index(columnList = "id"), @Index(columnList = "parish_no"), @Index(columnList = "registered_date")})
+public class Parish implements Serializable {
 
     private static final long serialVersionUID = 1669408565953568157L;
 
@@ -31,11 +31,11 @@ public class MassCentre implements Serializable {
     private Long id;
 
     @NotEmpty
-    @Column(name = "masscentre_name", nullable = false)
-    private String massCentreName;
+    @Column(name = "parish_name", nullable = false)
+    private String parsihName;
 
-    @Column(name = "masscentre_no", nullable = false)
-    private Long massCentreNo;
+    @Column(name = "parish_no", nullable = false)
+    private Long parishNo;
 
     @Column(name = "patron_name")
     private String patronName;
@@ -63,10 +63,10 @@ public class MassCentre implements Serializable {
     private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "mappedMassCentre")
+    @OneToMany(mappedBy = "mappedParish")
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
-    public MassCentre() {
+    public Parish() {
     }
 
     public Long getId() {
@@ -77,20 +77,20 @@ public class MassCentre implements Serializable {
         this.id = id;
     }
 
-    public String getMassCentreName() {
-        return massCentreName;
+    public String getParsihName() {
+        return parsihName;
     }
 
-    public void setMassCentreName(String massCentreName) {
-        this.massCentreName = massCentreName;
+    public void setParsihName(String massCentreName) {
+        this.parsihName = massCentreName;
     }
 
-    public Long getMassCentreNo() {
-        return massCentreNo;
+    public Long getParishNo() {
+        return parishNo;
     }
 
-    public void setMassCentreNo(Long massCentreNo) {
-        this.massCentreNo = massCentreNo;
+    public void setParishNo(Long massCentreNo) {
+        this.parishNo = massCentreNo;
     }
 
     public String getPatronName() {
@@ -173,10 +173,10 @@ public class MassCentre implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MassCentre that = (MassCentre) o;
+        Parish that = (Parish) o;
 
-        if (!massCentreName.equals(that.massCentreName)) return false;
-        if (massCentreNo != null ? !massCentreNo.equals(that.massCentreNo) : that.massCentreNo != null) return false;
+        if (!parsihName.equals(that.parsihName)) return false;
+        if (parishNo != null ? !parishNo.equals(that.parishNo) : that.parishNo != null) return false;
         if (!place.equals(that.place)) return false;
         if (!registeredDate.equals(that.registeredDate)) return false;
 
@@ -185,7 +185,7 @@ public class MassCentre implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = massCentreName.hashCode();
+        int result = parsihName.hashCode();
         result = 31 * result + place.hashCode();
         result = 31 * result + registeredDate.hashCode();
         return result;
@@ -195,8 +195,8 @@ public class MassCentre implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("massCentreName", massCentreName)
-                .append("massCentreNo", massCentreNo)
+                .append("massCentreName", parsihName)
+                .append("massCentreNo", parishNo)
                 .append("patronName", patronName)
                 .append("place", place)
                 .append("registeredDate", registeredDate)
