@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface PrayerUnitService {
 
-    boolean addPrayerUnitSM(PrayerUnit ward);
+    Boolean addPrayerUnitSM(PrayerUnit ward);
 
     List<PrayerUnit> getAllPrayerUnits();
 

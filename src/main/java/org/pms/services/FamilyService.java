@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface FamilyService {
 
-    boolean addFamilySM(Family family);
+    Boolean addFamilySM(Family family);
 
     List<Family> getAllFamilySM();
 

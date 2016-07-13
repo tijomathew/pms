@@ -67,7 +67,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean verifyEmailIsPresent(String mail) {
+    public Boolean verifyEmailIsPresent(String mail) {
         Long mailCount = userDao.verifyEmailIsPresent(mail);
         return mailCount.longValue() > 0;
     }

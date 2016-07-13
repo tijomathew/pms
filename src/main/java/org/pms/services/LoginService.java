@@ -15,5 +15,5 @@ public interface LoginService {
 
     User getUserByEmail(String userEmail);
 
-    boolean verifyEmailIsPresent(String mail);
+    Boolean verifyEmailIsPresent(String mail);
 }

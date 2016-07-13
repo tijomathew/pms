@@ -24,7 +24,7 @@ public class FamilyServiceImpl implements FamilyService {
     private FamilyDao familyDao;
 
     @Override
-    public boolean addFamilySM(Family family) {
+    public Boolean addFamilySM(Family family) {
         familyDao.addFamilyDM(family);
         return true;
     }

@@ -40,7 +40,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     private ParishService parishService;
 
     @Override
-    public boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
+    public Boolean addPrayerUnitSM(PrayerUnit prayerUnit) {
         prayerUnitDao.addPrayerUnitDM(prayerUnit);
         return true;
     }

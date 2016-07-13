@@ -17,13 +17,9 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    Long getAllUserCount();
-
     List<User> getAllUsersForParishIds(List<Long> parishIds);
 
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
-
-    List<User> getAllUsersForFamilyIds(List<Long> familyIds);
 
     void createUserFormBackObject(Model model, User currentUser);
 
