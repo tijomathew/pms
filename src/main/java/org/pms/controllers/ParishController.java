@@ -58,6 +58,8 @@ public class ParishController extends AbstractErrorAndGridHandler {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Parish as a Parish admin in the system.");
                 }
             } else {
+                Parish retrievedParish = parishService.getParishForIDSM(parish.getId());
+                parish.setParishNo(retrievedParish.getParishNo());
                 parishService.updateParish(parish);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParsihName(), "updated successfully!");
             }

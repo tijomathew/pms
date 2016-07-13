@@ -95,6 +95,7 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 Family retrievedFamily = familyService.getFamilyForID(family.getId());
+                family.setFamilyNo(retrievedFamily.getFamilyNo());
                 if (!family.getFamilyPrayerUnit().getMappedParish().equals(retrievedFamily.getFamilyPrayerUnit().getMappedParish())) {
                     familyService.setFamilyNumber(family);
                 }

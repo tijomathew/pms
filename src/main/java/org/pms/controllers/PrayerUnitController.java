@@ -78,6 +78,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
+                prayerUnit.setPrayerUnitNo(retrievedPrayerUnit.getPrayerUnitNo());
                 if (!prayerUnit.getMappedParish().equals(retrievedPrayerUnit.getMappedParish())) {
                     prayerUnitService.setPrayerUnitNumber(prayerUnit);
                 }
