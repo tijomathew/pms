@@ -5,7 +5,7 @@ import org.pms.models.PrayerUnit;
 import java.util.List;
 
 /**
- * This interface is the contract for the PrayerUnit Dao.
+ * This interface is the contract for the Prayer Unit Dao.
  * User: tijo
  */
 public interface PrayerUnitDao {
