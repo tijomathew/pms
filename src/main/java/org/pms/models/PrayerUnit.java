@@ -132,7 +132,7 @@ public class PrayerUnit implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public void addFamilyForWard(Family family) {
+    public void addFamilyForPrayerUnit(Family family) {
         if (!this.mappedFamilies.contains(family)) {
             this.mappedFamilies.add(family);
         }

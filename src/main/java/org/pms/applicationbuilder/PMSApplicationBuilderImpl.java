@@ -46,16 +46,16 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     @Override
     @PostConstruct
     public void applicationInitializer() {
-        List<Parish> parishList = parishService.getAllParish();
+       /* List<Parish> parishList = parishService.getAllParish();
         for (Parish parish : parishList) {
             List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
             for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
                 prayerUnitService.setPrayerUnitNumber(prayerUnit);
                 prayerUnitService.updatePrayerUnit(prayerUnit);
             }
-        }
+        }*/
 
-        List<Parish> parishList1 = parishService.getAllParish();
+     /*List<Parish> parishList1 = parishService.getAllParish();
         for (Parish parish : parishList1) {
             List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
             for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
@@ -65,9 +65,9 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
                     familyService.updateFamily(family);
                 }
             }
-        }
+        }*/
 
-        List<Parish> parishList2 = parishService.getAllParish();
+       /* List<Parish> parishList2 = parishService.getAllParish();
         for (Parish parish : parishList2) {
             List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
             for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
@@ -84,7 +84,7 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
                     }
                 }
             }
-        }
+        }*/
 
 }
 

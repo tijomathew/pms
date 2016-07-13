@@ -78,13 +78,14 @@ public class FamilyController extends AbstractErrorAndGridHandler {
             if (family.getId() == null && family.getFamilyNo() == null) {
 
                 if (familyAdditionFlagForFamilyUser) {
-                    family.getFamilyPrayerUnit().addFamilyForWard(family);
+                    family.getFamilyPrayerUnit().addFamilyForPrayerUnit(family);
 
                     familyService.setFamilyNumber(family);
 
                     familyService.addFamilySM(family);
                     if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() == null) {
                         currentUser.setUserOfFamily(family);
+                        requestResponseHolder.setAttributeToSession(SystemRole.PMS_CURRENT_USER.toString(), currentUser);
                         userService.updateUser(currentUser);
                     }
 
