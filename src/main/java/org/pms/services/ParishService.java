@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 /**
- * This interface is the contract for the Mass Center Service.
+ * This interface is the contract for the Parish Service.
  * User: tijo
  */
 public interface ParishService {

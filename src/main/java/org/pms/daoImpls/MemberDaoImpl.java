@@ -39,8 +39,8 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
     }
 
     @Override
-    public Long getMemberCountForMassCentre(List<Long> familyIdsList) {
-        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.rowCount()).add(Restrictions.in("member.familyMember.id", familyIdsList)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).uniqueResult();
+    public Long getMemberCountForParish(List<Long> familyIdsList) {
+        return (Long) getDb(false).createCriteria(Member.class, "member").setProjection(Projections.max("member.memberNo")).add(Restrictions.in("member.familyMember.id", familyIdsList)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).uniqueResult();
     }
 
     @Override
@@ -59,8 +59,4 @@ public class MemberDaoImpl extends GenericDaoImpl<Member> implements MemberDao {
         return (Member) getDb(false).createCriteria(Member.class, "member").add(Restrictions.eq("member.familyMember.id", familyId)).add(Restrictions.eq("member.familyHead", Boolean.TRUE)).uniqueResult();
     }
 
-    @Override
-    public Member getMemberForMemberNo(Long memberNo) {
-        return (Member) getDb(false).createCriteria(Member.class, "member").add(Restrictions.eq("member.memberNo", memberNo)).uniqueResult();
-    }
 }

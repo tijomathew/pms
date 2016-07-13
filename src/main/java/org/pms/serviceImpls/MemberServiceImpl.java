@@ -50,10 +50,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Long getMemberCountForMassCentre(List<Long> familyIdsList) {
+    public Long getMemberCountForParish(List<Long> familyIdsList) {
         Long countOfMembers = 0l;
         if (!familyIdsList.isEmpty()) {
-            countOfMembers = memberDao.getMemberCountForMassCentre(familyIdsList);
+            countOfMembers = memberDao.getMemberCountForParish(familyIdsList);
         }
         return countOfMembers;
     }
@@ -66,9 +66,9 @@ public class MemberServiceImpl implements MemberService {
                 allMembers.addAll(getAllMember());
                 break;
             case PARISH_ADMIN:
-                List<Family> allFamiliesUnderMassCentre = familyService.getAllFamilyForMassCentreID(currentUser.getUsersOfParish().getId());
-                if (!allFamiliesUnderMassCentre.isEmpty()) {
-                    allFamiliesUnderMassCentre.stream().forEach((family) -> {
+                List<Family> allFamiliesUnderParish = familyService.getAllFamilyForParishId(currentUser.getUsersOfParish().getId());
+                if (!allFamiliesUnderParish.isEmpty()) {
+                    allFamiliesUnderParish.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
                     });
                 }
@@ -124,8 +124,4 @@ public class MemberServiceImpl implements MemberService {
         return memberDao.getFamilyHeadMember(familyId);
     }
 
-    @Override
-    public Member getMemberForMemberNo(Long memberNo) {
-        return memberDao.getMemberForMemberNo(memberNo);
-    }
 }

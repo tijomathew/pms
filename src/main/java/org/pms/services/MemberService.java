@@ -18,7 +18,7 @@ public interface MemberService {
 
     List<Member> getAllMember();
 
-    Long getMemberCountForMassCentre(List<Long> familyIdsList);
+    Long getMemberCountForParish(List<Long> familyIdsList);
 
     List<Member> getAllMembersForUserRole(User currentUser);
 
@@ -29,6 +29,4 @@ public interface MemberService {
     Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
 
     Member getFamilyHeadMember(Long familyId);
-
-    Member getMemberForMemberNo(Long memberNo);
 }

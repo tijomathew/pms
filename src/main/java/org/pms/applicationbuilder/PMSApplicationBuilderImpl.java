@@ -1,7 +1,12 @@
 package org.pms.applicationbuilder;
 
-import org.pms.models.User;
+import org.pms.models.*;
+import org.pms.services.FamilyService;
+import org.pms.services.MemberService;
+import org.pms.services.ParishService;
+import org.pms.services.PrayerUnitService;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +30,14 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     private ApplicationContext applicationContext;
     private final Map<String, User> userSessionMap;
     private ResourceLoader resourceLoader;
+    @Autowired
+    private ParishService parishService;
+    @Autowired
+    private PrayerUnitService prayerUnitService;
+    @Autowired
+    private FamilyService familyService;
+    @Autowired
+    private MemberService memberService;
 
     public PMSApplicationBuilderImpl() {
         userSessionMap = new HashMap<>();
@@ -32,8 +46,47 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     @Override
     @PostConstruct
     public void applicationInitializer() {
-        //NO OP
-    }
+        List<Parish> parishList = parishService.getAllParish();
+        for (Parish parish : parishList) {
+            List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
+            for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
+                prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                prayerUnitService.updatePrayerUnit(prayerUnit);
+            }
+        }
+
+        List<Parish> parishList1 = parishService.getAllParish();
+        for (Parish parish : parishList1) {
+            List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
+            for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
+                List<Family> familyList = prayerUnit.getMappedFamilies();
+                for (Family family : familyList) {
+                    familyService.setFamilyNumber(family);
+                    familyService.updateFamily(family);
+                }
+            }
+        }
+
+        List<Parish> parishList2 = parishService.getAllParish();
+        for (Parish parish : parishList2) {
+            List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
+            for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
+                List<Family> familyList = prayerUnit.getMappedFamilies();
+                for (Family family : familyList) {
+                    List<Member> memberList = family.getMemberList();
+                    for (Member member : memberList) {
+                        List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishId(member.getFamilyMember().getFamilyPrayerUnit().getMappedParish().getId());
+                            Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
+
+                        member.setMemberNo(++memberCountForParish);
+
+                        memberService.updateMember(member);
+                    }
+                }
+            }
+        }
+
+}
 
     @Override
     @PreDestroy

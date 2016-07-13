@@ -20,15 +20,11 @@ public interface PrayerUnitService {
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
 
-    Long getPrayerUnitCount();
-
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountUnderMassCentre(Long massCentreId);
+    Long getPrayerUnitCountUnderParish(Long massCentreId);
 
     void createPrayerUnitFormBackObject(Model modelMap);
-
-    List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds);
 
     List<PrayerUnit> getAllPrayerUnitsForUserRole(User currentUser);
 

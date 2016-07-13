@@ -61,22 +61,13 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public Long getPrayerUnitCount() {
-        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCount();
-        if (prayerUnitCount == null) {
-            prayerUnitCount = 0l;
-        }
-        return prayerUnitCount;
-    }
-
-    @Override
     public void updatePrayerUnit(PrayerUnit prayerUnit) {
         prayerUnitDao.updatePrayerUnit(prayerUnit);
     }
 
     @Override
-    public Long getPrayerUnitCountUnderMassCentre(Long massCentreId) {
-        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderParish(massCentreId);
+    public Long getPrayerUnitCountUnderParish(Long parishId) {
+        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderParish(parishId);
         if (prayerUnitCount == null) {
             prayerUnitCount = 0l;
         }
@@ -101,11 +92,6 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
         formBackPrayerUnit.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
 
         modelMap.addAttribute("parishMap", parishMap);
-    }
-
-    @Override
-    public List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds) {
-        return prayerUnitDao.getAllPrayerUnitIdsForParishIds(massCentreIds);
     }
 
     @Override
@@ -135,7 +121,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Override
     public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
-        Long prayerUnitCounter = getPrayerUnitCountUnderMassCentre(prayerUnit.getMappedParish().getId());
+        Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedParish().getId());
         prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
     }
 

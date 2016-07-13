@@ -40,13 +40,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public Long getFamilyTotalCount() {
-        return familyDao.getFamilyTotalCount();
-    }
-
-    @Override
-    public Long getFamilyCountForMassCentre(Long massCentreId) {
-        Long familyNumber = familyDao.getFamilyCountForParish(massCentreId);
+    public Long getFamilyCountForParish(Long parishId) {
+        Long familyNumber = familyDao.getFamilyCountForParish(parishId);
         if (familyNumber == null) {
             familyNumber = 0l;
         }
@@ -54,7 +49,7 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
+    public List<Family> getAllFamilyForParishId(Long massCentreId) {
         return familyDao.getAllFamilyForParishID(massCentreId);
     }
 
@@ -69,13 +64,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Long> getAllFamiliesIDForMassCentreId(Long massCentreId) {
-        return familyDao.getAllFamiliesIDForParishId(massCentreId);
-    }
-
-    @Override
-    public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
-        return familyDao.getAllFamilyIdsForPrayerUnitId(prayerUnitIds);
+    public List<Long> getAllFamiliesIDForParishId(Long parishId) {
+        return familyDao.getAllFamiliesIDForParishId(parishId);
     }
 
     @Override
@@ -86,7 +76,7 @@ public class FamilyServiceImpl implements FamilyService {
                 familyList = getAllFamilySM();
                 break;
             case PARISH_ADMIN:
-                familyList = getAllFamilyForMassCentreID(currentUser.getUsersOfParish().getId());
+                familyList = getAllFamilyForParishId(currentUser.getUsersOfParish().getId());
                 break;
             case PRAYER_UNIT_ADMIN:
                 familyList = getAllFamilyForPrayerUnitID(currentUser.getUsersOfPrayerUnits().getId());
@@ -107,7 +97,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForMassCentre(family.getFamilyPrayerUnit().getMappedParish().getId());
+        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedParish().getId());
         family.setFamilyNo(++familyCounterForParish);
     }
 }

@@ -18,11 +18,7 @@ public interface PrayerUnitDao {
 
     PrayerUnit getPrayerUnitForIDDM(Long id);
 
-    Long getPrayerUnitCount();
-
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
     Long getPrayerUnitCountUnderParish(Long massCentreId);
-
-    List<Long> getAllPrayerUnitIdsForParishIds(List<Long> massCentreIds);
 }

@@ -5,7 +5,7 @@ import org.pms.models.Parish;
 import java.util.List;
 
 /**
- * This interface is the contract for the Mass Center Dao.
+ * This interface is the contract for the Parish Dao.
  * User: tijo
  */
 public interface ParishDao {

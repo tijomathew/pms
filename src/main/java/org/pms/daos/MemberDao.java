@@ -16,14 +16,12 @@ public interface MemberDao {
 
     List<Member> getAllMembers();
 
-    Long getMemberCountForMassCentre(List<Long> familiesList);
+    Long getMemberCountForParish(List<Long> familiesList);
 
     List<Member> getAllMembersForFamilyID(Long familyId);
 
     Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
 
     Member getFamilyHeadMember(Long familyId);
-
-    Member getMemberForMemberNo(Long memberNo);
 
 }
