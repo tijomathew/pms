@@ -13,12 +13,12 @@
       <li style="font-size: 96%;
     font-weight: bold;
     color: #fff;">PMS &copy; Syro Malabar Church, Ireland ${currentYear}</li>
-      <li style="font-size: 96%;
-    font-weight: bold;
-    color: #fff;">In memory of Shinto Jacob, Naduvilekuttu</li>
     </ul>
     <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top">
       <i class="fa fa-arrow-up"></i>
     </button>
+    <div style="font-size: 96%;
+    font-weight: bold;
+    color: #fff;text-align: right">In memory of Shinto Jacob, Naduvilekuttu</div>
   </div>
 </footer>
