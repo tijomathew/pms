@@ -122,7 +122,7 @@ public class UserController extends AbstractErrorAndGridHandler {
 
             //Error message when entered username is already exists from the database.
             if (userEmailAlreadyExists) {
-                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system as it already exists");
                 //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
             }
         } else {
