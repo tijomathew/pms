@@ -185,7 +185,7 @@
 <fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
 <footer class="container">
     <p id="footer-text">
-        <small>PMS &copy; Shinto Jacob, Naduvilekuttu ${currentYear}</small>
+        <small>PMS &copy; Syro Malabar Church, Ireland ${currentYear}</small>
     </p>
 </footer>
 
