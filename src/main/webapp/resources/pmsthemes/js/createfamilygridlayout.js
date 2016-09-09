@@ -148,8 +148,8 @@ function loadFamilyGrid(isFamilyUser) {
                     hidden: true
                 },
                 {
-                    name: 'familyMassCentre',
-                    index: 'familyMassCentre',
+                    name: 'familyParish',
+                    index: 'familyParish',
                     width: 150,
                     align: "right",
                     sortable: false,

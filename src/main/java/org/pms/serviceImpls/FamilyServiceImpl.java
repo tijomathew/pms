@@ -49,8 +49,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public List<Family> getAllFamilyForParishId(Long massCentreId) {
-        return familyDao.getAllFamilyForParishID(massCentreId);
+    public List<Family> getAllFamilyForParishId(Long parishId) {
+        return familyDao.getAllFamilyForParishID(parishId);
     }
 
     @Override

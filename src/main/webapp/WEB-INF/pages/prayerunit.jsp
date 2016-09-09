@@ -15,11 +15,11 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/parishselectbox.js" var="massCentreSelectBoxURL"/>
+    <spring:url value="/resources/js/parishselectbox.js" var="parishSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
-    <script src="${massCentreSelectBoxURL}" type="text/javascript"
+    <script src="${parishSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">

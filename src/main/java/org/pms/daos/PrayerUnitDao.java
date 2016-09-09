@@ -14,11 +14,11 @@ public interface PrayerUnitDao {
 
     List<PrayerUnit> getAllPrayerUnit();
 
-    List<PrayerUnit> getPrayerUnitsForParishIDDM(Long massCentreID);
+    List<PrayerUnit> getPrayerUnitsForParishIDDM(Long parishID);
 
     PrayerUnit getPrayerUnitForIDDM(Long id);
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountUnderParish(Long massCentreId);
+    Long getPrayerUnitCountUnderParish(Long parishId);
 }

@@ -43,7 +43,7 @@ public class ParishController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addparish.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addMassCentre(@ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
+    CustomResponse addParish(@ModelAttribute("parish") @Valid Parish parish, BindingResult result) {
 
         if (!result.hasErrors()) {
 
@@ -74,7 +74,7 @@ public class ParishController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "displayparishgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForMassCentre(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
+    Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> allParishes = parishService.getAllParishForUserRole(currentUser);
         Integer parishCount = allParishes.size();

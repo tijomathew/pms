@@ -195,7 +195,7 @@ public class User implements Serializable {
     }
 
 
-    public String getMassCentre() {
+    public String getParish() {
         String returnedObject = StringUtils.EMPTY;
         if (this.getUsersOfParish() != null)
             returnedObject = this.getUsersOfParish().getParsihName();
@@ -216,7 +216,7 @@ public class User implements Serializable {
         return returnedObject;
     }
 
-    public Long getMassCentreId() {
+    public Long getParishId() {
         Long returnedId = 0l;
         if (this.getUsersOfParish() != null)
             returnedId = this.getUsersOfParish().getId();

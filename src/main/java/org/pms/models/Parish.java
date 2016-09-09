@@ -81,16 +81,16 @@ public class Parish implements Serializable {
         return parsihName;
     }
 
-    public void setParsihName(String massCentreName) {
-        this.parsihName = massCentreName;
+    public void setParsihName(String parishName) {
+        this.parsihName = parishName;
     }
 
     public Long getParishNo() {
         return parishNo;
     }
 
-    public void setParishNo(Long massCentreNo) {
-        this.parishNo = massCentreNo;
+    public void setParishNo(Long parishNo) {
+        this.parishNo = parishNo;
     }
 
     public String getPatronName() {
@@ -162,7 +162,7 @@ public class Parish implements Serializable {
      *
      * @param prayerUnit prayerUnit to be added to the mass center.
      */
-    public void addPrayerUnitsForMassCentre(PrayerUnit prayerUnit) {
+    public void addPrayerUnitsForParish(PrayerUnit prayerUnit) {
         if (!this.prayerUnits.contains(prayerUnit)) {
             this.prayerUnits.add(prayerUnit);
         }
@@ -195,8 +195,8 @@ public class Parish implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("massCentreName", parsihName)
-                .append("massCentreNo", parishNo)
+                .append("parishName", parsihName)
+                .append("parishNo", parishNo)
                 .append("patronName", patronName)
                 .append("place", place)
                 .append("registeredDate", registeredDate)

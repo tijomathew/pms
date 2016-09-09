@@ -19,7 +19,7 @@ public interface FamilyService {
 
     Long getFamilyCountForParish(Long parishId);
 
-    List<Family> getAllFamilyForParishId(Long massCentreId);
+    List<Family> getAllFamilyForParishId(Long parishId);
 
     List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId);
 

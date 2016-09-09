@@ -70,7 +70,7 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
                 if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
                     prayerUnitService.setPrayerUnitNumber(prayerUnit);
-                    prayerUnit.getMappedParish().addPrayerUnitsForMassCentre(prayerUnit);
+                    prayerUnit.getMappedParish().addPrayerUnitsForParish(prayerUnit);
                     prayerUnitService.addPrayerUnitSM(prayerUnit);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {

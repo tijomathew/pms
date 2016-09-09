@@ -211,10 +211,10 @@
                                                                                                        class="col-sm-2 control-label required">Parish</label>
 
                                                                                                 <div class="col-sm-3"
-                                                                                                     id="massCentreSelectBoxer">
+                                                                                                     id="parishSelectBoxer">
                                                                                                     <form:select
                                                                                                             path="usersOfParish"
-                                                                                                            id="massCentreSelectBox"
+                                                                                                            id="parishSelectBox"
                                                                                                             class="form-control"
                                                                                                             items="${parishList}">
                                                                                                     </form:select>

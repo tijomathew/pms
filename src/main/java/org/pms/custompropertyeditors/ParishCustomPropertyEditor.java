@@ -17,10 +17,10 @@ public class ParishCustomPropertyEditor extends PropertyEditorSupport {
         this.parishService = parishService;
     }
 
-    public void setAsText(String massCentreID) {
-        if (massCentreID != null && !massCentreID.isEmpty()) {
-            Long massCentreId = Long.valueOf(massCentreID);
-            Parish selectedParish = parishService.getParishForIDSM(massCentreId);
+    public void setAsText(String parishID) {
+        if (parishID != null && !parishID.isEmpty()) {
+            Long parishId = Long.valueOf(parishID);
+            Parish selectedParish = parishService.getParishForIDSM(parishId);
             setValue(selectedParish);
         }
     }

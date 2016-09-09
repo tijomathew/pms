@@ -16,13 +16,13 @@ public interface PrayerUnitService {
 
     List<PrayerUnit> getAllPrayerUnits();
 
-    List<PrayerUnit> getAllPrayerUnitsForParishID(Long massCentreID);
+    List<PrayerUnit> getAllPrayerUnitsForParishID(Long parishID);
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountUnderParish(Long massCentreId);
+    Long getPrayerUnitCountUnderParish(Long parishId);
 
     void createPrayerUnitFormBackObject(Model modelMap);
 

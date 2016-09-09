@@ -78,13 +78,13 @@ public class UserServiceImpl implements UserService {
                 createUserModelSelectBoxes(model, currentUser);
                 break;
             case PARISH_ADMIN:
-                Predicate<SystemRole> excludeMassCentreAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeMassCentreAdmin);
+                Predicate<SystemRole> excludeParishAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
             case PRAYER_UNIT_ADMIN:
-                Predicate<SystemRole> excludeMassCentreAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeMassCentreAdminAndPrayerUnitAdmin);
+                Predicate<SystemRole> excludeParishAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndPrayerUnitAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
         }
@@ -104,9 +104,9 @@ public class UserServiceImpl implements UserService {
                 break;
             case PARISH_ADMIN:
                 Parish parishOfParishAdmin = currentUser.getUsersOfParish();
-                List<Long> currentUserMassCentreIdAsList = new ArrayList<>();
-                currentUserMassCentreIdAsList.add(parishOfParishAdmin.getId());
-                allUsers.addAll(getAllUsersForParishIds(currentUserMassCentreIdAsList));
+                List<Long> currentUserParishIdAsList = new ArrayList<>();
+                currentUserParishIdAsList.add(parishOfParishAdmin.getId());
+                allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
                 break;
             case PRAYER_UNIT_ADMIN:
                 PrayerUnit prayerUnitOfPrayerUnitAdmin = currentUser.getUsersOfPrayerUnits();

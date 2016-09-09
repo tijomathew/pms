@@ -11959,10 +11959,6 @@ body.show-rightbar #chatarea .chatmsg.sent:after {
     background-position: 0px -46px;
 }
 
-#sidebar i.pms-massCentres {
-    background-position: 0px -71px;
-}
-
 #sidebar i.pms-prayerUnits {
     background-position: 0px -91px;
 
