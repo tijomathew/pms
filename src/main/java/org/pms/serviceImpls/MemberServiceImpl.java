@@ -55,6 +55,9 @@ public class MemberServiceImpl implements MemberService {
         if (!familyIdsList.isEmpty()) {
             countOfMembers = memberDao.getMemberCountForParish(familyIdsList);
         }
+        if (countOfMembers == null) {
+            countOfMembers = 0l;
+        }
         return countOfMembers;
     }
 
