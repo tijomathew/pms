@@ -11,27 +11,21 @@ import java.util.List;
  */
 public interface FamilyService {
 
-    boolean addFamilySM(Family family);
+    Boolean addFamilySM(Family family);
 
     List<Family> getAllFamilySM();
 
     Family getFamilyForID(Long id);
 
-    Long getFamilyTotalCount();
-
     Long getFamilyCountForParish(Long parishId);
 
-    List<Family> getAllFamilyForParishID(Long parishId);
-
-    List<Family> getAllFamilyForMassCentreID(Long massCentreId);
+    List<Family> getAllFamilyForParishId(Long parishId);
 
     List<Family> getAllFamilyForPrayerUnitID(Long prayerUnitId);
 
     List<Family> getFamilyForFamilyID(Long familyId);
 
-    List<Long> getAllFamiliesIDForParishID(Long parishId);
-
-    List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds);
+    List<Long> getAllFamiliesIDForParishId(Long parishId);
 
     List<Family> getAllFamiliesForUserRole(User currentUser);
 

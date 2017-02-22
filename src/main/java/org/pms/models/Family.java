@@ -3,7 +3,6 @@ package org.pms.models;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -75,10 +74,6 @@ public class Family implements Serializable {
     //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
     @Transient
     private Parish familyParish;
-
-    //This field is added to resolve the selection issue. This field has no role in logic of adding a family.
-    @Transient
-    private MassCentre familyMassCentre;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -172,14 +167,6 @@ public class Family implements Serializable {
         this.familyParish = familyParish;
     }
 
-    public MassCentre getFamilyMassCentre() {
-        return familyMassCentre;
-    }
-
-    public void setFamilyMassCentre(MassCentre familyMassCentre) {
-        this.familyMassCentre = familyMassCentre;
-    }
-
     public PrayerUnit getFamilyPrayerUnit() {
         return familyPrayerUnit;
     }
@@ -216,23 +203,15 @@ public class Family implements Serializable {
     }
 
     public Long getParishNumber() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishNo();
-    }
-
-    public String getParishName() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getParishName();
-    }
-
-    public Long getMassCentreNumber() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreNo();
+        return this.getFamilyPrayerUnit().getMappedParish().getParishNo();
     }
 
     public Long getPrayerUnitNumber() {
         return this.getFamilyPrayerUnit().getPrayerUnitNo();
     }
 
-    public String getMassCentreName() {
-        return this.getFamilyPrayerUnit().getMappedMassCentre().getMassCentreName();
+    public String getParishName() {
+        return this.getFamilyPrayerUnit().getMappedParish().getParsihName();
     }
 
     public String getPrayerUnitName() {

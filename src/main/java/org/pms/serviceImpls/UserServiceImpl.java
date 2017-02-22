@@ -30,9 +30,6 @@ public class UserServiceImpl implements UserService {
     private ParishService parishService;
 
     @Autowired
-    private MassCentreService massCentreService;
-
-    @Autowired
     private PrayerUnitService prayerUnitService;
 
     @Autowired
@@ -55,28 +52,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long getAllUserCount() {
-        return userDao.getAllUserCount();
-    }
-
-    @Override
     public List<User> getAllUsersForParishIds(List<Long> parishIds) {
         return userDao.getAllUsersForParishIds(parishIds);
     }
 
     @Override
-    public List<User> getAllUsersForMassCentreIds(List<Long> massCentreIds) {
-        return userDao.getAllUsersForMassCentreIds(massCentreIds);
-    }
-
-    @Override
     public List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds) {
         return userDao.getAllUsersForPrayerUnitIds(prayerUnitIds);
-    }
-
-    @Override
-    public List<User> getAllUsersForFamilyIds(List<Long> familyIds) {
-        return userDao.getAllUsersForFamilyIds(familyIds);
     }
 
     @Override
@@ -100,14 +82,9 @@ public class UserServiceImpl implements UserService {
                 excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
-            case MASS_CENTER_ADMIN:
-                Predicate<SystemRole> excludeParishAdminAndMassCentreAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCentreAdmin);
-                createUserModelSelectBoxes(model, currentUser);
-                break;
             case PRAYER_UNIT_ADMIN:
-                Predicate<SystemRole> excludeParishAdminAndMassCentreAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.MASS_CENTER_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
-                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndMassCentreAdminAndPrayerUnitAdmin);
+                Predicate<SystemRole> excludeParishAdminAndPrayerUnitAdmin = p -> !(p.name().equalsIgnoreCase(SystemRole.PRAYER_UNIT_ADMIN.toString())) && !(p.name().equalsIgnoreCase(SystemRole.PARISH_ADMIN.toString()));
+                excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser = excludeUserBasedAdminRoleAfterRemovingAdminAndPMSCurrentUser.and(excludeParishAdminAndPrayerUnitAdmin);
                 createUserModelSelectBoxes(model, currentUser);
                 break;
         }
@@ -126,16 +103,10 @@ public class UserServiceImpl implements UserService {
                 allUsers.addAll(getAllUsers());
                 break;
             case PARISH_ADMIN:
-                Parish ParishOfParishAdmin = currentUser.getUsersOfParishes();
+                Parish parishOfParishAdmin = currentUser.getUsersOfParish();
                 List<Long> currentUserParishIdAsList = new ArrayList<>();
-                currentUserParishIdAsList.add(ParishOfParishAdmin.getId());
+                currentUserParishIdAsList.add(parishOfParishAdmin.getId());
                 allUsers.addAll(getAllUsersForParishIds(currentUserParishIdAsList));
-                break;
-            case MASS_CENTER_ADMIN:
-                MassCentre massCentreOfMassCentreAdmin = currentUser.getUsersOfMassCentres();
-                List<Long> currentUserMassCentreIdAsList = new ArrayList<>();
-                currentUserMassCentreIdAsList.add(massCentreOfMassCentreAdmin.getId());
-                allUsers.addAll(getAllUsersForMassCentreIds(currentUserMassCentreIdAsList));
                 break;
             case PRAYER_UNIT_ADMIN:
                 PrayerUnit prayerUnitOfPrayerUnitAdmin = currentUser.getUsersOfPrayerUnits();
@@ -154,15 +125,9 @@ public class UserServiceImpl implements UserService {
     private void createUserModelSelectBoxes(Model model, User currentUser) {
 
         Map<Long, String> parishMap = new HashMap<Long, String>();
-        List<Parish> addedParishes = parishService.getAllParishForUserRole(currentUser);
-        if (!addedParishes.isEmpty()) {
-            parishMap = addedParishes.stream().collect(Collectors.toMap(Parish::getId, Parish::getParishName));
-        }
-
-        Map<Long, String> massCentreMap = new HashMap<Long, String>();
-        List<MassCentre> massCentreList = massCentreService.getAllMassCentresForUserRole(currentUser);
-        if (!massCentreList.isEmpty()) {
-            massCentreMap = massCentreList.stream().collect(Collectors.toMap(MassCentre::getId, MassCentre::getMassCentreName));
+        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
+        if (!parishList.isEmpty()) {
+            parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
 
         Map<Long, String> prayerUnitMap = new HashMap<Long, String>();
@@ -178,7 +143,6 @@ public class UserServiceImpl implements UserService {
         }
 
         model.addAttribute("parishList", parishMap);
-        model.addAttribute("massCentreList", massCentreMap);
         model.addAttribute("prayerUnitList", prayerUnitMap);
         model.addAttribute("familyList", familyMap);
 

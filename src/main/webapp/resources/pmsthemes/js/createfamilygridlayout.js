@@ -19,14 +19,12 @@ function loadFamilyGrid(isFamilyUser) {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyMassCentre', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail', 'mobileNo'],
+            colNames: ['Family No.', 'Family Name', 'Parish No.', 'Parish Name', 'PU No.', 'PU Name', 'Native Parish', 'Native Diocese', 'dateOfRegistration', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'nativeAddress.addressLineOne', 'nativeAddress.addressLineTwo', 'nativeAddress.addressLineThree', 'nativeAddress.postOffice', 'nativeAddress.district', 'nativeAddress.pin', 'nativeAddress.state', 'nativeAddress.country', 'id', 'familyParish', 'familyPrayerUnit', 'emergencynameaddress', 'emergencyphoneno', 'emergencyalternativeno', 'emeregencyemail', 'mobileNo'],
             colModel: [
                 {name: 'familyNo', index: 'familyNo', width: 100, sortable: true},
                 {name: 'familyName', index: 'familyName', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 100, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 100, sortable: false},
-                {name: 'massCentreNumber', index: 'massCentreNumber', width: 100, sortable: false},
-                {name: 'massCentreName', index: 'massCentreName', width: 100, sortable: false},
                 {name: 'prayerUnitNumber', index: 'prayerUnitNumber', width: 100, sortable: false},
                 {name: 'prayerUnitName', index: 'prayerUnitName', width: 100, sortable: false},
                 {name: 'parishInNative', index: 'parishInNative', width: 100, sortable: false},
@@ -152,14 +150,6 @@ function loadFamilyGrid(isFamilyUser) {
                 {
                     name: 'familyParish',
                     index: 'familyParish',
-                    width: 150,
-                    align: "right",
-                    sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'familyMassCentre',
-                    index: 'familyMassCentre',
                     width: 150,
                     align: "right",
                     sortable: false,

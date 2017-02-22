@@ -24,6 +24,4 @@ public interface MemberDao {
 
     Member getFamilyHeadMember(Long familyId);
 
-    Member getMemberForMemberNo(Long memberNo);
-
 }

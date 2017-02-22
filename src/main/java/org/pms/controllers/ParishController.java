@@ -1,13 +1,9 @@
 package org.pms.controllers;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.pms.enums.PageName;
-import org.pms.enums.SystemRole;
+import org.pms.enums.*;
 import org.pms.displaywrappers.ParishWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.enums.StatusCode;
 import org.pms.helpers.*;
 import org.pms.models.*;
 import org.pms.services.ParishService;
@@ -18,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -36,10 +34,9 @@ public class ParishController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewparish.action", method = RequestMethod.GET)
-    public String viewParishPageDisplay(Model model) {
-        Parish modelBackObject = new Parish();
-        modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("parish", modelBackObject);
+    public String viewParishDisplay(Model modelMap) {
+
+        parishService.createParishFormBackObject(modelMap);
         return PageName.PARISH.toString();
     }
 
@@ -51,25 +48,26 @@ public class ParishController extends AbstractErrorAndGridHandler {
         if (!result.hasErrors()) {
 
             if (parish.getId() == null && parish.getParishNo() == null) {
-                Long parishCounter = parishService.getParishCount();
-                parish.setParishNo(++parishCounter);
 
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.PARISH_ADMIN) {
                     parishService.addParish(parish);
-                    customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), SUCCESS_MESSAGE_DISPLAY);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParsihName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
-                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a parish by a Parish Admin in the system.");
+                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Parish as a Parish admin in the system.");
                 }
             } else {
+                Parish retrievedParish = parishService.getParishForIDSM(parish.getId());
+                parish.setParishNo(retrievedParish.getParishNo());
                 parishService.updateParish(parish);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParishName(), "updated successfully");
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, parish.getParsihName(), "updated successfully!");
             }
 
         } else {
             customResponse = createValidationErrorMessage(StatusCode.FAIL, result.getFieldErrors());
         }
+
         return customResponse;
     }
 
@@ -77,39 +75,25 @@ public class ParishController extends AbstractErrorAndGridHandler {
     public
     @ResponseBody
     Object generateJsonDisplayForParish(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
-
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<Parish> allParishes = parishService.getAllParishForUserRole(currentUser);
-        Integer totalParishCount = allParishes.size();
-
-        List<GridRow> parishGridRows = new ArrayList<>(allParishes.size());
-        List<Parish> allUsersSubList = new ArrayList<>();
+        Integer parishCount = allParishes.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        if (totalParishCount > 0) {
+        List<Parish> allUsersSubList = new ArrayList<>();
+        if (parishCount > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
                 Collections.sort(allParishes, formatter.by(sortIndexColumnName, Parish.class));
             }
-            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalParishCount, allParishes);
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, parishCount, allParishes);
         }
 
+        List<GridRow> parishGridRows = new ArrayList<>(allParishes.size());
         if (!allUsersSubList.isEmpty()) {
             parishGridRows = allUsersSubList.stream().map(parish -> new ParishWrapper(parish)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(totalParishCount, page, rows, parishGridRows));
-    }
-
-    @RequestMapping(value = "createparishselectbox.action", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    String generateParishSelectBox() {
-        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
-
-        List<SelectBox<String, Long>> selectBoxList = parishList.stream().map(parish -> new SelectBox<>(parish.getParishName(), parish.getId())).collect(Collectors.toList());
-
-        return SelectBox.getJsonForSelectBoxCreation(selectBoxList);
+        return JsonBuilder.convertToJson(createGridContent(parishCount, page, rows, parishGridRows));
     }
 
 }

@@ -5,7 +5,7 @@ import org.pms.models.PrayerUnit;
 import java.util.List;
 
 /**
- * This interface is the contract for the PrayerUnit Dao.
+ * This interface is the contract for the Prayer Unit Dao.
  * User: tijo
  */
 public interface PrayerUnitDao {
@@ -14,15 +14,11 @@ public interface PrayerUnitDao {
 
     List<PrayerUnit> getAllPrayerUnit();
 
-    List<PrayerUnit> getPrayerUnitsForMassCentreIDDM(Long massCentreID);
+    List<PrayerUnit> getPrayerUnitsForParishIDDM(Long parishID);
 
     PrayerUnit getPrayerUnitForIDDM(Long id);
-
-    Long getPrayerUnitCount();
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
     Long getPrayerUnitCountUnderParish(Long parishId);
-
-    List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds);
 }

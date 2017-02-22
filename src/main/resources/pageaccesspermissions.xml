@@ -9,18 +9,6 @@
         <value>viewparish.action</value>
         <value>addparish.action</value>
         <value>displayparishgrid.action</value>
-        <value>createpriestdesignationbox.action</value>
-        <value>editparishdetails.action</value>
-        <value>updateparishinformation.action</value>
-
-        <value>viewpriest.action</value>
-        <value>addpriest.action</value>
-        <value>displaypriestgrid.action</value>
-
-        <value>viewmasscentre.action</value>
-        <value>addmasscentre.action</value>
-        <value>displaymasscentregrid.action</value>
-        <value>createpriestdesignationboxinmasscentre.action</value>
 
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
@@ -29,8 +17,6 @@
         <value>viewfamilywelcome.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -52,24 +38,19 @@
         <value>viewparish.action</value>
         <value>addparish.action</value>
         <value>displayparishgrid.action</value>
-        <value>createpriestdesignationbox.action</value>
-        <value>editparishdetails.action</value>
-        <value>updateparishinformation.action</value>
-
-        <value>viewmasscentre.action</value>
-        <value>addmasscentre.action</value>
-        <value>displaymasscentregrid.action</value>
-        <value>createpriestdesignationboxinmasscentre.action</value>
 
         <value>viewprayerunit.action</value>
         <value>addprayerunit.action</value>
         <value>displayprayerunitgrid.action</value>
 
+        <value>viewusers.action</value>
+        <value>adduser.action</value>
+        <value>displayusergrid.action</value>
+        <value>createfamilyselectbox.action</value>
+
         <value>viewfamilywelcome.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 
@@ -77,27 +58,6 @@
         <value>createfamilyselectbox.action</value>
         <value>addmember.action</value>
         <value>displaymembergrid.action</value>
-
-        <value>viewusers.action</value>
-        <value>adduser.action</value>
-        <value>displayusergrid.action</value>
-        <value>createfamilyselectbox.action</value>
-    </util:list>
-
-    <util:list id="massCentreAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
-        <value>viewmasscentre.action</value>
-        <value>addmasscentre.action</value>
-        <value>displaymasscentregrid.action</value>
-        <value>createpriestdesignationboxinmasscentre.action</value>
-
-        <value>viewprayerunit.action</value>
-        <value>addprayerunit.action</value>
-        <value>displayprayerunitgrid.action</value>
-
-        <value>viewusers.action</value>
-        <value>adduser.action</value>
-        <value>displayusergrid.action</value>
-        <value>createfamilyselectbox.action</value>
     </util:list>
 
     <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -109,14 +69,23 @@
         <value>adduser.action</value>
         <value>displayusergrid.action</value>
         <value>createfamilyselectbox.action</value>
+
+        <value>viewfamilywelcome.action</value>
+        <value>viewfamily.action</value>
+        <value>addfamily.action</value>
+        <value>createprayerunitselectbox.action</value>
+        <value>displayfamilygrid.action</value>
+
+        <value>viewmember.action</value>
+        <value>createfamilyselectbox.action</value>
+        <value>addmember.action</value>
+        <value>displaymembergrid.action</value>
     </util:list>
 
     <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
         <value>viewfamilywelcome.action</value>
         <value>viewfamily.action</value>
         <value>addfamily.action</value>
-        <value>createparishselectbox.action</value>
-        <value>createmasscentreselectbox.action</value>
         <value>createprayerunitselectbox.action</value>
         <value>displayfamilygrid.action</value>
 

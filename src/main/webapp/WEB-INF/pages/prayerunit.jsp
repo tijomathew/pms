@@ -15,11 +15,11 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/masscentreselectbox.js" var="massCentreSelectBoxURL"/>
+    <spring:url value="/resources/js/parishselectbox.js" var="parishSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
             language="javascript"></script>
-    <script src="${massCentreSelectBoxURL}" type="text/javascript"
+    <script src="${parishSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
@@ -27,11 +27,11 @@
 
             backToTop();
             loadPrayerUnitGrid();
-            <c:if test = "${!((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
+            <c:if test = "${!((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
             loadSelectBox("${pageContext.request.contextPath}");
             </c:if>
 
-            <c:if test = "${((showForMassCentreAdmin == true && showForPrayerUnitAdmin==false) && (showForMassCentreAdmin == false && showForPrayerUnitAdmin==true))}" >
+            <c:if test = "${((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
             $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
             </c:if>
 
@@ -169,23 +169,12 @@
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:select
                                                                                                             path="mappedParish"
+                                                                                                            id="mappedParish"
                                                                                                             items="${parishMap}"
-                                                                                                            id="parishNo"
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label for="mappedMassCentre"
-                                                                                                       class="col-sm-2 control-label required">Mass
-                                                                                                    Center</label>
-
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:select
-                                                                                                            path="mappedMassCentre"
-                                                                                                            id="mappedMassCentre"
-                                                                                                            items="${massCentreMap}"
-                                                                                                            class="form-control"/>
-                                                                                                </div>
                                                                                                 <label for="patron"
                                                                                                        class="col-sm-2 control-label">Patron</label>
 
@@ -195,8 +184,6 @@
                                                                                                             id="patron"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
                                                                                                 <label for="registeredDate"
                                                                                                        class="col-sm-2 control-label">Registered
                                                                                                     Date</label>

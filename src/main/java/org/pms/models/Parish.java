@@ -1,73 +1,61 @@
 package org.pms.models;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class describes the various attributes of the Parish.
- * It contains various getters and setters of attributes of the parish.
- * It contains various relationships with mass centre and families.
- * It contains various methods for adding mass centre and families.
+ * This class describes the various attributes of the mass center in the Ireland.
+ * It contains various getters and setters of the attributes of the mass center.
+ * It contains various relationships with parish, prayerUnit and family.
+ * It contains methods for adding prayerUnit and family to the mass center.
  * <p/>
  * User: tijo
  */
-
 @Entity
-@Table(name = "parishes", indexes = {@Index(columnList = "id"), @Index(columnList = "parish_no"), @Index(columnList = "registered_date")})
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "org.pms.models.Parish")
+@Table(name = "parish", indexes = {@Index(columnList = "id"), @Index(columnList = "parish_no"), @Index(columnList = "registered_date")})
 public class Parish implements Serializable {
 
-    private static final long serialVersionUID = 4089680743003228381L;
+    private static final long serialVersionUID = 1669408565953568157L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "parish_no", nullable = false, unique = true)
+    @NotEmpty
+    @Column(name = "parish_name", nullable = false)
+    private String parsihName;
+
+    @Column(name = "parish_no", nullable = false)
     private Long parishNo;
 
-    @NotEmpty
-    @Column(name = "parish_name", nullable = false, unique = true)
-    private String parishName;
+    @Column(name = "patron_name")
+    private String patronName;
 
     @NotEmpty
     @Column(name = "place", nullable = false)
     private String place;
 
-    @Column(name = "website")
-    private String webSite;
-
-    @Column(name = "facebook_page")
-    private String facebookPage;
-
     @NotEmpty
     @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
-    @Column(name = "mobile_no")
-    private String mobileNo;
-
     @Column(name = "landline_no")
     private String landLineNo;
 
-    @Column(name = "fax_no")
-    private String faxNo;
+    @Column(name = "mobile_no")
+    private String mobileNo;
 
-    @Column(name = "patron")
-    private String patron;
+    @Column(name = "faxno")
+    private String faxNo;
 
     @Valid
     @NotNull
@@ -76,7 +64,7 @@ public class Parish implements Serializable {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedParish")
-    private List<MassCentre> massCentreList = new ArrayList<>();
+    private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
     public Parish() {
     }
@@ -89,6 +77,14 @@ public class Parish implements Serializable {
         this.id = id;
     }
 
+    public String getParsihName() {
+        return parsihName;
+    }
+
+    public void setParsihName(String parishName) {
+        this.parsihName = parishName;
+    }
+
     public Long getParishNo() {
         return parishNo;
     }
@@ -97,12 +93,12 @@ public class Parish implements Serializable {
         this.parishNo = parishNo;
     }
 
-    public String getParishName() {
-        return parishName;
+    public String getPatronName() {
+        return patronName;
     }
 
-    public void setParishName(String parishName) {
-        this.parishName = parishName;
+    public void setPatronName(String patronName) {
+        this.patronName = patronName;
     }
 
     public String getPlace() {
@@ -113,22 +109,6 @@ public class Parish implements Serializable {
         this.place = place;
     }
 
-    public String getWebSite() {
-        return webSite;
-    }
-
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
-    }
-
-    public String getFacebookPage() {
-        return facebookPage;
-    }
-
-    public void setFacebookPage(String facebookPage) {
-        this.facebookPage = facebookPage;
-    }
-
     public String getRegisteredDate() {
         return registeredDate;
     }
@@ -137,20 +117,20 @@ public class Parish implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
     public String getLandLineNo() {
         return landLineNo;
     }
 
     public void setLandLineNo(String landLineNo) {
         this.landLineNo = landLineNo;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public String getFaxNo() {
@@ -169,70 +149,43 @@ public class Parish implements Serializable {
         this.localAddress = localAddress;
     }
 
-    public List<MassCentre> getMassCentreList() {
-        return massCentreList;
+    public List<PrayerUnit> getPrayerUnits() {
+        return prayerUnits;
     }
 
-    public void setMassCentreList(List<MassCentre> massCentreList) {
-        this.massCentreList = massCentreList;
-    }
-
-   /* public List<Family> getMappedFamilies() {
-        return mappedFamilies;
-    }
-
-    public void setMappedFamilies(List<Family> mappedFamilies) {
-        this.mappedFamilies = mappedFamilies;
-    }*/
-
-    public String getPatron() {
-        return patron;
-    }
-
-    public void setPatron(String patron) {
-        this.patron = patron;
-    }
-
-
-    /**
-     * This method is for adding mass centres for parish.
-     *
-     * @param massCentre The mass centre to be added.
-     */
-    public void addMassCentresForParish(MassCentre massCentre) {
-        if (!this.massCentreList.contains(massCentre)) {
-            this.massCentreList.add(massCentre);
-        }
+    public void setPrayerUnits(List<PrayerUnit> prayerUnits) {
+        this.prayerUnits = prayerUnits;
     }
 
     /**
-     * This method is for adding family for parish.
+     * This method for adding prayerUnit to the mass center.
      *
-     * @param //family The family to be added.
+     * @param prayerUnit prayerUnit to be added to the mass center.
      */
-   /* public void addFamilyForParish(Family family) {
-        if (!this.mappedFamilies.contains(family)) {
-            this.mappedFamilies.add(family);
+    public void addPrayerUnitsForParish(PrayerUnit prayerUnit) {
+        if (!this.prayerUnits.contains(prayerUnit)) {
+            this.prayerUnits.add(prayerUnit);
         }
-    }*/
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Parish parish = (Parish) o;
+        Parish that = (Parish) o;
 
-        if (!parishName.equals(parish.parishName)) return false;
-        if (parishNo != null ? !parishNo.equals(parish.parishNo) : parish.parishNo != null) return false;
-        if (!place.equals(parish.place)) return false;
-        if (!registeredDate.equals(parish.registeredDate)) return false;
+        if (!parsihName.equals(that.parsihName)) return false;
+        if (parishNo != null ? !parishNo.equals(that.parishNo) : that.parishNo != null) return false;
+        if (!place.equals(that.place)) return false;
+        if (!registeredDate.equals(that.registeredDate)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = parishName.hashCode();
+        int result = parsihName.hashCode();
         result = 31 * result + place.hashCode();
         result = 31 * result + registeredDate.hashCode();
         return result;
@@ -242,19 +195,16 @@ public class Parish implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("parishName", parsihName)
                 .append("parishNo", parishNo)
-                .append("parishName", parishName)
+                .append("patronName", patronName)
                 .append("place", place)
-                .append("webSite", webSite)
-                .append("facebookPage", facebookPage)
                 .append("registeredDate", registeredDate)
-                .append("mobileNo", mobileNo)
                 .append("landLineNo", landLineNo)
+                .append("mobileNo", mobileNo)
                 .append("faxNo", faxNo)
-                .append("patron", patron)
                 .append("localAddress", localAddress)
-                .append("massCentreList", massCentreList)
-                        //.append("mappedFamilies", mappedFamilies)
+                .append("prayerUnits", prayerUnits)
                 .toString();
     }
 }

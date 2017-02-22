@@ -33,18 +33,13 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     }
 
     @Override
-    public List<PrayerUnit> getPrayerUnitsForMassCentreIDDM(Long massCentreID) {
-        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedMassCentre.id", massCentreID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    public List<PrayerUnit> getPrayerUnitsForParishIDDM(Long parishID) {
+        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("mappedParish.id", parishID)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override
     public PrayerUnit getPrayerUnitForIDDM(Long id) {
         return (PrayerUnit) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").add(Restrictions.eq("prayerUnit.id", id)).uniqueResult();
-    }
-
-    @Override
-    public Long getPrayerUnitCount() {
-        return (Long) getDb(false).createCriteria(PrayerUnit.class).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
@@ -54,11 +49,6 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
 
     @Override
     public Long getPrayerUnitCountUnderParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").createAlias("prayerUnit.mappedMassCentre", "masscentreInst").createAlias("masscentreInst.mappedParish", "parishInst").setProjection(Projections.max("prayerUnit.prayerUnitNo")).add(Restrictions.eq("parishInst.id", parishId)).uniqueResult();
-    }
-
-    @Override
-    public List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds) {
-        return getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.property("id")).add(Restrictions.in("prayerUnit.mappedMassCentre.id", massCentreIds)).list();
+        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").createAlias("prayerUnit.mappedParish", "mappedParishInst").setProjection(Projections.max("prayerUnit.prayerUnitNo")).add(Restrictions.eq("mappedParishInst.id", parishId)).uniqueResult();
     }
 }

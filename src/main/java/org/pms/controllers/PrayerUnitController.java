@@ -1,17 +1,21 @@
 package org.pms.controllers;
 
 import org.apache.commons.lang3.StringUtils;
-import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.enums.PageName;
-import org.pms.enums.SystemRole;
 import org.pms.displaywrappers.PrayerUnitWrapper;
+import org.pms.enums.PageName;
+import org.pms.enums.StatusCode;
+import org.pms.enums.SystemRole;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.enums.StatusCode;
-import org.pms.helpers.*;
-import org.pms.models.*;
-import org.pms.services.MassCentreService;
+import org.pms.helpers.GridRow;
+import org.pms.helpers.JsonBuilder;
+import org.pms.helpers.QueryFormat;
+import org.pms.helpers.RequestResponseHolder;
+import org.pms.models.Parish;
+import org.pms.models.PrayerUnit;
+import org.pms.models.SelectBox;
+import org.pms.models.User;
 import org.pms.services.ParishService;
 import org.pms.services.PrayerUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +46,6 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCentreService massCentreService;
-
-    @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @RequestMapping(value = "/viewprayerunit.action", method = RequestMethod.GET)
@@ -65,13 +66,11 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
 
             if (prayerUnit.getId() == null && prayerUnit.getPrayerUnitNo() == null) {
 
-                prayerUnit.getMappedMassCentre().addPrayerUnitsForMassCentre(prayerUnit);
-
-                prayerUnitService.setPrayerUnitNumber(prayerUnit);
-
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
                 if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
+                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                    prayerUnit.getMappedParish().addPrayerUnitsForParish(prayerUnit);
                     prayerUnitService.addPrayerUnitSM(prayerUnit);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
@@ -79,7 +78,8 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
                 }
             } else {
                 PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
-                if (!prayerUnit.getMappedMassCentre().getMappedParish().equals(retrievedPrayerUnit.getMappedMassCentre().getMappedParish())) {
+                prayerUnit.setPrayerUnitNo(retrievedPrayerUnit.getPrayerUnitNo());
+                if (!prayerUnit.getMappedParish().equals(retrievedPrayerUnit.getMappedParish())) {
                     prayerUnitService.setPrayerUnitNumber(prayerUnit);
                 }
                 prayerUnitService.updatePrayerUnit(prayerUnit);
@@ -122,10 +122,10 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/createprayerunitselectbox.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedMassCentreId", required = true) Long selectedMassCentreId) {
+    String generatePrayerUnitSelectBox(@RequestParam(value = "selectedParishId", required = true) Long selectedParishId) {
         String returnObject = StringUtils.EMPTY;
-        if (selectedMassCentreId != 0l) {
-            List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnitsForMassCentreID(selectedMassCentreId);
+        if (selectedParishId != 0l) {
+            List<PrayerUnit> prayerUnitList = prayerUnitService.getAllPrayerUnitsForParishID(selectedParishId);
             List<SelectBox<String, Long>> prayerUnitSelectBoxList = prayerUnitList.stream().map(prayerUnit -> new SelectBox<>(prayerUnit.getPrayerUnitName(), prayerUnit.getId())).collect(Collectors.toList());
             returnObject = SelectBox.getJsonForSelectBoxCreation(prayerUnitSelectBoxList);
         }
@@ -135,7 +135,6 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
     }
 
 }

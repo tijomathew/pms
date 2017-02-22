@@ -1,7 +1,6 @@
 package org.pms.serviceImpls;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.pms.applicationbuilder.PMSApplicationBuilder;
 import org.pms.daos.UserDao;
 import org.pms.enums.PageName;
@@ -15,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  * LoginServiceImpl description
@@ -40,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired(required = true)
     private PMSApplicationBuilder pmsApplicationBuilder;
 
-    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "massCentreAdminRole", "prayerUnitAdminRole", "familyUserRole"};
+    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "prayerUnitAdminRole", "familyUserRole"};
 
     @Override
     public User verifyLoggedInUser(String loginUserEmail, String loginUserPassword) {
@@ -71,7 +67,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean verifyEmailIsPresent(String mail) {
+    public Boolean verifyEmailIsPresent(String mail) {
         Long mailCount = userDao.verifyEmailIsPresent(mail);
         return mailCount.longValue() > 0;
     }
@@ -80,11 +76,10 @@ public class LoginServiceImpl implements LoginService {
         PageName redirectPageName = PageName.LOGIN;
         switch (loggedInUser.getSystemRole()) {
             case ADMIN:
-            case PARISH_ADMIN:
                 redirectPageName = PageName.PARISH;
                 break;
-            case MASS_CENTER_ADMIN:
-                redirectPageName = PageName.MASSCENTRE;
+            case PARISH_ADMIN:
+                redirectPageName = PageName.PARISH;
                 break;
             case PRAYER_UNIT_ADMIN:
                 redirectPageName = PageName.PRAYERUNIT;
@@ -103,9 +98,6 @@ public class LoginServiceImpl implements LoginService {
                 break;
             case PARISH_ADMIN:
                 createUserAndRolesInSessionScope("parishAdminRole", loggedInUser);
-                break;
-            case MASS_CENTER_ADMIN:
-                createUserAndRolesInSessionScope("massCentreAdminRole", loggedInUser);
                 break;
             case PRAYER_UNIT_ADMIN:
                 createUserAndRolesInSessionScope("prayerUnitAdminRole", loggedInUser);

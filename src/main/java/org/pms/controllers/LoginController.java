@@ -2,19 +2,17 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.pms.enums.PageName;
+import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
 import org.pms.enums.SystemRolesStatus;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
-import org.pms.enums.StatusCode;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.*;
+import org.pms.models.User;
 import org.pms.services.*;
 import org.pms.sessionmanager.PMSSessionManager;
-import org.pms.validators.LoginValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -48,9 +48,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
     @Autowired
-    private MassCentreService massCentreService;
-
-    @Autowired
     private PrayerUnitService prayerUnitService;
 
     @Autowired
@@ -70,7 +67,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
      */
     @RequestMapping(value = "login.action", method = RequestMethod.GET)
     public String loginPageDisplay(Model model) {
-        logger.debug("application creates the login user form back object and redirects to the login page");
         model.addAttribute("loginUser", new User());
         return PageName.LOGIN.toString();
     }
@@ -85,7 +81,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
      */
     @RequestMapping(value = "loggedin.action", method = RequestMethod.POST)
     public String verifyUser(@ModelAttribute("loginUser") @Valid User user, BindingResult result, Model model) {
-        logger.debug("authenticating and authorizing the user in the system");
         PageName redirectPageName = PageName.LOGIN;
         User loggedInUser;
 
@@ -110,8 +105,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
         String redirectedActionName;
         if (redirectPageName == PageName.PARISH) {
             redirectedActionName = "redirect:/viewparish.action";
-        } else if (redirectPageName == PageName.MASSCENTRE) {
-            redirectedActionName = "redirect:/viewmasscentre.action";
         } else if (redirectPageName == PageName.PRAYERUNIT) {
             redirectedActionName = "redirect:/viewprayerunit.action";
         } else if (redirectPageName == PageName.FAMILY) {
@@ -189,10 +182,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 model.addAttribute("loginUser", new User());
                 break;
             case PARISH:
-                parishService.createFormBackObject(model);
-                break;
-            case MASSCENTRE:
-                massCentreService.createMassCentreFormBackObject(model);
+                parishService.createParishFormBackObject(model);
                 break;
             case PRAYERUNIT:
                 prayerUnitService.createPrayerUnitFormBackObject(model);
@@ -201,11 +191,6 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
                 break;
         }
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setValidator(new LoginValidator());
     }
 
 }

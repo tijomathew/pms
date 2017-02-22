@@ -12,23 +12,19 @@ import java.util.List;
  */
 public interface PrayerUnitService {
 
-    boolean addPrayerUnitSM(PrayerUnit ward);
+    Boolean addPrayerUnitSM(PrayerUnit ward);
 
     List<PrayerUnit> getAllPrayerUnits();
 
-    List<PrayerUnit> getAllPrayerUnitsForMassCentreID(Long massCentreID);
+    List<PrayerUnit> getAllPrayerUnitsForParishID(Long parishID);
 
     PrayerUnit getPrayerUnitForIDSM(Long id);
-
-    Long getPrayerUnitCount();
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
     Long getPrayerUnitCountUnderParish(Long parishId);
 
     void createPrayerUnitFormBackObject(Model modelMap);
-
-    List<Long> getAllPrayerUnitIdsForMassCentreIds(List<Long> massCentreIds);
 
     List<PrayerUnit> getAllPrayerUnitsForUserRole(User currentUser);
 

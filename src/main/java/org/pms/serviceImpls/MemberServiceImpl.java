@@ -55,6 +55,9 @@ public class MemberServiceImpl implements MemberService {
         if (!familyIdsList.isEmpty()) {
             countOfMembers = memberDao.getMemberCountForParish(familyIdsList);
         }
+        if (countOfMembers == null) {
+            countOfMembers = 0l;
+        }
         return countOfMembers;
     }
 
@@ -66,17 +69,9 @@ public class MemberServiceImpl implements MemberService {
                 allMembers.addAll(getAllMember());
                 break;
             case PARISH_ADMIN:
-                List<Family> allFamiliesUnderParish = familyService.getAllFamilyForParishID(currentUser.getUsersOfParishes().getId());
+                List<Family> allFamiliesUnderParish = familyService.getAllFamilyForParishId(currentUser.getUsersOfParish().getId());
                 if (!allFamiliesUnderParish.isEmpty()) {
                     allFamiliesUnderParish.stream().forEach((family) -> {
-                        allMembers.addAll(family.getMemberList());
-                    });
-                }
-                break;
-            case MASS_CENTER_ADMIN:
-                List<Family> allFamiliesUnderMassCentre = familyService.getAllFamilyForMassCentreID(currentUser.getUsersOfMassCentres().getId());
-                if (!allFamiliesUnderMassCentre.isEmpty()) {
-                    allFamiliesUnderMassCentre.stream().forEach((family) -> {
                         allMembers.addAll(family.getMemberList());
                     });
                 }
@@ -132,8 +127,4 @@ public class MemberServiceImpl implements MemberService {
         return memberDao.getFamilyHeadMember(familyId);
     }
 
-    @Override
-    public Member getMemberForMemberNo(Long memberNo) {
-        return memberDao.getMemberForMemberNo(memberNo);
-    }
 }

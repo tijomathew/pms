@@ -1,7 +1,6 @@
 package org.pms.daos;
 
 import org.pms.models.Parish;
-import org.pms.models.Priest;
 
 import java.util.List;
 
@@ -13,17 +12,12 @@ public interface ParishDao {
 
     Boolean addParish(Parish parish);
 
-    Priest getPriestDM(String priestID);
-
-    boolean updatePriestForParish(Priest priest);
-
     List<Parish> getAllParish();
 
-    Parish getParishForIDDM(Long id);
+    Parish getParishForID(Long id);
 
     Long getParishCount();
 
     Boolean updateParish(Parish parish);
 
-    Parish getParishByParishID(String parishID);
 }

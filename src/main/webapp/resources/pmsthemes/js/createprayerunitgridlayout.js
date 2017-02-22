@@ -19,7 +19,7 @@ function loadPrayerUnitGrid() {
             mtype: 'GET',
             datatype: 'json',
             //rowList: [2, 4, 6],
-            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'MC No.', 'MC Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'parishNo', 'id', 'mappedMassCentre', 'registeredDate'],
+            colNames: ['PU No.', 'PU Place', 'PU Name', 'PU Patron', 'Parish No.', 'Parish Name', 'localAddress.addressLineOne', 'localAddress.addressLineTwo', 'localAddress.addressLineThree', 'localAddress.town', 'localAddress.county', 'localAddress.pin', 'localAddress.country', 'id', 'registeredDate'],
             colModel: [
                 {name: 'prayerUnitNo', index: 'prayerUnitNo', width: 90, sortable: true},
                 {name: 'prayerUnitPlace', index: 'prayerUnitPlace', width: 100, sortable: false, hidden: true},
@@ -27,8 +27,6 @@ function loadPrayerUnitGrid() {
                 {name: 'patron', index: 'patron', width: 90, sortable: false},
                 {name: 'parishNumber', index: 'parishNumber', width: 90, sortable: false},
                 {name: 'parishName', index: 'parishName', width: 90, sortable: false},
-                {name: 'massCentreNumber', index: 'massCentreNumber', width: 90, sortable: false},
-                {name: 'massCentreName', index: 'massCentreName', width: 90, sortable: false},
                 {
                     name: 'localAddress.addressLineOne',
                     index: 'localAddress.addressLineOne',
@@ -82,22 +80,8 @@ function loadPrayerUnitGrid() {
                     sortable: false, hidden: true
                 },
                 {
-                    name: 'mappedParish',
-                    index: 'mappedParish',
-                    width: 80,
-                    align: "right",
-                    sortable: false, hidden: true
-                },
-                {
                     name: 'id',
                     index: 'id',
-                    width: 80,
-                    align: "right",
-                    sortable: false, hidden: true
-                },
-                {
-                    name: 'mappedMassCentre',
-                    index: 'mappedMassCentre',
                     width: 80,
                     align: "right",
                     sortable: false, hidden: true

@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "prayerunits", indexes = {@Index(columnList = "id"), @Index(columnList = "prayerunit_no"), @Index(columnList = "registered_date"), @Index(columnList = "masscentre_no")})
+@Table(name = "prayerunits", indexes = {@Index(columnList = "id"), @Index(columnList = "prayerunit_no"), @Index(columnList = "registered_date"), @Index(columnList = "parish_no")})
 public class PrayerUnit implements Serializable {
 
     @Id
@@ -43,14 +43,10 @@ public class PrayerUnit implements Serializable {
     @Column(name = "registered_date", nullable = false)
     private String registeredDate;
 
-    //This field is added to resolve the selection issue of mass center if two or more parish has same mass center name. This field has no role in logic of adding a mass center.
-    @Transient
-    private Parish mappedParish;
-
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "masscentre_no")
-    private MassCentre mappedMassCentre;
+    @JoinColumn(name = "parish_no")
+    private Parish mappedParish;
 
     @NotNull
     @Valid
@@ -112,14 +108,6 @@ public class PrayerUnit implements Serializable {
         this.mappedParish = mappedParish;
     }
 
-    public MassCentre getMappedMassCentre() {
-        return mappedMassCentre;
-    }
-
-    public void setMappedMassCentre(MassCentre mappedMassCentre) {
-        this.mappedMassCentre = mappedMassCentre;
-    }
-
     public LocalAddress getLocalAddress() {
         return localAddress;
     }
@@ -144,30 +132,18 @@ public class PrayerUnit implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public void addFamilyForWard(Family family) {
+    public void addFamilyForPrayerUnit(Family family) {
         if (!this.mappedFamilies.contains(family)) {
             this.mappedFamilies.add(family);
         }
     }
 
     public Long getParishNumber() {
-        return this.getMappedMassCentre().getMappedParish().getParishNo();
-    }
-
-    public Long getMassCentreNumber() {
-        return this.getMappedMassCentre().getMassCentreNo();
+        return this.getMappedParish().getParishNo();
     }
 
     public String getParishName() {
-        return this.getMappedMassCentre().getMappedParish().getParishName();
-    }
-
-    public String getMassCentreName() {
-        return this.getMappedMassCentre().getMassCentreName();
-    }
-
-    public Long getParishId() {
-        return this.getMappedMassCentre().getMappedParish().getId();
+        return this.getMappedParish().getParsihName();
     }
 
     @Override
@@ -203,7 +179,6 @@ public class PrayerUnit implements Serializable {
                 .append("patron", patron)
                 .append("registeredDate", registeredDate)
                 .append("mappedParish", mappedParish)
-                .append("mappedMassCentre", mappedMassCentre)
                 .append("localAddress", localAddress)
                 .append("mappedFamilies", mappedFamilies)
                 .toString();

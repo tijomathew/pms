@@ -38,23 +38,13 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public Long getFamilyTotalCount() {
-        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.rowCount()).uniqueResult();
-    }
-
-    @Override
     public Long getFamilyCountForParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre","familymasscentre").createAlias("familymasscentre.mappedParish","familyparish").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("familyparish.id", parishId)).uniqueResult();
+        return (Long) getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("familyParish.id", parishId)).uniqueResult();
     }
 
     @Override
     public List<Family> getAllFamilyForParishID(Long parishId) {
-        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").createAlias("familymasscentre.mappedParish", "familyparish").add(Restrictions.eq("familyparish.id", parishId)).list();
-    }
-
-    @Override
-    public List<Family> getAllFamilyForMassCentreID(Long massCentreId) {
-        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").add(Restrictions.eq("familymasscentre.id", massCentreId)).list();
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").add(Restrictions.eq("familyParish.id", parishId)).list();
     }
 
     @Override
@@ -68,13 +58,8 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public List<Long> getAllFamiliesIDForParishID(Long parishId) {
-        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit","familyprayerunit").createAlias("familyprayerunit.mappedMassCentre", "familymasscentre").createAlias("familymasscentre.mappedParish", "familyparish").setProjection(Projections.property("family.id")).add(Restrictions.eq("familyparish.id", parishId)).list();
-    }
-
-    @Override
-    public List<Long> getAllFamilyIdsForPrayerUnitId(List<Long> prayerUnitIds) {
-        return getDb(false).createCriteria(Family.class, "family").setProjection(Projections.property("id")).add(Restrictions.eq("family.familyPrayerUnit.id", prayerUnitIds)).list();
+    public List<Long> getAllFamiliesIDForParishId(Long parishId) {
+        return getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").setProjection(Projections.distinct(Projections.property("family.id"))).add(Restrictions.eq("familyParish.id", parishId)).list();
     }
 
     @Override

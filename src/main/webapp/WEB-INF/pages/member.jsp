@@ -487,7 +487,7 @@
                                                                                                             id="memberAsPersonnationalityTextBox"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.educationQualifications"
-                                                                                                       class="col-sm-2 control-label required">Education
+                                                                                                       class="col-sm-2 control-label">Education
                                                                                                     Qualifications</label>
 
                                                                                                 <div class="col-sm-3">
@@ -509,7 +509,7 @@
                                                                                                             class="form-control"/>
                                                                                                 </div>
                                                                                                 <label for="memberAsPerson.bloodGroup"
-                                                                                                       class="col-sm-2 control-label required">Blood
+                                                                                                       class="col-sm-2 control-label">Blood
                                                                                                     Group</label>
 
                                                                                                 <div class="col-sm-3">

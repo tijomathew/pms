@@ -7,7 +7,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.pms.custompropertyeditors.FamilyCustomPropertyEditor;
-import org.pms.custompropertyeditors.MassCentreCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
 import org.pms.custompropertyeditors.PrayerUnitCustomPropertyEditor;
 import org.pms.enums.*;
@@ -46,9 +45,6 @@ public class UserController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private ParishService parishService;
-
-    @Autowired
-    private MassCentreService massCentreService;
 
     @Autowired
     private PrayerUnitService prayerUnitService;
@@ -96,11 +92,7 @@ public class UserController extends AbstractErrorAndGridHandler {
 
             if (!userEmailAlreadyExists) {
                 if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
-                    if (user.getUsersOfParishes() != null) {
-                        insertUser = true;
-                    }
-                } else if (user.getSystemRole() == SystemRole.MASS_CENTER_ADMIN) {
-                    if (user.getUsersOfMassCentres() != null) {
+                    if (user.getUsersOfParish() != null) {
                         insertUser = true;
                     }
                 } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
@@ -130,7 +122,7 @@ public class UserController extends AbstractErrorAndGridHandler {
 
             //Error message when entered username is already exists from the database.
             if (userEmailAlreadyExists) {
-                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system as it already exists");
                 //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
             }
         } else {
@@ -182,7 +174,6 @@ public class UserController extends AbstractErrorAndGridHandler {
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
-        binder.registerCustomEditor(MassCentre.class, new MassCentreCustomPropertyEditor(massCentreService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
         binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
     }

@@ -28,6 +28,8 @@ public class ParishServiceImpl implements ParishService {
 
     @Override
     public Boolean addParish(Parish parish) {
+        Long parishCount = getParishCount();
+        parish.setParishNo(++parishCount);
         parishDao.addParish(parish);
         return true;
     }
@@ -39,46 +41,16 @@ public class ParishServiceImpl implements ParishService {
 
     @Override
     public Parish getParishForIDSM(Long id) {
-        return parishDao.getParishForIDDM(id);
+        return parishDao.getParishForID(id);
     }
 
     @Override
     public Long getParishCount() {
-        return parishDao.getParishCount();
-    }
-
-    @Override
-    public List<Parish> getAllParishForUserRole(User currentUser) {
-        List<Parish> parishList = new ArrayList<>();
-        switch (currentUser.getSystemRole()) {
-            case ADMIN:
-                parishList.addAll(getAllParish());
-                break;
-            case PARISH_ADMIN:
-                parishList.add(getParishForIDSM(currentUser.getUsersOfParishes().getId()));
-                break;
-            case MASS_CENTER_ADMIN:
-                parishList.add(getParishForIDSM(currentUser.getUsersOfMassCentres().getMappedParish().getId()));
-                break;
-            case PRAYER_UNIT_ADMIN:
-                parishList.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish().getId()));
-                break;
-            case FAMILY_USER:
-                if (currentUser.getUserOfFamily() == null) {
-                    parishList.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedMassCentre().getMappedParish().getId()));
-                } else {
-                    parishList.add(getParishForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getMappedMassCentre().getMappedParish().getId()));
-                }
-                break;
+        Long parishCount = parishDao.getParishCount();
+        if (parishCount == null) {
+            parishCount = 0l;
         }
-        return parishList;
-    }
-
-    @Override
-    public void createFormBackObject(Model model) {
-        Parish modelBackObject = new Parish();
-        modelBackObject.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("parish", modelBackObject);
+        return parishCount;
     }
 
     @Override
@@ -86,4 +58,38 @@ public class ParishServiceImpl implements ParishService {
         parishDao.updateParish(parish);
         return true;
     }
+
+    @Override
+    public Parish createParishFormBackObject(Model model) {
+        Parish formBackParish = new Parish();
+        formBackParish.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("parish", formBackParish);
+
+        return formBackParish;
+    }
+
+    @Override
+    public List<Parish> getAllParishForUserRole(User currentUser) {
+        List<Parish> allParishes = new ArrayList<>();
+        switch (currentUser.getSystemRole()) {
+            case ADMIN:
+                allParishes = getAllParish();
+                break;
+            case PARISH_ADMIN:
+                allParishes.add(getParishForIDSM(currentUser.getUsersOfParish().getId()));
+                break;
+            case PRAYER_UNIT_ADMIN:
+                allParishes.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedParish().getId()));
+                break;
+            case FAMILY_USER:
+                if (currentUser.getUserOfFamily() == null) {
+                    allParishes.add(getParishForIDSM(currentUser.getUsersOfPrayerUnits().getMappedParish().getId()));
+                } else {
+                    allParishes.add(getParishForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getMappedParish().getId()));
+                }
+                break;
+        }
+        return allParishes;
+    }
+
 }

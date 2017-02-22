@@ -181,9 +181,11 @@
 </div>
 
 <!-- End Login box -->
+<jsp:useBean id="date" class="java.util.Date" />
+<fmt:formatDate value="${date}" pattern="yyyy" var="currentYear" />
 <footer class="container">
     <p id="footer-text">
-        <small>PMS &copy; Shinto Jacob, Naduvilekuttu 2015</small>
+        <small>PMS &copy; Syro Malabar Church, Ireland ${currentYear}</small>
     </p>
 </footer>
 

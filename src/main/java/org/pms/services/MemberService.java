@@ -29,6 +29,4 @@ public interface MemberService {
     Boolean verifyIsFamilyHeadMemberAddedForFamily(Long familyId);
 
     Member getFamilyHeadMember(Long familyId);
-
-    Member getMemberForMemberNo(Long memberNo);
 }
