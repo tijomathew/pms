@@ -19189,9 +19189,9 @@ div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
 
 .text-container {
     border: 2px solid #db7093;
-    margin: 30px;
     min-height: 840px;
     border-radius: 6px;
+    margin-top: 49px;
 }
 
 .family-heading-text {

@@ -1,9 +1,11 @@
 package org.pms.daoImpls;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pms.daos.UserDao;
+import org.pms.enums.SystemRole;
 import org.pms.models.User;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +47,21 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     @Override
     public List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds) {
         return getDb(true).createCriteria(User.class, "user").add(Restrictions.in("user.usersOfPrayerUnits.id", prayerUnitIds)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+    }
+
+    @Override
+    public List<User> getAllUsersForCurrentUser(User currentUser, Boolean isLoggedIn) {
+        Criteria criteria = getDb(true).createCriteria(User.class, "user");
+
+        if (currentUser.getSystemRole().equals(SystemRole.PARISH_ADMIN)) {
+            criteria.add(Restrictions.eq("user.usersOfParish.id", currentUser.getParishId()));
+        } else if (currentUser.getSystemRole().equals(SystemRole.PRAYER_UNIT_ADMIN)) {
+            criteria.add(Restrictions.eq("user.usersOfPrayerUnits.id", currentUser.getPrayerUnitId()));
+        }
+
+        criteria.add(Restrictions.eq("user.alreadyLoggedIn", isLoggedIn));
+
+        return criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 
     @Override

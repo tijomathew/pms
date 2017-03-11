@@ -17,7 +17,7 @@ public interface FamilyService {
 
     Family getFamilyForID(Long id);
 
-    Long getFamilyCountForParish(Long parishId);
+    Long getFamilyCountInSystem();
 
     List<Family> getAllFamilyForParishId(Long parishId);
 

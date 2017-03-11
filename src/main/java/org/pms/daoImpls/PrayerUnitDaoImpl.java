@@ -48,7 +48,7 @@ public class PrayerUnitDaoImpl extends GenericDaoImpl<PrayerUnit> implements Pra
     }
 
     @Override
-    public Long getPrayerUnitCountUnderParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").createAlias("prayerUnit.mappedParish", "mappedParishInst").setProjection(Projections.max("prayerUnit.prayerUnitNo")).add(Restrictions.eq("mappedParishInst.id", parishId)).uniqueResult();
+    public Long getPrayerUnitCountInSystem() {
+        return (Long) getDb(false).createCriteria(PrayerUnit.class, "prayerUnit").setProjection(Projections.max("prayerUnit.prayerUnitNo")).uniqueResult();
     }
 }

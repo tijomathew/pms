@@ -46,26 +46,32 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
     @Override
     @PostConstruct
     public void applicationInitializer() {
+       /* Long count = 1l;*/
        /* List<Parish> parishList = parishService.getAllParish();
         for (Parish parish : parishList) {
             List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
             for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
-                prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                prayerUnit.setPrayerUnitNo(count);
                 prayerUnitService.updatePrayerUnit(prayerUnit);
+                count += 1;
             }
         }*/
 
-     /*List<Parish> parishList1 = parishService.getAllParish();
+
+
+        /*List<Parish> parishList1 = parishService.getAllParish();
         for (Parish parish : parishList1) {
             List<PrayerUnit> prayerUnitListUnderParish = parish.getPrayerUnits();
             for (PrayerUnit prayerUnit : prayerUnitListUnderParish) {
                 List<Family> familyList = prayerUnit.getMappedFamilies();
                 for (Family family : familyList) {
-                    familyService.setFamilyNumber(family);
+                    family.setFamilyNo(count);
                     familyService.updateFamily(family);
+                    count += 1;
                 }
             }
         }*/
+
 
        /* List<Parish> parishList2 = parishService.getAllParish();
         for (Parish parish : parishList2) {
@@ -75,18 +81,17 @@ public class PMSApplicationBuilderImpl implements ApplicationContextAware, PMSAp
                 for (Family family : familyList) {
                     List<Member> memberList = family.getMemberList();
                     for (Member member : memberList) {
-                        List<Long> allFamiliesIDUnderParish = familyService.getAllFamiliesIDForParishId(member.getFamilyMember().getFamilyPrayerUnit().getMappedParish().getId());
-                            Long memberCountForParish = memberService.getMemberCountForParish(allFamiliesIDUnderParish);
-
-                        member.setMemberNo(++memberCountForParish);
-
+                        member.setMemberNo(count);
                         memberService.updateMember(member);
+                        count += 1;
                     }
                 }
             }
         }*/
 
-}
+        /*System.out.println("done");*/
+
+    }
 
     @Override
     @PreDestroy

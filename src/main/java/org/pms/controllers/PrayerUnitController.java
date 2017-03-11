@@ -67,21 +67,19 @@ public class PrayerUnitController extends AbstractErrorAndGridHandler {
             if (prayerUnit.getId() == null && prayerUnit.getPrayerUnitNo() == null) {
 
                 User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-
-                if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
-                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
-                    prayerUnit.getMappedParish().addPrayerUnitsForParish(prayerUnit);
-                    prayerUnitService.addPrayerUnitSM(prayerUnit);
-                    customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
-                } else {
-                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
+                synchronized (this) {
+                    if (currentUser.getSystemRole() != SystemRole.PRAYER_UNIT_ADMIN) {
+                        prayerUnitService.setPrayerUnitNumber(prayerUnit);
+                        prayerUnit.getMappedParish().addPrayerUnitsForParish(prayerUnit);
+                        prayerUnitService.addPrayerUnitSM(prayerUnit);
+                        customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), SUCCESS_MESSAGE_DISPLAY);
+                    } else {
+                        customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add prayer unit as a PU admin in the system.");
+                    }
                 }
             } else {
                 PrayerUnit retrievedPrayerUnit = prayerUnitService.getPrayerUnitForIDSM(prayerUnit.getId());
                 prayerUnit.setPrayerUnitNo(retrievedPrayerUnit.getPrayerUnitNo());
-                if (!prayerUnit.getMappedParish().equals(retrievedPrayerUnit.getMappedParish())) {
-                    prayerUnitService.setPrayerUnitNumber(prayerUnit);
-                }
                 prayerUnitService.updatePrayerUnit(prayerUnit);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, prayerUnit.getPrayerUnitName(), "updated successfully.");
             }

@@ -22,5 +22,7 @@ public interface UserDao {
 
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
 
+    List<User> getAllUsersForCurrentUser(User currentUser, Boolean isLoggedIn);
+
     Boolean updateUser(User user);
 }

@@ -80,16 +80,18 @@ public class FamilyController extends AbstractErrorAndGridHandler {
                 if (familyAdditionFlagForFamilyUser) {
                     family.getFamilyPrayerUnit().addFamilyForPrayerUnit(family);
 
-                    familyService.setFamilyNumber(family);
+                    synchronized (this) {
+                        familyService.setFamilyNumber(family);
 
-                    familyService.addFamilySM(family);
-                    if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() == null) {
-                        currentUser.setUserOfFamily(family);
-                        requestResponseHolder.setAttributeToSession(SystemRole.PMS_CURRENT_USER.toString(), currentUser);
-                        userService.updateUser(currentUser);
+                        familyService.addFamilySM(family);
+                        if (currentUser.getSystemRole() == SystemRole.FAMILY_USER && currentUser.getUserOfFamily() == null) {
+                            currentUser.setUserOfFamily(family);
+                            requestResponseHolder.setAttributeToSession(SystemRole.PMS_CURRENT_USER.toString(), currentUser);
+                            userService.updateUser(currentUser);
+                        }
+
+                        customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
                     }
-
-                    customResponse = createSuccessMessage(StatusCode.SUCCESS, family.getFamilyName(), SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, family.getFamilyName(), "cannot add to the system by a family user named " + currentUser.getEmail());
                 }

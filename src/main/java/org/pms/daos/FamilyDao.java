@@ -17,7 +17,7 @@ public interface FamilyDao {
 
     Family getFamilyForID(Long id);
 
-    Long getFamilyCountForParish(Long parishId);
+    Long getFamilyCountInSystem();
 
     List<Family> getAllFamilyForParishID(Long parishId);
 

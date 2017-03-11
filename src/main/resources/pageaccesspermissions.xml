@@ -58,6 +58,10 @@
         <value>createfamilyselectbox.action</value>
         <value>addmember.action</value>
         <value>displaymembergrid.action</value>
+
+        <value>viewemailnotification.action</value>
+        <value>createmailidlist.action</value>
+        <value>sendcustomregistrationemail.action</value>
     </util:list>
 
     <util:list id="prayerUnitAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -80,6 +84,10 @@
         <value>createfamilyselectbox.action</value>
         <value>addmember.action</value>
         <value>displaymembergrid.action</value>
+
+        <value>viewemailnotification.action</value>
+        <value>createmailidlist.action</value>
+        <value>sendcustomregistrationemail.action</value>
     </util:list>
 
     <util:list id="familyHeadLinks" value-type="java.lang.String" list-class="java.util.ArrayList">

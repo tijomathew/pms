@@ -13,6 +13,7 @@ import org.pms.enums.*;
 import org.pms.displaywrappers.UserWrapper;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
+import org.pms.helpers.DateUtils;
 import org.pms.helpers.GridRow;
 import org.pms.helpers.JsonBuilder;
 import org.pms.helpers.RequestResponseHolder;
@@ -73,8 +74,8 @@ public class UserController extends AbstractErrorAndGridHandler {
         if (user.getId() == null) {
             user.setCreatedBy(currentUser.getEmail());
             user.setUpdatedBy(currentUser.getEmail());
-            user.setCreatedOn(getCurrentDate());
-            user.setUpdatedOn(getCurrentDate());
+            user.setCreatedOn(DateUtils.getCurrentDate());
+            user.setUpdatedOn(DateUtils.getCurrentDate());
             String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
             if (user.getPassword() == null || user.getPassword().isEmpty()) {
                 user.setPassword(generatedPassword);
@@ -132,7 +133,7 @@ public class UserController extends AbstractErrorAndGridHandler {
                 user.setCreatedBy(userFromDB.getCreatedBy());
                 user.setCreatedOn(userFromDB.getCreatedOn());
                 user.setUpdatedBy(currentUser.getEmail());
-                user.setUpdatedOn(getCurrentDate());
+                user.setUpdatedOn(DateUtils.getCurrentDate());
                 user.setAlreadyLoggedIn(userFromDB.getAlreadyLoggedIn());
                 user.setValidated(userFromDB.getIsValidated());
                 user.setSendMailFlag(userFromDB.getSendMailFlag());
@@ -150,7 +151,10 @@ public class UserController extends AbstractErrorAndGridHandler {
     public
     @ResponseBody
     Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
-                                                    rows, @RequestParam(value = "page", required = false) Integer page) {
+                                                    rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sortable", required = false) String
+                                                    sortable, @RequestParam(value = "sortname", required = false) String
+                                                    sortName, @RequestParam(value = "sortorder", required = false) String
+                                                    sortOrder) {
 
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         List<User> allUsers = userService.getAllUsersForUserRole(currentUser);
@@ -176,12 +180,6 @@ public class UserController extends AbstractErrorAndGridHandler {
         binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
         binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
         binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
-    }
-
-    private String getCurrentDate() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd-MM-yyyy");
-        DateTime currentDate = new DateTime();
-        return dateTimeFormatter.print(currentDate);
     }
 
 }

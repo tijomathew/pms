@@ -136,7 +136,8 @@ function addJqgridCustomButtons(gridId, formId) {
         },
         position: "first"
     }).navButtonAdd('#' + gridId + 'Pager', {
-        caption: "",
+        caption: "Edit",
+        title:"Press Edit button and edit details",
         buttonicon: "ui-icon-edit",
         onClickButton: function () {
             $('#passwordDiv').hide();
@@ -154,7 +155,8 @@ function addJqgridCustomButtons(gridId, formId) {
         },
         position: "first"
     }).navButtonAdd('#' + gridId + 'Pager', {
-        caption: "",
+        caption: "Add",
+        title:"Press Add button and enter details",
         buttonicon: "ui-icon-add",
                 id: "addButton",
         onClickButton: function () {

@@ -44,30 +44,15 @@
 
             backToTop();
 
-            var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
-                    '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
-
-            var emailDisplayData;
             $.ajax({
                 type: 'GET',
-                url: '${pageContext.request.contextPath}/createmailidlist.action',
+                url: '${pageContext.request.contextPath}/createmailidlist.action?all=' + $('input:radio[name=all]:checked').val(),
                 dataType: 'json',
                 success: function (response) {
                     caller(response);
                     return true;
                 }
             });
-
-            /*var data = [
-             {email: 'pintu@gmail.com', name: 'Pintu Jacob'},
-             {email: 'bilgy@gmail.com', name: 'Bilgy Pintu'},
-             {email: 'iva@gmail.com', name: 'Iva Pintu'},
-             {email: 'tijo@cufa.ie', name: 'Tijo Mathew'},
-             {email: 'febin@cufa.ie', name: 'Febin J'},
-             {email: 'arun@cufa.ie', name: 'Arun Kumar'},
-             {email: 'alex@cufa.ie', name: 'Alex Thomas'}
-             ];*/
-
 
 
             $('.emailServiceTextArea').wysihtml5({
@@ -81,9 +66,31 @@
 
             });
 
+            $("#sendEmailButton").click(function () {
+                $('#sendEmailButton').attr("disabled", true);
+                var email = $('.selectize-input').children().attr('data-value');
+
+                $.ajax({
+                    type: 'GET',
+                    url: '${pageContext.request.contextPath}/sendcustomregistrationemail.action?email=' + email,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.statusCode == 'SUCCESS') {
+                            alert('regisration mail is sent!');
+                        } else {
+                            alert('regisration mail is not sent! Try Again.');
+                        }
+                        $('#sendEmailButton').attr("disabled", false);
+                    }
+                });
+            });
+
         });
 
-        function caller(data){
+        function caller(data) {
+            var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@' +
+                    '(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+
             $('#select-to').selectize({
                 persist: false,
                 maxItems: null,
@@ -138,6 +145,7 @@
                 }
             });
         }
+
     </script>
 
 
@@ -172,13 +180,23 @@
         <div id='wrap'>
             <div class="container text-container" style="background-color: #C6ECEF !important;">
 
+                <div class="form-group">
+                    <input type="radio" name="all" value="true"> All Users<br>
+                    <input type="radio" name="all" value="false" checked="checked"> Users not logged In<br>
+                </div>
                 <div class="jumbotron family-heading-text" style="background-color: #C6ECEF !important;">
                     <label for="select-to">Email:</label>
                     <select id="select-to" class="contacts selectized" placeholder="Pick some people..."
                             multiple="multiple" tabindex="-1" style="display: none;"></select>
                 </div>
 
-                <div class="form-group">
+                <div class="col-sm-2 emailServiceBtn" style="padding-right: 0px">
+                    <button class="form-control btn btn-sm btn-primary" id="sendEmailButton">
+                        Send Email
+                    </button>
+                </div>
+
+              <%--  <div class="form-group">
                     <input name="subject" class="form-control" placeholder="Add Subject" style=" margin-left: 5px;"
                            id="subject"/>
                 </div>
@@ -186,20 +204,16 @@
                 <div class="form-group">
                     <textarea name="message" class="form-control emailServiceTextArea" placeholder="Add Message Content"
                               rows="16" id="message"></textarea>
-                </div>
+                </div>--%>
 
-                <div class="col-sm-2 emailServiceBtn" style="padding-right: 0px">
-                    <button class="form-control btn btn-sm btn-primary" onclick="return false;" id="sendEmailButton">
-                        Send Email
-                    </button>
-                </div>
+
             </div>
             <!--wrap -->
         </div>
 
     </div>
 
-
 </div>
+
 </body>
 </html>

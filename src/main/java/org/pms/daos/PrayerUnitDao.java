@@ -20,5 +20,5 @@ public interface PrayerUnitDao {
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountUnderParish(Long parishId);
+    Long getPrayerUnitCountInSystem();
 }

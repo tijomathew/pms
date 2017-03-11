@@ -22,7 +22,7 @@ public interface PrayerUnitService {
 
     void updatePrayerUnit(PrayerUnit prayerUnit);
 
-    Long getPrayerUnitCountUnderParish(Long parishId);
+    Long getPrayerUnitCountInSystem();
 
     void createPrayerUnitFormBackObject(Model modelMap);
 

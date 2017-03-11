@@ -15,11 +15,8 @@
 
     <spring:url value="/addprayerunit.action" var="prayerUnitActionURL"/>
     <spring:url value="/resources/js/createprayerunitgridlayout.js" var="prayerUnitGrid"/>
-    <spring:url value="/resources/js/parishselectbox.js" var="parishSelectBoxURL"/>
 
     <script src="${prayerUnitGrid}" type="text/javascript"
-            language="javascript"></script>
-    <script src="${parishSelectBoxURL}" type="text/javascript"
             language="javascript"></script>
 
     <script type="text/javascript">
@@ -27,13 +24,6 @@
 
             backToTop();
             loadPrayerUnitGrid();
-            <c:if test = "${!((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
-            loadSelectBox("${pageContext.request.contextPath}");
-            </c:if>
-
-            <c:if test = "${((showForParishAdmin == true && showForPrayerUnitAdmin==false) && (showForParishAdmin == false && showForPrayerUnitAdmin==true))}" >
-            $('form select').prepend($('<option/>', {text: '--Select--', value: '', selected: true})).attr('disabled', true);
-            </c:if>
 
         });
 

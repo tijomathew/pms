@@ -59,6 +59,8 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
+            <li id="emailnotification"><a href="${pageContext.request.contextPath}/viewemailnotification.action"><i
+                    class="fa pms-members"></i> <span>Email Notification</span></a></li>
             <li class="divider"></li>
         </ul>
     </c:if>
@@ -74,6 +76,8 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
+            <li id="emailnotification"><a href="${pageContext.request.contextPath}/viewemailnotification.action"><i
+                    class="fa pms-members"></i> <span>Email Notification</span></a></li>
             <li class="divider"></li>
         </ul>
     </c:if>

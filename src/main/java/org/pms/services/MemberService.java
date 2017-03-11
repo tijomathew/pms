@@ -18,7 +18,7 @@ public interface MemberService {
 
     List<Member> getAllMember();
 
-    Long getMemberCountForParish(List<Long> familyIdsList);
+    Long getMemberCountInSystem();
 
     List<Member> getAllMembersForUserRole(User currentUser);
 

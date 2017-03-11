@@ -21,6 +21,8 @@ public interface UserService {
 
     List<User> getAllUsersForPrayerUnitIds(List<Long> prayerUnitIds);
 
+    List<User> getAllUsersNotLoggedInForUser(User currentUser, Boolean isLoggedIn);
+
     void createUserFormBackObject(Model model, User currentUser);
 
     List<User> getAllUsersForUserRole(User currentUser);

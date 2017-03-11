@@ -40,8 +40,8 @@ public class FamilyServiceImpl implements FamilyService {
     }
 
     @Override
-    public Long getFamilyCountForParish(Long parishId) {
-        Long familyNumber = familyDao.getFamilyCountForParish(parishId);
+    public Long getFamilyCountInSystem() {
+        Long familyNumber = familyDao.getFamilyCountInSystem();
         if (familyNumber == null) {
             familyNumber = 0l;
         }
@@ -97,7 +97,7 @@ public class FamilyServiceImpl implements FamilyService {
 
     @Override
     public void setFamilyNumber(Family family) {
-        Long familyCounterForParish = getFamilyCountForParish(family.getFamilyPrayerUnit().getMappedParish().getId());
-        family.setFamilyNo(++familyCounterForParish);
+        Long familyCounterForSystem = getFamilyCountInSystem();
+        family.setFamilyNo(++familyCounterForSystem);
     }
 }

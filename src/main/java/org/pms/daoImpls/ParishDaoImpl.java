@@ -37,8 +37,8 @@ public class ParishDaoImpl extends GenericDaoImpl<Parish> implements ParishDao {
     }
 
     @Override
-    public Long getParishCount() {
-        return (Long) getDb(false).createCriteria(Parish.class).setProjection(Projections.rowCount()).uniqueResult();
+    public Long getParishCountInSystem() {
+        return (Long) getDb(false).createCriteria(Parish.class, "parish").setProjection(Projections.max("parish.parishNo")).uniqueResult();
     }
 
     @Override

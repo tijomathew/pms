@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsersNotLoggedInForUser(User currentUser, Boolean isLoggedIn) {
+        return userDao.getAllUsersForCurrentUser(currentUser, isLoggedIn);
+    }
+
+    @Override
     public Boolean updateUser(User user) {
         userDao.updateUser(user);
         return true;

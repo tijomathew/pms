@@ -18,7 +18,7 @@ public interface ParishService {
 
     Parish getParishForIDSM(Long id);
 
-    Long getParishCount();
+    Long getParishCountInSystem();
 
     Boolean updateParish(Parish parish);
 

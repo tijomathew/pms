@@ -16,7 +16,7 @@ public interface MemberDao {
 
     List<Member> getAllMembers();
 
-    Long getMemberCountForParish(List<Long> familiesList);
+    Long getMemberCountInSystem();
 
     List<Member> getAllMembersForFamilyID(Long familyId);
 

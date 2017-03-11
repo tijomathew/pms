@@ -38,8 +38,8 @@ public class FamilyDaoImpl extends GenericDaoImpl<Family> implements FamilyDao {
     }
 
     @Override
-    public Long getFamilyCountForParish(Long parishId) {
-        return (Long) getDb(false).createCriteria(Family.class, "family").createAlias("family.familyPrayerUnit", "familyPrayerUnit").createAlias("familyPrayerUnit.mappedParish", "familyParish").setProjection(Projections.max("family.familyNo")).add(Restrictions.eq("familyParish.id", parishId)).uniqueResult();
+    public Long getFamilyCountInSystem() {
+        return (Long) getDb(false).createCriteria(Family.class, "family").setProjection(Projections.max("family.familyNo")).uniqueResult();
     }
 
     @Override

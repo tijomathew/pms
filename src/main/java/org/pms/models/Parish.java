@@ -17,7 +17,7 @@ import java.util.List;
  * It contains various getters and setters of the attributes of the mass center.
  * It contains various relationships with parish, prayerUnit and family.
  * It contains methods for adding prayerUnit and family to the mass center.
- * <p/>
+ * <p>
  * User: tijo
  */
 @Entity
@@ -61,6 +61,11 @@ public class Parish implements Serializable {
     @NotNull
     @Embedded
     private LocalAddress localAddress;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "zonal_no")
+    private Zonal mappedZonal;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedParish")
@@ -147,6 +152,14 @@ public class Parish implements Serializable {
 
     public void setLocalAddress(LocalAddress localAddress) {
         this.localAddress = localAddress;
+    }
+
+    public Zonal getMappedZonal() {
+        return mappedZonal;
+    }
+
+    public void setMappedZonal(Zonal mappedZonal) {
+        this.mappedZonal = mappedZonal;
     }
 
     public List<PrayerUnit> getPrayerUnits() {

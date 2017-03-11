@@ -24,7 +24,7 @@ function loadUserGrid() {
                 {name: 'systemRole', index: 'systemRole', width: 90, sortable: false},
                 {name: 'isActive', index: 'isActive', width: 100, sortable: false},
                 {name: 'parish', index: 'parish', width: 100, sortable: false},
-                {name: 'prayerUnit', index: 'prayerUnit', width: 100, sortable: false},
+                {name: 'prayerUnit', index: 'prayerUnit', width: 100, sortable: true},
                 {name: 'family', index: 'family', width: 100, sortable: false},
                 {name: 'sendMailFlag', index: 'sendMailFlag', width: 100, sortable: false},
                 {name: 'alreadyLoggedIn', index: 'alreadyLoggedIn', width: 100, sortable: false},

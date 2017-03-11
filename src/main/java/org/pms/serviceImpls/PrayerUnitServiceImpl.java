@@ -66,8 +66,8 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
     }
 
     @Override
-    public Long getPrayerUnitCountUnderParish(Long parishId) {
-        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountUnderParish(parishId);
+    public Long getPrayerUnitCountInSystem() {
+        Long prayerUnitCount = prayerUnitDao.getPrayerUnitCountInSystem();
         if (prayerUnitCount == null) {
             prayerUnitCount = 0l;
         }
@@ -121,7 +121,7 @@ public class PrayerUnitServiceImpl implements PrayerUnitService {
 
     @Override
     public void setPrayerUnitNumber(PrayerUnit prayerUnit) {
-        Long prayerUnitCounter = getPrayerUnitCountUnderParish(prayerUnit.getMappedParish().getId());
+        Long prayerUnitCounter = getPrayerUnitCountInSystem();
         prayerUnit.setPrayerUnitNo(++prayerUnitCounter);
     }
 

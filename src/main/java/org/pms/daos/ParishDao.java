@@ -16,7 +16,7 @@ public interface ParishDao {
 
     Parish getParishForID(Long id);
 
-    Long getParishCount();
+    Long getParishCountInSystem();
 
     Boolean updateParish(Parish parish);
 

@@ -25,7 +25,7 @@
     <ul class="nav navbar-nav pull-right toolbar">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle username">
-                <span class="hidden-xs"><i class="fa fa-sign-out fa-2x" id="logoutIcon"></i></span>
+                <span class="hidden-xs"><i class="fa fa-sign-out fa-2x" id="logoutIcon">Logout</i></span>
                 <form:form method="post" action="loggedout.action" id="logoutForm">
                 </form:form>
             </a>

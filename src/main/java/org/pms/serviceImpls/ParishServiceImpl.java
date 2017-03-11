@@ -28,7 +28,7 @@ public class ParishServiceImpl implements ParishService {
 
     @Override
     public Boolean addParish(Parish parish) {
-        Long parishCount = getParishCount();
+        Long parishCount = getParishCountInSystem();
         parish.setParishNo(++parishCount);
         parishDao.addParish(parish);
         return true;
@@ -45,8 +45,8 @@ public class ParishServiceImpl implements ParishService {
     }
 
     @Override
-    public Long getParishCount() {
-        Long parishCount = parishDao.getParishCount();
+    public Long getParishCountInSystem() {
+        Long parishCount = parishDao.getParishCountInSystem();
         if (parishCount == null) {
             parishCount = 0l;
         }
