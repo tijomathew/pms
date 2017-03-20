@@ -102,14 +102,29 @@
                 <span>Receipts</span></a></li>
             <li id="payment"><a href="${pageContext.request.contextPath}/viewpayment.action"><i
                     class="fa pms-prayerUnits"></i> <span>Payments</span></a></li>
+            <li id="deposit"><a href="${pageContext.request.contextPath}/viewdeposit.action"><i
+                    class="fa pms-members"></i> <span>Deposit</span></a></li>
             <li id="withdrawal"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Withdrawal</span></a></li>
+            <li id="balance"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
+                    class="fa pms-family"></i>
+                <span>Balance Sheet</span></a></li>
             <li id="journal"><a href="${pageContext.request.contextPath}/viewjournal.action"><i
                     class="fa pms-family"></i>
                 <span>Journal</span></a></li>
-            <li id="deposit"><a href="${pageContext.request.contextPath}/viewdeposit.action"><i
-                    class="fa pms-members"></i> <span>Deposit</span></a></li>
+            <li><a href="javascript:;"><i class="fa pms-reports"></i> <span>Reports</span> <span
+                    class="badge badge-orange">5</span></a>
+                <ul class="acc-menu">
+                    <li><a href="#">Report 1</a></li>
+                    <li><a href="#">Report 2</a></li>
+                    <li><a href="#">Report 3</a></li>
+                    <li><a href="#">Report 4</a></li>
+                    <li><a href="#">Report 5</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+
         </ul>
     </c:if>
 
