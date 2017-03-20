@@ -84,7 +84,7 @@
 
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>Receipt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Total Balance - 10.00&euro;</span>&nbsp;&nbsp;&nbsp;&nbsp;Cash In Hand - 5.00&euro;&nbsp;&nbsp;&nbsp;&nbsp;Bank Balance - 5.00&euro;</h4>
+                                                        <h4>Receipts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Total Balance - 10.00&euro;</span>&nbsp;&nbsp;&nbsp;&nbsp;Cash In Hand - 5.00&euro;&nbsp;&nbsp;&nbsp;&nbsp;Bank Balance - 5.00&euro;</h4>
                                                     </div>
 
 

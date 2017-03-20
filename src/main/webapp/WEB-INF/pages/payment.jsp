@@ -13,10 +13,10 @@
 
   <%@ include file="scriptLibraryTemplate.jsp" %>
 
-  <spring:url value="/addexpense.action" var="expenseActionURL"/>
-  <spring:url value="/resources/js/createexpensegridlayout.js" var="expenseGrid"/>
+  <spring:url value="/addpayment.action" var="paymentActionURL"/>
+  <spring:url value="/resources/js/createpaymentgridlayout.js" var="paymentGrid"/>
 
-  <script src="${expenseGrid}" type="text/javascript"
+  <script src="${paymentGrid}" type="text/javascript"
           language="javascript"></script>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
@@ -26,10 +26,10 @@
     jQuery(document).ready(function () {
 
       backToTop();
-      loadExpenseGrid();
+      loadPaymentGrid();
       $(".js-example-basic-single").select2();
 
-      $('#expenseDate').datepicker({
+      $('#paymentDate').datepicker({
         autoclose: true,
         todayHighlight: true,
         format: 'dd-mm-yyyy',
@@ -84,14 +84,14 @@
 
                         <div class="panel outer-border">
                           <div class="panel-heading">
-                            <h4>Expense</h4>
+                            <h4>Payments</h4>
                           </div>
 
 
                           <div class="panel-body">
 
-                            <table id="expenseGrid"></table>
-                            <div id="expenseGridPager"></div>
+                            <table id="paymentGrid"></table>
+                            <div id="paymentGridPager"></div>
 
                             <div class="tab-content" style="padding: 10px;">
 
@@ -104,37 +104,37 @@
                                     <h4>
                                       <ul class="nav nav-tabs">
                                         <li class="active">
-                                          <a href="#expense1"
+                                          <a href="#payment1"
                                              data-toggle="tab"><i
                                                   class="fa fa-list visible-xs icon-scale"></i><span
-                                                  class="hidden-xs">Expense Details</span></a>
+                                                  class="hidden-xs">Payment Details</span></a>
                                         </li>
                                       </ul>
                                     </h4>
                                   </div>
 
                                   <div class="panel-body">
-                                    <form:form modelAttribute="expense"
-                                               action="${expenseActionURL}"
+                                    <form:form modelAttribute="payment"
+                                               action="${paymentActionURL}"
                                                method="post"
-                                               id="expenseForm"
+                                               id="paymentForm"
                                                cssClass="form-horizontal">
 
                                       <div class="tab-content">
 
                                         <div class="tab-pane active"
-                                             id="expense1">
+                                             id="payment1">
 
                                           <div class="col-md-12">
                                             <div class="panel">
                                               <div class="form-group">
-                                                <label for="expenseDate"
-                                                       class="col-sm-2 control-label required">Expense Date</label>
+                                                <label for="paymentDate"
+                                                       class="col-sm-2 control-label required">Payment Date</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="expenseDate"
-                                                          id="expenseDate"
+                                                          path="paymentDate"
+                                                          id="paymentDate"
                                                           class="form-control"/>
                                                   <form:hidden
                                                           path="id"/>
@@ -159,21 +159,21 @@
                                                 </div>
                                               </div>
                                               <div class="form-group">
-                                                <label for="expenseAmount"
+                                                <label for="paymentAmount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="expenseAmount"
-                                                          id="expenseAmount"
+                                                          path="paymentAmount"
+                                                          id="paymentAmount"
                                                           class="form-control"/>
                                                 </div>
-                                                <label for="expenseType"
-                                                       class="col-sm-2 control-label required">Expense Type</label>
+                                                <label for="paymentType"
+                                                       class="col-sm-2 control-label required">Payment Type</label>
 
                                                 <div class="col-sm-3">
-                                                  <form:radiobutton path="expenseType" value="Cash" id="expenseType" class="form-control"/>Cash
-                                                  <form:radiobutton path="expenseType" value="Bank" id="expenseType" class="form-control"/>Bank
+                                                  <form:radiobutton path="paymentType" value="Cash" id="paymentType" class="form-control"/>Cash
+                                                  <form:radiobutton path="paymentType" value="Bank" id="paymentType" class="form-control"/>Bank
                                                 </div>
 
                                               </div>

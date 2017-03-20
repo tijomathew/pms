@@ -98,10 +98,10 @@
     </c:if>
     <c:if test="${showForFinanceAdmin == true}">
         <ul class="acc-menu" id="sidebar">
-            <li id="receipt"><a href="${pageContext.request.contextPath}/viewincome.action"><i class="fa pms-users"></i>
-                <span>Income</span></a></li>
-            <li id="payment"><a href="${pageContext.request.contextPath}/viewexpense.action"><i
-                    class="fa pms-prayerUnits"></i> <span>Expense</span></a></li>
+            <li id="receipt"><a href="${pageContext.request.contextPath}/viewreceipt.action"><i class="fa pms-users"></i>
+                <span>Receipts</span></a></li>
+            <li id="payment"><a href="${pageContext.request.contextPath}/viewpayment.action"><i
+                    class="fa pms-prayerUnits"></i> <span>Payments</span></a></li>
             <li id="withdrawal"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Withdrawal</span></a></li>

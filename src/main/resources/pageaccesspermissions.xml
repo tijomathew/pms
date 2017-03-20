@@ -108,9 +108,9 @@
         <value>displayreceiptgrid.action</value>
         <value>addreceipt.action</value>
 
-        <value>viewexpense.action</value>
-        <value>displayexpensegrid.action</value>
-        <value>addexpense.action</value>
+        <value>viewpayment.action</value>
+        <value>displaypaymentgrid.action</value>
+        <value>addpayment.action</value>
 
         <value>viewwithdrawal.action</value>
         <value>addwithdrawal.action</value>

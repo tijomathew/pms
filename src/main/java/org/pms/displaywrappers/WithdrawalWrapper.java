@@ -15,7 +15,7 @@ public class WithdrawalWrapper implements GridRow {
 
     private Withdrawal withdrawalBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id", "withdrawalDate", "registeredDate", "associatedParish.parsihName", "withdrawalType", "withdrawalAmount"/*, "category.categoryName", "category.categoryGroup.categoryGroupName"*/};
+    private String[] VALID_BEAN_PROPERTIES = {"id", "withdrawalDate", "registeredDate", "associatedParish.parsihName", "withdrawalType", "withdrawalAmount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
 
 
     public WithdrawalWrapper(Withdrawal withdrawalBean) {

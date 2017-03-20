@@ -8,8 +8,8 @@ import java.math.BigDecimal;
  * Created by tijo on 11/03/17.
  */
 @Entity
-@Table(name = "expense", indexes = {@Index(columnList = "id")})
-public class Expense {
+@Table(name = "payments", indexes = {@Index(columnList = "id")})
+public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +19,14 @@ public class Expense {
     @JoinColumn(name = "category_no")
     private Category category;
 
-    @Column(name = "expense_amount")
-    private BigDecimal expenseAmount;
+    @Column(name = "payment_amount")
+    private BigDecimal paymentAmount;
 
-    @Column(name = "expense_type")
-    private String expenseType;
+    @Column(name = "payment_type")
+    private String paymentType;
 
-    @Column(name = "expense_date")
-    private String expenseDate;
+    @Column(name = "payment_date")
+    private String paymentDate;
 
     @Column(name = "added_date")
     private String registeredDate;
@@ -42,10 +42,10 @@ public class Expense {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "expense_no")
+    @JoinColumn(name = "payment_no")
     private Parish associatedParish;
 
-    public Expense() {
+    public Payment() {
     }
 
     public Long getId() {
@@ -64,28 +64,28 @@ public class Expense {
         this.category = category;
     }
 
-    public BigDecimal getExpenseAmount() {
-        return expenseAmount;
+    public BigDecimal getPaymentAmount() {
+        return paymentAmount;
     }
 
-    public void setExpenseAmount(BigDecimal expenseAmount) {
-        this.expenseAmount = expenseAmount;
+    public void setPaymentAmount(BigDecimal paymentAmount) {
+        this.paymentAmount = paymentAmount;
     }
 
-    public String getExpenseType() {
-        return expenseType;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setExpenseType(String expenseType) {
-        this.expenseType = expenseType;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
-    public String getExpenseDate() {
-        return expenseDate;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setExpenseDate(String expenseDate) {
-        this.expenseDate = expenseDate;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public String getRegisteredDate() {
@@ -133,22 +133,22 @@ public class Expense {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Expense expense = (Expense) o;
+        Payment payment = (Payment) o;
 
-        if (id != null ? !id.equals(expense.id) : expense.id != null) return false;
-        if (category != null ? !category.equals(expense.category) : expense.category != null) return false;
-        if (expenseAmount != null ? !expenseAmount.equals(expense.expenseAmount) : expense.expenseAmount != null)
+        if (id != null ? !id.equals(payment.id) : payment.id != null) return false;
+        if (category != null ? !category.equals(payment.category) : payment.category != null) return false;
+        if (paymentAmount != null ? !paymentAmount.equals(payment.paymentAmount) : payment.paymentAmount != null)
             return false;
-        if (expenseType != null ? !expenseType.equals(expense.expenseType) : expense.expenseType != null) return false;
-        if (expenseDate != null ? !expenseDate.equals(expense.expenseDate) : expense.expenseDate != null) return false;
-        if (registeredDate != null ? !registeredDate.equals(expense.registeredDate) : expense.registeredDate != null)
+        if (paymentType != null ? !paymentType.equals(payment.paymentType) : payment.paymentType != null) return false;
+        if (paymentDate != null ? !paymentDate.equals(payment.paymentDate) : payment.paymentDate != null) return false;
+        if (registeredDate != null ? !registeredDate.equals(payment.registeredDate) : payment.registeredDate != null)
             return false;
-        if (modifiedDate != null ? !modifiedDate.equals(expense.modifiedDate) : expense.modifiedDate != null)
+        if (modifiedDate != null ? !modifiedDate.equals(payment.modifiedDate) : payment.modifiedDate != null)
             return false;
-        if (addedByUser != null ? !addedByUser.equals(expense.addedByUser) : expense.addedByUser != null) return false;
-        if (updatedByUser != null ? !updatedByUser.equals(expense.updatedByUser) : expense.updatedByUser != null)
+        if (addedByUser != null ? !addedByUser.equals(payment.addedByUser) : payment.addedByUser != null) return false;
+        if (updatedByUser != null ? !updatedByUser.equals(payment.updatedByUser) : payment.updatedByUser != null)
             return false;
-        return !(associatedParish != null ? !associatedParish.equals(expense.associatedParish) : expense.associatedParish != null);
+        return !(associatedParish != null ? !associatedParish.equals(payment.associatedParish) : payment.associatedParish != null);
 
     }
 
@@ -156,9 +156,9 @@ public class Expense {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + (expenseAmount != null ? expenseAmount.hashCode() : 0);
-        result = 31 * result + (expenseType != null ? expenseType.hashCode() : 0);
-        result = 31 * result + (expenseDate != null ? expenseDate.hashCode() : 0);
+        result = 31 * result + (paymentAmount != null ? paymentAmount.hashCode() : 0);
+        result = 31 * result + (paymentType != null ? paymentType.hashCode() : 0);
+        result = 31 * result + (paymentDate != null ? paymentDate.hashCode() : 0);
         result = 31 * result + (registeredDate != null ? registeredDate.hashCode() : 0);
         result = 31 * result + (modifiedDate != null ? modifiedDate.hashCode() : 0);
         result = 31 * result + (addedByUser != null ? addedByUser.hashCode() : 0);
@@ -169,12 +169,12 @@ public class Expense {
 
     /*@Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Expense{");
+        final StringBuilder sb = new StringBuilder("Payment{");
         sb.append("id=").append(id);
         sb.append(", category=").append(category);
-        sb.append(", expenseAmount=").append(expenseAmount);
-        sb.append(", expenseType='").append(expenseType).append('\'');
-        sb.append(", expenseDate='").append(expenseDate).append('\'');
+        sb.append(", paymentAmount=").append(paymentAmount);
+        sb.append(", paymentType='").append(paymentType).append('\'');
+        sb.append(", paymentDate='").append(paymentDate).append('\'');
         sb.append(", registeredDate='").append(registeredDate).append('\'');
         sb.append(", modifiedDate='").append(modifiedDate).append('\'');
         sb.append(", addedByUser='").append(addedByUser).append('\'');

@@ -15,7 +15,7 @@ public class DepositWrapper implements GridRow {
 
     private Deposit depositBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id", "depositDate", "registeredDate", "associatedParish.parsihName", "depositType", "depositAmount"/*, "category.categoryName", "category.categoryGroup.categoryGroupName"*/};
+    private String[] VALID_BEAN_PROPERTIES = {"id", "depositDate", "registeredDate", "associatedParish.parsihName", "depositType", "depositAmount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
 
 
     public DepositWrapper(Deposit depositBean) {

@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.CategoryCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.displaywrappers.ExpenseWrapper;
+import org.pms.displaywrappers.PaymentWrapper;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
@@ -12,12 +12,12 @@ import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
 import org.pms.models.Category;
-import org.pms.models.Expense;
 import org.pms.models.Parish;
+import org.pms.models.Payment;
 import org.pms.models.User;
 import org.pms.services.CategoryService;
-import org.pms.services.ExpenseService;
 import org.pms.services.ParishService;
+import org.pms.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,13 +33,13 @@ import java.util.stream.Collectors;
  * Created by tijo on 11/03/17.
  */
 @Controller
-public class ExpenseController extends AbstractErrorAndGridHandler {
+public class PaymentController extends AbstractErrorAndGridHandler {
 
     @Autowired
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private ExpenseService expenseService;
+    private PaymentService paymentService;
 
     @Autowired
     private CategoryService categoryService;
@@ -48,8 +48,8 @@ public class ExpenseController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
 
-    @RequestMapping(value = "/viewexpense.action", method = RequestMethod.GET)
-    public String viewExpensePageDisplay(Model model) {
+    @RequestMapping(value = "/viewpayment.action", method = RequestMethod.GET)
+    public String viewPaymentPageDisplay(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         Map<Long, String> parishMap = new HashMap<>();
         List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
@@ -57,38 +57,38 @@ public class ExpenseController extends AbstractErrorAndGridHandler {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
 
-        Expense expense = new Expense();
-        expense.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("expense", expense);
+        Payment payment = new Payment();
+        payment.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("payment", payment);
         model.addAttribute("parishMap", parishMap);
 
-        return PageName.EXPENSE.toString();
+        return PageName.PAYMENT.toString();
     }
 
-    @RequestMapping(value = "/addexpense.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addpayment.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addExpense(@ModelAttribute("expense") @Valid Expense expense, BindingResult result) {
+    CustomResponse addPayment(@ModelAttribute("payment") @Valid Payment payment, BindingResult result) {
 
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            if (expense.getId() == null) {
+            if (payment.getId() == null) {
 
                 if (currentUser.getSystemRole() == SystemRole.FINANCE_USER) {
-                    expense.setAddedByUser(currentUser.getEmail());
-                    expenseService.addExpense(expense);
-                    customResponse = createSuccessMessage(StatusCode.SUCCESS, "Expense", SUCCESS_MESSAGE_DISPLAY);
+                    payment.setAddedByUser(currentUser.getEmail());
+                    paymentService.addPayment(payment);
+                    customResponse = createSuccessMessage(StatusCode.SUCCESS, "Payment", SUCCESS_MESSAGE_DISPLAY);
                 } else {
-                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Expense as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
+                    customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Payment as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
                 }
 
             } else {
-                expense.setModifiedDate(DateUtils.getCurrentDate());
-                expense.setUpdatedByUser(currentUser.getEmail());
-                expenseService.updateExpense(expense);
-                customResponse = createSuccessMessage(StatusCode.SUCCESS, "Expense", "updated successfully!");
+                payment.setModifiedDate(DateUtils.getCurrentDate());
+                payment.setUpdatedByUser(currentUser.getEmail());
+                paymentService.updatePayment(payment);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, "Payment", "updated successfully!");
             }
 
         } else {
@@ -98,30 +98,30 @@ public class ExpenseController extends AbstractErrorAndGridHandler {
         return customResponse;
     }
 
-    @RequestMapping(value = "displayexpensegrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displaypaymentgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForExpenses(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
+    Object generateJsonDisplayForPayments(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Expense> allExpensesForParish = expenseService.getAllExpensesForParish(currentUser.getParishId());
-        Integer totalRows = allExpensesForParish.size();
+        List<Payment> allPaymentsForParish = paymentService.getAllPaymentsForParish(currentUser.getParishId());
+        Integer totalRows = allPaymentsForParish.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        List<Expense> allExpensesSubList = new ArrayList<>();
+        List<Payment> allPaymentsSubList = new ArrayList<>();
 
         if (totalRows > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
-                Collections.sort(allExpensesForParish, formatter.by(sortIndexColumnName, Expense.class));
+                Collections.sort(allPaymentsForParish, formatter.by(sortIndexColumnName, Payment.class));
             }
-            allExpensesSubList = JsonBuilder.generateSubList(page, rows, totalRows, allExpensesForParish);
+            allPaymentsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allPaymentsForParish);
         }
 
-        List<GridRow> expensesGridRows = new ArrayList<GridRow>(allExpensesForParish.size());
-        if (!allExpensesSubList.isEmpty()) {
-            expensesGridRows = allExpensesSubList.stream().map(expense -> new ExpenseWrapper(expense)).collect(Collectors.toList());
+        List<GridRow> paymentsGridRows = new ArrayList<GridRow>(allPaymentsForParish.size());
+        if (!allPaymentsSubList.isEmpty()) {
+            paymentsGridRows = allPaymentsSubList.stream().map(payment -> new PaymentWrapper(payment)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, expensesGridRows));
+        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, paymentsGridRows));
     }
 
     @InitBinder
