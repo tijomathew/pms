@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Parish Management System Software">
-<meta name="author" content="Tijo Mathew(tijopower888@gmail.com)">
+<meta name="author" content="Pintu Jacob(pintujacob@gmail.com)">
 <link rel="shortcut icon" href="resources/images/favicon.png">
 <spring:url value="/resources/css/bootstrap.min.latest.css" var="bootstrapcsslatestUrl"/>
 <spring:url value="/resources/css/jqgrowl.css" var="jqGrowlCSS"/>
@@ -37,8 +37,8 @@
 <spring:url value="/resources/js/jquery.cookie.js" var="cookieURL"/>
 <spring:url value="/resources/js/jquery.nicescroll.min.js" var="nicescrollURL"/>
 
-<script src="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"/> "></script>
-<link href="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"/> ">
+<%--<script src="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"/> "></script>
+<link href="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"/> ">--%>
 
 
 <script type='text/javascript' src="${jqueryURL}"></script>
@@ -83,4 +83,5 @@
 <c:set var="showForParishAdmin" value="${sessionScope.parishAdminRole}"/>
 <c:set var="showForPrayerUnitAdmin" value="${sessionScope.prayerUnitAdminRole}"/>
 <c:set var="showForFamilyUser" value="${sessionScope.familyUserRole}"/>
+<c:set var="showForFinanceAdmin" value="${sessionScope.showForFinanceAdmin}"/>
 <c:set var="loggedInUserEmail" value="${sessionScope.currentUserEmail}"/>

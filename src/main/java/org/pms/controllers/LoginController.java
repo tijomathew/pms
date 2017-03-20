@@ -2,6 +2,8 @@ package org.pms.controllers;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
@@ -10,6 +12,8 @@ import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
+import org.pms.models.Receipt;
+import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.*;
 import org.pms.sessionmanager.PMSSessionManager;
@@ -26,6 +30,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * LoginController description
@@ -85,7 +93,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
         User loggedInUser;
 
         try {
-                loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
+            loggedInUser = loginService.verifyLoggedInUser(user.getEmail(), user.getPassword());
             if (loggedInUser != null) {
                 if (loggedInUser.getIsActive() == SystemRolesStatus.ACTIVE) {
                     redirectPageName = loginService.getRedirectPageForLoggedInUser(loggedInUser);
@@ -109,6 +117,8 @@ public class LoginController extends AbstractErrorAndGridHandler {
             redirectedActionName = "redirect:/viewprayerunit.action";
         } else if (redirectPageName == PageName.FAMILY) {
             redirectedActionName = "redirect:/viewfamilywelcome.action";
+        } else if (redirectPageName == PageName.INCOME) {
+            redirectedActionName = "redirect:/viewincome.action";
         } else {
             redirectedActionName = redirectPageName.toString();
         }
@@ -189,6 +199,17 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 break;
             case FAMILY:
                 factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
+                break;
+            case INCOME:
+                Map<Long, String> parishMap = new HashMap<>();
+                List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
+                if (!parishList.isEmpty()) {
+                    parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
+                }
+                Receipt receipt = new Receipt();
+                receipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+                model.addAttribute("income", receipt);
+                model.addAttribute("parishMap", parishMap);
                 break;
         }
     }

@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired(required = true)
     private PMSApplicationBuilder pmsApplicationBuilder;
 
-    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "prayerUnitAdminRole", "familyUserRole"};
+    private static final String[] differentRolesInSessionValues = new String[]{"adminRole", "parishAdminRole", "prayerUnitAdminRole", "familyUserRole", "showForFinanceAdmin"};
 
     @Override
     public User verifyLoggedInUser(String loginUserEmail, String loginUserPassword) {
@@ -87,6 +87,9 @@ public class LoginServiceImpl implements LoginService {
             case FAMILY_USER:
                 redirectPageName = PageName.FAMILY;
                 break;
+            case FINANCE_USER:
+                redirectPageName = PageName.INCOME;
+                break;
         }
         return redirectPageName;
     }
@@ -104,6 +107,9 @@ public class LoginServiceImpl implements LoginService {
                 break;
             case FAMILY_USER:
                 createUserAndRolesInSessionScope("familyUserRole", loggedInUser);
+                break;
+            case FINANCE_USER:
+                createUserAndRolesInSessionScope("showForFinanceAdmin", loggedInUser);
                 break;
         }
 

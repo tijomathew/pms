@@ -37,6 +37,9 @@ public class PMSInterceptor implements HandlerInterceptor {
     @Resource(name = "familyHeadLinks")
     private List<String> familyHeadLinks;
 
+    @Resource(name = "financeAdminLinks")
+    private List<String> financeAdminLinks;
+
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         boolean indicatorToProceed = false;
@@ -46,7 +49,7 @@ public class PMSInterceptor implements HandlerInterceptor {
             indicatorToProceed = true;
         }
         if (!indicatorToProceed) {
-            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action")|| urlAction.equalsIgnoreCase("changepassword.action")|| urlAction.equalsIgnoreCase("forgotpassword.action")) {
+            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action") || urlAction.equalsIgnoreCase("changepassword.action") || urlAction.equalsIgnoreCase("forgotpassword.action")) {
                 indicatorToProceed = true;
             } else {
                 String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);
@@ -73,6 +76,9 @@ public class PMSInterceptor implements HandlerInterceptor {
                             break;
                         case FAMILY_USER:
                             indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, familyHeadLinks);
+                            break;
+                        case FINANCE_USER:
+                            indicatorToProceed = checkURLIsAllowedForCurrentUser(urlAction, financeAdminLinks);
                             break;
                     }
                 }

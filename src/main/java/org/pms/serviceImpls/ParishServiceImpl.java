@@ -88,6 +88,9 @@ public class ParishServiceImpl implements ParishService {
                     allParishes.add(getParishForIDSM(currentUser.getUserOfFamily().getFamilyPrayerUnit().getMappedParish().getId()));
                 }
                 break;
+            case FINANCE_USER:
+                allParishes.add(getParishForIDSM(currentUser.getUsersOfParish().getId()));
+                break;
         }
         return allParishes;
     }

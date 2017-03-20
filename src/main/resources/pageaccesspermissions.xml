@@ -103,4 +103,25 @@
         <value>displaymembergrid.action</value>
     </util:list>
 
+    <util:list id="financeAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
+        <value>viewincome.action</value>
+        <value>displayincomegrid.action</value>
+        <value>addincome.action</value>
+
+        <value>viewexpense.action</value>
+        <value>displayexpensegrid.action</value>
+        <value>addexpense.action</value>
+
+        <value>viewwithdrawal.action</value>
+        <value>addwithdrawal.action</value>
+        <value>displaywithdrawalgrid.action</value>
+
+        <value>viewjournal.action</value>
+
+        <value>viewdeposit.action</value>
+        <value>adddeposit.action</value>
+        <value>displaydepositgrid.action</value>
+
+    </util:list>
+
 </beans>
