@@ -117,8 +117,8 @@ public class LoginController extends AbstractErrorAndGridHandler {
             redirectedActionName = "redirect:/viewprayerunit.action";
         } else if (redirectPageName == PageName.FAMILY) {
             redirectedActionName = "redirect:/viewfamilywelcome.action";
-        } else if (redirectPageName == PageName.INCOME) {
-            redirectedActionName = "redirect:/viewincome.action";
+        } else if (redirectPageName == PageName.RECEIPT) {
+            redirectedActionName = "redirect:/viewreceipt.action";
         } else {
             redirectedActionName = redirectPageName.toString();
         }
@@ -200,7 +200,7 @@ public class LoginController extends AbstractErrorAndGridHandler {
             case FAMILY:
                 factorySelectBox.generateSelectBoxInModel(model, requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class));
                 break;
-            case INCOME:
+            case RECEIPT:
                 Map<Long, String> parishMap = new HashMap<>();
                 List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
                 if (!parishList.isEmpty()) {

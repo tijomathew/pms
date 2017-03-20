@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.CategoryCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.displaywrappers.IncomeWrapper;
+import org.pms.displaywrappers.ReceiptWrapper;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
@@ -16,7 +16,7 @@ import org.pms.models.Receipt;
 import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.CategoryService;
-import org.pms.services.IncomeService;
+import org.pms.services.ReceiptService;
 import org.pms.services.ParishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private IncomeService incomeService;
+    private ReceiptService receiptService;
 
     @Autowired
     private CategoryService categoryService;
@@ -48,8 +48,8 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     private ParishService parishService;
 
 
-    @RequestMapping(value = "/viewincome.action", method = RequestMethod.GET)
-    public String viewIncomePageDisplay(Model model) {
+    @RequestMapping(value = "/viewreceipt.action", method = RequestMethod.GET)
+    public String viewreceiptPageDisplay(Model model) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
         Map<Long, String> parishMap = new HashMap<>();
         List<Parish> parishList = parishService.getAllParishForUserRole(currentUser);
@@ -59,16 +59,16 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
 
         Receipt receipt = new Receipt();
         receipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("income", receipt);
+        model.addAttribute("receipt", receipt);
         model.addAttribute("parishMap", parishMap);
 
-        return PageName.INCOME.toString();
+        return PageName.RECEIPT.toString();
     }
 
-    @RequestMapping(value = "/addincome.action", method = RequestMethod.POST)
+    @RequestMapping(value = "/addreceipt.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addIncome(@ModelAttribute("income") @Valid Receipt receipt, BindingResult result) {
+    CustomResponse addReceipt(@ModelAttribute("receipt") @Valid Receipt receipt, BindingResult result) {
 
         if (!result.hasErrors()) {
 
@@ -78,7 +78,7 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
 
                 if (currentUser.getSystemRole() == SystemRole.FINANCE_USER) {
                     receipt.setAddedByUser(currentUser.getEmail());
-                    incomeService.addIncome(receipt);
+                    receiptService.addReceipt(receipt);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, "Receipt", SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Receipt as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
@@ -87,7 +87,7 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
             } else {
                 receipt.setModifiedDate(DateUtils.getCurrentDate());
                 receipt.setUpdatedByUser(currentUser.getEmail());
-                incomeService.updateIncome(receipt);
+                receiptService.updateReceipt(receipt);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, "Receipt", "updated successfully!");
             }
 
@@ -98,30 +98,30 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
         return customResponse;
     }
 
-    @RequestMapping(value = "displayincomegrid.action", method = RequestMethod.GET)
+    @RequestMapping(value = "displayreceiptgrid.action", method = RequestMethod.GET)
     public
     @ResponseBody
-    Object generateJsonDisplayForIncomes(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
+    Object generateJsonDisplayForReceipts(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Receipt> allIncomesForParish = incomeService.getAllIncomesForParish(currentUser.getParishId());
-        Integer totalRows = allIncomesForParish.size();
+        List<Receipt> allReceiptsForParish = receiptService.getAllReceiptsForParish(currentUser.getParishId());
+        Integer totalRows = allReceiptsForParish.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        List<Receipt> allIncomesSubList = new ArrayList<>();
+        List<Receipt> allReceiptsSubList = new ArrayList<>();
 
         if (totalRows > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
-                Collections.sort(allIncomesForParish, formatter.by(sortIndexColumnName, Receipt.class));
+                Collections.sort(allReceiptsForParish, formatter.by(sortIndexColumnName, Receipt.class));
             }
-            allIncomesSubList = JsonBuilder.generateSubList(page, rows, totalRows, allIncomesForParish);
+            allReceiptsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allReceiptsForParish);
         }
 
-        List<GridRow> incomeGridRows = new ArrayList<GridRow>(allIncomesForParish.size());
-        if (!allIncomesSubList.isEmpty()) {
-            incomeGridRows = allIncomesSubList.stream().map(income -> new IncomeWrapper(income)).collect(Collectors.toList());
+        List<GridRow> receiptGridRows = new ArrayList<GridRow>(allReceiptsForParish.size());
+        if (!allReceiptsSubList.isEmpty()) {
+            receiptGridRows = allReceiptsSubList.stream().map(receipt -> new ReceiptWrapper(receipt)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, incomeGridRows));
+        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, receiptGridRows));
     }
 
     @InitBinder

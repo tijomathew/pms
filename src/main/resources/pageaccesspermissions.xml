@@ -104,9 +104,9 @@
     </util:list>
 
     <util:list id="financeAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
-        <value>viewincome.action</value>
-        <value>displayincomegrid.action</value>
-        <value>addincome.action</value>
+        <value>viewreceipt.action</value>
+        <value>displayreceiptgrid.action</value>
+        <value>addreceipt.action</value>
 
         <value>viewexpense.action</value>
         <value>displayexpensegrid.action</value>

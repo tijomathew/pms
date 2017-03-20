@@ -100,7 +100,7 @@
         <ul class="acc-menu" id="sidebar">
             <li id="receipt"><a href="${pageContext.request.contextPath}/viewincome.action"><i class="fa pms-users"></i>
                 <span>Income</span></a></li>
-            <li id="expense"><a href="${pageContext.request.contextPath}/viewexpense.action"><i
+            <li id="payment"><a href="${pageContext.request.contextPath}/viewexpense.action"><i
                     class="fa pms-prayerUnits"></i> <span>Expense</span></a></li>
             <li id="withdrawal"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>

@@ -13,10 +13,10 @@
 
     <%@ include file="scriptLibraryTemplate.jsp" %>
 
-    <spring:url value="/addincome.action" var="incomeActionURL"/>
-    <spring:url value="/resources/js/createincomegridlayout.js" var="incomeGrid"/>
+    <spring:url value="/addreceipt.action" var="receiptActionURL"/>
+    <spring:url value="/resources/js/createreceiptgridlayout.js" var="receiptGrid"/>
 
-    <script src="${incomeGrid}" type="text/javascript"
+    <script src="${receiptGrid}" type="text/javascript"
             language="javascript"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
@@ -26,10 +26,10 @@
         jQuery(document).ready(function () {
 
             backToTop();
-            loadIncomeGrid();
+            loadReceiptGrid();
             $(".js-example-basic-single").select2();
 
-            $('#incomeDate').datepicker({
+            $('#receiptDate').datepicker({
                 autoclose: true,
                 todayHighlight: true,
                 format: 'dd-mm-yyyy',
@@ -84,14 +84,14 @@
 
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>Income&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Total Balance - 10.00&euro;</span>&nbsp;&nbsp;&nbsp;&nbsp;Cash In Hand - 5.00&euro;&nbsp;&nbsp;&nbsp;&nbsp;Bank Balance - 5.00&euro;</h4>
+                                                        <h4>Receipt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Total Balance - 10.00&euro;</span>&nbsp;&nbsp;&nbsp;&nbsp;Cash In Hand - 5.00&euro;&nbsp;&nbsp;&nbsp;&nbsp;Bank Balance - 5.00&euro;</h4>
                                                     </div>
 
 
                                                     <div class="panel-body">
 
-                                                        <table id="incomeGrid"></table>
-                                                        <div id="incomeGridPager"></div>
+                                                        <table id="receiptGrid"></table>
+                                                        <div id="receiptGridPager"></div>
 
                                                         <div class="tab-content" style="padding: 10px;">
 
@@ -104,10 +104,10 @@
                                                                         <h4>
                                                                             <ul class="nav nav-tabs">
                                                                                 <li class="active">
-                                                                                    <a href="#income1"
+                                                                                    <a href="#receipt1"
                                                                                        data-toggle="tab"><i
                                                                                             class="fa fa-list visible-xs icon-scale"></i><span
-                                                                                            class="hidden-xs">Income Details</span></a>
+                                                                                            class="hidden-xs">Receipt Details</span></a>
                                                                                 </li>
                                                                             </ul>
                                                                         </h4>
@@ -115,26 +115,26 @@
 
                                                                     <div class="panel-body">
                                                                         <form:form modelAttribute="receipt"
-                                                                                   action="${incomeActionURL}"
+                                                                                   action="${receiptActionURL}"
                                                                                    method="post"
-                                                                                   id="incomeForm"
+                                                                                   id="receiptForm"
                                                                                    cssClass="form-horizontal">
 
                                                                             <div class="tab-content">
 
                                                                                 <div class="tab-pane active"
-                                                                                     id="income1">
+                                                                                     id="receipt1">
 
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
-                                                                                                <label for="incomeDate"
-                                                                                                       class="col-sm-2 control-label required">Income Date</label>
+                                                                                                <label for="receiptDate"
+                                                                                                       class="col-sm-2 control-label required">Receipt Date</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
-                                                                                                            path="incomeDate"
-                                                                                                            id="incomeDate"
+                                                                                                            path="receiptDate"
+                                                                                                            id="receiptDate"
                                                                                                             class="form-control"/>
                                                                                                     <form:hidden
                                                                                                             path="id"/>
@@ -154,21 +154,21 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="form-group">
-                                                                                                <label for="incomeAmount"
+                                                                                                <label for="receiptAmount"
                                                                                                        class="col-sm-2 control-label required">Amount</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
-                                                                                                            path="incomeAmount"
-                                                                                                            id="incomeAmount"
+                                                                                                            path="receiptAmount"
+                                                                                                            id="receiptAmount"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                                <label for="incomeType"
-                                                                                                       class="col-sm-2 control-label required">Income Type</label>
+                                                                                                <label for="receiptType"
+                                                                                                       class="col-sm-2 control-label required">Receipt Type</label>
 
                                                                                                 <div class="col-sm-3">
-                                                                                                    <form:radiobutton path="incomeType" value="Cash" id="incomeType" class="form-control"/>Cash
-                                                                                                    <form:radiobutton path="incomeType" value="Bank" id="incomeType" class="form-control"/>Bank
+                                                                                                    <form:radiobutton path="receiptType" value="Cash" id="receiptType" class="form-control"/>Cash
+                                                                                                    <form:radiobutton path="receiptType" value="Bank" id="receiptType" class="form-control"/>Bank
                                                                                                 </div>
 
                                                                                             </div>

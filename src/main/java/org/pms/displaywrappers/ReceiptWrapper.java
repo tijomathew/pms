@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by tijo on 12/03/17.
  */
-public class IncomeWrapper implements GridRow {
+public class ReceiptWrapper implements GridRow {
 
     private Receipt receiptBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id", "incomeDate", "registeredDate", "associatedParish.parsihName", "incomeType", "incomeAmount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
+    private String[] VALID_BEAN_PROPERTIES = {"id", "receiptDate", "registeredDate", "associatedParish.parsihName", "receiptType", "receiptAmount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
 
 
-    public IncomeWrapper(Receipt receiptBean) {
+    public ReceiptWrapper(Receipt receiptBean) {
         this.receiptBean = receiptBean;
     }
 

@@ -88,7 +88,7 @@ public class LoginServiceImpl implements LoginService {
                 redirectPageName = PageName.FAMILY;
                 break;
             case FINANCE_USER:
-                redirectPageName = PageName.INCOME;
+                redirectPageName = PageName.RECEIPT;
                 break;
         }
         return redirectPageName;
