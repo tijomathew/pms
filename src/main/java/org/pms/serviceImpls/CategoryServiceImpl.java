@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by tijo on 18/03/17.
  */
@@ -20,5 +22,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Long categoryId) {
         return categoryDao.getCategoryById(categoryId);
+    }
+
+    @Override
+    public List<Category> getCategoryList(Long categoryGroupId) {
+        return categoryDao.getCategoryList(categoryGroupId);
     }
 }

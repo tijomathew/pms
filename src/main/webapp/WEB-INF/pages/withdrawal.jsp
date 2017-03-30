@@ -84,7 +84,10 @@
 
                         <div class="panel outer-border">
                           <div class="panel-heading">
-                            <h4>Withdrawal</h4>
+                            <h4>Withdrawal</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span>Total Balance - <span
+                                  id="totalBalance"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Cash In Hand - <span
+                                  id="cashInHand"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Bank Balance - <span
+                                  id="bankBalance"></span></span></b>
                           </div>
 
 
@@ -128,6 +131,16 @@
                                           <div class="col-md-12">
                                             <div class="panel">
                                               <div class="form-group">
+                                                  <label for="associatedParish"
+                                                         class="col-sm-2 control-label required">Parish</label>
+
+                                                  <div class="col-sm-3">
+                                                      <form:select
+                                                              path="associatedParish"
+                                                              id="associatedParish"
+                                                              items="${parishMap}"
+                                                              class="form-control"/>
+                                                  </div>
                                                 <label for="withdrawalDate"
                                                        class="col-sm-2 control-label required">Withdrawal Date</label>
 
@@ -139,26 +152,18 @@
                                                   <form:hidden
                                                           path="id"/>
                                                 </div>
-                                                <label for="category"
-                                                       class="col-sm-2 control-label required">Category</label>
-
-                                                <div class="col-sm-3">
-                                                  <form:select
-                                                          path="category"
-                                                          id="category"
-                                                          readonly="true"
-                                                          class="form-control js-example-basic-single">
-                                                    <form:option value="1">Cateory 1</form:option>
-                                                    <form:option value="1">Cateory 2</form:option>
-                                                    <form:option value="1">Cateory 3</form:option>
-                                                    <form:option value="1">Cateory 4</form:option>
-                                                    <form:option value="1">Cateory 5</form:option>
-                                                    <form:option value="1">Cateory 6</form:option>
-                                                    <form:option value="1">Cateory 7</form:option>
-                                                  </form:select>
-                                                </div>
                                               </div>
                                               <div class="form-group">
+                                                  <label for="category"
+                                                         class="col-sm-2 control-label required">Category</label>
+
+                                                  <div class="col-sm-3">
+                                                      <form:select
+                                                              path="category"
+                                                              id="category"
+                                                              class="form-control" items="${categoryMap}">
+                                                      </form:select>
+                                                  </div>
                                                 <label for="withdrawalAmount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
@@ -168,16 +173,15 @@
                                                           id="withdrawalAmount"
                                                           class="form-control"/>
                                                 </div>
-                                                <label for="withdrawalType"
-                                                       class="col-sm-2 control-label required">Withdrawal Type</label>
-
-                                                <div class="col-sm-3">
-                                                  <form:radiobutton path="withdrawalType" value="Cash" id="withdrawalType" class="form-control"/>Cash
-                                                  <form:radiobutton path="withdrawalType" value="Bank" id="withdrawalType" class="form-control"/>Bank
-                                                </div>
 
                                               </div>
                                               <div class="form-group">
+                                                  <label for="withdrawalType"
+                                                         class="col-sm-2 control-label required">Withdrawal Type</label>
+
+                                                  <div class="col-sm-3">
+                                                      <form:radiobutton path="withdrawalType" value="Cash" id="withdrawalType" class="form-control" checked="checked"/>Cash
+                                                  </div>
                                                 <label for="registeredDate"
                                                        class="col-sm-2 control-label required">Added
                                                   Date</label>
@@ -189,17 +193,18 @@
                                                           class="form-control"
                                                           readonly="true"/>
                                                 </div>
-                                                <label for="associatedParish"
-                                                       class="col-sm-2 control-label required">Parish</label>
-
-                                                <div class="col-sm-3">
-                                                  <form:select
-                                                          path="associatedParish"
-                                                          id="associatedParish"
-                                                          items="${parishMap}"
-                                                          class="form-control"/>
-                                                </div>
                                               </div>
+                                                <div class="form-group">
+                                                    <label for="description"
+                                                           class="col-sm-2 control-label">Description</label>
+
+                                                    <div class="col-sm-3">
+                                                        <form:textarea
+                                                                path="description"
+                                                                id="description"
+                                                                class="form-control"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                           </div>
                                         </div>

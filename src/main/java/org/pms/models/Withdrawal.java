@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,16 +17,20 @@ public class Withdrawal {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_no")
     private Category category;
 
+    @NotNull
     @Column(name = "withdrawal_amount")
     private BigDecimal withdrawalAmount;
 
+    @NotEmpty
     @Column(name = "withdrawal_type")
     private String withdrawalType;
 
+    @NotEmpty
     @Column(name = "withdrawal_date")
     private String withdrawalDate;
 
@@ -39,6 +45,9 @@ public class Withdrawal {
 
     @Column(name = "updated_by_user")
     private String updatedByUser;
+
+    @Column(name = "description")
+    private String description;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -118,6 +127,14 @@ public class Withdrawal {
 
     public void setUpdatedByUser(String updatedByUser) {
         this.updatedByUser = updatedByUser;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Parish getAssociatedParish() {

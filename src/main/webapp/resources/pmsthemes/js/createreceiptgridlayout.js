@@ -23,30 +23,30 @@ function loadReceiptGrid() {
             colModel: [
                 {name: 'id', index: 'id', width: 90, sortable: true},
                 {name: 'receiptDate', index: 'receiptDate', width: 100, sortable: false},
-                 {name: 'addedDate', index: 'addedDate', width: 90, sortable: false},
-                 {name: 'associatedParish.parsihName', index: 'associatedParish.parsihName', width: 90, sortable: false},
-                 {name: 'receiptType', index: 'receiptType', width: 90, sortable: false},
-                 {name: 'receiptAmount', index: 'receiptAmount', width: 90, sortable: false},
-                 {
-                 name: 'category.categoryName',
-                 index: 'category.categoryName',
-                 width: 80,
-                 align: "right",
-                 sortable: false
-                 },
-                 {
-                 name: 'category.categoryGroup.categoryGroupName',
-                 index: 'category.categoryGroup.categoryGroupName',
-                 width: 80,
-                 align: "right",
-                 sortable: false
-                 }
+                {name: 'addedDate', index: 'addedDate', width: 90, sortable: false},
+                {name: 'associatedParish.parsihName', index: 'associatedParish.parsihName', width: 90, sortable: false},
+                {name: 'receiptType', index: 'receiptType', width: 90, sortable: false},
+                {name: 'receiptAmount', index: 'receiptAmount', width: 90, sortable: false},
+                {
+                    name: 'category.categoryName',
+                    index: 'category.categoryName',
+                    width: 80,
+                    align: "right",
+                    sortable: false
+                },
+                {
+                    name: 'category.categoryGroup.categoryGroupName',
+                    index: 'category.categoryGroup.categoryGroupName',
+                    width: 80,
+                    align: "right",
+                    sortable: false
+                }
             ],
             rowNum: 10,
             pager: '#receiptGridPager',
             sortname: 'id',
             viewrecords: true,
-            sortorder: "asc",
+            sortorder: "desc",
             caption: "Receipts",
             autowidth: true,
             shrinkToFit: true,
@@ -59,6 +59,18 @@ function loadReceiptGrid() {
                 var rowId = jQuery("#receiptGrid").jqGrid('getGridParam', 'selrow');
                 $('#receiptForm').loadJSON(jQuery("#receiptGrid").getRowData(rowId));
 
+            },
+            loadComplete: function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'displaysummary.action',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#totalBalance').html(response.totalBalance);
+                        $('#cashInHand').html(response.cashInHand);
+                        $('#bankBalance').html(response.bankBalance);
+                    }
+                });
             }
         });
     jQuery("#receiptGrid").jqGrid('navGrid', '#receiptGridPager', {

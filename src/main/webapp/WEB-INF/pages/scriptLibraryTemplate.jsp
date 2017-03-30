@@ -37,9 +37,6 @@
 <spring:url value="/resources/js/jquery.cookie.js" var="cookieURL"/>
 <spring:url value="/resources/js/jquery.nicescroll.min.js" var="nicescrollURL"/>
 
-<%--<script src="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"/> "></script>
-<link href="<c:url value="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"/> ">--%>
-
 
 <script type='text/javascript' src="${jqueryURL}"></script>
 <script type='text/javascript' src="${jqueryUIURL}"></script>

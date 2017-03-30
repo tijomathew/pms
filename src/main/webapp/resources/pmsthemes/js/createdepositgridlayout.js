@@ -46,7 +46,7 @@ function loadDepositGrid() {
             pager: '#depositGridPager',
             sortname: 'id',
             viewrecords: true,
-            sortorder: "asc",
+            sortorder: "desc",
             caption: "Deposits",
             autowidth: true,
             shrinkToFit: true,
@@ -59,6 +59,18 @@ function loadDepositGrid() {
                 var rowId = jQuery("#depositGrid").jqGrid('getGridParam', 'selrow');
                 $('#depositForm').loadJSON(jQuery("#depositGrid").getRowData(rowId));
 
+            },
+            loadComplete: function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'displaysummary.action',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#totalBalance').html(response.totalBalance);
+                        $('#cashInHand').html(response.cashInHand);
+                        $('#bankBalance').html(response.bankBalance);
+                    }
+                });
             }
         });
     jQuery("#depositGrid").jqGrid('navGrid', '#depositGridPager', {

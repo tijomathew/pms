@@ -57,10 +57,18 @@ public class WithdrawalController extends AbstractErrorAndGridHandler {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
 
+        List<Category> categoryList = categoryService.getCategoryList(4l);
+
+        Map<Long, String> categoryMap = new HashMap<>();
+        if (!categoryList.isEmpty()) {
+            categoryMap = categoryList.stream().collect(Collectors.toMap(Category::getId, Category::getCategoryName));
+        }
+
         Withdrawal withdrawal = new Withdrawal();
         withdrawal.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("withdrawal", withdrawal);
         model.addAttribute("parishMap", parishMap);
+        model.addAttribute("categoryMap", categoryMap);
 
         return PageName.WITHDRAWAL.toString();
     }

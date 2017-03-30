@@ -259,7 +259,7 @@
                 $defaults.dialog.html('<i class="fa fa-refresh fa-spin dialog-spinner"></i>');
             };
         //return $defaults.dialog;
-        customDialog();
+        //customDialog();
 
     };
 

@@ -46,7 +46,7 @@ function loadPaymentGrid() {
             pager: '#paymentGridPager',
             sortname: 'id',
             viewrecords: true,
-            sortorder: "asc",
+            sortorder: "desc",
             caption: "Payments",
             autowidth: true,
             shrinkToFit: true,
@@ -59,6 +59,18 @@ function loadPaymentGrid() {
                 var rowId = jQuery("#paymentGrid").jqGrid('getGridParam', 'selrow');
                 $('#paymentForm').loadJSON(jQuery("#paymentGrid").getRowData(rowId));
 
+            },
+            loadComplete: function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'displaysummary.action',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#totalBalance').html(response.totalBalance);
+                        $('#cashInHand').html(response.cashInHand);
+                        $('#bankBalance').html(response.bankBalance);
+                    }
+                });
             }
         });
     jQuery("#paymentGrid").jqGrid('navGrid', '#paymentGridPager', {

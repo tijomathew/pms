@@ -46,7 +46,7 @@ function loadWithdrawalGrid() {
             pager: '#withdrawalGridPager',
             sortname: 'id',
             viewrecords: true,
-            sortorder: "asc",
+            sortorder: "desc",
             caption: "Withdrawals",
             autowidth: true,
             shrinkToFit: true,
@@ -59,6 +59,18 @@ function loadWithdrawalGrid() {
                 var rowId = jQuery("#withdrawalGrid").jqGrid('getGridParam', 'selrow');
                 $('#withdrawalForm').loadJSON(jQuery("#withdrawalGrid").getRowData(rowId));
 
+            },
+            loadComplete: function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'displaysummary.action',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#totalBalance').html(response.totalBalance);
+                        $('#cashInHand').html(response.cashInHand);
+                        $('#bankBalance').html(response.bankBalance);
+                    }
+                });
             }
         });
     jQuery("#withdrawalGrid").jqGrid('navGrid', '#withdrawalGridPager', {

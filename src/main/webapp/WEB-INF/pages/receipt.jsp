@@ -18,9 +18,11 @@
 
     <script src="${receiptGrid}" type="text/javascript"
             language="javascript"></script>
+    <spring:url value="/resources/css/select2.min.css" var="select2css"/>
+    <spring:url value="/resources/js/select2.min.js" var="select2js"/>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="${select2css}" rel="stylesheet"/>
+    <script src="${select2js}"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -84,7 +86,10 @@
 
                                                 <div class="panel outer-border">
                                                     <div class="panel-heading">
-                                                        <h4>Receipts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Total Balance - 10.00&euro;</span>&nbsp;&nbsp;&nbsp;&nbsp;Cash In Hand - 5.00&euro;&nbsp;&nbsp;&nbsp;&nbsp;Bank Balance - 5.00&euro;</h4>
+                                                        <h4>Receipts</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span>Total Balance - <span
+                                                                id="totalBalance"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Cash In Hand - <span
+                                                                id="cashInHand"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Bank Balance - <span
+                                                                id="bankBalance"></span></span></b>
                                                     </div>
 
 
@@ -128,8 +133,19 @@
                                                                                     <div class="col-md-12">
                                                                                         <div class="panel">
                                                                                             <div class="form-group">
+                                                                                                <label for="associatedParish"
+                                                                                                       class="col-sm-2 control-label required">Parish</label>
+
+                                                                                                <div class="col-sm-3">
+                                                                                                    <form:select
+                                                                                                            path="associatedParish"
+                                                                                                            id="associatedParish"
+                                                                                                            items="${parishMap}"
+                                                                                                            class="form-control"/>
+                                                                                                </div>
                                                                                                 <label for="receiptDate"
-                                                                                                       class="col-sm-2 control-label required">Receipt Date</label>
+                                                                                                       class="col-sm-2 control-label required">Receipt
+                                                                                                    Date</label>
 
                                                                                                 <div class="col-sm-3">
                                                                                                     <form:input
@@ -139,6 +155,8 @@
                                                                                                     <form:hidden
                                                                                                             path="id"/>
                                                                                                 </div>
+                                                                                            </div>
+                                                                                            <div class="form-group">
                                                                                                 <label for="category"
                                                                                                        class="col-sm-2 control-label required">Category</label>
 
@@ -146,14 +164,9 @@
                                                                                                     <form:select
                                                                                                             path="category"
                                                                                                             id="category"
-                                                                                                            readonly="true"
-                                                                                                            class="form-control js-example-basic-single">
-                                                                                                        <form:option value="1">Annual Collections</form:option>
-                                                                                                        <form:option value="1">Annual Feast Collections</form:option>
+                                                                                                            class="form-control js-example-basic-single" items="${categoryMap}">
                                                                                                     </form:select>
                                                                                                 </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
                                                                                                 <label for="receiptAmount"
                                                                                                        class="col-sm-2 control-label required">Amount</label>
 
@@ -163,16 +176,24 @@
                                                                                                             id="receiptAmount"
                                                                                                             class="form-control"/>
                                                                                                 </div>
-                                                                                                <label for="receiptType"
-                                                                                                       class="col-sm-2 control-label required">Receipt Type</label>
-
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:radiobutton path="receiptType" value="Cash" id="receiptType" class="form-control"/>Cash
-                                                                                                    <form:radiobutton path="receiptType" value="Bank" id="receiptType" class="form-control"/>Bank
-                                                                                                </div>
-
                                                                                             </div>
                                                                                             <div class="form-group">
+                                                                                                <label for="receiptType"
+                                                                                                       class="col-sm-2 control-label required">Receipt
+                                                                                                    Type</label>
+
+                                                                                                <div class="col-sm-3">
+                                                                                                    <form:radiobutton
+                                                                                                            path="receiptType"
+                                                                                                            value="Cash"
+                                                                                                            id="receiptType"
+                                                                                                            class="form-control"/>Cash
+                                                                                                    <form:radiobutton
+                                                                                                            path="receiptType"
+                                                                                                            value="Bank"
+                                                                                                            id="receiptType"
+                                                                                                            class="form-control"/>Bank
+                                                                                                </div>
                                                                                                 <label for="registeredDate"
                                                                                                        class="col-sm-2 control-label required">Added
                                                                                                     Date</label>
@@ -184,16 +205,17 @@
                                                                                                             class="form-control"
                                                                                                             readonly="true"/>
                                                                                                 </div>
-                                                                                                <label for="associatedParish"
-                                                                                                       class="col-sm-2 control-label required">Parish</label>
+                                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                            <label for="description"
+                                                                                                   class="col-sm-2 control-label">Description</label>
 
-                                                                                                <div class="col-sm-3">
-                                                                                                    <form:select
-                                                                                                            path="associatedParish"
-                                                                                                            id="associatedParish"
-                                                                                                            items="${parishMap}"
-                                                                                                            class="form-control"/>
-                                                                                                </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <form:textarea
+                                                                                                        path="description"
+                                                                                                        id="description"
+                                                                                                        class="form-control"/>
+                                                                                            </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

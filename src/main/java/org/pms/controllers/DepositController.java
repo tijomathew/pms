@@ -56,11 +56,18 @@ public class DepositController extends AbstractErrorAndGridHandler {
         if (!parishList.isEmpty()) {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
+        List<Category> categoryList = categoryService.getCategoryList(3l);
+
+        Map<Long, String> categoryMap = new HashMap<>();
+        if (!categoryList.isEmpty()) {
+            categoryMap = categoryList.stream().collect(Collectors.toMap(Category::getId, Category::getCategoryName));
+        }
 
         Deposit deposit = new Deposit();
         deposit.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("deposit", deposit);
         model.addAttribute("parishMap", parishMap);
+        model.addAttribute("categoryMap", categoryMap);
 
         return PageName.DEPOSIT.toString();
     }

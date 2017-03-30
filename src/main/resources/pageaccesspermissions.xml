@@ -107,6 +107,7 @@
         <value>viewreceipt.action</value>
         <value>displayreceiptgrid.action</value>
         <value>addreceipt.action</value>
+        <value>displaysummary.action</value>
 
         <value>viewpayment.action</value>
         <value>displaypaymentgrid.action</value>
@@ -121,6 +122,8 @@
         <value>viewdeposit.action</value>
         <value>adddeposit.action</value>
         <value>displaydepositgrid.action</value>
+
+        <value>viewreport.action</value>
 
     </util:list>
 

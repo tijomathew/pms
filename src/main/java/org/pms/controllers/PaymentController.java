@@ -57,10 +57,22 @@ public class PaymentController extends AbstractErrorAndGridHandler {
             parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
         }
 
+        List<Category> categoryList = categoryService.getCategoryList(2l);
+
+        Map<Long, String> categoryMap = new HashMap<>();
+        if (!categoryList.isEmpty()) {
+            categoryMap.put(0l, "--Select--");
+            for (Category category : categoryList) {
+                categoryMap.put(category.getId(), category.getCategoryName());
+            }
+        }
+
+
         Payment payment = new Payment();
         payment.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
         model.addAttribute("payment", payment);
         model.addAttribute("parishMap", parishMap);
+        model.addAttribute("categoryMap", categoryMap);
 
         return PageName.PAYMENT.toString();
     }

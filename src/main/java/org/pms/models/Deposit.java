@@ -1,5 +1,7 @@
 package org.pms.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -15,16 +17,20 @@ public class Deposit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_no")
     private Category category;
 
+    @NotNull
     @Column(name = "deposit_amount")
     private BigDecimal depositAmount;
 
+    @NotEmpty
     @Column(name = "deposit_type")
     private String depositType;
 
+    @NotEmpty
     @Column(name = "deposit_date")
     private String depositDate;
 
@@ -39,6 +45,9 @@ public class Deposit {
 
     @Column(name = "updated_by_user")
     private String updatedByUser;
+
+    @Column(name = "description")
+    private String description;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
@@ -128,6 +137,14 @@ public class Deposit {
         this.associatedParish = associatedParish;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,7 +153,6 @@ public class Deposit {
         Deposit deposit = (Deposit) o;
 
         if (id != null ? !id.equals(deposit.id) : deposit.id != null) return false;
-        if (category != null ? !category.equals(deposit.category) : deposit.category != null) return false;
         if (depositAmount != null ? !depositAmount.equals(deposit.depositAmount) : deposit.depositAmount != null)
             return false;
         if (depositType != null ? !depositType.equals(deposit.depositType) : deposit.depositType != null) return false;
@@ -155,7 +171,6 @@ public class Deposit {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (depositAmount != null ? depositAmount.hashCode() : 0);
         result = 31 * result + (depositType != null ? depositType.hashCode() : 0);
         result = 31 * result + (depositDate != null ? depositDate.hashCode() : 0);

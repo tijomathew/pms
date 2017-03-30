@@ -19,15 +19,11 @@
   <script src="${depositGrid}" type="text/javascript"
           language="javascript"></script>
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-
   <script type="text/javascript">
     jQuery(document).ready(function () {
 
       backToTop();
       loadDepositGrid();
-      $(".js-example-basic-single").select2();
 
       $('#depositDate').datepicker({
         autoclose: true,
@@ -84,7 +80,10 @@
 
                         <div class="panel outer-border">
                           <div class="panel-heading">
-                            <h4>Deposit</h4>
+                            <h4>Deposit</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span>Total Balance - <span
+                                  id="totalBalance"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Cash In Hand - <span
+                                  id="cashInHand"></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Bank Balance - <span
+                                  id="bankBalance"></span></span></b>
                           </div>
 
 
@@ -128,6 +127,16 @@
                                           <div class="col-md-12">
                                             <div class="panel">
                                               <div class="form-group">
+                                                  <label for="associatedParish"
+                                                         class="col-sm-2 control-label required">Parish</label>
+
+                                                  <div class="col-sm-3">
+                                                      <form:select
+                                                              path="associatedParish"
+                                                              id="associatedParish"
+                                                              items="${parishMap}"
+                                                              class="form-control"/>
+                                                  </div>
                                                 <label for="depositDate"
                                                        class="col-sm-2 control-label required">Deposit Date</label>
 
@@ -139,26 +148,18 @@
                                                   <form:hidden
                                                           path="id"/>
                                                 </div>
-                                                <label for="category"
-                                                       class="col-sm-2 control-label required">Category</label>
-
-                                                <div class="col-sm-3">
-                                                  <form:select
-                                                          path="category"
-                                                          id="category"
-                                                          readonly="true"
-                                                          class="form-control js-example-basic-single">
-                                                    <form:option value="1">Cateory 1</form:option>
-                                                    <form:option value="1">Cateory 2</form:option>
-                                                    <form:option value="1">Cateory 3</form:option>
-                                                    <form:option value="1">Cateory 4</form:option>
-                                                    <form:option value="1">Cateory 5</form:option>
-                                                    <form:option value="1">Cateory 6</form:option>
-                                                    <form:option value="1">Cateory 7</form:option>
-                                                  </form:select>
-                                                </div>
                                               </div>
                                               <div class="form-group">
+                                                  <label for="category"
+                                                         class="col-sm-2 control-label required">Category</label>
+
+                                                  <div class="col-sm-3">
+                                                      <form:select
+                                                              path="category"
+                                                              id="category"
+                                                              class="form-control" items="${categoryMap}">
+                                                      </form:select>
+                                                  </div>
                                                 <label for="depositAmount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
@@ -168,38 +169,38 @@
                                                           id="depositAmount"
                                                           class="form-control"/>
                                                 </div>
-                                                <label for="depositType"
-                                                       class="col-sm-2 control-label required">Deposit Type</label>
-
-                                                <div class="col-sm-3">
-                                                  <form:radiobutton path="depositType" value="Cash" id="depositType" class="form-control"/>Cash
-                                                  <form:radiobutton path="depositType" value="Bank" id="depositType" class="form-control"/>Bank
-                                                </div>
-
                                               </div>
                                               <div class="form-group">
-                                                <label for="registeredDate"
-                                                       class="col-sm-2 control-label required">Added
-                                                  Date</label>
+                                                  <label for="depositType"
+                                                         class="col-sm-2 control-label required">Deposit Type</label>
 
-                                                <div class="col-sm-3">
-                                                  <form:input
-                                                          path="registeredDate"
-                                                          id="registeredDate"
-                                                          class="form-control"
-                                                          readonly="true"/>
-                                                </div>
-                                                <label for="associatedParish"
-                                                       class="col-sm-2 control-label required">Parish</label>
+                                                  <div class="col-sm-3">
+                                                      <form:radiobutton path="depositType" value="Cash" id="depositType" class="form-control" checked="checked"/>Cash
+                                                  </div>
+                                                  <label for="description"
+                                                         class="col-sm-2 control-label">Description</label>
 
-                                                <div class="col-sm-3">
-                                                  <form:select
-                                                          path="associatedParish"
-                                                          id="associatedParish"
-                                                          items="${parishMap}"
-                                                          class="form-control"/>
-                                                </div>
+                                                  <div class="col-sm-3">
+                                                      <form:textarea
+                                                              path="description"
+                                                              id="description"
+                                                              class="form-control"/>
+                                                  </div>
+
                                               </div>
+                                                <div class="form-group">
+                                                    <label for="registeredDate"
+                                                           class="col-sm-2 control-label required">Added
+                                                        Date</label>
+
+                                                    <div class="col-sm-3">
+                                                        <form:input
+                                                                path="registeredDate"
+                                                                id="registeredDate"
+                                                                class="form-control"
+                                                                readonly="true"/>
+                                                    </div>
+                                                </div>
                                             </div>
                                           </div>
                                         </div>

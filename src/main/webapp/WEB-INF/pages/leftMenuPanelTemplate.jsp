@@ -107,20 +107,20 @@
             <li id="withdrawal"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Withdrawal</span></a></li>
-            <li id="balance"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
+            <%--<li id="balance"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Balance Sheet</span></a></li>
             <li id="journal"><a href="${pageContext.request.contextPath}/viewjournal.action"><i
                     class="fa pms-family"></i>
-                <span>Journal</span></a></li>
+                <span>Journal</span></a></li>--%>
             <li><a href="javascript:;"><i class="fa pms-reports"></i> <span>Reports</span> <span
-                    class="badge badge-orange">5</span></a>
+                    class="badge badge-orange">1</span></a>
                 <ul class="acc-menu">
-                    <li><a href="#">Report 1</a></li>
-                    <li><a href="#">Report 2</a></li>
+                    <li><a href="${pageContext.request.contextPath}/viewreport.action">Receipts & Payments</a></li>
+                    <%--<li><a href="#">Report 2</a></li>
                     <li><a href="#">Report 3</a></li>
                     <li><a href="#">Report 4</a></li>
-                    <li><a href="#">Report 5</a></li>
+                    <li><a href="#">Report 5</a></li>--%>
                 </ul>
             </li>
             <li class="divider"></li>

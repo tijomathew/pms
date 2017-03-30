@@ -49,11 +49,11 @@ function globalSubmissionOfForms(formId, gridId) {
                         $(this).tooltip('destroy');
                     });
                 }
-                $("div.container").errorFieldsDialog({
+               /* $("div.container").errorFieldsDialog({
                     responseData: response.customErrorMessages,
                     parentFormId: formId,
                     parentGridId: gridId
-                });
+                });*/
                 return [true, "", ""];
 
             }
@@ -172,7 +172,7 @@ function addJqgridCustomButtons(gridId, formId) {
             $('#' + formId).find(':input').removeAttr('disabled');
 
             $('#' + formId).find(':input')
-                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry,#lifeStatus,#isActive,#parishSelectBox,#prayerUnitSelectBox')
+                .not(':button, :submit, :reset, :checkbox,  #registeredDate,:radio, #nativeAddresscountry, #localAddresscountry,#lifeStatus,#isActive,#parishSelectBox,#prayerUnitSelectBox, #category')
                 .val('')
                 .removeAttr('checked')
                 .removeAttr('selected');
