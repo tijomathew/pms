@@ -32,6 +32,8 @@
 
         <value>viewemailnotification.action</value>
         <value>createmailidlist.action</value>
+
+        <value>viewrealexpayment.action</value>
     </util:list>
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
@@ -101,6 +103,11 @@
         <value>createfamilyselectbox.action</value>
         <value>addmember.action</value>
         <value>displaymembergrid.action</value>
+
+        <value>viewrealexpayment.action</value>
+        <value>createrealxpaymentcode.action</value>
+        <value>processbanktransfer.action</value>
+
     </util:list>
 
     <util:list id="financeAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">

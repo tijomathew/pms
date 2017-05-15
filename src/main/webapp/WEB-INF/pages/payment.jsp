@@ -120,7 +120,7 @@
                                   </div>
 
                                   <div class="panel-body">
-                                    <form:form modelAttribute="payment"
+                                    <form:form modelAttribute="cashFlowPayment"
                                                action="${paymentActionURL}"
                                                method="post"
                                                id="paymentForm"
@@ -144,13 +144,13 @@
                                                               items="${parishMap}"
                                                               class="form-control"/>
                                                   </div>
-                                                <label for="paymentDate"
+                                                <label for="cashFlowDate"
                                                        class="col-sm-2 control-label required">Payment Date</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="paymentDate"
-                                                          id="paymentDate"
+                                                          path="cashFlowDate"
+                                                          id="cashFlowDate"
                                                           class="form-control"/>
                                                   <form:hidden
                                                           path="id"/>
@@ -168,24 +168,24 @@
                                                               class="form-control js-example-basic-single" items="${categoryMap}">
                                                       </form:select>
                                                   </div>
-                                                <label for="paymentAmount"
+                                                <label for="amount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="paymentAmount"
-                                                          id="paymentAmount"
+                                                          path="amount"
+                                                          id="amount"
                                                           class="form-control"/>
                                                 </div>
 
                                               </div>
                                               <div class="form-group">
-                                                  <label for="paymentType"
+                                                  <label for="cashFlowType"
                                                          class="col-sm-2 control-label required">Payment Type</label>
 
                                                   <div class="col-sm-3">
-                                                      <form:radiobutton path="paymentType" value="Cash" id="paymentType" class="form-control"/>Cash
-                                                      <form:radiobutton path="paymentType" value="Bank" id="paymentType" class="form-control"/>Bank
+                                                      <form:radiobutton path="cashFlowType" value="CASH" id="paymentType" class="form-control"/>Cash
+                                                      <form:radiobutton path="cashFlowType" value="BANK" id="paymentType" class="form-control"/>Bank
                                                   </div>
 
                                                 <label for="registeredDate"

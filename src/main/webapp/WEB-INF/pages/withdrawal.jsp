@@ -117,7 +117,7 @@
                                   </div>
 
                                   <div class="panel-body">
-                                    <form:form modelAttribute="withdrawal"
+                                    <form:form modelAttribute="cashFlowWithdrawal"
                                                action="${withdrawalActionURL}"
                                                method="post"
                                                id="withdrawalForm"
@@ -141,13 +141,13 @@
                                                               items="${parishMap}"
                                                               class="form-control"/>
                                                   </div>
-                                                <label for="withdrawalDate"
+                                                <label for="cashFlowDate"
                                                        class="col-sm-2 control-label required">Withdrawal Date</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="withdrawalDate"
-                                                          id="withdrawalDate"
+                                                          path="cashFlowDate"
+                                                          id="cashFlowDate"
                                                           class="form-control"/>
                                                   <form:hidden
                                                           path="id"/>
@@ -164,23 +164,23 @@
                                                               class="form-control" items="${categoryMap}">
                                                       </form:select>
                                                   </div>
-                                                <label for="withdrawalAmount"
+                                                <label for="amount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="withdrawalAmount"
-                                                          id="withdrawalAmount"
+                                                          path="amount"
+                                                          id="amount"
                                                           class="form-control"/>
                                                 </div>
 
                                               </div>
                                               <div class="form-group">
-                                                  <label for="withdrawalType"
+                                                  <label for="cashFlowType"
                                                          class="col-sm-2 control-label required">Withdrawal Type</label>
 
                                                   <div class="col-sm-3">
-                                                      <form:radiobutton path="withdrawalType" value="Cash" id="withdrawalType" class="form-control" checked="checked"/>Cash
+                                                      <form:radiobutton path="cashFlowType" value="Cash" id="cashFlowType" class="form-control" checked="checked"/>Cash
                                                   </div>
                                                 <label for="registeredDate"
                                                        class="col-sm-2 control-label required">Added

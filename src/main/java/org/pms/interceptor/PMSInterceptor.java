@@ -49,7 +49,7 @@ public class PMSInterceptor implements HandlerInterceptor {
             indicatorToProceed = true;
         }
         if (!indicatorToProceed) {
-            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action") || urlAction.equalsIgnoreCase("changepassword.action") || urlAction.equalsIgnoreCase("forgotpassword.action")) {
+            if (urlAction.equalsIgnoreCase("login.action") || urlAction.equalsIgnoreCase("loggedout.action") || urlAction.equalsIgnoreCase("loggedin.action") || urlAction.equalsIgnoreCase("changepassword.action") || urlAction.equalsIgnoreCase("forgotpassword.action")|| urlAction.equalsIgnoreCase("paymentresponse.action")) {
                 indicatorToProceed = true;
             } else {
                 String sessionContextKey = requestResponseHolder.getAttributeFromSession(PMSSessionManager.PMS_APPLICATION_SESSION, String.class);

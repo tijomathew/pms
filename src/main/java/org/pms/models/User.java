@@ -75,6 +75,14 @@ public class User implements Serializable {
     @JoinColumn(name = "user_of_family")
     private Family userOfFamily;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_of_diocese")
+    private Diocese diocese;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_of_zonal")
+    private Zonal zonal;
+
     public User() {
     }
 
@@ -219,21 +227,21 @@ public class User implements Serializable {
     public Long getParishId() {
         Long returnedId = 0l;
         if (this.getUsersOfParish() != null)
-            returnedId = this.getUsersOfParish().getId();
+            returnedId = this.getUsersOfParish().getParishNo();
         return returnedId;
     }
 
     public Long getPrayerUnitId() {
         Long returnedId = 0l;
         if (this.getUsersOfPrayerUnits() != null)
-            returnedId = this.getUsersOfPrayerUnits().getId();
+            returnedId = this.getUsersOfPrayerUnits().getPrayerUnitNo();
         return returnedId;
     }
 
     public Long getFamilyId() {
         Long returnedId = 0l;
         if (this.getUserOfFamily() != null)
-            returnedId = this.getUserOfFamily().getId();
+            returnedId = this.getUserOfFamily().getFamilyNo();
         return returnedId;
     }
 
@@ -259,6 +267,22 @@ public class User implements Serializable {
 
     public void setUserOfFamily(Family userOfFamily) {
         this.userOfFamily = userOfFamily;
+    }
+
+    public Diocese getDiocese() {
+        return diocese;
+    }
+
+    public void setDiocese(Diocese diocese) {
+        this.diocese = diocese;
+    }
+
+    public Zonal getZonal() {
+        return zonal;
+    }
+
+    public void setZonal(Zonal zonal) {
+        this.zonal = zonal;
     }
 
     @Override

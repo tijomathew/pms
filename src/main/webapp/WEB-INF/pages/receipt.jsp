@@ -119,7 +119,7 @@
                                                                     </div>
 
                                                                     <div class="panel-body">
-                                                                        <form:form modelAttribute="receipt"
+                                                                        <form:form modelAttribute="cashFlowReceipt"
                                                                                    action="${receiptActionURL}"
                                                                                    method="post"
                                                                                    id="receiptForm"

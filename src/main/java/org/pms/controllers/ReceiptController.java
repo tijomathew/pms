@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.CategoryCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.displaywrappers.ReceiptWrapper;
+import org.pms.displaywrappers.CashFlowWrapper;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,23 +35,13 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private ReceiptService receiptService;
+    private CashFlowService cashFlowService;
 
     @Autowired
     private CategoryService categoryService;
 
     @Autowired
     private ParishService parishService;
-
-    @Autowired
-    private DepositService depositService;
-
-    @Autowired
-    private WithdrawalService withdrawalService;
-
-    @Autowired
-    private PaymentService paymentService;
-
 
     @RequestMapping(value = "/viewreceipt.action", method = RequestMethod.GET)
     public String viewreceiptPageDisplay(Model model) {
@@ -71,9 +60,9 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
         }
         categoryMap.put(0l, "--Select--");
 
-        Receipt receipt = new Receipt();
-        receipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("receipt", receipt);
+        CashFlow cashFlowReceipt = new CashFlow();
+        cashFlowReceipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("cashFlowReceipt", cashFlowReceipt);
         model.addAttribute("parishMap", parishMap);
         model.addAttribute("categoryMap", categoryMap);
 
@@ -83,26 +72,26 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addreceipt.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addReceipt(@ModelAttribute("receipt") @Valid Receipt receipt, BindingResult result) {
+    CustomResponse addReceipt(@ModelAttribute("cashFlowReceipt") @Valid CashFlow cashFlowReceipt, BindingResult result) {
 
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            if (receipt.getId() == null) {
+            if (cashFlowReceipt.getId() == null) {
 
                 if (currentUser.getSystemRole() == SystemRole.FINANCE_USER) {
-                    receipt.setAddedByUser(currentUser.getEmail());
-                    receiptService.addReceipt(receipt);
+                    cashFlowReceipt.setAddedByUser(currentUser.getEmail());
+                    cashFlowService.addCashFlow(cashFlowReceipt);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, "Receipt", SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Receipt as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
                 }
 
             } else {
-                receipt.setModifiedDate(DateUtils.getCurrentDate());
-                receipt.setUpdatedByUser(currentUser.getEmail());
-                receiptService.updateReceipt(receipt);
+                cashFlowReceipt.setModifiedDate(DateUtils.getCurrentDate());
+                cashFlowReceipt.setUpdatedByUser(currentUser.getEmail());
+                cashFlowService.updateCashFlow(cashFlowReceipt);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, "Receipt", "updated successfully!");
             }
 
@@ -118,25 +107,25 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     @ResponseBody
     Object generateJsonDisplayForReceipts(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Receipt> allReceiptsForParish = receiptService.getAllReceiptsForParish(currentUser.getParishId());
-        Integer totalRows = allReceiptsForParish.size();
+        List<CashFlow> allCashFlowForParish = cashFlowService.getAllCashFlowForParish(currentUser.getParishId());
+        Integer totalRows = allCashFlowForParish.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        List<Receipt> allReceiptsSubList = new ArrayList<>();
+        List<CashFlow> allReceiptsSubList = new ArrayList<>();
 
         if (totalRows > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
-                Collections.sort(allReceiptsForParish, formatter.by(sortIndexColumnName, Receipt.class));
+                Collections.sort(allCashFlowForParish, formatter.by(sortIndexColumnName, CashFlow.class));
             }
-            allReceiptsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allReceiptsForParish);
+            allReceiptsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allCashFlowForParish);
         }
 
-        List<GridRow> receiptGridRows = new ArrayList<GridRow>(allReceiptsForParish.size());
+        List<GridRow> cashFlowGridRows = new ArrayList<GridRow>(allCashFlowForParish.size());
         if (!allReceiptsSubList.isEmpty()) {
-            receiptGridRows = allReceiptsSubList.stream().map(receipt -> new ReceiptWrapper(receipt)).collect(Collectors.toList());
+            cashFlowGridRows = allReceiptsSubList.stream().map(cashFlow -> new CashFlowWrapper(cashFlow)).collect(Collectors.toList());
         }
 
-        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, receiptGridRows));
+        return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, cashFlowGridRows));
     }
 
     @RequestMapping(value = "displaysummary.action", method = RequestMethod.GET)
@@ -144,21 +133,21 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
     @ResponseBody
     Object generateTotals() {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Receipt> allReceiptsForParish = receiptService.getAllReceiptsForParish(currentUser.getParishId());
-        List<Deposit> allDepositsForParish = depositService.getAllDepositsForParish(currentUser.getParishId());
+        List<CashFlow> allReceiptsForParish = cashFlowService.getAllCashFlowForParish(currentUser.getParishId());
+        /*List<Deposit> allDepositsForParish = depositService.getAllDepositsForParish(currentUser.getParishId());
         List<Withdrawal> allWithdrawalsForParish = withdrawalService.getAllWithdrawalsForParish(currentUser.getParishId());
-        List<Payment> allPaymentsForParish = paymentService.getAllPaymentsForParish(currentUser.getParishId());
+        List<Payment> allPaymentsForParish = paymentService.getAllPaymentsForParish(currentUser.getParishId());*/
         BigDecimal cashInHand = BigDecimal.ZERO;
         BigDecimal cashInBank = BigDecimal.ZERO;
-        for (Receipt receipt : allReceiptsForParish) {
+       /* for (Receipt receipt : allReceiptsForParish) {
             if (receipt.getReceiptType().equalsIgnoreCase("Cash")) {
                 cashInHand = cashInHand.add(receipt.getReceiptAmount()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
             } else {
                 cashInBank = cashInBank.add(receipt.getReceiptAmount()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
             }
-        }
+        }*/
 
-        for (Deposit deposit : allDepositsForParish) {
+        /*for (Deposit deposit : allDepositsForParish) {
             cashInBank = cashInBank.add(deposit.getDepositAmount()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
             cashInHand = cashInHand.subtract(deposit.getDepositAmount()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
         }
@@ -174,10 +163,10 @@ public class ReceiptController extends AbstractErrorAndGridHandler {
             } else {
                 cashInBank = cashInBank.subtract(payment.getPaymentAmount()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
             }
-        }
+        }*/
 
         TotalsWrapper totalsWrapper = new TotalsWrapper(cashInBank.add(cashInHand).setScale(2, BigDecimal.ROUND_HALF_EVEN), cashInHand, cashInBank);
-        return JsonBuilder.convertToJson(totalsWrapper);
+        return null;//JsonBuilder.convertToJson(totalsWrapper);
     }
 
 

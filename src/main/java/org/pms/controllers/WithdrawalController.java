@@ -4,20 +4,17 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.CategoryCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.displaywrappers.WithdrawalWrapper;
+import org.pms.displaywrappers.CashFlowWrapper;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
-import org.pms.models.Category;
-import org.pms.models.Parish;
-import org.pms.models.User;
-import org.pms.models.Withdrawal;
+import org.pms.models.*;
+import org.pms.services.CashFlowService;
 import org.pms.services.CategoryService;
 import org.pms.services.ParishService;
-import org.pms.services.WithdrawalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +36,7 @@ public class WithdrawalController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private WithdrawalService withdrawalService;
+    private CashFlowService cashFlowService;
 
     @Autowired
     private CategoryService categoryService;
@@ -64,9 +61,9 @@ public class WithdrawalController extends AbstractErrorAndGridHandler {
             categoryMap = categoryList.stream().collect(Collectors.toMap(Category::getId, Category::getCategoryName));
         }
 
-        Withdrawal withdrawal = new Withdrawal();
-        withdrawal.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("withdrawal", withdrawal);
+        CashFlow cashFlowWithdrawal = new CashFlow();
+        cashFlowWithdrawal.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("cashFlowWithdrawal", cashFlowWithdrawal);
         model.addAttribute("parishMap", parishMap);
         model.addAttribute("categoryMap", categoryMap);
 
@@ -76,26 +73,26 @@ public class WithdrawalController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addwithdrawal.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addWithdrawal(@ModelAttribute("withdrawal") @Valid Withdrawal withdrawal, BindingResult result) {
+    CustomResponse addWithdrawal(@ModelAttribute("cashFlowWithdrawal") @Valid CashFlow cashFlowWithdrawal, BindingResult result) {
 
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            if (withdrawal.getId() == null) {
+            if (cashFlowWithdrawal.getId() == null) {
 
                 if (currentUser.getSystemRole() == SystemRole.FINANCE_USER) {
-                    withdrawal.setAddedByUser(currentUser.getEmail());
-                    withdrawalService.addWithdrawal(withdrawal);
+                    cashFlowWithdrawal.setAddedByUser(currentUser.getEmail());
+                    cashFlowService.addCashFlow(cashFlowWithdrawal);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, "Withdrawal", SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Withdrawal as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
                 }
 
             } else {
-                withdrawal.setModifiedDate(DateUtils.getCurrentDate());
-                withdrawal.setUpdatedByUser(currentUser.getEmail());
-                withdrawalService.updateWithdrawal(withdrawal);
+                cashFlowWithdrawal.setModifiedDate(DateUtils.getCurrentDate());
+                cashFlowWithdrawal.setUpdatedByUser(currentUser.getEmail());
+                cashFlowService.updateCashFlow(cashFlowWithdrawal);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, "Withdrawal", "updated successfully!");
             }
 
@@ -111,22 +108,22 @@ public class WithdrawalController extends AbstractErrorAndGridHandler {
     @ResponseBody
     Object generateJsonDisplayForWithdrawals(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Withdrawal> allWithdrawalsForParish = withdrawalService.getAllWithdrawalsForParish(currentUser.getParishId());
+        List<CashFlow> allWithdrawalsForParish = cashFlowService.getAllCashFlowForParish(currentUser.getParishId());
         Integer totalRows = allWithdrawalsForParish.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        List<Withdrawal> allWithdrawalsSubList = new ArrayList<>();
+        List<CashFlow> allWithdrawalsSubList = new ArrayList<>();
 
         if (totalRows > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
-                Collections.sort(allWithdrawalsForParish, formatter.by(sortIndexColumnName, Withdrawal.class));
+                Collections.sort(allWithdrawalsForParish, formatter.by(sortIndexColumnName, CashFlow.class));
             }
             allWithdrawalsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allWithdrawalsForParish);
         }
 
         List<GridRow> withdrawalsGridRows = new ArrayList<GridRow>(allWithdrawalsForParish.size());
         if (!allWithdrawalsSubList.isEmpty()) {
-            withdrawalsGridRows = allWithdrawalsSubList.stream().map(withdrawal -> new WithdrawalWrapper(withdrawal)).collect(Collectors.toList());
+            withdrawalsGridRows = allWithdrawalsSubList.stream().map(cashFlowWrapper -> new CashFlowWrapper(cashFlowWrapper)).collect(Collectors.toList());
         }
 
         return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, withdrawalsGridRows));

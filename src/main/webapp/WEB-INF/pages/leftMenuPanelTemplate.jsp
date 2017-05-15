@@ -93,6 +93,9 @@
                 <span>Family</span></a></li>
             <li id="member"><a href="${pageContext.request.contextPath}/viewmember.action"><i
                     class="fa pms-members"></i> <span>Members</span></a></li>
+            <li id="realexpayment"><a href="${pageContext.request.contextPath}/viewrealexpayment.action"><i
+                    class="fa pms-family"></i>
+                <span>Realex Payment</span></a></li>
             <li class="divider"></li>
         </ul>
     </c:if>
@@ -107,6 +110,7 @@
             <li id="withdrawal"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Withdrawal</span></a></li>
+
             <%--<li id="balance"><a href="${pageContext.request.contextPath}/viewwithdrawal.action"><i
                     class="fa pms-family"></i>
                 <span>Balance Sheet</span></a></li>

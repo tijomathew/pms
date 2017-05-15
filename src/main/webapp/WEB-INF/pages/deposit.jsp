@@ -113,7 +113,7 @@
                                   </div>
 
                                   <div class="panel-body">
-                                    <form:form modelAttribute="deposit"
+                                    <form:form modelAttribute="cashFlowDeposit"
                                                action="${depositActionURL}"
                                                method="post"
                                                id="depositForm"
@@ -137,13 +137,13 @@
                                                               items="${parishMap}"
                                                               class="form-control"/>
                                                   </div>
-                                                <label for="depositDate"
+                                                <label for="cashFlowDate"
                                                        class="col-sm-2 control-label required">Deposit Date</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="depositDate"
-                                                          id="depositDate"
+                                                          path="cashFlowDate"
+                                                          id="cashFlowDate"
                                                           class="form-control"/>
                                                   <form:hidden
                                                           path="id"/>
@@ -160,22 +160,22 @@
                                                               class="form-control" items="${categoryMap}">
                                                       </form:select>
                                                   </div>
-                                                <label for="depositAmount"
+                                                <label for="amount"
                                                        class="col-sm-2 control-label required">Amount</label>
 
                                                 <div class="col-sm-3">
                                                   <form:input
-                                                          path="depositAmount"
-                                                          id="depositAmount"
+                                                          path="amount"
+                                                          id="amount"
                                                           class="form-control"/>
                                                 </div>
                                               </div>
                                               <div class="form-group">
-                                                  <label for="depositType"
+                                                  <label for="cashFlowType"
                                                          class="col-sm-2 control-label required">Deposit Type</label>
 
                                                   <div class="col-sm-3">
-                                                      <form:radiobutton path="depositType" value="Cash" id="depositType" class="form-control" checked="checked"/>Cash
+                                                      <form:radiobutton path="cashFlowType" value="Cash" id="depositType" class="form-control" checked="checked"/>Cash
                                                   </div>
                                                   <label for="description"
                                                          class="col-sm-2 control-label">Description</label>

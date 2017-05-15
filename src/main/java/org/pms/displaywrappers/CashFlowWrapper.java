@@ -2,29 +2,29 @@ package org.pms.displaywrappers;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.pms.helpers.GridRow;
-import org.pms.models.Payment;
+import org.pms.models.CashFlow;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by tijo on 18/03/17.
+ * Created by tijo on 12/03/17.
  */
-public class PaymentWrapper implements GridRow {
+public class CashFlowWrapper implements GridRow {
 
-    private Payment paymentBean;
+    private CashFlow cashFlowBean;
 
-    private String[] VALID_BEAN_PROPERTIES = {"id", "paymentDate", "registeredDate", "associatedParish.parsihName", "paymentType", "paymentAmount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
+    private String[] VALID_BEAN_PROPERTIES = {"id", "cashFlowDate", "registeredDate", "associatedParish.parsihName", "cashFlowType", "amount", "category.categoryName", "category.categoryGroup.categoryGroupName"};
 
 
-    public PaymentWrapper(Payment paymentBean) {
-        this.paymentBean = paymentBean;
+    public CashFlowWrapper(CashFlow cashFlowBean) {
+        this.cashFlowBean = cashFlowBean;
     }
 
     @Override
     public Long getId() {
-        return paymentBean.getId();
+        return cashFlowBean.getId();
     }
 
     @Override
@@ -33,8 +33,8 @@ public class PaymentWrapper implements GridRow {
         try {
             for (int i = 0; i < VALID_BEAN_PROPERTIES.length; i++) {
                 String assignedValue = "";
-                if (BeanUtils.getProperty(this.paymentBean, VALID_BEAN_PROPERTIES[i]) != null) {
-                    assignedValue = BeanUtils.getProperty(this.paymentBean, VALID_BEAN_PROPERTIES[i]).toString();
+                if (BeanUtils.getProperty(this.cashFlowBean, VALID_BEAN_PROPERTIES[i]) != null) {
+                    assignedValue = BeanUtils.getProperty(this.cashFlowBean, VALID_BEAN_PROPERTIES[i]).toString();
                     if (assignedValue.isEmpty()) {
                         assignedValue = "";
                     }

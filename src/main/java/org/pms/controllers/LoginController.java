@@ -12,7 +12,7 @@ import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.FactorySelectBox;
 import org.pms.helpers.RequestResponseHolder;
-import org.pms.models.Receipt;
+import org.pms.models.CashFlow;
 import org.pms.models.Parish;
 import org.pms.models.User;
 import org.pms.services.*;
@@ -206,9 +206,9 @@ public class LoginController extends AbstractErrorAndGridHandler {
                 if (!parishList.isEmpty()) {
                     parishMap = parishList.stream().collect(Collectors.toMap(Parish::getId, Parish::getParsihName));
                 }
-                Receipt receipt = new Receipt();
-                receipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-                model.addAttribute("income", receipt);
+                CashFlow cashFlowReceipt = new CashFlow();
+                cashFlowReceipt.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+                model.addAttribute("cashFlowReceipt", cashFlowReceipt);
                 model.addAttribute("parishMap", parishMap);
                 break;
         }

@@ -4,20 +4,17 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.pms.custompropertyeditors.CategoryCustomPropertyEditor;
 import org.pms.custompropertyeditors.ParishCustomPropertyEditor;
-import org.pms.displaywrappers.PaymentWrapper;
+import org.pms.displaywrappers.CashFlowWrapper;
 import org.pms.enums.PageName;
 import org.pms.enums.StatusCode;
 import org.pms.enums.SystemRole;
 import org.pms.error.AbstractErrorAndGridHandler;
 import org.pms.error.CustomResponse;
 import org.pms.helpers.*;
-import org.pms.models.Category;
-import org.pms.models.Parish;
-import org.pms.models.Payment;
-import org.pms.models.User;
+import org.pms.models.*;
+import org.pms.services.CashFlowService;
 import org.pms.services.CategoryService;
 import org.pms.services.ParishService;
-import org.pms.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +36,7 @@ public class PaymentController extends AbstractErrorAndGridHandler {
     private RequestResponseHolder requestResponseHolder;
 
     @Autowired
-    private PaymentService paymentService;
+    private CashFlowService cashFlowService;
 
     @Autowired
     private CategoryService categoryService;
@@ -68,9 +65,9 @@ public class PaymentController extends AbstractErrorAndGridHandler {
         }
 
 
-        Payment payment = new Payment();
-        payment.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
-        model.addAttribute("payment", payment);
+        CashFlow cashFlowPayment = new CashFlow();
+        cashFlowPayment.setRegisteredDate(DateTimeFormat.forPattern("dd-MM-yyyy").print(new DateTime()));
+        model.addAttribute("cashFlowPayment", cashFlowPayment);
         model.addAttribute("parishMap", parishMap);
         model.addAttribute("categoryMap", categoryMap);
 
@@ -80,26 +77,26 @@ public class PaymentController extends AbstractErrorAndGridHandler {
     @RequestMapping(value = "/addpayment.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    CustomResponse addPayment(@ModelAttribute("payment") @Valid Payment payment, BindingResult result) {
+    CustomResponse addPayment(@ModelAttribute("cashFlowPayment") @Valid CashFlow cashFlowPayment, BindingResult result) {
 
         if (!result.hasErrors()) {
 
             User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
 
-            if (payment.getId() == null) {
+            if (cashFlowPayment.getId() == null) {
 
                 if (currentUser.getSystemRole() == SystemRole.FINANCE_USER) {
-                    payment.setAddedByUser(currentUser.getEmail());
-                    paymentService.addPayment(payment);
+                    cashFlowPayment.setAddedByUser(currentUser.getEmail());
+                    cashFlowService.addCashFlow(cashFlowPayment);
                     customResponse = createSuccessMessage(StatusCode.SUCCESS, "Payment", SUCCESS_MESSAGE_DISPLAY);
                 } else {
                     customResponse = createErrorMessage(StatusCode.FAILURE, currentUser.getEmail(), "cannot add a Payment as a " + currentUser.getSystemRole().getUIDisplayValue() + " in the system.");
                 }
 
             } else {
-                payment.setModifiedDate(DateUtils.getCurrentDate());
-                payment.setUpdatedByUser(currentUser.getEmail());
-                paymentService.updatePayment(payment);
+                cashFlowPayment.setModifiedDate(DateUtils.getCurrentDate());
+                cashFlowPayment.setUpdatedByUser(currentUser.getEmail());
+                cashFlowService.updateCashFlow(cashFlowPayment);
                 customResponse = createSuccessMessage(StatusCode.SUCCESS, "Payment", "updated successfully!");
             }
 
@@ -115,22 +112,22 @@ public class PaymentController extends AbstractErrorAndGridHandler {
     @ResponseBody
     Object generateJsonDisplayForPayments(@RequestParam(value = "rows", required = false) Integer rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sord", required = false) String sortOrder, @RequestParam(value = "sidx", required = false) String sortIndexColumnName) {
         User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
-        List<Payment> allPaymentsForParish = paymentService.getAllPaymentsForParish(currentUser.getParishId());
+        List<CashFlow> allPaymentsForParish = cashFlowService.getAllCashFlowForParish(currentUser.getParishId());
         Integer totalRows = allPaymentsForParish.size();
         QueryFormat formatter = QueryFormat.getQueryFormatter(sortOrder);
 
-        List<Payment> allPaymentsSubList = new ArrayList<>();
+        List<CashFlow> allPaymentsSubList = new ArrayList<>();
 
         if (totalRows > 0) {
             if (!formatter.equals(QueryFormat.NONE)) {
-                Collections.sort(allPaymentsForParish, formatter.by(sortIndexColumnName, Payment.class));
+                Collections.sort(allPaymentsForParish, formatter.by(sortIndexColumnName, CashFlow.class));
             }
             allPaymentsSubList = JsonBuilder.generateSubList(page, rows, totalRows, allPaymentsForParish);
         }
 
         List<GridRow> paymentsGridRows = new ArrayList<GridRow>(allPaymentsForParish.size());
         if (!allPaymentsSubList.isEmpty()) {
-            paymentsGridRows = allPaymentsSubList.stream().map(payment -> new PaymentWrapper(payment)).collect(Collectors.toList());
+            paymentsGridRows = allPaymentsSubList.stream().map(cashFlow -> new CashFlowWrapper(cashFlow)).collect(Collectors.toList());
         }
 
         return JsonBuilder.convertToJson(createGridContent(totalRows, page, rows, paymentsGridRows));

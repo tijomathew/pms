@@ -70,10 +70,6 @@ public class Parish implements Serializable {
     @OneToMany(mappedBy = "mappedParish")
     private List<PrayerUnit> prayerUnits = new ArrayList<>();
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "associatedParish")
-    private List<Receipt> receiptList = new ArrayList<>();
-
     public Parish() {
     }
 
@@ -173,14 +169,6 @@ public class Parish implements Serializable {
         this.prayerUnits = prayerUnits;
     }
 
-    public List<Receipt> getReceiptList() {
-        return receiptList;
-    }
-
-    public void setReceiptList(List<Receipt> receiptList) {
-        this.receiptList = receiptList;
-    }
-
     /**
      * This method for adding prayerUnit to the mass center.
      *
@@ -192,66 +180,4 @@ public class Parish implements Serializable {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Parish parish = (Parish) o;
-
-        if (id != null ? !id.equals(parish.id) : parish.id != null) return false;
-        if (parsihName != null ? !parsihName.equals(parish.parsihName) : parish.parsihName != null) return false;
-        if (parishNo != null ? !parishNo.equals(parish.parishNo) : parish.parishNo != null) return false;
-        if (patronName != null ? !patronName.equals(parish.patronName) : parish.patronName != null) return false;
-        if (place != null ? !place.equals(parish.place) : parish.place != null) return false;
-        if (registeredDate != null ? !registeredDate.equals(parish.registeredDate) : parish.registeredDate != null)
-            return false;
-        if (landLineNo != null ? !landLineNo.equals(parish.landLineNo) : parish.landLineNo != null) return false;
-        if (mobileNo != null ? !mobileNo.equals(parish.mobileNo) : parish.mobileNo != null) return false;
-        if (faxNo != null ? !faxNo.equals(parish.faxNo) : parish.faxNo != null) return false;
-        if (localAddress != null ? !localAddress.equals(parish.localAddress) : parish.localAddress != null)
-            return false;
-        if (mappedZonal != null ? !mappedZonal.equals(parish.mappedZonal) : parish.mappedZonal != null) return false;
-        if (prayerUnits != null ? !prayerUnits.equals(parish.prayerUnits) : parish.prayerUnits != null) return false;
-        return !(receiptList != null ? !receiptList.equals(parish.receiptList) : parish.receiptList != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (parsihName != null ? parsihName.hashCode() : 0);
-        result = 31 * result + (parishNo != null ? parishNo.hashCode() : 0);
-        result = 31 * result + (patronName != null ? patronName.hashCode() : 0);
-        result = 31 * result + (place != null ? place.hashCode() : 0);
-        result = 31 * result + (registeredDate != null ? registeredDate.hashCode() : 0);
-        result = 31 * result + (landLineNo != null ? landLineNo.hashCode() : 0);
-        result = 31 * result + (mobileNo != null ? mobileNo.hashCode() : 0);
-        result = 31 * result + (faxNo != null ? faxNo.hashCode() : 0);
-        result = 31 * result + (localAddress != null ? localAddress.hashCode() : 0);
-        result = 31 * result + (mappedZonal != null ? mappedZonal.hashCode() : 0);
-        result = 31 * result + (prayerUnits != null ? prayerUnits.hashCode() : 0);
-        result = 31 * result + (receiptList != null ? receiptList.hashCode() : 0);
-        return result;
-    }
-
-    /*@Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Parish{");
-        sb.append("id=").append(id);
-        sb.append(", parsihName='").append(parsihName).append('\'');
-        sb.append(", parishNo=").append(parishNo);
-        sb.append(", patronName='").append(patronName).append('\'');
-        sb.append(", place='").append(place).append('\'');
-        sb.append(", registeredDate='").append(registeredDate).append('\'');
-        sb.append(", landLineNo='").append(landLineNo).append('\'');
-        sb.append(", mobileNo='").append(mobileNo).append('\'');
-        sb.append(", faxNo='").append(faxNo).append('\'');
-        sb.append(", localAddress=").append(localAddress);
-        sb.append(", mappedZonal=").append(mappedZonal);
-        sb.append(", prayerUnits=").append(prayerUnits);
-        sb.append(", receiptList=").append(receiptList);
-        sb.append('}');
-        return sb.toString();
-    }*/
 }
