@@ -77,7 +77,7 @@ public class User implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_of_diocese")
-    private Diocese diocese;
+    private Diocese usersOfDiocese;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_of_zonal")
@@ -269,12 +269,12 @@ public class User implements Serializable {
         this.userOfFamily = userOfFamily;
     }
 
-    public Diocese getDiocese() {
-        return diocese;
+    public Diocese getUsersOfDiocese() {
+        return usersOfDiocese;
     }
 
-    public void setDiocese(Diocese diocese) {
-        this.diocese = diocese;
+    public void setUsersOfDiocese(Diocese diocese) {
+        this.usersOfDiocese = diocese;
     }
 
     public Zonal getZonal() {

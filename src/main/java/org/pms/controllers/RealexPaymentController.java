@@ -67,7 +67,7 @@ public class RealexPaymentController extends AbstractErrorAndGridHandler {
         Double amount = bankTransfer.getTransferAmount() * 100;
         String amountToSend = String.valueOf(amount.intValue());
 
-        orderID = currentUser.getDiocese().getDioceseNo().toString().concat("_").concat(currentUser.getZonal().getZonalNo().toString()).concat("_").concat(currentUser.getParishId().toString()).concat("_").concat(currentUser.getFamilyId().toString()).concat("_").concat(currentTransactionDateTime);
+        orderID = currentUser.getUsersOfDiocese().getDioceseNo().toString().concat("_").concat(currentUser.getZonal().getZonalNo().toString()).concat("_").concat(currentUser.getParishId().toString()).concat("_").concat(currentUser.getFamilyId().toString()).concat("_").concat(currentTransactionDateTime);
 
         RealexPayment realexPayment = new RealexPayment();
 

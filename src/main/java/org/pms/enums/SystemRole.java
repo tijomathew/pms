@@ -4,7 +4,7 @@ package org.pms.enums;
  * User: Cufa User.
  */
 public enum SystemRole {
-    ADMIN("Admin"), PARISH_ADMIN("Parish Admin"), PRAYER_UNIT_ADMIN("Prayer Unit Admin"), FAMILY_USER("Family User"), PMS_CURRENT_USER("pms current user"), FINANCE_USER("Finance_Admin");
+    ADMIN("Admin"), PARISH_ADMIN("Parish Admin"), PRAYER_UNIT_ADMIN("Prayer Unit Admin"), FAMILY_USER("Family User"), PMS_CURRENT_USER("pms current user"), FINANCE_USER("Finance_Admin"), DIOCESE_ADMIN("Diocese Admin");
 
     private final String fieldDescription;
 

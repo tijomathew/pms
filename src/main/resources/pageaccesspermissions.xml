@@ -34,6 +34,12 @@
         <value>createmailidlist.action</value>
 
         <value>viewrealexpayment.action</value>
+
+        <!--Role base url permission rule for Diocese-->
+        <value>adddiocese.action</value>
+        <value>viewdiocese.action</value>
+        <value>displaydiocesegrid.action</value>
+
     </util:list>
 
     <util:list id="parishAdminLinks" value-type="java.lang.String" list-class="java.util.ArrayList">
