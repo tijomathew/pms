@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +24,37 @@ public class Diocese implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "diocese_name")
+    @NotEmpty
+    @Column(name = "diocese_name", nullable = false)
     private String dioceseName;
 
-    @Column(name = "diocese_no")
+    @Column(name = "diocese_no", nullable = false)
     private Long dioceseNo;
+
+    @Column(name = "patron_name")
+    private String patronName;
+
+    @NotEmpty
+    @Column(name = "place", nullable = false)
+    private String place;
+
+    @Column(name = "landline_no")
+    private String landLineNo;
+
+    @Column(name = "mobile_no")
+    private String mobileNo;
+
+    @Column(name = "faxno")
+    private String faxNo;
 
     @NotEmpty
     @Column(name = "registered_date", nullable = false)
     private String registeredDate;
+
+    @Valid
+    @NotNull
+    @Embedded
+    private LocalAddress localAddress;
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "mappedDiocese", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -77,6 +101,54 @@ public class Diocese implements Serializable {
 
     public void setMappedZonal(List<Zonal> mappedZonal) {
         this.mappedZonal = mappedZonal;
+    }
+
+    public LocalAddress getLocalAddress() {
+        return localAddress;
+    }
+
+    public void setLocalAddress(LocalAddress localAddress) {
+        this.localAddress = localAddress;
+    }
+
+    public String getPatronName() {
+        return patronName;
+    }
+
+    public void setPatronName(String patronName) {
+        this.patronName = patronName;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getLandLineNo() {
+        return landLineNo;
+    }
+
+    public void setLandLineNo(String landLineNo) {
+        this.landLineNo = landLineNo;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getFaxNo() {
+        return faxNo;
+    }
+
+    public void setFaxNo(String faxNo) {
+        this.faxNo = faxNo;
     }
 
     @Override
