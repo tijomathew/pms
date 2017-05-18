@@ -13,6 +13,8 @@
 
     <c:if test="${showForAdmin == true}">
         <ul class="acc-menu" id="sidebar">
+            <li id="diocese"><a href="${pageContext.request.contextPath}/viewdiocese.action"><i
+                    class="fa pms-massCentres"></i> <span>Diocese</span></a></li>
             <li id="users"><a href="${pageContext.request.contextPath}/viewusers.action"><i class="fa pms-users"></i>
                 <span>Users</span></a></li>
                 <%-- <li id="priest"><a href="${pageContext.request.contextPath}/viewpriest.action"><i class="fa pms-priest"></i>
