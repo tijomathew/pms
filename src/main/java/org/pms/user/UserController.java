@@ -1,0 +1,184 @@
+package org.pms.user;
+
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.pms.common.PageName;
+import org.pms.email.MailService;
+import org.pms.family.FamilyCustomPropertyEditor;
+import org.pms.parish.ParishCustomPropertyEditor;
+import org.pms.prayerunit.PrayerUnitCustomPropertyEditor;
+import org.pms.common.error.AbstractErrorAndGridHandler;
+import org.pms.common.error.CustomResponse;
+import org.pms.family.FamilyService;
+import org.pms.common.DateUtils;
+import org.pms.common.GridRow;
+import org.pms.common.JsonBuilder;
+import org.pms.common.RequestResponseHolder;
+import org.pms.domain.*;
+import org.pms.parish.ParishService;
+import org.pms.prayerunit.PrayerUnitService;
+import org.pms.common.PMSSessionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.Object;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * UserController description
+ * User: tijo
+ */
+
+@Controller
+public class UserController extends AbstractErrorAndGridHandler {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private ParishService parishService;
+
+    @Autowired
+    private PrayerUnitService prayerUnitService;
+
+    @Autowired
+    private FamilyService familyService;
+
+    @Autowired
+    private RequestResponseHolder requestResponseHolder;
+
+    @RequestMapping(value = "/viewusers.action", method = RequestMethod.GET)
+    public String viewUsersPageDisplay(Model model) {
+
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        userService.createUserFormBackObject(model, currentUser);
+        return PageName.USER.toString();
+    }
+
+    @RequestMapping(value = "/adduser.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    CustomResponse addUser(@ModelAttribute("user") User user) {
+        boolean insertUser = false;
+        boolean userEmailAlreadyExists = true;
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        if (user.getId() == null) {
+            user.setCreatedBy(currentUser.getEmail());
+            user.setUpdatedBy(currentUser.getEmail());
+            user.setCreatedOn(DateUtils.getCurrentDate());
+            user.setUpdatedOn(DateUtils.getCurrentDate());
+            String generatedPassword = RandomStringUtils.random(8, PMSSessionManager.keySpace);
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                user.setPassword(generatedPassword);
+            }
+            String passwordBeforeHashing = user.getPassword();
+            user.setPassword(DigestUtils.shaHex(user.getPassword()));
+
+            User userFromDB = userService.getUserByEmail(user.getEmail());
+
+            if (userFromDB == null) {
+                userEmailAlreadyExists = false;
+            }
+
+            // A single user must have single role in the system. A single user cannot act as multiple role in the system.
+
+            if (!userEmailAlreadyExists) {
+                if (user.getSystemRole() == SystemRole.PARISH_ADMIN) {
+                    if (user.getUsersOfParish() != null) {
+                        insertUser = true;
+                    }
+                } else if (user.getSystemRole() == SystemRole.PRAYER_UNIT_ADMIN) {
+                    if (user.getUsersOfPrayerUnits() != null) {
+                        insertUser = true;
+                    }
+                } else if (user.getSystemRole() == SystemRole.FAMILY_USER) {
+                    insertUser = true;
+                }
+            }
+
+            //Insert a User Role only if he is assigned with a single role from UI.
+            if (insertUser && !userEmailAlreadyExists) {
+                userService.addUserSM(user);
+                user.setPassword(passwordBeforeHashing);
+                if (user.getSendMailFlag()) {
+                    mailService.sendUserCredentials(user);
+                }
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "loaded to the system");
+            }
+
+            //Error message when user is having multiple roles in the system.
+            if (!insertUser) {
+                //show the error message.
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system");
+            }
+
+            //Error message when entered username is already exists from the database.
+            if (userEmailAlreadyExists) {
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not loaded to the system as it already exists");
+                //result.addError(new ObjectError("multipleEmailErrorDisplay", new String[]{"cannot have multiple emailID"}, new String[]{}, "cannot have duplicate emailID for different user!!.."));
+            }
+        } else {
+            User userFromDB = userService.getUserByEmail(user.getEmail());
+            if (userFromDB.getEmail().equals(user.getEmail())) {
+                user.setPassword(userFromDB.getPassword());
+                user.setCreatedBy(userFromDB.getCreatedBy());
+                user.setCreatedOn(userFromDB.getCreatedOn());
+                user.setUpdatedBy(currentUser.getEmail());
+                user.setUpdatedOn(DateUtils.getCurrentDate());
+                user.setAlreadyLoggedIn(userFromDB.getAlreadyLoggedIn());
+                user.setValidated(userFromDB.getIsValidated());
+                user.setSendMailFlag(userFromDB.getSendMailFlag());
+                userService.updateUser(user);
+                customResponse = createSuccessMessage(StatusCode.SUCCESS, user.getEmail(), "updated successfully");
+            } else {
+                customResponse = createErrorMessage(StatusCode.FAILURE, user.getEmail(), "could not edit the email");
+            }
+        }
+
+        return customResponse;
+    }
+
+    @RequestMapping(value = "displayusergrid.action", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Object generateJsonDisplayForPrayerUnit(@RequestParam(value = "rows", required = false) Integer
+                                                    rows, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "sortable", required = false) String
+                                                    sortable, @RequestParam(value = "sortname", required = false) String
+                                                    sortName, @RequestParam(value = "sortorder", required = false) String
+                                                    sortOrder) {
+
+        User currentUser = requestResponseHolder.getAttributeFromSession(SystemRole.PMS_CURRENT_USER.toString(), User.class);
+        List<User> allUsers = userService.getAllUsersForUserRole(currentUser);
+
+        Integer totalUsersRows = allUsers.size();
+
+        List<GridRow> userGridRows = new ArrayList<GridRow>(allUsers.size());
+        List<User> allUsersSubList = new ArrayList<>();
+
+        if (totalUsersRows > 0) {
+            allUsersSubList = JsonBuilder.generateSubList(page, rows, totalUsersRows, allUsers);
+        }
+
+        if (!allUsersSubList.isEmpty()) {
+            userGridRows = allUsersSubList.stream().map(user -> new UserWrapper(user)).collect(Collectors.toList());
+        }
+
+        return JsonBuilder.convertToJson(createGridContent(totalUsersRows, page, rows, userGridRows));
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Parish.class, new ParishCustomPropertyEditor(parishService));
+        binder.registerCustomEditor(PrayerUnit.class, new PrayerUnitCustomPropertyEditor(prayerUnitService));
+        binder.registerCustomEditor(Family.class, new FamilyCustomPropertyEditor(familyService));
+    }
+
+}

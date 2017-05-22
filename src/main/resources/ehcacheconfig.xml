@@ -12,7 +12,7 @@
             overflowToDisk="false"
             memoryStoreEvictionPolicy="LRU"/>
 
-    <cache name="org.pms.models.Parish"
+    <cache name="org.pms.domain.Parish"
            eternal="true" overflowToDisk="true"
            memoryStoreEvictionPolicy="LRU"/>
 </ehcache>

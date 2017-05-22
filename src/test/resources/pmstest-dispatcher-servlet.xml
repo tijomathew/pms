@@ -46,7 +46,7 @@
 
             </props>
         </property>
-        <property name="packagesToScan" value="org.pms.models"/>
+        <property name="packagesToScan" value="org.pms.domain"/>
     </bean>
 
     <tx:annotation-driven/>

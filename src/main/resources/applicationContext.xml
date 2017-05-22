@@ -43,7 +43,11 @@
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-        <property name="packagesToScan" value="org.pms.models"/>
+        <property name="packagesToScan">
+            <array>
+                <value>org.pms.domain</value>
+            </array>
+        </property>
     </bean>
 
     <tx:annotation-driven/>
@@ -66,7 +70,7 @@
     </bean>
 
     <mvc:interceptors>
-        <bean class="org.pms.interceptor.PMSInterceptor"/>
+        <bean class="org.pms.common.interceptor.PMSInterceptor"/>
     </mvc:interceptors>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
@@ -82,7 +86,7 @@
 
     <aop:aspectj-autoproxy />
 
-    <bean id="customLoggerAspect" class="org.pms.aspectsoflogger.CustomLoggerAspect"/>
+    <bean id="customLoggerAspect" class="org.pms.user.CustomLoggerAspect"/>
 
 
     <aop:config>
